@@ -81,6 +81,7 @@ final class CodeEditorViewController: UIViewController {
         editorTextViewWidthConstraint.constant = (view.bounds.width - directoryTableViewWidthConstraint.constant)
         editorTextView.autocorrectionType = .no
         editorTextView.autocapitalizationType = .none
+        editorTextView.font = font
         readWorkingFile()
     }
     

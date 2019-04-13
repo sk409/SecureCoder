@@ -9,7 +9,7 @@
     </head>
     <body>
         <p>「&quot;&quot; OR 1 = 1」と入力してください</p>
-        <form method="post" action="sql_injection.php">
+        <form method="post" action="not_sql_injection.php">
             <input type="text" name="title">
             <input type="submit" value="SQLを実行する">
         </form>

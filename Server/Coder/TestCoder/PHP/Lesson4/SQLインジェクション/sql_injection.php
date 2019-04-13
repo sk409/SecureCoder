@@ -18,7 +18,7 @@
         $pdo = new PDO($dsn, $user, $password);
         $stm = $pdo->prepare($sql);
         $stm->execute();
-        echo "<p>", $sql, "</p>"
+        echo "<p>「", $sql, "」を実行しました。</p>"
         ?>
         <a href="index.php">結果を確認する</a>
     </body>

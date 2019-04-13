@@ -2,7 +2,7 @@
 $title = $_POST["title"];
 $correct = "\"\" OR 1 = 1";
 if ($title === $correct) {
-    header("Location: sql_injection.php");
+    header("Location: not_sql_injection.php");
 }
 ?>
 <!DOCTYPE html>

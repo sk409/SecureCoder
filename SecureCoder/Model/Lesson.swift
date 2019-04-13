@@ -197,7 +197,7 @@ struct Lesson {
                     files = [
                         indexFile,
                         File(type: type, section: section, title: title, name: "send_sql.php", editable: false),
-                        File(type: type, section: section, title: title, name: "sql_injection.php", editable: true),
+                        File(type: type, section: section, title: title, name: "not_sql_injection.php", editable: true),
                     ]
                 default:
                     indexFile = File(type: type, section: section, title: title, name: "index.php", editable: true)
