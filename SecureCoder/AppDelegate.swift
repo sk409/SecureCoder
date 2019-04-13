@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  SecureCoder
-//
-//  Created by 小林聖人 on 2019/04/02.
-//  Copyright © 2019 小林聖人. All rights reserved.
-//
-
 import UIKit
 import CoreData
 
@@ -16,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        Application.shared.initialize()
         return true
     }
 
@@ -28,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        if let activeLesson = Lesson.active {
+            activeLesson.save()
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -39,8 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
     }
 
