@@ -2,236 +2,225 @@ import Foundation
 
 class File {
     
-    let type: LessonType
-    let section: String
-    let title: String
     let name: String
-    let editable: Bool
-    
-    private(set) var answer: String?
-    
-    var absoluteURLString: String {
-        guard let absoluteCoderDirectoryURLString = CoderManager.shared.absoluteCoderDirectoryURLString else {
-            return ""
-        }
-        return absoluteCoderDirectoryURLString + type.rawValue + "/" + section + "/" + title + "/" + name
-    }
-    var relativeURLString: String {
-        guard let relativeCoderDirectoryURLString = CoderManager.shared.relativeCoderDirectoryURLString else {
-            return ""
-        }
-        return relativeCoderDirectoryURLString + type.rawValue + "/" + section + "/" + title + "/" + name
-    }
-    var absolutePreviewFileURLString: String {
-        return Application.webServerRootURLString + "PreviewFile/" + type.rawValue + "/" + section + "/" + title + "/" + name
-    }
-    
+    let isEditable: Bool
+    let index: Int
     private(set) var text = ""
     
-    init(type: LessonType, section: String, title: String, name: String, editable: Bool) {
-        self.type = type
-        self.section = section
-        self.title = title
+    init(name: String, text: String, index: Int, isEditable: Bool) {
         self.name = name
-        self.editable = editable
-        loadAnswer()
+        self.text = text
+        self.index = index
+        self.isEditable = isEditable
     }
     
-    func initialize() {
-        let path = "DefaultFile/" + type.rawValue + "/" + section + "/" + title + "/" + name
-        text = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": path], method: .get)
-    }
+//    func loadDefaultFile() {
+//        let path = "DefaultFile/" + type.rawValue + "/" + section + "/" + title + "/" + name
+//        text = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": path], method: .get)
+//    }
     
-    func load() {
-        let percentEncodedText = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": relativeURLString], method: .get)
-        guard let removedPercentEncodingText = percentEncodedText.removingPercentEncoding else {
-            return
-        }
-        text = removedPercentEncodingText
-    }
+//    func load() {
+//        let percentEncodedText = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": relativeURLString], method: .get)
+//        guard let removedPercentEncodingText = percentEncodedText.removingPercentEncoding else {
+//            return
+//        }
+//        text = removedPercentEncodingText
+//    }
     
-    func save() {
-        guard let percentEncodedText = text.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "&").inverted) else {
-            return
-        }
-        let result = DatabaseSession.sync(with: "SaveFile.php", parameters: ["path": relativeURLString, "data": percentEncodedText], method: .post)
-        if result != ServerResponse.succeeded {
-            Application.shared.writeErrorLog(result)
-        }
-    }
+//    func save() {
+//        guard let percentEncodedText = text.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "&").inverted) else {
+//            return
+//        }
+//        let result = DatabaseSession.sync(with: "SaveFile.php", parameters: ["path": relativeURLString, "data": percentEncodedText], method: .post)
+//        if result != ServerResponse.succeeded {
+//            Application.shared.writeErrorLog(result)
+//        }
+//    }
     
     func setText(_ text: String) {
         self.text = text
-    }
-    
-    func isSameAsAnswer() -> Bool {
-        guard let answer = self.answer else {
-            return true
-        }
-        return text == answer
-    }
-    
-    private func loadAnswer() {
-        let path = "AnswerFile/" + type.rawValue + "/" + section + "/" + title + "/" + name
-        let isExistingAnswerFile = DatabaseSession.sync(with: "CheckExistenceFile", parameters: ["path": path], method: .get)
-        guard isExistingAnswerFile == ServerResponse.true else {
-            return
-        }
-        answer = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": path], method: .get)
     }
     
 }
 
 struct Lesson {
     
-    static let sections: [LessonType: [String]] = [
-        .htmlcss: ["Lesson1", "Lesson2", "Lesson3", "Lesson4", "Lesson5", "Lesson6", "Lesson7", "Lesson8", "Lesson9", "Lesson10"],
-        .javaScript: ["Lesson1", "Lesson2", "Lesson3", "Lesson4", "Lesson5", "Lesson6", "Lesson7", "Lesson8", "Lesson9", "Lesson10"],
-        .php: ["Lesson1", "Lesson2", "Lesson3", "Lesson4", "Lesson5", "Lesson6", "Lesson7", "Lesson8", "Lesson9", "Lesson10"],
-    ]
+    static let relativeRootDirectoryURLString = "Lessons/"
+    static let absoluteRootDirectoryURLString = Application.webServerRootURLString + relativeRootDirectoryURLString
     
-    static let titles: [LessonType: [[String]]] = [
-        .htmlcss: [
-            ["HTMLの雛形を書いてみよう"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-        ],
-        .javaScript: [
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-        ],
-        .php: [
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["XSS", "XSS対策をしよう", "SQLインジェクション", "SQLインジェクション対策をしよう"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-            ["準備中"],
-        ],
-    ]
-    
-    static private(set) var active: Lesson?
-    
-    var relativeDirectoryURLString: String? {
-        guard let relativeCoderDirecotryURLString = CoderManager.shared.relativeCoderDirectoryURLString else {
+    static func sections(type: LessonType) -> [String]? {
+        let urlString = relativeRootDirectoryURLString + type.rawValue
+        let sectionsString = DatabaseSession.sync(with: "LoadFileNames.php", parameters: ["directory_path": urlString], method: .get)
+        guard let sectionsArray = sectionsString.toArray() else {
             return nil
         }
-        return relativeCoderDirecotryURLString + type.rawValue + "/" + section + "/" + title + "/"
+        return sectionsArray.numberingSorted()
+    }
+    
+    static func titles(type: LessonType, section: String) -> [String]? {
+        let urlString = relativeRootDirectoryURLString + type.rawValue + "/" + section
+        let titlesString = DatabaseSession.sync(with: "LoadFileNames.php", parameters: ["directory_path": urlString], method: .get)
+        return titlesString.toArray()?.numberingSorted()
+    }
+    
+    static func titles(type: LessonType, section: Int) -> [String]? {
+        guard let sections = Lesson.sections(type: type) else {
+            return nil
+        }
+        let section = sections[section]
+        return Lesson.titles(type: type, section: section)
+    }
+    
+    static func relativeDirectoryURLString(type: LessonType, section: String, title: String) -> String {
+        return relativeRootDirectoryURLString + type.rawValue + "/" + section + "/" + title + "/"
+    }
+    
+    static func relativeCoderDirectoryURLString(type: LessonType, section: String, title: String) -> String {
+        return relativeRootDirectoryURLString + type.rawValue + "/" + section + "/" + title + "/" + "Coder/"
+    }
+    
+    static func relativeCurrentCoderDirectoryURLString(type: LessonType, section: String, title: String) -> String? {
+        guard let coderName = CoderManager.shared.coderName else {
+            return nil
+        }
+        return relativeCoderDirectoryURLString(type: type, section: section, title: title) + coderName + "/"
+    }
+    
+    static func relativeDefaultDirectoryURLString(type: LessonType, section: String, title: String) -> String {
+        return relativeRootDirectoryURLString + type.rawValue + "/" + section + "/" + title + "/" + "Default/"
+    }
+    
+    static func relativeAnswerDirectoryURLString(type: LessonType, section: String, title: String) -> String {
+        return relativeRootDirectoryURLString + type.rawValue + "/" + section + "/" + title + "/" + "Answer/"
+    }
+    
+    static func relativeDescriptionImageDirectoryURLString(type: LessonType, section: String, title: String) -> String {
+        return relativeRootDirectoryURLString + type.rawValue + "/" + section + "/" + title + "/" + "DescriptionImage/"
+    }
+    
+    static func absoluteDirectoryURLString(type: LessonType, section: String, title: String) -> String {
+        return Application.webServerRootURLString + relativeDirectoryURLString(type: type, section: section, title: title)
+    }
+    
+    static func absolutePreviewDirectoryURLString(type: LessonType, section: String, title: String) -> String {
+        return absoluteDirectoryURLString(type: type, section: section, title: title) + "Preview/"
+    }
+    
+    var relativeDirectoryURLString: String {
+        return Lesson.relativeDirectoryURLString(type: type, section: section, title: title)
+    }
+    var relativeDefaultDirectoryURLString: String {
+        return Lesson.relativeDefaultDirectoryURLString(type: type, section: section, title: title)
+    }
+    var relativeCurrentCoderDirectoryURLString: String? {
+        return Lesson.relativeCurrentCoderDirectoryURLString(type: type, section: section, title: title)
+    }
+    var relativeAnswerDirectoryURLString: String {
+        return Lesson.relativeAnswerDirectoryURLString(type: type, section: section, title: title)
+    }
+    var relativeDescriptionImageDirectoryURLString: String {
+        return Lesson.relativeDescriptionImageDirectoryURLString(type: type, section: section, title: title)
+    }
+    var absoluteDirectoryURLString: String {
+        return Lesson.absoluteDirectoryURLString(type: type, section: section, title: title)
+    }
+    var absolutePreviewDirectoryURLString: String {
+        return Lesson.absolutePreviewDirectoryURLString(type: type, section: section, title: title)
     }
     
     private(set) var type: LessonType
     private(set) var section: String
     private(set) var title: String
-    private(set) var indexFile: File
-    private(set) var files: [File]
+    private(set) var indexFile: File?
+    private(set) var files = [File]()
     
-    private(set) var isAlternativePreview = false
-    
-    init(type: LessonType, sectionNumber: Int, titleNumber: Int) {
+    init(type: LessonType, section: String, title: String) {
         self.type = type
-        section = Lesson.sections[type]?[sectionNumber] ?? ""
-        title = Lesson.titles[type]?[sectionNumber][titleNumber] ?? ""
-        switch type {
-        case .htmlcss:
-            switch sectionNumber {
-            case 0:
-                switch titleNumber {
-                case 0:
-                    indexFile = File(type: type, section: section, title: title, name: "index.html", editable: true)
-                    files = [indexFile]
-                default:
-                    indexFile = File(type: type, section: section, title: title, name: "index.html", editable: true)
-                    files = [indexFile]
-                }
-            default:
-                indexFile = File(type: type, section: section, title: title, name: "index.html", editable: true)
-                files = [indexFile]
-            }
-        case .javaScript:
-            indexFile = File(type: type, section: section, title: title, name: "index.html", editable: true)
-            files = [indexFile]
-        case .php:
-            switch sectionNumber {
-            case 3:
-                switch titleNumber {
-                case 0:
-                    indexFile = File(type: type, section: section, title: title, name: "index.php", editable: true)
-                    files = [
-                        indexFile,
-                        File(type: type, section: section, title: title, name: "xss.php", editable: true),
-                    ]
-                case 1:
-                    indexFile = File(type: type, section: section, title: title, name: "index.php", editable: false)
-                    files = [
-                        indexFile,
-                        File(type: type, section: section, title: title, name: "notxss.php", editable: true),
-                    ]
-                case 2:
-                    indexFile = File(type: type, section: section, title: title, name: "index.php", editable: false)
-                    files = [
-                        indexFile,
-                        File(type: type, section: section, title: title, name: "send_sql.php", editable: false),
-                        File(type: type, section: section, title: title, name: "sql_injection.php", editable: true),
-                    ]
-                case 3:
-                    indexFile = File(type: type, section: section, title: title, name: "index.php", editable: false)
-                    files = [
-                        indexFile,
-                        File(type: type, section: section, title: title, name: "send_sql.php", editable: false),
-                        File(type: type, section: section, title: title, name: "not_sql_injection.php", editable: true),
-                    ]
-                default:
-                    indexFile = File(type: type, section: section, title: title, name: "index.php", editable: true)
-                    files = [
-                        indexFile,
-                        File(type: type, section: section, title: title, name: "xss.php", editable: true),
-                    ]
-                }
-            default:
-                indexFile = File(type: type, section: section, title: title, name: "index.php", editable: true)
-                files = [
-                    indexFile,
-                    File(type: type, section: section, title: title, name: "xss.php", editable: true),
-                ]
+        self.section = section
+        self.title = title
+        guard let relativeCurrentCoderDirectoryURLString = self.relativeCurrentCoderDirectoryURLString else {
+            return
+        }
+        let fileNamesString = DatabaseSession.sync(with: "LoadFileNames.php", parameters: ["directory_path": relativeCurrentCoderDirectoryURLString], method: .get)
+        guard var fileNamesArray = fileNamesString.toArray() else {
+            return
+        }
+        let editableFileNamesString = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": relativeDirectoryURLString + "editable.json"], method: .get)
+        guard let editableFileNamesArray = editableFileNamesString.toArray() else {
+            return
+        }
+        files.reserveCapacity(fileNamesArray.count)
+        for fileIndex in 0..<fileNamesArray.count {
+            let fileName = fileNamesArray[fileIndex]
+            let relativeFileURLString = relativeCurrentCoderDirectoryURLString + fileName
+            let text = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": relativeFileURLString], method: .get)
+            let isEditable = editableFileNamesArray.contains(fileName)
+            let file = File(
+                name: fileName,
+                text: text,
+                index: fileIndex,
+                isEditable: isEditable
+            )
+            files.append(file)
+            let indexFileNames = ["index.html", "index.php"]
+            if indexFileNames.contains(file.name) {
+                indexFile = file
             }
         }
-        if let relativeDirectoryURLString = self.relativeDirectoryURLString {
-            let isExistingDirectory = DatabaseSession.sync(with: "CheckExistenceFile.php", parameters: ["path": relativeDirectoryURLString], method: .get)
-            if isExistingDirectory == ServerResponse.true {
-                for index in 0..<files.count {
-                    files[index].load()
-                }
-            } else {
-                for index in 0..<files.count {
-                    files[index].initialize()
-                    files[index].save()
-                }
-            }
+    }
+    
+    func relativeFilURLString(fileIndex: Int) -> String? {
+        guard 0 <= fileIndex && fileIndex <= (files.count - 1) else {
+            return nil
         }
-        Lesson.active = self
+        guard let relativeCurrentCoderDirectoryURLString = self.relativeCurrentCoderDirectoryURLString else {
+            return nil
+        }
+        let file = files[fileIndex]
+        return relativeCurrentCoderDirectoryURLString + file.name
+    }
+    
+    func absolutePreviewIndexFileURLString() -> String? {
+        guard let indexFile = self.indexFile else {
+            return nil
+        }
+        return absolutePreviewDirectoryURLString + indexFile.name
+    }
+    
+    func initialize(fileIndex: Int) {
+        guard 0 <= fileIndex && fileIndex <= (files.count - 1) else {
+            return
+        }
+        let file = files[fileIndex]
+        let text = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": relativeDefaultDirectoryURLString + file.name], method: .get)
+        file.setText(text)
+    }
+    
+    func read(fileIndex: Int) {
+        
     }
     
     func save() {
-        files.forEach { $0.save() }
+        files.forEach {
+            save(fileIndex: $0.index)
+        }
+    }
+    
+    func save(fileIndex: Int) {
+        guard 0 <= fileIndex && fileIndex <= (files.count - 1) else {
+            return
+        }
+        let file = files[fileIndex]
+        guard let percentEncodedText = file.text.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "&").inverted) else {
+            return
+        }
+        guard let relativeFileURLString = self.relativeFilURLString(fileIndex: fileIndex) else {
+            return
+        }
+        let result = DatabaseSession.sync(with: "SaveFile.php", parameters: ["path": relativeFileURLString, "data": percentEncodedText], method: .post)
+        if result != ServerResponse.succeeded {
+            Application.shared.writeErrorLog(result)
+        }
     }
     
 }

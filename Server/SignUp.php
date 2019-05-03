@@ -14,12 +14,7 @@ if ($databaseHandler->isValid()) {
     $bindingPairs = $queryParameters->makeBidingPairs();
     $succeededExecution = $databaseHandler->execute($sql, $bindingPairs->getBindingValues(), $bindingPairs->getBindingParameters());
     if ($succeededExecution) {
-        $succeededMakingCoderDirectory = mkdir(CODER_DIRECTORY_PATH . $parameters["coder_name"]);
-        if ($succeededMakingCoderDirectory) {
-            echo RESPONSE_SUCCEEDED;
-        } else {
-            exit("Failure to make coder direcotry");
-        }
+        echo RESPONSE_SUCCEEDED;
     } else {
         exit("SQL execution failed");
     }

@@ -13,12 +13,10 @@ class PreviewViewController: UIViewController {
         guard let lesson = self.lesson else {
             return
         }
-        for file in lesson.files {
-            guard file.isSameAsAnswer() else {
-                return
-            }
+        guard AnswerChecker.check(lesson: lesson) else {
+            return
         }
-        guard let urlString = lesson.indexFile.absolutePreviewFileURLString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+        guard let urlString = lesson.absolutePreviewIndexFileURLString()?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
             return
         }
         guard let url = URL(string: urlString) else {

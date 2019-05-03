@@ -6,8 +6,7 @@ struct Application {
     static let webServerRootURLString = "http://localhost:80/"
     
     func initialize() {
-//        CoderManager.shared.signUp(coderName: "TestCoder", coderPassword: "TestCoder")
-//        makeDatabase(name: "TestCoder")
+        CoderManager.shared.logIn(coderName: "TestCoder", coderPassword: "TestCoder")
     }
     
     func makeDatabase(name: String) -> Bool {

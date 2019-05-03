@@ -33,15 +33,21 @@ final class CodeEditorViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        saveFiles()
+        guard let lesson = self.lesson else {
+            return
+        }
+        lesson.save()
     }
     
     @IBAction func initializeWorkingFile(_ sender: Any) {
+        guard let lesson = self.lesson else {
+            return
+        }
         guard let workingFile = self.workingFile else {
             return
         }
-        workingFile.initialize()
-        workingFile.save()
+        lesson.initialize(fileIndex: workingFile.index)
+        lesson.save(fileIndex: workingFile.index)
         readWorkingFile()
     }
     
@@ -73,8 +79,11 @@ final class CodeEditorViewController: UIViewController {
         guard let lesson = self.lesson else {
             return
         }
-        workingFile = lesson.indexFile
-        editorTextView.isEditable = lesson.indexFile.editable
+        guard let indexFile = lesson.indexFile else {
+            return
+        }
+        workingFile = indexFile
+        editorTextView.isEditable = indexFile.isEditable
     }
     
     private func setupEditorTextView() {
@@ -102,7 +111,7 @@ final class CodeEditorViewController: UIViewController {
     
     private func changeWorkingFile(_ file: File) {
         workingFile = file
-        editorTextView.isEditable = file.editable
+        editorTextView.isEditable = file.isEditable
         readWorkingFile()
     }
     
@@ -142,22 +151,6 @@ final class CodeEditorViewController: UIViewController {
     private func fitWidthEditorTextView() {
         let minWidth = view.bounds.width - directoryTableViewWidthConstraint.constant
         editorTextViewWidthConstraint.constant = max(minWidth, editorTextView.maxLineWidth)
-    }
-    
-//    private func scrollToBestPosition() {
-//        let lineWidth = editorTextView.lineWidth(location: editorTextView.selectedRange.location - 1)
-//        let minX = editorTextView.contentOffset.x
-//        let maxX = minX + (view.bounds.width - directoryTableView.bounds.width)
-//        if lineWidth < minX || maxX < lineWidth {
-//            editorTextView.contentOffset.x = lineWidth
-//        }
-//    }
-    
-    @objc private func saveFiles() {
-        guard let lesson = self.lesson else {
-            return
-        }
-        lesson.files.forEach { $0.save() }
     }
     
     @objc private func handleDirectoryTableViewPanGesture(_ sender: UIPanGestureRecognizer) {
@@ -213,7 +206,7 @@ extension CodeEditorViewController: UITableViewDataSource, UITableViewDelegate {
         }
         let cell = UITableViewCell()
         cell.backgroundColor = tableView.backgroundColor
-        cell.textLabel?.textColor = lesson.files[indexPath.row].editable ? UIColor.turquoiseBlue : .white
+        cell.textLabel?.textColor = lesson.files[indexPath.row].isEditable ? UIColor.turquoiseBlue : .white
         cell.textLabel?.text = lesson.files[indexPath.row].name
         return cell
     }
