@@ -6,29 +6,23 @@ final class CodeEditorViewController: UIViewController {
         return true
     }
     
+    @IBOutlet weak var editorScrollView: UIScrollView!
     @IBOutlet weak private var editorTextView: EditorTextView!
     @IBOutlet weak private var editorTextViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak private var directoryTableView: UITableView!
     @IBOutlet weak private var directoryTableViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomControlsContainerView: UIView!
+    @IBOutlet weak var bottomControlsContainerBottomConstraint: NSLayoutConstraint!
     
     
     private var lesson: Lesson?
-    private var workingFile: File?
-    private var codeAutoCompleter: CodeAutoCompleter?
-    private var codeSyntaxHighlighter: CodeSyntaxHighlighter?
-    private var defaultColor = UIColor.white
-    private var font = UIFont.systemFont(ofSize: 18)
     private var isEmptyCharacterEntered = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupCodeAutoCompleter()
-        setupCodeSyntaxHighlighter()
-        setupWorkingFile()
         setupEditorTextView()
         setupDirectoryTableView()
-        setupCodeAutoCompleter()
-        setupCodeSyntaxHighlighter()
+        setupKeyboardObservers()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -43,12 +37,13 @@ final class CodeEditorViewController: UIViewController {
         guard let lesson = self.lesson else {
             return
         }
-        guard let workingFile = self.workingFile else {
+        guard let workingFile = editorTextView.file else {
             return
         }
         lesson.initialize(fileIndex: workingFile.index)
         lesson.save(fileIndex: workingFile.index)
-        readWorkingFile()
+        editorTextView.file = workingFile
+        fitSizeEditorTextView()
     }
     
     @IBAction func transitionToPreviewViewController(_ sender: Any) {
@@ -67,93 +62,37 @@ final class CodeEditorViewController: UIViewController {
         self.lesson = lesson
     }
     
-    private func setupCodeAutoCompleter() {
-        codeAutoCompleter = PHPAutoCompleter()
-    }
-    
-    private func setupCodeSyntaxHighlighter() {
-        codeSyntaxHighlighter = PHPSyntaxHighlighter(defaultColor: defaultColor, font: font)
-    }
-    
-    private func setupWorkingFile() {
-        guard let lesson = self.lesson else {
-            return
-        }
-        guard let indexFile = lesson.indexFile else {
-            return
-        }
-        workingFile = indexFile
-        editorTextView.isEditable = indexFile.isEditable
+    func fitSizeEditorTextView() {
+        let size = editorTextView.sizeThatFits(CGSize(width: CGFloat.infinity, height: .infinity))
+        editorTextViewWidthConstraint.constant = size.width
     }
     
     private func setupEditorTextView() {
+        guard let indexFile = lesson?.indexFile else {
+            return
+        }
         editorTextViewWidthConstraint.constant = (view.bounds.width - directoryTableViewWidthConstraint.constant)
         editorTextView.autocorrectionType = .no
         editorTextView.autocapitalizationType = .none
-        editorTextView.font = font
-        readWorkingFile()
+        editorTextView.file = indexFile
+        editorTextView.font = .systemFont(ofSize: 18)
+        fitSizeEditorTextView()
     }
     
     private func setupDirectoryTableView() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleDirectoryTableViewPanGesture(_:)))
         directoryTableView.addGestureRecognizer(panGestureRecognizer)
-        directoryTableView.separatorInset = UIEdgeInsets.zero
+        directoryTableView.separatorInset.left = 0
+        directoryTableView.tableFooterView = UIView()
     }
     
-    private func readWorkingFile() {
-        guard let workingFile = self.workingFile else {
-            return
-        }
-        editorTextView.text = workingFile.text
-        decorateSyntaxHighlight(text: editorTextView.text!, caretLocation: editorTextView.text!.count, isSynchronized: true)
-        fitWidthEditorTextView()
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    private func changeWorkingFile(_ file: File) {
-        workingFile = file
-        editorTextView.isEditable = file.isEditable
-        readWorkingFile()
-    }
-    
-    private func completeCode() {
-        guard let codeAutoCompleter = self.codeAutoCompleter else {
-            return
-        }
-        let completionResult = codeAutoCompleter.complete(editorTextView.text, selectedLocation: editorTextView.selectedRange.location)
-        let insertionAttributeText = NSAttributedString(string: completionResult.insertionText, attributes: [NSAttributedString.Key.foregroundColor: defaultColor, NSAttributedString.Key.font: font])
-        let attributedText = NSMutableAttributedString(attributedString: editorTextView.attributedText!)
-        attributedText.insert(insertionAttributeText, at: completionResult.insertionLocation)
-        editorTextView.attributedText = attributedText
-        editorTextView.selectedRange.location = completionResult.caretLocation
-        decorateSyntaxHighlight(text: attributedText.string, caretLocation: completionResult.caretLocation, isSynchronized: false)
-    }
-    
-    private func decorateSyntaxHighlight(text: String, caretLocation: Int, isSynchronized: Bool) {
-        guard let codeSyntaxHighlighter = self.codeSyntaxHighlighter else {
-            return
-        }
-        if isSynchronized {
-            editorTextView.attributedText = codeSyntaxHighlighter.syntaxHighlight(editorTextView.text!)
-            editorTextView.selectedRange.location = caretLocation
-        } else {
-            DispatchQueue.global().async {
-                let decorated = codeSyntaxHighlighter.syntaxHighlight(text)
-                DispatchQueue.main.async {
-                    if self.editorTextView.text == decorated.string {
-                        self.editorTextView.attributedText = decorated
-                        self.editorTextView.selectedRange.location = caretLocation
-                    }
-                }
-            }
-        }
-    }
-    
-    private func fitWidthEditorTextView() {
-        let minWidth = view.bounds.width - directoryTableViewWidthConstraint.constant
-        editorTextViewWidthConstraint.constant = max(minWidth, editorTextView.maxLineWidth)
-    }
-    
-    @objc private func handleDirectoryTableViewPanGesture(_ sender: UIPanGestureRecognizer) {
+    @objc
+    private func handleDirectoryTableViewPanGesture(_ sender: UIPanGestureRecognizer) {
         let speed: CGFloat = 0.01
         let velocity = sender.velocity(in: directoryTableView).x
         let constant = directoryTableViewWidthConstraint.constant
@@ -161,6 +100,28 @@ final class CodeEditorViewController: UIViewController {
         let maxWidth = view.bounds.width * 0.6
         let width = min(maxWidth, max(minWidth, constant + (velocity * speed)))
         directoryTableViewWidthConstraint.constant = width
+    }
+    
+    @objc
+    private func handleKeyboardNotification(notification: NSNotification) {
+        guard let userInfo = notification.userInfo else {
+            return
+        }
+        guard let keyboardHeight = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else {
+            return
+        }
+        guard let keyboardDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double) else {
+            return
+        }
+        guard let keyWindow = UIApplication.shared.keyWindow else {
+            return
+        }
+        let isShowing = (notification.name == UIResponder.keyboardWillShowNotification)
+        let safeAreaBottomInset = keyWindow.safeAreaInsets.bottom
+        bottomControlsContainerBottomConstraint.constant = isShowing ? (-keyboardHeight + safeAreaBottomInset) : 0
+        UIView.animate(withDuration: keyboardDuration) {
+            self.bottomControlsContainerView.layoutIfNeeded()
+        }
     }
     
 }
@@ -171,22 +132,33 @@ extension CodeEditorViewController: UITextViewDelegate {
         guard textView.markedTextRange == nil else {
             return
         }
-        guard let workingFile = self.workingFile else {
-            return
+        if !isEmptyCharacterEntered {
+            editorTextView.completeCode()
         }
-        if isEmptyCharacterEntered {
-            decorateSyntaxHighlight(text: editorTextView.text!, caretLocation: editorTextView.selectedRange.location, isSynchronized: false)
-        } else {
-            completeCode()
-        }
-        fitWidthEditorTextView()
-        //scrollToBestPosition()
-        workingFile.setText(editorTextView.text)
+        editorTextView.decorateSyntaxHighlight(caretLocation: editorTextView.selectedRange.location, synchronize: false)
+        fitSizeEditorTextView()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         isEmptyCharacterEntered = text.isEmpty
         return true
+    }
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        guard let font = textView.font else {
+            return
+        }
+        var line = ""
+        for index in (0..<textView.selectedRange.location + textView.selectedRange.length).reversed() {
+            if textView.text[index] == "\n" {
+                break
+            }
+            line = String(textView.text[index]) + line
+        }
+        let lineSize = line.size(withAttributes: [NSAttributedString.Key.font: font])
+        let paddingRight: CGFloat = 32
+        editorScrollView.contentOffset.x = max(0, (lineSize.width - editorScrollView.bounds.width) + paddingRight)
+        textView.scrollRangeToVisible(textView.selectedRange)
     }
     
 }
@@ -215,8 +187,8 @@ extension CodeEditorViewController: UITableViewDataSource, UITableViewDelegate {
         guard let lesson = self.lesson else {
             return
         }
-        let file = lesson.files[indexPath.row]
-        changeWorkingFile(file)
+        editorTextView.file = lesson.files[indexPath.row]
+        fitSizeEditorTextView()
     }
     
 }

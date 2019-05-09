@@ -66,12 +66,6 @@ extension SelectLessonViewController: UITableViewDataSource, UITableViewDelegate
         guard let titles = Lesson.titles(type: lessonType, section: indexPath.section) else {
             return
         }
-//        guard let codeEditorViewController = storyboard?.instantiateViewController(withIdentifier: "CodeEditorViewController") as? CodeEditorViewController else {
-//            return
-//        }
-//        let lesson = Lesson(type: lessonType, section: sections[indexPath.section], title: titles[indexPath.row])
-//        codeEditorViewController.setLesson(lesson)
-//        show(codeEditorViewController, sender: nil)
         guard let descriptionImageCollectionViewController = storyboard?.instantiateViewController(withIdentifier: "DescriptionPageController") as? DescriptionImageCollectionViewController else {
             return
         }

@@ -1,48 +1,5 @@
 import Foundation
 
-class File {
-    
-    let name: String
-    let isEditable: Bool
-    let index: Int
-    private(set) var text = ""
-    
-    init(name: String, text: String, index: Int, isEditable: Bool) {
-        self.name = name
-        self.text = text
-        self.index = index
-        self.isEditable = isEditable
-    }
-    
-//    func loadDefaultFile() {
-//        let path = "DefaultFile/" + type.rawValue + "/" + section + "/" + title + "/" + name
-//        text = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": path], method: .get)
-//    }
-    
-//    func load() {
-//        let percentEncodedText = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": relativeURLString], method: .get)
-//        guard let removedPercentEncodingText = percentEncodedText.removingPercentEncoding else {
-//            return
-//        }
-//        text = removedPercentEncodingText
-//    }
-    
-//    func save() {
-//        guard let percentEncodedText = text.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "&").inverted) else {
-//            return
-//        }
-//        let result = DatabaseSession.sync(with: "SaveFile.php", parameters: ["path": relativeURLString, "data": percentEncodedText], method: .post)
-//        if result != ServerResponse.succeeded {
-//            Application.shared.writeErrorLog(result)
-//        }
-//    }
-    
-    func setText(_ text: String) {
-        self.text = text
-    }
-    
-}
-
 struct Lesson {
     
     static let relativeRootDirectoryURLString = "Lessons/"

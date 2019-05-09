@@ -120,14 +120,14 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="187.5" height="44"/>
                                                 <state key="normal" title="初期化"/>
                                                 <connections>
-                                                    <action selector="initializeWorkingFile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EER-Bg-nEu"/>
+                                                    <action selector="initializeWorkingFile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="M5P-l7-3Tn"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WBi-Ay-5t8">
                                                 <rect key="frame" x="187.5" y="0.0" width="187.5" height="44"/>
                                                 <state key="normal" title="プレビュー"/>
                                                 <connections>
-                                                    <action selector="transitionToPreviewViewController:" destination="BYZ-38-t0r" eventType="touchUpInside" id="w15-ac-IJ3"/>
+                                                    <action selector="transitionToPreviewViewController:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uXo-ZV-VJK"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -155,7 +155,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <connections>
-                                            <outlet property="delegate" destination="BYZ-38-t0r" id="uwe-Cj-EIF"/>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="aV6-TD-W3d"/>
                                         </connections>
                                     </textView>
                                 </subviews>
@@ -175,8 +175,8 @@
                                 </constraints>
                                 <color key="separatorColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="fYc-1o-t7A"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="SwL-21-ocC"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="3VF-zw-Avz"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="x08-cC-3Jq"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -197,10 +197,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="directoryTableView" destination="eXp-5C-eWN" id="LtS-Xt-TlH"/>
-                        <outlet property="directoryTableViewWidthConstraint" destination="4Pg-lD-HBQ" id="fi5-vN-7qf"/>
-                        <outlet property="editorTextView" destination="YxO-YT-yo9" id="WD9-YN-NlP"/>
-                        <outlet property="editorTextViewWidthConstraint" destination="bho-6G-1Lz" id="GWZ-7D-5sn"/>
+                        <outlet property="bottomControlsContainerBottomConstraint" destination="x4N-fI-jWC" id="Ar2-xD-RqY"/>
+                        <outlet property="bottomControlsContainerView" destination="kXa-dt-KVs" id="vCN-w6-TKn"/>
+                        <outlet property="directoryTableView" destination="eXp-5C-eWN" id="8HL-NG-3PW"/>
+                        <outlet property="directoryTableViewWidthConstraint" destination="4Pg-lD-HBQ" id="Mvo-rR-U1U"/>
+                        <outlet property="editorScrollView" destination="ROS-br-q3l" id="eqN-r1-fS6"/>
+                        <outlet property="editorTextView" destination="YxO-YT-yo9" id="3RD-pv-wHj"/>
+                        <outlet property="editorTextViewWidthConstraint" destination="bho-6G-1Lz" id="izj-rL-JM1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -260,7 +263,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="44"/>
                                                 <state key="normal" title="PREV"/>
                                                 <connections>
-                                                    <action selector="handlePrevButton:" destination="0Lw-oQ-uGt" eventType="touchUpInside" id="KaT-lb-qbB"/>
+                                                    <action selector="showPreviousPage:" destination="0Lw-oQ-uGt" eventType="touchUpInside" id="KaT-lb-qbB"/>
                                                 </connections>
                                             </button>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="oI3-OO-0tQ">
@@ -270,7 +273,7 @@
                                                 <rect key="frame" x="250" y="0.0" width="125" height="44"/>
                                                 <state key="normal" title="NEXT"/>
                                                 <connections>
-                                                    <action selector="handleNextButton:" destination="0Lw-oQ-uGt" eventType="touchUpInside" id="Tgz-eN-IW6"/>
+                                                    <action selector="showNextPage:" destination="0Lw-oQ-uGt" eventType="touchUpInside" id="Tgz-eN-IW6"/>
                                                 </connections>
                                             </button>
                                         </subviews>

@@ -9,6 +9,10 @@ class PreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         webView.uiDelegate = self
         guard let lesson = self.lesson else {
             return

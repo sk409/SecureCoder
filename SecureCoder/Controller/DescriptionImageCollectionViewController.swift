@@ -22,7 +22,7 @@ class DescriptionImageCollectionViewController: UIViewController {
         setupBottomControlButtons()
     }
     
-    @IBAction func handlePrevButton(_ sender: Any) {
+    @IBAction func showPreviousPage(_ sender: Any) {
         pageControl.currentPage = max(0, pageControl.currentPage - 1)
         let indexPath = IndexPath(item: pageControl.currentPage, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
@@ -30,7 +30,7 @@ class DescriptionImageCollectionViewController: UIViewController {
         nextButton.isEnabled = (pageControl.currentPage != (pageControl.numberOfPages - 1))
     }
     
-    @IBAction func handleNextButton(_ sender: Any) {
+    @IBAction func showNextPage(_ sender: Any) {
         pageControl.currentPage = min(pageControl.numberOfPages - 1, pageControl.currentPage + 1)
         let indexPath = IndexPath(item: pageControl.currentPage, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
@@ -75,7 +75,7 @@ class DescriptionImageCollectionViewController: UIViewController {
     }
     
     private func setupBarButton() {
-        navigationItem.setRightBarButton(UIBarButtonItem(title: "GO", style: .plain, target: self, action: #selector(handleGoButton)), animated: false)
+        navigationItem.setRightBarButton(UIBarButtonItem(title: "GO", style: .plain, target: self, action: #selector(transitionToCodeEditorViewController)), animated: false)
     }
     
     private func setupBottomControlButtons() {
@@ -86,7 +86,7 @@ class DescriptionImageCollectionViewController: UIViewController {
         nextButton.setTitleColor(.lightGray, for: .disabled)
     }
     
-    @objc private func handleGoButton() {
+    @objc private func transitionToCodeEditorViewController() {
         guard let lesson = self.lesson else {
             return
         }
