@@ -2,6 +2,8 @@ import Foundation
 
 struct Lesson {
     
+    static var active: Lesson?
+    
     static let relativeRootDirectoryURLString = "Lessons/"
     static let absoluteRootDirectoryURLString = Application.webServerRootURLString + relativeRootDirectoryURLString
     
@@ -124,6 +126,7 @@ struct Lesson {
                 indexFile = file
             }
         }
+        Lesson.active = self
     }
     
     func relativeFilURLString(fileIndex: Int) -> String? {
@@ -150,24 +153,19 @@ struct Lesson {
         }
         let file = files[fileIndex]
         let text = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": relativeDefaultDirectoryURLString + file.name], method: .get)
-        file.setText(text)
+        file.text = text
     }
     
-    func read(fileIndex: Int) {
-        
+    func save(_ file: File, with text: String) {
+        save(fileIndex: file.index, with: text)
     }
     
-    func save() {
-        files.forEach {
-            save(fileIndex: $0.index)
-        }
-    }
-    
-    func save(fileIndex: Int) {
+    func save(fileIndex: Int, with text: String) {
         guard 0 <= fileIndex && fileIndex <= (files.count - 1) else {
             return
         }
         let file = files[fileIndex]
+        file.text = text
         guard let percentEncodedText = file.text.addingPercentEncoding(withAllowedCharacters: CharacterSet(charactersIn: "&").inverted) else {
             return
         }
@@ -178,6 +176,16 @@ struct Lesson {
         if result != ServerResponse.succeeded {
             Application.shared.writeErrorLog(result)
         }
+    }
+    
+    func find(by fileName: String) -> File? {
+        for file in files {
+            guard file.name == fileName else {
+                continue
+            }
+            return file
+        }
+        return nil
     }
     
 }

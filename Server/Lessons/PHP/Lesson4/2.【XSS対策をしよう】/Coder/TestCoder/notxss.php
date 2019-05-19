@@ -13,7 +13,7 @@
         // 出力してください。
         // 第２引数にENT_QUOTESを指定することに、
         // 注意してください。
-        
+        echo htmlspecialchars($_GET["alert"], ENT_QUOTES);
         /////////////////////////////////
         ?>
     </body>

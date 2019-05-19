@@ -6,12 +6,16 @@ struct PHPAutoCompleter: CodeAutoCompleter {
     private static let indentWidth = 4
     
     private static func isEmptyElementTag(tagName: String) -> Bool {
-        let emptyElementTagNames = ["!doctype", "!--", "meta", "input"]
-        return emptyElementTagNames.contains(tagName.lowercased())
+        let ignoreTags = (HTML.emptyTags + ["<?php"]).map { $0.lowercased() }
+        return ignoreTags.contains(("<" + tagName).lowercased())
     }
     
     private static func isCloseTag(tagName: String) -> Bool {
         return !tagName.isEmpty && tagName[0] == "/"
+    }
+    
+    private static func isComment(tagName: String) -> Bool {
+        return tagName.hasPrefix("!--")
     }
     
     private static func noCompletion(_ text: String, caretLocation: Int) -> CodeCompletionResult {
@@ -51,7 +55,7 @@ struct PHPAutoCompleter: CodeAutoCompleter {
                 guard let tagName = getTagName(text, closeTagLocation: index) else {
                     continue
                 }
-                if !isEmptyElementTag(tagName: tagName) && !isCloseTag(tagName: tagName) {
+                if !isEmptyElementTag(tagName: tagName) && !isCloseTag(tagName: tagName) && !isComment(tagName: tagName) {
                     indent += indentWidth
                 }
             }

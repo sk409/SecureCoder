@@ -23,7 +23,6 @@ class KeyboardToolView: UIView {
         autoCorrectView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         autoCorrectView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
         autoCorrectView.widthAnchor.constraint(equalToConstant: bounds.width - (buttonWidth * 2)).isActive = true
-        autoCorrectView.backgroundColor = .white
         addSubview(toggleKeyboardButton)
         toggleKeyboardButton.translatesAutoresizingMaskIntoConstraints = false
         toggleKeyboardButton.leadingAnchor.constraint(equalTo: autoCorrectView.trailingAnchor).isActive = true

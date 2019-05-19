@@ -63,6 +63,11 @@
                         <viewLayoutGuide key="safeArea" id="bkD-tL-L8K"/>
                     </view>
                     <navigationItem key="navigationItem" id="4xM-eF-fhX"/>
+                    <connections>
+                        <outlet property="htmlButton" destination="0En-qI-y44" id="f3V-YS-781"/>
+                        <outlet property="javaScriptButton" destination="rKM-QO-eET" id="6Uf-aE-rc5"/>
+                        <outlet property="phpButton" destination="uYq-8S-GqX" id="FzI-Uc-iCV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfV-5p-xtC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

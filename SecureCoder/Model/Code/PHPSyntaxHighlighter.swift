@@ -30,10 +30,9 @@ struct PHPSyntaxHighlighter: CodeSyntaxHighlighter {
                     appendAttributedString(decoratedString, string: String(text[index...(index + 4)]), color: tagColor)
                     index += 5
                 }
-                let reservedWords = ["if", "for", "else", "class", "as", "new"]
                 var cache = ""
                 while index != text.count {
-                    if reservedWords.contains(cache) {
+                    if PHP.reservedWords.contains(cache) {
                         if index <= text.count - 3 && text[index] == "e" && text[index + 1] == "a" && text[index + 2] == "c" && text[index + 3] == "h" {
                             cache.append(text[index])
                             cache.append(text[index + 1])
@@ -41,23 +40,22 @@ struct PHPSyntaxHighlighter: CodeSyntaxHighlighter {
                             cache.append(text[index + 3])
                             index += 4
                         }
-                        appendAttributedString(decoratedString, string: cache, color: reservedWordColor)
-                        let isNew = cache == "new"
-                        cache.removeAll()
-                        if isNew {
-                            while true {
-                                cache.append(text[index])
-                                index += 1
-                                if index == text.count || text[index] == "(" {
-                                    break
-                                }
-                            }
-                            appendAttributedString(decoratedString, string: cache, color: classColor)
+                        if text[index].isWhitespace || (["require", "require_once", "include"].contains(cache) && text[index] == "(") {
+                            appendAttributedString(decoratedString, string: cache, color: reservedWordColor)
+                            let isNew = cache == "new"
                             cache.removeAll()
+                            if isNew {
+                                while true {
+                                    cache.append(text[index])
+                                    index += 1
+                                    if index == text.count || text[index] == "(" {
+                                        break
+                                    }
+                                }
+                                appendAttributedString(decoratedString, string: cache, color: classColor)
+                                cache.removeAll()
+                            }
                         }
-                    } else if cache == "echo" {
-                        appendAttributedString(decoratedString, string: cache, color: functionColor)
-                        cache.removeAll()
                     } else if cache == "//" {
                         while true {
                             cache.append(text[index])
@@ -112,7 +110,7 @@ struct PHPSyntaxHighlighter: CodeSyntaxHighlighter {
                             cache.removeAll()
                         } else if text[index] == "(" && !cache.isEmpty {
                             for i in 1...cache.count {
-                                if !cache[cache.count - i].isAlphaNumeric() {
+                                if !cache[cache.count - i].isVariableAllowed() {
                                     appendAttributedString(decoratedString,
                                                            string: String(cache[...(cache.count - i)]),
                                                            color: defaultColor)

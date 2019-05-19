@@ -30,7 +30,10 @@ final class CodeEditorViewController: UIViewController {
         guard let lesson = self.lesson else {
             return
         }
-        lesson.save()
+        guard let file = editorTextView.file else {
+            return
+        }
+        lesson.save(file, with: editorTextView.text)
     }
     
     @IBAction func initializeWorkingFile(_ sender: Any) {
@@ -41,7 +44,7 @@ final class CodeEditorViewController: UIViewController {
             return
         }
         lesson.initialize(fileIndex: workingFile.index)
-        lesson.save(fileIndex: workingFile.index)
+        lesson.save(workingFile, with: workingFile.text)
         editorTextView.file = workingFile
         fitSizeEditorTextView()
     }
@@ -136,6 +139,7 @@ extension CodeEditorViewController: UITextViewDelegate {
             editorTextView.completeCode()
         }
         editorTextView.decorateSyntaxHighlight(caretLocation: editorTextView.selectedRange.location, synchronize: false)
+        editorTextView.autoCorrect()
         fitSizeEditorTextView()
     }
     
@@ -187,6 +191,10 @@ extension CodeEditorViewController: UITableViewDataSource, UITableViewDelegate {
         guard let lesson = self.lesson else {
             return
         }
+        guard let file = editorTextView.file else {
+            return
+        }
+        lesson.save(file, with: editorTextView.text)
         editorTextView.file = lesson.files[indexPath.row]
         fitSizeEditorTextView()
     }

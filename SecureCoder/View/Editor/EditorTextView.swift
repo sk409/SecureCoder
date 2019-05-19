@@ -56,7 +56,7 @@ class EditorTextView: UITextView {
         mutableAttributedString.insert(insertionAttributeText, at: completionResult.insertionLocation)
         attributedText = mutableAttributedString
         selectedRange.location = completionResult.caretLocation
-        file.setText(text!)
+        file.text = text!
     }
     
     func decorateSyntaxHighlight(caretLocation: Int, synchronize: Bool) {
@@ -79,6 +79,52 @@ class EditorTextView: UITextView {
         }
     }
     
+    func autoCorrect() {
+        guard let keyboardToolView = inputAccessoryView as? KeyboardToolView else {
+            return
+        }
+        guard let lesson = Lesson.active else {
+            return
+        }
+        guard let file = file else {
+            return
+        }
+        lesson.save(file, with: text)
+        let token = PHP.Token(self)
+        let tmpText = text
+        let tmpSelectedRange = selectedRange
+        DispatchQueue.global().async {
+            var phpAutoCorrectSuggester = PHPAutoCorrectSuggester()
+            let suggestions = phpAutoCorrectSuggester.suggest(token: token, file: file, caretLocation: tmpSelectedRange.location)
+            DispatchQueue.main.async {
+                guard !suggestions.isEmpty else {
+                    keyboardToolView.autoCorrectView.clear()
+                    return
+                }
+                guard tmpText == self.text && tmpSelectedRange == self.selectedRange else {
+                    return
+                }
+                guard let keyboardToolView = self.inputAccessoryView as? KeyboardToolView else {
+                    return
+                }
+                keyboardToolView.autoCorrectView.suggestions = suggestions
+                for button in keyboardToolView.autoCorrectView.buttons {
+                    button.addTarget(self, action: #selector(self.handleAutoCorrectButtonTapEvent(_:)), for: .touchUpInside)
+                }
+            }
+        }
+    }
+    
+    func replace(in range: NSRange, with insertionText: String) {
+        guard let font = font else {
+            return
+        }
+        let replacedAttributedText = NSMutableAttributedString(attributedString: attributedText.attributedSubstring(from: NSRange(location: 0, length: range.location)))
+        replacedAttributedText.append(NSAttributedString(string: insertionText, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: defaultColor]))
+        replacedAttributedText.append(attributedText.attributedSubstring(from: NSRange(location: range.location + range.length, length: text.count - (range.location + range.length))))
+        attributedText = replacedAttributedText
+    }
+    
     private func setupInputControls() {
         let screenWidth = UIScreen.main.bounds.size.width
         let keyboardToolViewHeight = UIScreen.main.bounds.size.height * 0.05
@@ -86,84 +132,22 @@ class EditorTextView: UITextView {
         keyboardToolView.toggleKeyboardButton.addTarget(self, action: #selector(handleToggleKeyboardButtonTapEvent(_:)), for: .touchUpInside)
         keyboardToolView.doneButton.addTarget(self, action: #selector(handleDoneButtonTapEvent(_:)), for: .touchUpInside)
         inputAccessoryView = keyboardToolView
-        let inputViewHeight = UIScreen.main.bounds.size.height * 0.35
-        keyboardView = KeyboardView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: inputViewHeight))
+        //let keyboardViewHeight = UIScreen.main.bounds.size.height * 0.35
+        let keyboardViewHeight: CGFloat = 252
+        keyboardView = KeyboardView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: keyboardViewHeight))
+//        keyboardView = Bundle.main.loadNibNamed("KeyboardView", owner: self, options: nil)?.first as? KeyboardView
         guard let keyboardView = keyboardView else {
             return
         }
-        for view in (keyboardView.alphabetKeyboardView.views + keyboardView.symbolKeyboardView.views) {
-            if let button = view as? UIButton {
-                if button is KeyboardControlButton {
-                    button.addTarget(self, action: #selector(handleKeyboardControlButtonTapEvent(_:)), for: .touchUpInside)
-                } else if button is KeyboardInputButton {
-                    button.addTarget(self, action: #selector(handleKeyboardAlphabetInputButtonTapEvent(_:)), for: .touchUpInside)
-                }
-                
-            } else if let stackView = view as? UIStackView {
-                for subview in stackView.arrangedSubviews {
-                    if let button = subview as? UIButton {
-                        if button is KeyboardControlButton {
-                            button.addTarget(self, action: #selector(handleKeyboardControlButtonTapEvent(_:)), for: .touchUpInside)
-                        } else if button is KeyboardInputButton {
-                            button.addTarget(self, action: #selector(handleKeyboardAlphabetInputButtonTapEvent(_:)), for: .touchUpInside)
-                        }
-                    }
-                }
+        //keyboardView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: keyboardViewHeight)
+        for button in keyboardView.buttons {
+            if button is KeyboardControlButton {
+                button.addTarget(self, action: #selector(handleKeyboardControlButtonTapEvent(_:)), for: .touchUpInside)
+            } else if button is KeyboardInputButton {
+                button.addTarget(self, action: #selector(handleKeyboardAlphabetInputButtonTapEvent(_:)), for: .touchUpInside)
             }
         }
-//        if let kanaKeyboardView = keyboardInputView.kanaKeyboardView {
-//            for kaneButton in kanaKeyboardView.buttons {
-//                kaneButton.delegate = self
-//                kaneButton.activeColor = .cyan
-//                kaneButton.inactiveColor = .lightGray
-//                kaneButton.addTarget(self, action: #selector(handleKeyboardKanaInputButton(_:))
-//                    , for: .touchUpInside)
-//            }
-//        }
         inputView = keyboardView
-    }
-    
-    private func autoCorrect() {
-        guard var urlComponents = URLComponents(string: "http://www.google.com/transliterate") else {
-            return
-        }
-        let markedText = (text as NSString).substring(with: NSRange(location: selectedRange.location, length: selectedRange.length))
-        urlComponents.queryItems = [URLQueryItem(name: "langpair", value: "ja-Hira|ja"), URLQueryItem(name: "text", value: markedText + ",")]
-        guard let url = urlComponents.url else {
-            return
-        }
-        var candidateDictionaries: [[String: [String]]]?
-        let semaphore = DispatchSemaphore(value: 0)
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            defer {
-                semaphore.signal()
-            }
-            guard let data = data else {
-                return
-            }
-            guard var jsonString = String(data: data, encoding: .utf8) else {
-                return
-            }
-            let range = jsonString.range(of: ",")
-            jsonString = jsonString.replacingCharacters(in: range!, with: ":")
-            jsonString = jsonString.replacingCharacters(in: jsonString.index(jsonString.startIndex, offsetBy: 1)...jsonString.index(jsonString.startIndex, offsetBy: 1), with: "{")
-            jsonString = jsonString.replacingCharacters(in: jsonString.index(jsonString.endIndex, offsetBy: -2)...jsonString.index(jsonString.endIndex, offsetBy: -2), with: "}")
-            guard let candidateData = jsonString.data(using: .utf8) else {
-                return
-            }
-            guard let result = try? JSONDecoder().decode([[String: [String]]].self, from: candidateData) else {
-                return
-            }
-            candidateDictionaries = result
-        }.resume()
-        semaphore.wait()
-        guard let autoCorrectView = (inputAccessoryView as? AutoCorrectView) else {
-            return
-        }
-        guard let candidateTexts = candidateDictionaries?[0][String(markedText)] else {
-            return
-        }
-        autoCorrectView.texts = candidateTexts
     }
     
     @objc
@@ -183,7 +167,7 @@ class EditorTextView: UITextView {
         guard let sender = sender as? KeyboardControlButton else {
             return
         }
-        sender.keyboardControlButton(control: self)
+        sender.control(target: self)
     }
     
     @objc
@@ -195,41 +179,61 @@ class EditorTextView: UITextView {
     }
     
     @objc
-    private func handleKeyboardKanaInputButton(_ sender: UIButton) {
-        guard let sender = sender as? KeyboardKanaInputButton else {
+    private func handleAutoCorrectButtonTapEvent(_ sender: UIButton) {
+        guard let keyboardToolView = inputAccessoryView as? KeyboardToolView else {
             return
         }
-        guard let text = sender.titleLabel?.text else {
+        guard let replacementWord = (sender as? AutoCorrectButton)?.replacementWord else {
             return
         }
-        sender.input(to: self, text: text)
-        autoCorrect()
+        var startLocation = 0
+        for index in (0...(selectedRange.location - 1)).reversed() {
+            if !text[index].isPrintable() {
+                startLocation = index + 1
+                break
+            }
+        }
+        let range = NSRange(location: startLocation, length: selectedRange.location - startLocation)
+        replace(in: range, with: replacementWord)
+        selectedRange.location = range.location + replacementWord.count
+        decorateSyntaxHighlight(caretLocation: range.location + replacementWord.count, synchronize: false)
+        keyboardToolView.autoCorrectView.clear()
     }
+    
+//    @objc
+//    private func handleKeyboardKanaInputButton(_ sender: UIButton) {
+//        guard let sender = sender as? KeyboardKanaInputButton else {
+//            return
+//        }
+//        guard let text = sender.titleLabel?.text else {
+//            return
+//        }
+//        sender.input(to: self, text: text)
+//        autoCorrect()
+//    }
     
 }
 
-extension EditorTextView: FlickButtonDelegate {
-    
-    func flickButton(_ flickButton: FlickButton, popUpViewsDidHide activeView: UIView?) {
-        guard let keyboardKanaInputButton = flickButton as? KeyboardKanaInputButton else {
-            return
-        }
-        guard let labelText = (activeView as? UILabel)?.text else {
-            return
-        }
-        keyboardKanaInputButton.input(to: self, text: labelText)
-        autoCorrect()
-    }
-    
-    func flickButton(_ flickButton: FlickButton, didFlick selectedView: UIView?) {
-        guard let keyboardKanaInputButton = flickButton as? KeyboardKanaInputButton else {
-            return
-        }
-        guard let labelText = (selectedView as? UILabel)?.text else {
-            return
-        }
-        keyboardKanaInputButton.input(to: self, text: labelText)
-        autoCorrect()
-    }
-    
-}
+//extension EditorTextView: FlickButtonDelegate {
+//    
+//    func flickButton(_ flickButton: FlickButton, popUpViewsDidHide activeView: UIView?) {
+//        guard let keyboardKanaInputButton = flickButton as? KeyboardKanaInputButton else {
+//            return
+//        }
+//        guard let labelText = (activeView as? UILabel)?.text else {
+//            return
+//        }
+//        keyboardKanaInputButton.input(to: self, text: labelText)
+//    }
+//    
+//    func flickButton(_ flickButton: FlickButton, didFlick selectedView: UIView?) {
+//        guard let keyboardKanaInputButton = flickButton as? KeyboardKanaInputButton else {
+//            return
+//        }
+//        guard let labelText = (selectedView as? UILabel)?.text else {
+//            return
+//        }
+//        keyboardKanaInputButton.input(to: self, text: labelText)
+//    }
+//    
+//}

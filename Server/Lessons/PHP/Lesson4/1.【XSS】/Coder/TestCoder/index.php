@@ -9,7 +9,7 @@
         <form method="get" action="xss.php">
             <!----------------------------------------------------->
             <!-- type="text" name="alert"のinputタグを書いてください -->
-            <input type="text" name="alert">
+            
             <!----------------------------------------------------->
             <input type="submit" value="送信する">
         </form>

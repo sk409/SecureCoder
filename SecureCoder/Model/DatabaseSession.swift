@@ -2,11 +2,10 @@ import Foundation
 
 struct DatabaseSession {
     
-    static func sync(with fileURL: String, parameters: [String: String], method: HTTPMethod) -> String {
+    static func sync(with fileName: String, parameters: [String: String], method: HTTPMethod) -> String {
         var result = ""
-        let urlString = Application.webServerRootURLString + fileURL
         let semaphore = DispatchSemaphore(value: 0)
-        async(with: urlString, parameters: parameters, method: method) { data, urlResponse, error in
+        async(with: fileName, parameters: parameters, method: method) { data, urlResponse, error in
             defer {
                 semaphore.signal()
             }
@@ -25,11 +24,10 @@ struct DatabaseSession {
         return result
     }
     
-    static func sync(with fileURL: String, query: URLQueryObject, method: HTTPMethod) -> String {
+    static func sync(with fileName: String, query: URLQueryObject, method: HTTPMethod) -> String {
         var result = ""
-        let urlString = Application.webServerRootURLString + fileURL
         let semaphore = DispatchSemaphore(value: 0)
-        async(with: urlString, query: query, method: method) { data, urlResponse, error in
+        async(with: fileName, query: query, method: method) { data, urlResponse, error in
             defer {
                 semaphore.signal()
             }
@@ -49,11 +47,12 @@ struct DatabaseSession {
     }
     
     
-    static func async(with urlString: String, query: URLQueryObject, method: HTTPMethod) {
-        async(with: urlString, query: query, method: method) { _, _, _ in }
+    static func async(with fileName: String, query: URLQueryObject, method: HTTPMethod) {
+        async(with: fileName, query: query, method: method) { _, _, _ in }
     }
     
-    static func async(with urlString: String, query: URLQueryObject, method: HTTPMethod, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    static func async(with fileName: String, query: URLQueryObject, method: HTTPMethod, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        let urlString = Application.webServerRootURLString + fileName
         guard let request = makeURLRequest(urlString: urlString, query: query, method: method) else {
             return
         }
@@ -61,11 +60,12 @@ struct DatabaseSession {
         dataTask.resume()
     }
     
-    static func async(with urlString: String, parameters: [String: String], method: HTTPMethod) {
-        async(with: urlString, parameters: parameters, method: method) { _, _, _ in }
+    static func async(with fileName: String, parameters: [String: String], method: HTTPMethod) {
+        async(with: fileName, parameters: parameters, method: method) { _, _, _ in }
     }
     
-    static func async(with urlString: String, parameters: [String: String], method: HTTPMethod, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    static func async(with fileName: String, parameters: [String: String], method: HTTPMethod, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) {
+        let urlString = Application.webServerRootURLString + fileName
         guard let request = makeURLRequest(urlString: urlString, parameters: parameters, method: method) else {
             return
         }
