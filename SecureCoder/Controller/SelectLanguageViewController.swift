@@ -2,26 +2,13 @@ import UIKit
 
 class SelectLanguageViewController: UIViewController {
     
-    
-    @IBOutlet weak var htmlButton: UIButton!
-    @IBOutlet weak var javaScriptButton: UIButton!
-    @IBOutlet weak var phpButton: UIButton!
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let navigationController = self.navigationController else {
             return
         }
-        view.backgroundColor = .baseColor
-        navigationController.navigationBar.tintColor = .accentColor
-        navigationController.navigationBar.barTintColor = .mainColor
-        htmlButton.backgroundColor = .mainColor
-        htmlButton.setTitleColor(.white, for: .normal)
-        javaScriptButton.backgroundColor = .mainColor
-        javaScriptButton.setTitleColor(.white, for: .normal)
-        phpButton.backgroundColor = .mainColor
-        phpButton.setTitleColor(.white, for: .normal)
+        navigationController.navigationBar.tintColor = .nileBlue
+        navigationController.navigationBar.barTintColor = .darkBlue
     }
     
     @IBAction func handleHTMLCSSButton(_ sender: Any) {

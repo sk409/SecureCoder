@@ -26,7 +26,7 @@ struct CoderManager {
         guard result == ServerResponse.succeeded else {
             return
         }
-        makeCorderDirecotries()
+        //makeCorderDirecotries()
     }
     
     mutating func logIn(coderName: String, coderPassword: String) {
@@ -65,42 +65,42 @@ struct CoderManager {
         coderPassword = UserDefaults.standard.string(forKey: CoderManager.coderPasswordKey)
     }
     
-    private func makeCorderDirecotries() {
-        guard let coderName = self.coderName else {
-            return
-        }
-        for lessonType in LessonType.allCases {
-            guard let sections = Lesson.sections(type: lessonType) else {
-                return
-            }
-            for section in sections {
-                guard let titles = Lesson.titles(type: lessonType, section: section) else {
-                    return
-                }
-                for title in titles {
-                    let relativeCoderDirectoryURLString = Lesson.relativeCoderDirectoryURLString(type: lessonType, section: section, title: title) + coderName
-                    let makingDirectoryResult = DatabaseSession.sync(with: "MakeDirectory.php", parameters: ["path": relativeCoderDirectoryURLString], method: .post)
-                    guard makingDirectoryResult == ServerResponse.succeeded else {
-                        Application.shared.writeErrorLog(makingDirectoryResult)
-                        return
-                    }
-                    let srcDirectoryURLString = Lesson.relativeDefaultDirectoryURLString(type: lessonType, section: section, title: title)
-                    let dstDirectoryURLString = Lesson.relativeCoderDirectoryURLString(type: lessonType, section: section, title: title) + coderName + "/"
-                    let fileNamesString = DatabaseSession.sync(with: "LoadFileNames.php", parameters: ["directory_path": srcDirectoryURLString], method: .get)
-                    guard let fileNamesArray = fileNamesString.toArray() else {
-                        return
-                    }
-                    for fileName in fileNamesArray {
-                        let text = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": srcDirectoryURLString + fileName], method: .get)
-                        let savingFileResult = DatabaseSession.sync(with: "SaveFile.php", parameters: ["path": dstDirectoryURLString + fileName, "data": text], method: .post)
-                        guard savingFileResult == ServerResponse.succeeded else {
-                            Application.shared.writeErrorLog(savingFileResult)
-                            return
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    private func makeCorderDirecotries() {
+//        guard let coderName = self.coderName else {
+//            return
+//        }
+//        for lessonType in LessonType.allCases {
+//            guard let sections = Lesson.sections(type: lessonType) else {
+//                return
+//            }
+//            for section in sections {
+//                guard let titles = Lesson.titles(type: lessonType, section: section) else {
+//                    return
+//                }
+//                for title in titles {
+//                    let relativeCoderDirectoryURLString = Lesson.relativeCoderDirectoryURLString(type: lessonType, section: section, title: title) + coderName
+//                    let makingDirectoryResult = DatabaseSession.sync(with: "MakeDirectory.php", parameters: ["path": relativeCoderDirectoryURLString], method: .post)
+//                    guard makingDirectoryResult == ServerResponse.succeeded else {
+//                        Application.shared.writeErrorLog(makingDirectoryResult)
+//                        return
+//                    }
+//                    let srcDirectoryURLString = Lesson.relativeDefaultDirectoryURLString(type: lessonType, section: section, title: title)
+//                    let dstDirectoryURLString = Lesson.relativeCoderDirectoryURLString(type: lessonType, section: section, title: title) + coderName + "/"
+//                    let fileNamesString = DatabaseSession.sync(with: "LoadFileNames.php", parameters: ["directory_path": srcDirectoryURLString], method: .get)
+//                    guard let fileNamesArray = fileNamesString.toArray() else {
+//                        return
+//                    }
+//                    for fileName in fileNamesArray {
+//                        let text = DatabaseSession.sync(with: "ReadFile.php", parameters: ["path": srcDirectoryURLString + fileName], method: .get)
+//                        let savingFileResult = DatabaseSession.sync(with: "SaveFile.php", parameters: ["path": dstDirectoryURLString + fileName, "data": text], method: .post)
+//                        guard savingFileResult == ServerResponse.succeeded else {
+//                            Application.shared.writeErrorLog(savingFileResult)
+//                            return
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     
 }

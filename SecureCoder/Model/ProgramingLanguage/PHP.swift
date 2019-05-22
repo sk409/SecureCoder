@@ -2,94 +2,94 @@ import UIKit
 
 struct PHP {
     
-    struct Token {
-        
-        static func ==(lhs: Token, rhs: Token) -> Bool {
-            return lhs.text == rhs.text
-        }
-        
-        var isTag = false
-        var isTagAttribute = false
-        var isHTML = false
-        var isGlobal = false
-        var isVariable = false
-        var isFunction = false
-        var isConstant = false
-        var isClass = false
-        var isInterface = false
-        var isTrait = false
-        var isReservedWords = false
-        
-        private(set) var text = ""
-        private(set) var tag = ""
-        
-        init(_ editorTextView: EditorTextView) {
+//    struct Token {
+//        
+//        static func ==(lhs: Token, rhs: Token) -> Bool {
+//            return lhs.text == rhs.text
+//        }
+//        
+//        var isTag = false
+//        var isTagAttribute = false
+//        var isHTML = false
+//        var isGlobal = false
+//        var isVariable = false
+//        var isFunction = false
+//        var isConstant = false
+//        var isClass = false
+//        var isInterface = false
+//        var isTrait = false
+//        var isReservedWords = false
+//        
+//        private(set) var text = ""
+//        private(set) var tag = ""
+//        
+//        init(_ editorTextView: EditorTextView) {
+////            var cache = ""
+////            var text = ""
+////            var index = editorTextView.selectedRange.location - 1
+////            while 0 <= index {
+////                let character = editorTextView.text[index]
+////                if !character.isPrintable() {
+////                    while 0 <= index && !editorTextView.text[index].isPrintable() {
+////                        index -= 1
+////                    }
+////                    while 0 <= index && editorTextView.text[index].isPrintable() {
+////                        cache += String(editorTextView.text[index])
+////                        index -= 1
+////                    }
+////                    cache = String(cache.reversed())
+////                    text = String(text.reversed())
+////                    break
+////                }
+////                text += String(character)
+////                index -= 1
+////            }
 //            var cache = ""
-//            var text = ""
-//            var index = editorTextView.selectedRange.location - 1
-//            while 0 <= index {
+//            var index = 0
+//            var isInPHP = false
+//            var isInTag = false
+//            while index <= (editorTextView.selectedRange.location - 1) {
 //                let character = editorTextView.text[index]
-//                if !character.isPrintable() {
-//                    while 0 <= index && !editorTextView.text[index].isPrintable() {
-//                        index -= 1
+//                if character.isPrintable() {
+//                    if (isGlobal && character == ";") {
+//                        isGlobal = false
 //                    }
-//                    while 0 <= index && editorTextView.text[index].isPrintable() {
-//                        cache += String(editorTextView.text[index])
-//                        index -= 1
+//                    cache.append(character)
+//                } else {
+//                    if isInPHP {
+//                        isGlobal = (cache == "global")
+//                    } else {
+//                        if cache.hasPrefix("<") && HTML.tags.contains(cache) {
+//                            tag = cache
+//                            isInTag = true
+//                        } else if isInTag && cache.contains(">") {
+//                            tag = ""
+//                            isInTag = false
+//                        }
 //                    }
-//                    cache = String(cache.reversed())
-//                    text = String(text.reversed())
-//                    break
+//                    if cache == "<?php" {
+//                        isInPHP = true
+//                    } else if cache == "?>" {
+//                        isInPHP = false
+//                    }
+//                    cache.removeAll()
 //                }
-//                text += String(character)
-//                index -= 1
+//                index += 1
 //            }
-            var cache = ""
-            var index = 0
-            var isInPHP = false
-            var isInTag = false
-            while index <= (editorTextView.selectedRange.location - 1) {
-                let character = editorTextView.text[index]
-                if character.isPrintable() {
-                    if (isGlobal && character == ";") {
-                        isGlobal = false
-                    }
-                    cache.append(character)
-                } else {
-                    if isInPHP {
-                        isGlobal = (cache == "global")
-                    } else {
-                        if cache.hasPrefix("<") && HTML.tags.contains(cache) {
-                            tag = cache
-                            isInTag = true
-                        } else if isInTag && cache.contains(">") {
-                            tag = ""
-                            isInTag = false
-                        }
-                    }
-                    if cache == "<?php" {
-                        isInPHP = true
-                    } else if cache == "?>" {
-                        isInPHP = false
-                    }
-                    cache.removeAll()
-                }
-                index += 1
-            }
-            isTag = cache.hasPrefix("<")
-            isTagAttribute = isInTag
-            isHTML = (isTag || isTagAttribute)
-            isVariable = !isHTML && cache.hasPrefix("$")
-            isFunction = !isHTML && !isVariable && !cache.isEmpty
-            isConstant = isFunction
-            isClass = isFunction
-            isInterface = isFunction
-            isTrait = isFunction
-            isReservedWords = isFunction
-            self.text = cache
-        }
-        
-    }
+//            isTag = cache.hasPrefix("<")
+//            isTagAttribute = isInTag
+//            isHTML = (isTag || isTagAttribute)
+//            isVariable = !isHTML && cache.hasPrefix("$")
+//            isFunction = !isHTML && !isVariable && !cache.isEmpty
+//            isConstant = isFunction
+//            isClass = isFunction
+//            isInterface = isFunction
+//            isTrait = isFunction
+//            isReservedWords = isFunction
+//            self.text = cache
+//        }
+//        
+//    }
     
     static let tagColor = UIColor.turquoiseBlue
     static let reservedWordColor = UIColor.rosePink
@@ -102,6 +102,7 @@ struct PHP {
     static let stringColor = UIColor.signalRed
     static let attributeColor = UIColor.cobaltBlue
     static let constantColor = UIColor.white
+    static let numberColor = UIColor.purple
     
     static let reservedWords = ["__halt_compiler","abstract","and","array","as","break","callable","case","catch","class","clone","const","continue","declare","default","die","do","echo","else","elseif","empty","enddeclare","endfor","endforeach","endif","endswitch","endwhile","eval","exit","extends","final","finally","for","foreach","function","global","goto","if","implements","include","include_once","instanceof","insteadof","interface","isset","list","namespace","new","or","print","private","protected","public","require","require_once","return","static","switch","throw","trait","try","unset","use","var","while","xor","yield",
     ]

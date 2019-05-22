@@ -25,6 +25,7 @@
 		D72BB8D72254C7F80043D909 /* CodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BB8D62254C7F80043D909 /* CodeSyntaxHighlighter.swift */; };
 		D72BB8D92254C8560043D909 /* PHPSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BB8D82254C8560043D909 /* PHPSyntaxHighlighter.swift */; };
 		D72BB8DB2254D1C20043D909 /* UIColor+colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BB8DA2254D1C20043D909 /* UIColor+colors.swift */; };
+		D72EB15F2294CB33007A35EA /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB15E2294CB33007A35EA /* KeyboardView.swift */; };
 		D73A96A1228275E900267743 /* AutoCorrectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A96A0228275E900267743 /* AutoCorrectView.swift */; };
 		D753108422892CC4000D6D9B /* KeyboardControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D753108322892CC4000D6D9B /* KeyboardControlButton.swift */; };
 		D75AFF2E2290FBE70025BAF2 /* UIColor+ApplicationColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */; };
@@ -34,6 +35,10 @@
 		D76BBF7B22687C58005DE694 /* DescriptionImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D76BBF7922687C58005DE694 /* DescriptionImageCollectionViewCell.xib */; };
 		D76BBF7D2268A0B5005DE694 /* URLQueryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76BBF7C2268A0B5005DE694 /* URLQueryObject.swift */; };
 		D76F60AC225743B40044C0AF /* EditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76F60AB225743B40044C0AF /* EditorTextView.swift */; };
+		D77059AE2292357700E66D7B /* LessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77059AD2292357700E66D7B /* LessonViewController.swift */; };
+		D7722E812293A3FC00A749BF /* SlideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7722E802293A3FC00A749BF /* SlideCollectionViewCell.swift */; };
+		D7722E832293A64900A749BF /* LastSlideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7722E822293A64900A749BF /* LastSlideCollectionViewCell.swift */; };
+		D7722E852293BD1600A749BF /* FlickButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7722E842293BD1600A749BF /* FlickButton.swift */; };
 		D776B531227EA5E000DD0FB5 /* KeyboardUpControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D776B530227EA5E000DD0FB5 /* KeyboardUpControlButton.swift */; };
 		D77E9589227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E9588227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift */; };
 		D77E958B227FCC74000A7B21 /* KeyboardPageDownControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E958A227FCC74000A7B21 /* KeyboardPageDownControlButton.swift */; };
@@ -66,10 +71,15 @@
 		D7C2A49222670A3E00A6AF18 /* String+toArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2A49122670A3E00A6AF18 /* String+toArray.swift */; };
 		D7C2A49422672D9C00A6AF18 /* Array+numberingSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2A49322672D9C00A6AF18 /* Array+numberingSort.swift */; };
 		D7C2A4962267E8EA00A6AF18 /* AnswerChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2A4952267E8EA00A6AF18 /* AnswerChecker.swift */; };
-		D7E45A85227D424300E54FCC /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E45A84227D424300E54FCC /* KeyboardView.swift */; };
+		D7E45A85227D424300E54FCC /* a.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E45A84227D424300E54FCC /* a.swift */; };
 		D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E5D501228A66DF007CE3C2 /* HTML.swift */; };
 		D7F1825A2265E7C400CD4413 /* DescriptionImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F182592265E7C400CD4413 /* DescriptionImageCollectionViewController.swift */; };
 		D7F1825C2265E7FC00CD4413 /* DescriptionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F1825B2265E7FC00CD4413 /* DescriptionPage.swift */; };
+		D7F96527229249370086E98A /* QuestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96526229249370086E98A /* QuestionTextField.swift */; };
+		D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96528229259120086E98A /* ProgramingLanguage.swift */; };
+		D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */; };
+		D7F9652D229280860086E98A /* CyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652C229280860086E98A /* CyntaxHighlighter.swift */; };
+		D7F9652F2292A4170086E98A /* SlideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652E2292A4170086E98A /* SlideViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +103,7 @@
 		D72BB8D62254C7F80043D909 /* CodeSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D72BB8D82254C8560043D909 /* PHPSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D72BB8DA2254D1C20043D909 /* UIColor+colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+colors.swift"; sourceTree = "<group>"; };
+		D72EB15E2294CB33007A35EA /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		D73A96A0228275E900267743 /* AutoCorrectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCorrectView.swift; sourceTree = "<group>"; };
 		D753108322892CC4000D6D9B /* KeyboardControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardControlButton.swift; sourceTree = "<group>"; };
 		D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ApplicationColor.swift"; sourceTree = "<group>"; };
@@ -102,6 +113,10 @@
 		D76BBF7922687C58005DE694 /* DescriptionImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DescriptionImageCollectionViewCell.xib; path = ../View/DescriptionImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		D76BBF7C2268A0B5005DE694 /* URLQueryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryObject.swift; sourceTree = "<group>"; };
 		D76F60AB225743B40044C0AF /* EditorTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTextView.swift; sourceTree = "<group>"; };
+		D77059AD2292357700E66D7B /* LessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewController.swift; sourceTree = "<group>"; };
+		D7722E802293A3FC00A749BF /* SlideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCollectionViewCell.swift; sourceTree = "<group>"; };
+		D7722E822293A64900A749BF /* LastSlideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSlideCollectionViewCell.swift; sourceTree = "<group>"; };
+		D7722E842293BD1600A749BF /* FlickButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickButton.swift; sourceTree = "<group>"; };
 		D776B530227EA5E000DD0FB5 /* KeyboardUpControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardUpControlButton.swift; sourceTree = "<group>"; };
 		D77E9588227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPageUpControlButton.swift; sourceTree = "<group>"; };
 		D77E958A227FCC74000A7B21 /* KeyboardPageDownControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPageDownControlButton.swift; sourceTree = "<group>"; };
@@ -134,10 +149,15 @@
 		D7C2A49122670A3E00A6AF18 /* String+toArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+toArray.swift"; sourceTree = "<group>"; };
 		D7C2A49322672D9C00A6AF18 /* Array+numberingSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+numberingSort.swift"; sourceTree = "<group>"; };
 		D7C2A4952267E8EA00A6AF18 /* AnswerChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerChecker.swift; sourceTree = "<group>"; };
-		D7E45A84227D424300E54FCC /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyboardView.swift; path = SecureCoder/View/Editor/Keyboard/KeyboardView.swift; sourceTree = SOURCE_ROOT; };
+		D7E45A84227D424300E54FCC /* a.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = a.swift; path = SecureCoder/View/Editor/Keyboard/a.swift; sourceTree = SOURCE_ROOT; };
 		D7E5D501228A66DF007CE3C2 /* HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML.swift; sourceTree = "<group>"; };
 		D7F182592265E7C400CD4413 /* DescriptionImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionImageCollectionViewController.swift; sourceTree = "<group>"; };
 		D7F1825B2265E7FC00CD4413 /* DescriptionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionPage.swift; sourceTree = "<group>"; };
+		D7F96526229249370086E98A /* QuestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTextField.swift; sourceTree = "<group>"; };
+		D7F96528229259120086E98A /* ProgramingLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramingLanguage.swift; sourceTree = "<group>"; };
+		D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLSyntaxHighlighter.swift; sourceTree = "<group>"; };
+		D7F9652C229280860086E98A /* CyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyntaxHighlighter.swift; sourceTree = "<group>"; };
+		D7F9652E2292A4170086E98A /* SlideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +237,7 @@
 		D75BD38B227E681F00AA7E7F /* Code */ = {
 			isa = PBXGroup;
 			children = (
+				D7F9652C229280860086E98A /* CyntaxHighlighter.swift */,
 				D72BB8D62254C7F80043D909 /* CodeSyntaxHighlighter.swift */,
 				D718EBDD225360D600727383 /* CodeAutoCompleter.swift */,
 				D718EBDB2253609E00727383 /* PHPAutoCompleter.swift */,
@@ -224,6 +245,7 @@
 				D7A56682225A1316002EF185 /* JavaScriptAutoCompleter.swift */,
 				D7A56684225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift */,
 				D7AF14B02285524600022937 /* PHPAutoCorrectSuggester.swift */,
+				D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */,
 			);
 			path = Code;
 			sourceTree = "<group>";
@@ -236,6 +258,8 @@
 				D7A566762259C175002EF185 /* SelectLanguageViewController.swift */,
 				D7A566782259C19C002EF185 /* SelectLessonViewController.swift */,
 				D7F182592265E7C400CD4413 /* DescriptionImageCollectionViewController.swift */,
+				D77059AD2292357700E66D7B /* LessonViewController.swift */,
+				D7F9652E2292A4170086E98A /* SlideViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -245,6 +269,11 @@
 			children = (
 				D7EF5439227E7E6D002FFC40 /* Editor */,
 				D76BBF7822687C58005DE694 /* DescriptionImageCollectionViewCell.swift */,
+				D7F96526229249370086E98A /* QuestionTextField.swift */,
+				D7722E802293A3FC00A749BF /* SlideCollectionViewCell.swift */,
+				D7722E822293A64900A749BF /* LastSlideCollectionViewCell.swift */,
+				D7722E842293BD1600A749BF /* FlickButton.swift */,
+				D72EB15E2294CB33007A35EA /* KeyboardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -314,6 +343,7 @@
 		D7AF14B62285762A00022937 /* ProgramingLanguage */ = {
 			isa = PBXGroup;
 			children = (
+				D7F96528229259120086E98A /* ProgramingLanguage.swift */,
 				D7AF14B42285762600022937 /* PHP.swift */,
 				D7E5D501228A66DF007CE3C2 /* HTML.swift */,
 			);
@@ -324,7 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				D77E9598227FF978000A7B21 /* ControlButton */,
-				D7E45A84227D424300E54FCC /* KeyboardView.swift */,
+				D7E45A84227D424300E54FCC /* a.swift */,
 				D77E9599227FF995000A7B21 /* KeyboardInputButton.swift */,
 				D724D43322841AFC009176C3 /* KeyboardToolView.swift */,
 				D71F646D22890DA500BB8C31 /* KeyboardButton.swift */,
@@ -422,23 +452,30 @@
 				D7AF14AD228524B100022937 /* String+is~.swift in Sources */,
 				D73A96A1228275E900267743 /* AutoCorrectView.swift in Sources */,
 				D7A5666A22588753002EF185 /* DatabaseSession.swift in Sources */,
+				D7F9652F2292A4170086E98A /* SlideViewController.swift in Sources */,
+				D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */,
 				D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */,
 				D7A566772259C175002EF185 /* SelectLanguageViewController.swift in Sources */,
 				D7A56685225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift in Sources */,
 				D79E70FB227E88D200DFDE0E /* KeyboardEndControlButton.swift in Sources */,
+				D7722E852293BD1600A749BF /* FlickButton.swift in Sources */,
+				D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */,
 				D724D43422841AFC009176C3 /* KeyboardToolView.swift in Sources */,
 				D7C2A49422672D9C00A6AF18 /* Array+numberingSort.swift in Sources */,
 				D72BB8D92254C8560043D909 /* PHPSyntaxHighlighter.swift in Sources */,
 				D724D4302283C5E2009176C3 /* KeyboardShiftControlButton.swift in Sources */,
+				D7722E812293A3FC00A749BF /* SlideCollectionViewCell.swift in Sources */,
 				D7A5667B2259FF39002EF185 /* LessonType.swift in Sources */,
 				D77E9589227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift in Sources */,
 				D76F60AC225743B40044C0AF /* EditorTextView.swift in Sources */,
 				D7A56668225822B0002EF185 /* CoderManager.swift in Sources */,
 				D7A56687225A17D3002EF185 /* Lesson.swift in Sources */,
+				D7722E832293A64900A749BF /* LastSlideCollectionViewCell.swift in Sources */,
 				D77E9593227FE8AF000A7B21 /* KeyboardBackSpaceControlButton.swift in Sources */,
 				D7A5666E22589C0A002EF185 /* ServerResponse.swift in Sources */,
 				D7B027262281432B00E54F30 /* CGPoint+operators.swift in Sources */,
 				D7A2600422560FF000523A36 /* Application.swift in Sources */,
+				D7F96527229249370086E98A /* QuestionTextField.swift in Sources */,
 				D776B531227EA5E000DD0FB5 /* KeyboardUpControlButton.swift in Sources */,
 				D77E958B227FCC74000A7B21 /* KeyboardPageDownControlButton.swift in Sources */,
 				D781CE1D225DFF7A00B90A26 /* Character+is~.swift in Sources */,
@@ -447,7 +484,7 @@
 				D718EBC72252CFA300727383 /* SecureCoder.xcdatamodeld in Sources */,
 				D7A2600222560D4400523A36 /* PreviewViewController.swift in Sources */,
 				D75AFF2E2290FBE70025BAF2 /* UIColor+ApplicationColor.swift in Sources */,
-				D7E45A85227D424300E54FCC /* KeyboardView.swift in Sources */,
+				D7E45A85227D424300E54FCC /* a.swift in Sources */,
 				D7A5666C22588BC1002EF185 /* HTTPMethod.swift in Sources */,
 				D7C2A49222670A3E00A6AF18 /* String+toArray.swift in Sources */,
 				D77E9591227FD48D000A7B21 /* KeyboardDownControlButton.swift in Sources */,
@@ -465,12 +502,15 @@
 				D718EBBF2252CFA300727383 /* AppDelegate.swift in Sources */,
 				D7A56683225A1316002EF185 /* JavaScriptAutoCompleter.swift in Sources */,
 				D7AF14B52285762600022937 /* PHP.swift in Sources */,
+				D72EB15F2294CB33007A35EA /* KeyboardView.swift in Sources */,
 				D72BB8D72254C7F80043D909 /* CodeSyntaxHighlighter.swift in Sources */,
 				D7F1825C2265E7FC00CD4413 /* DescriptionPage.swift in Sources */,
 				D75BD388227E660700AA7E7F /* KeyboardHomeControlButton.swift in Sources */,
 				D77E958F227FCD63000A7B21 /* KeyboardRightControlButton.swift in Sources */,
+				D77059AE2292357700E66D7B /* LessonViewController.swift in Sources */,
 				D709EB80228679F10079BFF9 /* FileCrawler.swift in Sources */,
 				D7F1825A2265E7C400CD4413 /* DescriptionImageCollectionViewController.swift in Sources */,
+				D7F9652D229280860086E98A /* CyntaxHighlighter.swift in Sources */,
 				D7C2A4962267E8EA00A6AF18 /* AnswerChecker.swift in Sources */,
 				D77E959A227FF995000A7B21 /* KeyboardInputButton.swift in Sources */,
 				D77E9595227FECC9000A7B21 /* KeyboardDeleteControlButton.swift in Sources */,

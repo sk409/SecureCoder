@@ -42,4 +42,13 @@ extension String {
         return true
     }
     
+    func isNumber() -> Bool {
+        for character in self {
+            if !character.isNumber {
+                return false
+            }
+        }
+        return true
+    }
+    
 }
