@@ -4,7 +4,7 @@ class SelectLessonViewController: UIViewController {
     
     @IBOutlet weak private var lessonTableView: UITableView!
     
-    private var lessonType = LessonType.htmlcss
+    //private var lessonType = LessonType.htmlcss
     
     
     override func viewDidLoad() {
@@ -12,9 +12,9 @@ class SelectLessonViewController: UIViewController {
         setupLessonTableView()
     }
     
-    func setLessonType(_ lessonType: LessonType) {
-        self.lessonType = lessonType
-    }
+//    func setLessonType(_ lessonType: LessonType) {
+//        self.lessonType = lessonType
+//    }
     
     private func setupLessonTableView() {
         lessonTableView.tableFooterView = UIView()

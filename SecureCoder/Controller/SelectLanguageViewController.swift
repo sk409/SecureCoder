@@ -12,25 +12,25 @@ class SelectLanguageViewController: UIViewController {
     }
     
     @IBAction func handleHTMLCSSButton(_ sender: Any) {
-        transitionToSelectLessonViewController(lessonType: .htmlcss)
+        //transitionToSelectLessonViewController(lessonType: .htmlcss)
     }
     
     @IBAction func handleJavaScriptButton(_ sender: Any) {
-        transitionToSelectLessonViewController(lessonType: .javaScript)
+        //transitionToSelectLessonViewController(lessonType: .javaScript)
     }
     
     
     @IBAction func handlePHPButton(_ sender: Any) {
-        transitionToSelectLessonViewController(lessonType: .php)
+        //transitionToSelectLessonViewController(lessonType: .php)
     }
     
-    private func transitionToSelectLessonViewController(lessonType: LessonType) {
-        guard let selectLessonViewController = storyboard?.instantiateViewController(withIdentifier: "SelectLessonViewController") as? SelectLessonViewController else {
-            return
-        }
-        selectLessonViewController.setLessonType(lessonType)
-        show(selectLessonViewController, sender: nil)
-    }
+//    private func transitionToSelectLessonViewController(lessonType: LessonType) {
+//        guard let selectLessonViewController = storyboard?.instantiateViewController(withIdentifier: "SelectLessonViewController") as? SelectLessonViewController else {
+//            return
+//        }
+//        selectLessonViewController.setLessonType(lessonType)
+//        show(selectLessonViewController, sender: nil)
+//    }
     
     
 }

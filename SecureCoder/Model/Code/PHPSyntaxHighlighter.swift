@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-struct PHPSyntaxHighlighter: CodeSyntaxHighlighter {
+struct PHPSyntaxHighlighter {
     
     private(set) var defaultColor: UIColor
     private(set) var font: UIFont

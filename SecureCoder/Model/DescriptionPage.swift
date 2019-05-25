@@ -1,5 +1,5 @@
-import UIKit
-
-struct DescriptionPage {
-    let image: UIImage
-}
+//import UIKit
+//
+//struct DescriptionPage {
+//    let image: UIImage
+//}

@@ -8,7 +8,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Application.shared.initialize()
+        window = UIWindow()
+        window?.makeKeyAndVisible()
+        //window?.rootViewController = ProgramingLanguageSelectionViewController()
+        let lessonViewController = LessonViewController()
+        lessonViewController.lesson = HTML11()
+        window?.rootViewController = lessonViewController
         return true
     }
 

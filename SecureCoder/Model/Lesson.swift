@@ -22,9 +22,14 @@ protocol Lesson {
 
 struct HTML11: Lesson {
     
+    let title = "HTML,CSSの世界へようこそ"
+    
     let text = """
 @[@html@]@#[#<!-- HTML5のDOCTYPE宣言をしてください -->#]#
 ?[?<!DOCTYPE html>?]?
+
+#[#<!-- 見出しレベル１でマークアップしてください -->#]#
+?[?<h1>?]?#[#Hello World#]#?[?</h1>?]?
 """
     
     let slides = [

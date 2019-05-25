@@ -1,6 +1,6 @@
 import UIKit
 
-struct HTMLSyntaxHighlighter: CodeSyntaxHighlighter {
+struct HTMLSyntaxHighlighter {
     
     let defaultColor: UIColor
     

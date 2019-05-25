@@ -1,5 +1,5 @@
-
-enum HTTPMethod {
-    case get
-    case post
-}
+//
+//enum HTTPMethod {
+//    case get
+//    case post
+//}
