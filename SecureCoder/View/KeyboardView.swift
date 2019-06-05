@@ -4,7 +4,6 @@ class KeyboardView: UIView {
     
     static let rowCount = 3
     static let columnCount = 3
-//    static let buttonSize: CGFloat = 44
     
     let contentView = UIStackView()
     
@@ -79,6 +78,7 @@ class KeyboardView: UIView {
                 button.backgroundColor = UIColor(white: 0.35, alpha: 1)
                 button.layer.borderColor = UIColor.white.cgColor
                 button.layer.borderWidth = 0.25
+                //button.layer.cornerRadius = 22
                 button.setTitleColor(.white, for: .normal)
             }
         }

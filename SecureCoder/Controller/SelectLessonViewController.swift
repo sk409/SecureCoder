@@ -33,9 +33,9 @@ extension SelectLessonViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let lessonViewController = LessonViewController()
-        lessonViewController.lesson = HTML11()
-        show(lessonViewController, sender: nil)
+//        let lessonViewController = LessonViewController()
+//        lessonViewController.lesson = HTML11()
+//        show(lessonViewController, sender: nil)
     }
     
 //    func numberOfSections(in tableView: UITableView) -> Int {

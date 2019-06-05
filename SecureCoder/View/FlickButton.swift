@@ -2,25 +2,25 @@ import UIKit
 
 protocol FlickButtonDelegate {
     
-    func flickButton(_ flickButton: FlickButton, componentsWillAppear: [FlickButton.Position: UIView])
-    func flickButton(_ flickButton: FlickButton, componentsDidAppear: [FlickButton.Position: UIView])
-    func flickButton(_ flickButton: FlickButton, didFlick view: UIView)
-    func flickButton(_ flickButton: FlickButton, componentsWillDisappear: [FlickButton.Position: UIView])
-    func flickButton(_ flickButton: FlickButton, componentsDidDisappear: [FlickButton.Position: UIView])
+    func flickButton(_ flickButton: FlickButton, componentsWillAppear: [FlickButton.Location: UIView])
+    func flickButton(_ flickButton: FlickButton, componentsDidAppear: [FlickButton.Location: UIView])
+    func flickButton(_ flickButton: FlickButton, didFlick activatedView: UIView)
+    func flickButton(_ flickButton: FlickButton, componentsWillDisappear: [FlickButton.Location: UIView])
+    func flickButton(_ flickButton: FlickButton, componentsDidDisappear: [FlickButton.Location: UIView])
     
 }
 
 extension FlickButtonDelegate {
-    func flickButton(_ flickButton: FlickButton, componentsWillAppear: [FlickButton.Position: UIView]) {}
-    func flickButton(_ flickButton: FlickButton, componentsDidAppear: [FlickButton.Position: UIView]) {}
-    func flickButton(_ flickButton: FlickButton, didFlick view: UIView) {}
-    func flickButton(_ flickButton: FlickButton, componentsWillDisappear: [FlickButton.Position: UIView]) {}
-    func flickButton(_ flickButton: FlickButton, componentsDidDisappear: [FlickButton.Position: UIView]) {}
+    func flickButton(_ flickButton: FlickButton, componentsWillAppear: [FlickButton.Location: UIView]) {}
+    func flickButton(_ flickButton: FlickButton, componentsDidAppear: [FlickButton.Location: UIView]) {}
+    func flickButton(_ flickButton: FlickButton, didFlick activatedView: UIView) {}
+    func flickButton(_ flickButton: FlickButton, componentsWillDisappear: [FlickButton.Location: UIView]) {}
+    func flickButton(_ flickButton: FlickButton, componentsDidDisappear: [FlickButton.Location: UIView]) {}
 }
 
 class FlickButton: UIButton {
     
-    enum Position {
+    enum Location {
         case top
         case bottom
         case left
@@ -97,7 +97,7 @@ class FlickButton: UIButton {
     var delegate: FlickButtonDelegate?
     var componentMargins = UIEdgeInsets.zero
     
-    private(set) var componentViews = [Position: UIView]()
+    private(set) var componentViews = [Location: UIView]()
     
     private var timer: Timer?
     

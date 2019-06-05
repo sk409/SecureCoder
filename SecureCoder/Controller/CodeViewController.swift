@@ -1,6 +1,7 @@
 import UIKit
+import WebKit
 
-class LessonViewController: UIViewController {
+class CodeViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool {
         return true
@@ -10,6 +11,7 @@ class LessonViewController: UIViewController {
     
     private let keyboardView = KeyboardView()
     private let codeEditorView = CodeEditorView()
+    private let previewWebView = WKWebView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,15 +21,16 @@ class LessonViewController: UIViewController {
     }
     
     private func setupSubviews() {
+        
         view.addSubview(codeEditorView)
         codeEditorView.text = lesson?.text
         codeEditorView.questions.forEach { $0.addTarget(self, action: #selector(handleQuestionTextFieldEditingChangedEvent(_:)), for: .editingChanged) }
         codeEditorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            codeEditorView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             codeEditorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             codeEditorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             codeEditorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            codeEditorView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.55)
             ])
         guard let question = codeEditorView.activeQuestion else {
             return
@@ -39,6 +42,15 @@ class LessonViewController: UIViewController {
         keyboardView.setTitlesRandom(answer: String(question.answer[0]))
         keyboardView.buttons.forEach { $0.addTarget(self, action: #selector(handleKeyboardButtonTouchUpInsideEvent(_:)), for: .touchUpInside) }
         moveKeyboard(to: question)
+        
+        view.addSubview(previewWebView)
+        previewWebView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            previewWebView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            previewWebView.trailingAnchor.constraint(equalTo: codeEditorView.leadingAnchor),
+            previewWebView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            previewWebView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            ])
     }
     
     private func showSlide() {

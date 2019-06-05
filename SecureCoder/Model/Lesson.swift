@@ -1,3 +1,4 @@
+import Foundation
 
 struct Slide {
     let title: String
@@ -10,49 +11,56 @@ struct Description {
     let content: String
 }
 
-protocol Lesson {
+struct Lesson {
     
-    var text: String { get }
-    
-    var slides: [Slide] { get }
-    
-    var descriptios: [Description] { get }
+    let title: String
+    let text: String
+    let url: URL
+    let slides: [Slide]
+    let descriptios: [Description]
     
 }
 
-struct HTML11: Lesson {
+struct File {
     
-    let title = "HTML,CSSの世界へようこそ"
-    
-    let text = """
-@[@html@]@#[#<!-- HTML5のDOCTYPE宣言をしてください -->#]#
-?[?<!DOCTYPE html>?]?
-
-#[#<!-- 見出しレベル１でマークアップしてください -->#]#
-?[?<h1>?]?#[#Hello World#]#?[?</h1>?]?
-"""
-    
-    let slides = [
-        Slide(
-            title: "HTML,CSSの世界へようこそ",
-            content: "HTML,CSSはWebサイトを作るための言語です。\n以下のようなサイトもHTML,CSSのみで作成することができます。",
-            imageName: nil
-        ),
-        Slide(title: "DOCTYPE宣言",
-              content: "DOCTYPE宣言はサイト内で使われるHTMLのバージョンを指定します。\n現在最もよく使われているのは「HTML5」です。",
-              imageName: nil
-        ),
-        Slide(title: "HTML5",
-              content: "HTML5を用いてWebサイトを作成するには最初に、「<!DOCTYPE html>」と記述します。",
-              imageName: nil
-        ),
-    ]
-    
-    let descriptios = [
-        Description(title: "演習1-1", content: "DOCTYPE宣言をしてみよう。")
-    ]
+    let name: String
+    let text: String
     
 }
+
+//struct HTML11: Lesson {
+//
+//    let title = "HTML,CSSの世界へようこそ"
+//
+//    let text = """
+//@[@html@]@#[#<!-- HTML5のDOCTYPE宣言をしてください -->#]#
+//?[?<!DOCTYPE html>?]?
+//
+//#[#<!-- 見出しレベル１でマークアップしてください -->#]#
+//?[?<h1>?]?#[#Hello World#]#?[?</h1>?]?
+//"""
+//
+//    let slides = [
+//        Slide(
+//            title: "HTML,CSSの世界へようこそ",
+//            content: "HTML,CSSはWebサイトを作るための言語です。\n以下のようなサイトもHTML,CSSのみで作成することができます。",
+//            imageName: nil
+//        ),
+//        Slide(title: "DOCTYPE宣言",
+//              content: "DOCTYPE宣言はサイト内で使われるHTMLのバージョンを指定します。\n現在最もよく使われているのは「HTML5」です。",
+//              imageName: nil
+//        ),
+//        Slide(title: "HTML5",
+//              content: "HTML5を用いてWebサイトを作成するには最初に、「<!DOCTYPE html>」と記述します。",
+//              imageName: nil
+//        ),
+//    ]
+//
+//    let descriptios = [
+//        Description(title: "演習1-1", content: "DOCTYPE宣言をしてみよう。")
+//    ]
+//
+//}
 
 //import Foundation
 //

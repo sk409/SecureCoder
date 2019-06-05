@@ -8,12 +8,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        Application.initialize()
         window = UIWindow()
         window?.makeKeyAndVisible()
-        //window?.rootViewController = ProgramingLanguageSelectionViewController()
-        let lessonViewController = LessonViewController()
-        lessonViewController.lesson = HTML11()
-        window?.rootViewController = lessonViewController
+        let templateViewContainer = TemplateViewController()
+        templateViewContainer.setContentViewController(CoursesViewController(), options: nil)
+        window?.rootViewController = templateViewContainer
+        //window?.rootViewController = CoursesViewController()
+//        let lessonViewController = LessonViewController()
+//        lessonViewController.lesson = HTML11()
+//        window?.rootViewController = lessonViewController
         return true
     }
 
