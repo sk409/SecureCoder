@@ -8,7 +8,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        Application.initialize()
+        let _ = Application.shared
         window = UIWindow()
         window?.makeKeyAndVisible()
         let templateViewContainer = TemplateViewController()

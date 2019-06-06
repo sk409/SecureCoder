@@ -22,35 +22,35 @@ class CodeViewController: UIViewController {
     
     private func setupSubviews() {
         
-        view.addSubview(codeEditorView)
-        codeEditorView.text = lesson?.text
-        codeEditorView.questions.forEach { $0.addTarget(self, action: #selector(handleQuestionTextFieldEditingChangedEvent(_:)), for: .editingChanged) }
-        codeEditorView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            codeEditorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            codeEditorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            codeEditorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            codeEditorView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.55)
-            ])
-        guard let question = codeEditorView.activeQuestion else {
-            return
-        }
-        let size: CGFloat = 128
-        codeEditorView.scrollView.addSubview(keyboardView)
-        keyboardView.frame = CGRect(origin: .zero, size: CGSize(width: size, height: size))
-        keyboardView.backgroundColor = UIColor(white: 0.25, alpha: 1)
-        keyboardView.setTitlesRandom(answer: String(question.answer[0]))
-        keyboardView.buttons.forEach { $0.addTarget(self, action: #selector(handleKeyboardButtonTouchUpInsideEvent(_:)), for: .touchUpInside) }
-        moveKeyboard(to: question)
-        
-        view.addSubview(previewWebView)
-        previewWebView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            previewWebView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            previewWebView.trailingAnchor.constraint(equalTo: codeEditorView.leadingAnchor),
-            previewWebView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            previewWebView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            ])
+//        view.addSubview(codeEditorView)
+//        codeEditorView.text = lesson?.text
+//        codeEditorView.questions.forEach { $0.addTarget(self, action: #selector(handleQuestionTextFieldEditingChangedEvent(_:)), for: .editingChanged) }
+//        codeEditorView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            codeEditorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+//            codeEditorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            codeEditorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            codeEditorView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.55)
+//            ])
+//        guard let question = codeEditorView.activeQuestion else {
+//            return
+//        }
+//        let size: CGFloat = 128
+//        codeEditorView.scrollView.addSubview(keyboardView)
+//        keyboardView.frame = CGRect(origin: .zero, size: CGSize(width: size, height: size))
+//        keyboardView.backgroundColor = UIColor(white: 0.25, alpha: 1)
+//        keyboardView.setTitlesRandom(answer: String(question.answer[0]))
+//        keyboardView.buttons.forEach { $0.addTarget(self, action: #selector(handleKeyboardButtonTouchUpInsideEvent(_:)), for: .touchUpInside) }
+//        moveKeyboard(to: question)
+//        
+//        view.addSubview(previewWebView)
+//        previewWebView.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            previewWebView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+//            previewWebView.trailingAnchor.constraint(equalTo: codeEditorView.leadingAnchor),
+//            previewWebView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+//            previewWebView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+//            ])
     }
     
     private func showSlide() {

@@ -1,12 +1,12 @@
 import Foundation
 
-struct Slide {
+struct Slide: Codable {
     let title: String
     let content: String
     let imageName: String?
 }
 
-struct Description {
+struct Description: Codable {
     let title: String
     let content: String
 }
@@ -14,7 +14,7 @@ struct Description {
 struct Lesson {
     
     let title: String
-    let text: String
+    let files: [File]
     let url: URL
     let slides: [Slide]
     let descriptios: [Description]
@@ -23,7 +23,7 @@ struct Lesson {
 
 struct File {
     
-    let name: String
+    let title: String
     let text: String
     
 }
