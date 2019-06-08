@@ -10,6 +10,8 @@ struct SyntaxHighlighter {
         switch language {
         case .html:
             return HTMLSyntaxHighlighter(defaultColor: defaultColor, font: font).syntaxHighlight(text)
+//        case .css:
+//            return HTMLSyntaxHighlighter(defaultColor: defaultColor, font: font).syntaxHighlight(text)
         case .javaScript:
             return PHPSyntaxHighlighter(defaultColor: defaultColor, font: font).syntaxHighlight(text)
         case .php:

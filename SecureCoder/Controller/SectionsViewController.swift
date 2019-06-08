@@ -90,7 +90,7 @@ class SectionsViewController: UIViewController {
     
     @objc
     private func handleBackButtonTouchUpInsideEvent(_ sender: UIButton) {
-        (parent as? TemplateViewController)?.setContentViewController(CoursesViewController(), options: .transitionCurlUp)
+        (parent as? TemplateViewController)?.setContentViewController(CoursesViewController(), options: .transitionCurlDown)
     }
     
 }

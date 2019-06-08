@@ -10,6 +10,7 @@
 		D70643C1227D66320034B858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70643C0227D66320034B858 /* Assets.xcassets */; };
 		D709EB80228679F10079BFF9 /* FileCrawler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D709EB7F228679F10079BFF9 /* FileCrawler.swift */; };
 		D70EE72422A797D9000EEC85 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EE72322A797D9000EEC85 /* TemplateViewController.swift */; };
+		D715CA0522AB2C360087CAB9 /* UserFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D715CA0422AB2C360087CAB9 /* UserFileManager.swift */; };
 		D718EBBF2252CFA300727383 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D718EBBE2252CFA300727383 /* AppDelegate.swift */; };
 		D718EBC72252CFA300727383 /* SecureCoder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D718EBC52252CFA300727383 /* SecureCoder.xcdatamodeld */; };
 		D718EBCC2252CFA500727383 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D718EBCA2252CFA500727383 /* LaunchScreen.storyboard */; };
@@ -77,6 +78,7 @@
 		D7A56683225A1316002EF185 /* JavaScriptAutoCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A56682225A1316002EF185 /* JavaScriptAutoCompleter.swift */; };
 		D7A56685225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A56684225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift */; };
 		D7A56687225A17D3002EF185 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A56686225A17D3002EF185 /* Lesson.swift */; };
+		D7A9F1A722AA9D920049C0DE /* LessonTextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A9F1A622AA9D920049C0DE /* LessonTextParser.swift */; };
 		D7AF14AD228524B100022937 /* String+is~.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF14AC228524B100022937 /* String+is~.swift */; };
 		D7AF14B12285524600022937 /* PHPAutoCorrectSuggester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF14B02285524600022937 /* PHPAutoCorrectSuggester.swift */; };
 		D7AF14B52285762600022937 /* PHP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF14B42285762600022937 /* PHP.swift */; };
@@ -100,6 +102,7 @@
 		D70643C0227D66320034B858 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D709EB7F228679F10079BFF9 /* FileCrawler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCrawler.swift; sourceTree = "<group>"; };
 		D70EE72322A797D9000EEC85 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
+		D715CA0422AB2C360087CAB9 /* UserFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFileManager.swift; sourceTree = "<group>"; };
 		D718EBBB2252CFA300727383 /* SecureCoder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecureCoder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D718EBBE2252CFA300727383 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D718EBC62252CFA300727383 /* SecureCoder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SecureCoder.xcdatamodel; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 		D7A56682225A1316002EF185 /* JavaScriptAutoCompleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptAutoCompleter.swift; sourceTree = "<group>"; };
 		D7A56684225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D7A56686225A17D3002EF185 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
+		D7A9F1A622AA9D920049C0DE /* LessonTextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTextParser.swift; sourceTree = "<group>"; };
 		D7AF14AC228524B100022937 /* String+is~.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+is~.swift"; sourceTree = "<group>"; };
 		D7AF14B02285524600022937 /* PHPAutoCorrectSuggester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPAutoCorrectSuggester.swift; sourceTree = "<group>"; };
 		D7AF14B42285762600022937 /* PHP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHP.swift; sourceTree = "<group>"; };
@@ -335,6 +339,8 @@
 				D71C2C2522A0F656008CCCD0 /* CourseCard.swift */,
 				D75A99D322A29B080086E710 /* Course.swift */,
 				D75A99D522A29B530086E710 /* Section.swift */,
+				D7A9F1A622AA9D920049C0DE /* LessonTextParser.swift */,
+				D715CA0422AB2C360087CAB9 /* UserFileManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -512,6 +518,7 @@
 				D724D4302283C5E2009176C3 /* KeyboardShiftControlButton.swift in Sources */,
 				D7722E812293A3FC00A749BF /* SlideCollectionViewCell.swift in Sources */,
 				D7A5667B2259FF39002EF185 /* LessonType.swift in Sources */,
+				D7A9F1A722AA9D920049C0DE /* LessonTextParser.swift in Sources */,
 				D77E9589227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift in Sources */,
 				D76F60AC225743B40044C0AF /* EditorTextView.swift in Sources */,
 				D7A56668225822B0002EF185 /* CoderManager.swift in Sources */,
@@ -535,6 +542,7 @@
 				D75AFF2E2290FBE70025BAF2 /* UIColor+ApplicationColor.swift in Sources */,
 				D7E45A85227D424300E54FCC /* a.swift in Sources */,
 				D7A5666C22588BC1002EF185 /* HTTPMethod.swift in Sources */,
+				D715CA0522AB2C360087CAB9 /* UserFileManager.swift in Sources */,
 				D7C2A49222670A3E00A6AF18 /* String+toArray.swift in Sources */,
 				D77E9591227FD48D000A7B21 /* KeyboardDownControlButton.swift in Sources */,
 				D7319A9A2298F20500369273 /* CodeEditorView.swift in Sources */,
@@ -749,7 +757,7 @@
 				D718EBCF2252CFA500727383 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		D718EBD02252CFA500727383 /* Build configuration list for PBXNativeTarget "SecureCoder" */ = {
 			isa = XCConfigurationList;
@@ -758,7 +766,7 @@
 				D718EBD22252CFA500727383 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

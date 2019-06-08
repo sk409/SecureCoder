@@ -5,7 +5,7 @@ class CodeEditorView: UIView {
     var font = UIFont.systemFont(ofSize: 16)
     var textColor = UIColor.white
     
-    var text: String? {
+    var lessonText: String? {
         didSet {
             parseText()
             setNextQuestion()
@@ -19,7 +19,9 @@ class CodeEditorView: UIView {
     let scrollView = UIScrollView()
     
     private(set) var questions = [QuestionTextField]()
-    private var activeQuestionIndex = -1
+    private(set) var activeQuestionIndex = -1
+    
+    private var pointer = CGRect.zero
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,45 +57,50 @@ class CodeEditorView: UIView {
     }
     
     private func parseText() {
-        guard let text = text else {
+        
+        guard let lessonText = lessonText else {
             return
         }
-        var cache = ""
-        var index = 0
-        var pointer = CGRect(x: safeAreaInsets.left, y: safeAreaInsets.top, width: 0, height: 0)
-        var language: ProgramingLanguage?
-        let updateContentSize: () -> Void = {
-            self.scrollView.contentSize.width = max(self.scrollView.contentSize.width, pointer.origin.x + pointer.width)
-            self.scrollView.contentSize.height = max(self.scrollView.contentSize.height, pointer.origin.y + pointer.height)
-        }
-        while index <= (text.count - 1) {
-            let character = text[index]
-            cache.append(character)
-            if cache == "\n" {
-                pointer = addNewLine(pointer: pointer)
-                updateContentSize()
-                cache.removeAll()
-            } else if cache == " " && !cache.hasPrefix("@[@") && !cache.hasPrefix("?[?") && !cache.hasPrefix("#[#") {
-                pointer = addSpace(pointer: pointer)
-                updateContentSize()
-                cache.removeAll()
-            } else if cache.hasPrefix("@[@") && cache.hasSuffix("@]@") {
-                language = ProgramingLanguage(rawValue: String(cache[3...(cache.count - 4)]))
-                cache.removeAll()
-            } else if cache.hasPrefix("?[?") && cache.hasSuffix("?]?") {
-                pointer = addQuestion(answer: String(cache[3...(cache.count - 4)]), language: language!, pointer: pointer)
-                updateContentSize()
-                cache.removeAll()
-            } else if cache.hasPrefix("#[#") && cache.hasSuffix("#]#") {
-                pointer = addTemplate(text: String(cache[3...(cache.count - 4)]), language: language!, pointer: pointer)
-                updateContentSize()
-                cache.removeAll()
-            }
-            index += 1
-        }
+        pointer = CGRect(x: safeAreaInsets.left, y: safeAreaInsets.top, width: 0, height: 0)
+        let parser = LessonTextParser(delegate: self)
+        _ = parser.parse(lessonText)
+        
+        
+        
+//        var language: ProgramingLanguage?
+//        let updateContentSize: () -> Void = {
+//            self.scrollView.contentSize.width = max(self.scrollView.contentSize.width, pointer.origin.x + pointer.width)
+//            self.scrollView.contentSize.height = max(self.scrollView.contentSize.height, pointer.origin.y + pointer.height)
+//        }
+//        while index <= (lessonText.count - 1) {
+//            let character = lessonText[index]
+//            cache.append(character)
+//            if cache == "\n" {
+//                pointer = addNewLine(pointer: pointer)
+//                updateContentSize()
+//                cache.removeAll()
+//            } else if cache == " " && !cache.hasPrefix("@[@") && !cache.hasPrefix("?[?") && !cache.hasPrefix("#[#") {
+//                pointer = addSpace(pointer: pointer)
+//                updateContentSize()
+//                cache.removeAll()
+//            } else if cache.hasPrefix("@[@") && cache.hasSuffix("@]@") {
+//                language = ProgramingLanguage(rawValue: String(cache[3...(cache.count - 4)]))
+//                cache.removeAll()
+//            } else if cache.hasPrefix("?[?") && cache.hasSuffix("?]?") {
+//                pointer = addQuestion(answer: String(cache[3...(cache.count - 4)]), index: answerIndex, language: language!, pointer: pointer)
+//                answerIndex += 1
+//                updateContentSize()
+//                cache.removeAll()
+//            } else if cache.hasPrefix("#[#") && cache.hasSuffix("#]#") {
+//                pointer = addTemplate(text: String(cache[3...(cache.count - 4)]), language: language!, pointer: pointer)
+//                updateContentSize()
+//                cache.removeAll()
+//            }
+//            index += 1
+//        }
     }
     
-    private func addQuestion(answer: String, language: ProgramingLanguage, pointer: CGRect) -> CGRect {
+    private func addQuestion(answer: String, language: ProgramingLanguage) {
         let question = QuestionTextField(answer: answer, language: language)
         scrollView.addSubview(question)
         questions.append(question)
@@ -110,10 +117,10 @@ class CodeEditorView: UIView {
         let x = pointer.origin.x + pointer.width + 5
         let y = pointer.origin.y
         question.frame = CGRect(x: x, y: y, width: size.width, height: size.height + 5)
-        return question.frame
+        pointer = question.frame
     }
     
-    private func addTemplate(text: String, language: ProgramingLanguage, pointer: CGRect) -> CGRect {
+    private func addTemplate(text: String, language: ProgramingLanguage) {
         let template = UILabel()
         scrollView.addSubview(template)
         template.backgroundColor = .clear
@@ -123,17 +130,17 @@ class CodeEditorView: UIView {
         let x = pointer.origin.x + pointer.width + 5
         let y = pointer.origin.y
         template.frame = CGRect(x: x, y: y, width: size.width, height: size.height + 5)
-        return template.frame
+        pointer = template.frame
     }
     
-    private func addNewLine(pointer: CGRect) -> CGRect {
-        let lineHeight: CGFloat = 15
-        return CGRect(x: 0, y: pointer.origin.y + pointer.height + lineHeight, width: 0, height: 0)
+    private func addNewLine() {
+        let lineMargin: CGFloat = 5
+        pointer = CGRect(x: 0, y: pointer.origin.y + pointer.height + lineMargin, width: 0, height: 0)
     }
     
-    private func addSpace(pointer: CGRect) -> CGRect {
+    private func addSpace() {
         let spaceSize = " ".size(withAttributes: [.font: font])
-        return CGRect(
+        pointer = CGRect(
             x: pointer.origin.x + pointer.width,
             y: pointer.origin.y,
             width: spaceSize.width,
@@ -149,6 +156,26 @@ class CodeEditorView: UIView {
         question.attributedText = SyntaxHighlighter.decorate(question.text, defaultColor: textColor, font: font, language: question.language)
         let textSize = question.text?.size(withAttributes: [.font: font]) ?? .zero
         question.caret.frame.origin.x = textSize.width
+    }
+    
+}
+
+extension CodeEditorView: LessonTextParserDelegate {
+    
+    func lessonTextParser(_ lessonTextParser: LessonTextParser, token: LessonTextParser.Token, text: String, language: ProgramingLanguage?) {
+        guard let language = language else {
+            return
+        }
+        switch token {
+        case .newLine:
+            addNewLine()
+        case .space:
+            addSpace()
+        case .question:
+            addQuestion(answer: text, language: language)
+        case .template:
+            addTemplate(text: text, language: language)
+        }
     }
     
 }

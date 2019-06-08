@@ -7,6 +7,10 @@ class QuestionTextField: UITextField {
     
     let caret = CaretView()
     
+    var isCompleted: Bool {
+        return text == answer
+    }
+    
     init(answer: String, language: ProgramingLanguage) {
         self.answer = answer
         self.language = language
@@ -24,7 +28,7 @@ class QuestionTextField: UITextField {
     
     private func setupSubviews() {
         addSubview(caret)
-        caret.frame = CGRect(origin: .zero, size: CGSize(width: 1, height: bounds.height))
+        caret.frame = CGRect(origin: caret.frame.origin, size: CGSize(width: 1, height: bounds.height))
         caret.backgroundColor = .turquoiseBlue
     }
     

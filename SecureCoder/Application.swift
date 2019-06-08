@@ -95,7 +95,17 @@ struct Application {
 //            ]),
 //    ]
     
-    let courses: [Course]
+    private let courses: [Course]
+    
+    func course(_ language: ProgramingLanguage) -> Course? {
+        for course in courses {
+            guard course.language == language else {
+                continue
+            }
+            return course
+        }
+        return nil
+    }
     
 //    func initialize() {
 //        guard let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
@@ -204,7 +214,7 @@ struct Application {
     
     private init() {
         var courses = [Course]()
-        guard let appURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("SecureCoder") else {
+        guard let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             self.courses = []
             return
         }
@@ -231,6 +241,14 @@ struct Application {
                 }
                 var lessons = [Lesson]()
                 for lessonTitle in lessonTitles {
+                    let userDirectoryURL = documentURL.appendingPathComponent(courseTitle).appendingPathComponent(sectionTitle).appendingPathComponent(lessonTitle)
+                    if !FileManager.default.fileExists(atPath: userDirectoryURL.path) {
+                        do {
+                            try FileManager.default.createDirectory(at: userDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+                        } catch {
+                            Application.writeErrorLog(error.localizedDescription)
+                        }
+                    }
                     let contentURL = lessonURL.appendingPathComponent(lessonTitle)
                     guard let contents = try? FileManager.default.contentsOfDirectory(atPath: contentURL.path) else {
                         self.courses = []
@@ -252,7 +270,7 @@ struct Application {
                                     self.courses = []
                                     return
                                 }
-                                files.append(File(title: fileTitle, text: text))
+                                files.append(File(title: fileTitle, text: text, url: fileURL, userURL: userDirectoryURL.appendingPathComponent(fileTitle)))
                             }
                         } else if content == "slides" {
                             for slideTitle in contentTitles {
@@ -285,14 +303,17 @@ struct Application {
                     lessons.append(Lesson(
                         title: lessonTitle,
                         files: files,
-                        url: appURL.appendingPathComponent(courseTitle).appendingPathComponent(sectionTitle).appendingPathComponent(lessonTitle),
                         slides: slides,
                         descriptios: descriptions
                     ))
                 }
                 sections.append(Section(title: sectionTitle, lessons: lessons))
             }
-            courses.append(Course(language: .html, title: courseTitle, sections: sections))
+            guard let language = ProgramingLanguage(rawValue: courseTitle) else {
+                self.courses = []
+                return
+            }
+            courses.append(Course(language: language, title: courseTitle, sections: sections))
         }
         self.courses = courses
     }

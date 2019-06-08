@@ -15,9 +15,23 @@ struct Lesson {
     
     let title: String
     let files: [File]
-    let url: URL
     let slides: [Slide]
     let descriptios: [Description]
+    private(set) var index: File?
+    
+    init(title: String, files: [File], slides: [Slide], descriptios: [Description]) {
+        self.title = title
+        self.files = files
+        self.slides = slides
+        self.descriptios = descriptios
+        for file in files {
+            guard file.title.contains("index") else {
+                return
+            }
+            index = file
+            break
+        }
+    }
     
 }
 
@@ -25,6 +39,8 @@ struct File {
     
     let title: String
     let text: String
+    let url: URL
+    let userURL: URL
     
 }
 
