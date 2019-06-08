@@ -83,7 +83,7 @@ class SectionsViewController: UIViewController {
     }
     
     private func transitionToCodeViewController(with lesson: Lesson) {
-        let codeViewController = CodeViewController()
+        let codeViewController = CodeEditorViewController()
         codeViewController.lesson = lesson
         present(codeViewController, animated: true)
     }

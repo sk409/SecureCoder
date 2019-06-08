@@ -32,6 +32,37 @@ class TemplateViewController: UIViewController {
             containerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             containerView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.85)
             ])
+        let toolsView = UIView()
+        view.addSubview(toolsView)
+        toolsView.backgroundColor = .white
+        toolsView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolsView.leadingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            toolsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            toolsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            toolsView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            ])
+        let button = UIButton()
+        button.backgroundColor = .red
+        button.addTarget(self, action: #selector(handleButton(_:)), for: .touchUpInside)
+        let toolsStackView = UIStackView(arrangedSubviews: [button])
+        toolsView.addSubview(toolsStackView)
+        toolsStackView.axis = .vertical
+        toolsStackView.distribution = .fillEqually
+        toolsStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolsStackView.leadingAnchor.constraint(equalTo: toolsView.safeAreaLayoutGuide.leadingAnchor),
+            toolsStackView.trailingAnchor.constraint(equalTo: toolsView.safeAreaLayoutGuide.trailingAnchor),
+            toolsStackView.topAnchor.constraint(equalTo: toolsView.safeAreaLayoutGuide.topAnchor),
+            toolsStackView.bottomAnchor.constraint(equalTo: toolsView.safeAreaLayoutGuide.bottomAnchor),
+            ])
+    }
+    
+    @objc
+    private func handleButton(_ sender: UIButton) {
+        let profileViewController = UIViewController()
+        profileViewController.view.backgroundColor = .blue
+        setContentViewController(profileViewController, options: .transitionFlipFromLeft)
     }
     
 }

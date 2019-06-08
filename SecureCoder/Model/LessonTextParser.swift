@@ -15,6 +15,10 @@ struct LessonTextParser {
     }
     
     var delegate: LessonTextParserDelegate?
+    var newLineHandler: (() -> Void)?
+    var spaceHandler: (() -> Void)?
+    var questionHandler: ((String, ProgramingLanguage) -> Void)?
+    var templateHandler: ((String, ProgramingLanguage) -> Void)?
     
     func parse(_ lessonText: String) -> String {
         var text = ""
@@ -28,10 +32,12 @@ struct LessonTextParser {
             if cache == "\n" {
                 text += "\n"
                 delegate?.lessonTextParser(self, token: .newLine, text: "\n", language: language)
+                newLineHandler?()
                 cache.removeAll()
             } else if cache == " " && !cache.hasPrefix("@[@") && !cache.hasPrefix("?[?") && !cache.hasPrefix("#[#") {
                 text += " "
                 delegate?.lessonTextParser(self, token: .space, text: " ", language: language)
+                spaceHandler?()
                 cache.removeAll()
             } else if cache.hasPrefix("@[@") && cache.hasSuffix("@]@") {
                 language = ProgramingLanguage(rawValue: String(cache[3...(cache.count - 4)]))
@@ -42,11 +48,17 @@ struct LessonTextParser {
                 text += "<!--" + String(answerIndex) + "-->"
                 answerIndex += 1
                 delegate?.lessonTextParser(self, token: .question, text: answer, language: language)
+                if language != nil {
+                    questionHandler?(answer, language!)
+                }
                 cache.removeAll()
             } else if cache.hasPrefix("#[#") && cache.hasSuffix("#]#") {
                 let template = String(cache[3...(cache.count - 4)])
                 text += template
                 delegate?.lessonTextParser(self, token: .template, text: template, language: language)
+                if language != nil {
+                    templateHandler?(template, language!)
+                }
                 cache.removeAll()
             }
             lessonTextIndex += 1
