@@ -19,9 +19,11 @@ class CodeEditorView: UIView {
     let scrollView = UIScrollView()
     
     var questions = [QuestionTextField]()
-    //private(set) var activeQuestionIndex = -1
+    var activeQuestion: QuestionTextField? {
+        return activeQuestionIndex < questions.count ?  questions[activeQuestionIndex] : nil
+    }
     
-    //private var pointer = CGRect.zero
+    private(set) var activeQuestionIndex = 0
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,15 +40,15 @@ class CodeEditorView: UIView {
         setupSubviews()
     }
     
-//    func setNextQuestion() {
-//        if 0 <= activeQuestionIndex && activeQuestionIndex <= (questions.count - 1) {
-//            questions[activeQuestionIndex].caret.alpha = 0
-//        }
-//        activeQuestionIndex += 1
-//        if activeQuestionIndex <= (questions.count - 1) {
-//            questions[activeQuestionIndex].caret.alpha = 1
-//        }
-//    }
+    func setNextQuestion() {
+        if 0 <= activeQuestionIndex && activeQuestionIndex <= (questions.count - 1) {
+            questions[activeQuestionIndex].activate(false)
+        }
+        activeQuestionIndex += 1
+        if activeQuestionIndex <= (questions.count - 1) {
+            questions[activeQuestionIndex].activate(true)
+        }
+    }
     
     private func addSubviews() {
         addSubview(scrollView)

@@ -41,6 +41,8 @@ struct File {
     let text: String
     let url: URL
     let userURL: URL
+    let previewURL: URL
+    let answerURL: URL
     
 }
 

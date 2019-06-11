@@ -2,6 +2,8 @@ import UIKit
 
 class QuestionTextField: UITextField {
     
+    weak var editorView: CodeEditorView?
+    
     let answer: String
     let language: ProgramingLanguage
     
@@ -29,9 +31,11 @@ class QuestionTextField: UITextField {
     func activate(_ active: Bool) {
         if active {
             caret.alpha = 1
+            caret.startAnimation()
             isUserInteractionEnabled = true
         } else {
             caret.alpha = 0
+            caret.stopAnimation()
             isUserInteractionEnabled = false
         }
     }

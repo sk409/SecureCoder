@@ -249,6 +249,22 @@ struct Application {
                             Application.writeErrorLog(error.localizedDescription)
                         }
                     }
+                    let previewDirectoryURL = userDirectoryURL.appendingPathComponent("preview")
+                    if !FileManager.default.fileExists(atPath: previewDirectoryURL.path) {
+                        do {
+                            try FileManager.default.createDirectory(at: previewDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+                        } catch {
+                            Application.writeErrorLog(error.localizedDescription)
+                        }
+                    }
+                    let answerDirectoryURL = userDirectoryURL.appendingPathComponent("answer")
+                    if !FileManager.default.fileExists(atPath: answerDirectoryURL.path) {
+                        do {
+                            try FileManager.default.createDirectory(at: answerDirectoryURL, withIntermediateDirectories: true, attributes: nil)
+                        } catch {
+                            Application.writeErrorLog(error.localizedDescription)
+                        }
+                    }
                     let contentURL = lessonURL.appendingPathComponent(lessonTitle)
                     guard let contents = try? FileManager.default.contentsOfDirectory(atPath: contentURL.path) else {
                         self.courses = []
@@ -270,7 +286,7 @@ struct Application {
                                     self.courses = []
                                     return
                                 }
-                                files.append(File(title: fileTitle, text: text, url: fileURL, userURL: userDirectoryURL.appendingPathComponent(fileTitle)))
+                                files.append(File(title: fileTitle, text: text, url: fileURL, userURL: userDirectoryURL.appendingPathComponent(fileTitle), previewURL: previewDirectoryURL.appendingPathComponent(fileTitle), answerURL: answerDirectoryURL))
                             }
                         } else if content == "slides" {
                             for slideTitle in contentTitles {

@@ -51,9 +51,9 @@ class CoursesViewController: UIViewController {
             cardView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleProgramingLanguageCardViewTapEvent(_:))))
             cardViews.append(cardView)
         }
-        let cardWidth: CGFloat = view.safeAreaLayoutGuide.layoutFrame.size.width / 4.5
+        let cardWidth: CGFloat = view.safeAreaLayoutGuide.layoutFrame.size.width / 3.5
         let cardHeight: CGFloat = cardWidth * 1.618
-        let spacing: CGFloat = 32
+        let spacing: CGFloat = 8
         let stackViewWidth = cardWidth * CGFloat(cardViews.count) + spacing * CGFloat(cardViews.count - 1)
         let stackView = UIStackView(arrangedSubviews: cardViews)
         view.addSubview(stackView)

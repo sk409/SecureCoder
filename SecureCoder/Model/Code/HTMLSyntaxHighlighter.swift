@@ -2,12 +2,12 @@ import UIKit
 
 struct HTMLSyntaxHighlighter {
     
-    let defaultColor: UIColor
+    let tintColor: UIColor
     
     let font: UIFont
     
-    init(defaultColor: UIColor, font: UIFont) {
-        self.defaultColor = defaultColor
+    init(tintColor: UIColor, font: UIFont) {
+        self.tintColor = tintColor
         self.font = font
     }
     
@@ -31,7 +31,7 @@ struct HTMLSyntaxHighlighter {
                         appendCharacter(character, PHP.commentColor)
                         isComment = true
                     } else {
-                        appendCharacter(character, defaultColor)
+                        appendCharacter(character, tintColor)
                         isTag = true
                     }
                 } else if character == ">" {
@@ -40,7 +40,7 @@ struct HTMLSyntaxHighlighter {
                         appendCharacter(character, PHP.commentColor)
                         isComment = false
                     } else {
-                        appendCharacter(character, defaultColor)
+                        appendCharacter(character, tintColor)
                         isInTag = false
                     }
                 } else if character == "\"" {
@@ -54,20 +54,20 @@ struct HTMLSyntaxHighlighter {
                         if character == " " {
                             isTag = false
                             isInTag = true
-                            appendCharacter(character, defaultColor)
+                            appendCharacter(character, tintColor)
                         } else if character == "/" {
-                            appendCharacter(character, defaultColor)
+                            appendCharacter(character, tintColor)
                         } else {
                             appendCharacter(character, PHP.tagColor)
                         }
                     } else if isInTag {
                         if character == "=" {
-                            appendCharacter(character, defaultColor)
+                            appendCharacter(character, tintColor)
                         } else {
                             appendCharacter(character, PHP.attributeColor)
                         }
                     } else {
-                        appendCharacter(character, defaultColor)
+                        appendCharacter(character, tintColor)
                     }
                 }
             }

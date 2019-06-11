@@ -3,11 +3,11 @@ import UIKit
 
 struct PHPSyntaxHighlighter {
     
-    private(set) var defaultColor: UIColor
+    private(set) var tintColor: UIColor
     private(set) var font: UIFont
     
-    init(defaultColor: UIColor, font: UIFont) {
-        self.defaultColor = defaultColor
+    init(tintColor: UIColor, font: UIFont) {
+        self.tintColor = tintColor
         self.font = font
     }
     
@@ -21,7 +21,7 @@ struct PHPSyntaxHighlighter {
                 cache.append(character)
             } else {
                 highlighted.append(makeAttributedString(text: cache))
-                highlighted.append(NSAttributedString(string: String(character), attributes: [.foregroundColor: defaultColor, .font: font]))
+                highlighted.append(NSAttributedString(string: String(character), attributes: [.foregroundColor: tintColor, .font: font]))
                 cache.removeAll()
             }
             index += 1
@@ -227,7 +227,7 @@ struct PHPSyntaxHighlighter {
         } else if text.isNumber() {
             return NSAttributedString(string: text, attributes: [.foregroundColor: PHP.numberColor, .font: font])
         }
-        return NSAttributedString(string: text, attributes: [.foregroundColor: defaultColor, .font: font])
+        return NSAttributedString(string: text, attributes: [.foregroundColor: tintColor, .font: font])
     }
     
 }

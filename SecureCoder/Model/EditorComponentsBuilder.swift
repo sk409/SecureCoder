@@ -43,7 +43,7 @@ struct EditorComponentsBuilder {
             //scrollView.addSubview(template)
             template.backgroundColor = .clear
             template.numberOfLines = 0
-            template.attributedText = SyntaxHighlighter.decorate(text, defaultColor: tintColor, font: font, language: language)
+            template.attributedText = SyntaxHighlighter.decorate(text, tintColor: tintColor, font: font, language: language)
             let size = text.size(withAttributes: [.font: font])
             let x = pointer.origin.x + pointer.width + 5
             let y = pointer.origin.y

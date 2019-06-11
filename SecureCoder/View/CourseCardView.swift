@@ -52,18 +52,13 @@ class CourseCardView: UIView {
             headerView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.4)
             ])
         headerView.addSubview(headerImageView)
-        let headerImageViewSize: CGFloat = 44
-        headerImageView.backgroundColor = .black
         headerImageView.contentMode = .scaleAspectFit
-        headerImageView.layer.borderColor = UIColor.black.cgColor
-        headerImageView.layer.borderWidth = 0.1
-        headerImageView.layer.cornerRadius = headerImageViewSize * 0.5
         headerImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             headerImageView.centerXAnchor.constraint(equalTo: headerView.safeAreaLayoutGuide.centerXAnchor),
             headerImageView.centerYAnchor.constraint(equalTo: headerView.safeAreaLayoutGuide.centerYAnchor),
-            headerImageView.widthAnchor.constraint(equalToConstant: headerImageViewSize),
-            headerImageView.heightAnchor.constraint(equalToConstant: headerImageViewSize),
+//            headerImageView.widthAnchor.constraint(equalTo: headerView.safeAreaLayoutGuide.widthAnchor, multiplier: 0.6),
+            headerImageView.heightAnchor.constraint(equalTo: headerView.safeAreaLayoutGuide.heightAnchor, multiplier: 0.6),
             ])
         let bodyView = UIView()
         addSubview(bodyView)

@@ -3,19 +3,25 @@ import UIKit
 class CaretView: UIView {
     
     var animationTimeInterval: TimeInterval = 0.7
+    var timer: Timer?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        startAnimation()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup()
+        startAnimation()
     }
     
-    private func setup() {
-        Timer.scheduledTimer(timeInterval: animationTimeInterval, target: self, selector: #selector(animate), userInfo: nil, repeats: true)
+    func startAnimation() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: animationTimeInterval, target: self, selector: #selector(animate), userInfo: nil, repeats: true)
+    }
+    
+    func stopAnimation() {
+        timer?.invalidate()
     }
     
     @objc

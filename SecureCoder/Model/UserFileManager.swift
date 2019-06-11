@@ -2,15 +2,33 @@ import Foundation
 
 struct UserFileManager {
     
+    static func formatUserTextToPreviewText(_ userText: String) -> String {
+        return userText.replacingOccurrences(of: "<!--[0-9]+-->", with: "", options: .regularExpression)
+    }
+    
+    static func formatLessonTextToAnserText(_ lessonText: String) -> String {
+        let answerText = lessonText.replacingOccurrences(of: "[#?]\\[[#?]|[#?]\\][#?]|@\\[@[a-z]+@\\]@", with: "", options: .regularExpression)
+        print(answerText)
+        return answerText
+    }
+    
     static func createUserFileIfNotExists(lessonFile: File) {
-        //try! FileManager.default.removeItem(at: lessonFile.userURL)
-        guard !FileManager.default.fileExists(atPath: lessonFile.userURL.path) else {
+        try! FileManager.default.removeItem(at: lessonFile.userURL)
+        try! FileManager.default.removeItem(at: lessonFile.previewURL)
+        try! FileManager.default.removeItem(at: lessonFile.answerURL)
+        guard !FileManager.default.fileExists(atPath: lessonFile.userURL.path) &&     !FileManager.default.fileExists(atPath: lessonFile.previewURL.path) &&
+            !FileManager.default.fileExists(atPath: lessonFile.answerURL.path)
+        else {
             return
         }
-        let text = LessonTextParser().parse(lessonFile.text)
-        //print(text)
-        FileManager.default.createFile(atPath: lessonFile.userURL.path, contents: text.data(using: .utf8), attributes: nil)
+        let userText = LessonTextParser().parse(lessonFile.text)
+        let previewText = formatUserTextToPreviewText(userText)
+        let answerText = formatLessonTextToAnserText(lessonFile.text)
+        FileManager.default.createFile(atPath: lessonFile.userURL.path, contents: userText.data(using: .utf8), attributes: nil)
+        FileManager.default.createFile(atPath: lessonFile.previewURL.path, contents: previewText.data(using: .utf8), attributes: nil)
+        FileManager.default.createFile(atPath: lessonFile.answerURL.path, contents: answerText.data(using: .utf8), attributes: nil)
         //try! FileManager.default.removeItem(at: lessonFile.userURL)
+        //try! FileManager.default.removeItem(at: lessonFile.previewURL)
     }
     
     static func extractUserAnswers(userText: String) -> [String] {
