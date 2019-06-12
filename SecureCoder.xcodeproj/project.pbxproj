@@ -16,7 +16,7 @@
 		D718EBCC2252CFA500727383 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D718EBCA2252CFA500727383 /* LaunchScreen.storyboard */; };
 		D718EBDC2253609E00727383 /* PHPAutoCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D718EBDB2253609E00727383 /* PHPAutoCompleter.swift */; };
 		D718EBDE225360D600727383 /* CodeAutoCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D718EBDD225360D600727383 /* CodeAutoCompleter.swift */; };
-		D71C2C2222A0D9AD008CCCD0 /* CourseCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2122A0D9AD008CCCD0 /* CourseCardView.swift */; };
+		D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */; };
 		D71C2C2422A0EAAF008CCCD0 /* UIColor+make.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */; };
 		D71C2C2622A0F656008CCCD0 /* CourseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2522A0F656008CCCD0 /* CourseCard.swift */; };
 		D71C2C2822A104DC008CCCD0 /* WhitenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2722A104DC008CCCD0 /* WhitenView.swift */; };
@@ -114,7 +114,7 @@
 		D718EBCD2252CFA500727383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D718EBDB2253609E00727383 /* PHPAutoCompleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPAutoCompleter.swift; sourceTree = "<group>"; };
 		D718EBDD225360D600727383 /* CodeAutoCompleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeAutoCompleter.swift; sourceTree = "<group>"; };
-		D71C2C2122A0D9AD008CCCD0 /* CourseCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCardView.swift; sourceTree = "<group>"; };
+		D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+make.swift"; sourceTree = "<group>"; };
 		D71C2C2522A0F656008CCCD0 /* CourseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCard.swift; sourceTree = "<group>"; };
 		D71C2C2722A104DC008CCCD0 /* WhitenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhitenView.swift; sourceTree = "<group>"; };
@@ -321,7 +321,7 @@
 				D726997122965AB1009988E6 /* ProgramingLanguageCollectionViewCell.swift */,
 				D7319A972298EC3B00369273 /* CaretView.swift */,
 				D7319A992298F20500369273 /* CodeEditorView.swift */,
-				D71C2C2122A0D9AD008CCCD0 /* CourseCardView.swift */,
+				D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */,
 				D71C2C2722A104DC008CCCD0 /* WhitenView.swift */,
 				D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */,
 				D7381E2622AD097F0070DDE6 /* TabView.swift */,
@@ -564,7 +564,7 @@
 				D7319A9A2298F20500369273 /* CodeEditorView.swift in Sources */,
 				D738B5B922A4E3700043E177 /* SectionCardTableViewCell.swift in Sources */,
 				D71E4ECC228BD51700B267E8 /* AutoCorrectButton.swift in Sources */,
-				D71C2C2222A0D9AD008CCCD0 /* CourseCardView.swift in Sources */,
+				D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */,
 				D76BBF7D2268A0B5005DE694 /* URLQueryObject.swift in Sources */,
 				D718EBDE225360D600727383 /* CodeAutoCompleter.swift in Sources */,
 				D7A566792259C19C002EF185 /* SelectLessonViewController.swift in Sources */,

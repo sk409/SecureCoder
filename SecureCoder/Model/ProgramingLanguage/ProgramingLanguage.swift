@@ -51,11 +51,37 @@ enum ProgramingLanguage: String {
         case .html:
             return UIImage(named: "html-logo")!
         case .css:
-            return UIImage(named: "html-logo")!
+            return UIImage(named: "css-logo")!
         case .javaScript:
             return UIImage(named: "js-logo")!
         case .php:
             return UIImage(named: "php-logo")!
+        }
+    }
+    
+    var checkMarkIconImage: UIImage {
+        switch self {
+        case .html:
+            return UIImage(named: "html-check-icon")!
+        case .css:
+            return UIImage(named: "html-check-icon")!
+        case .javaScript:
+            return UIImage(named: "js-check-icon")!
+        case .php:
+            return UIImage(named: "php-check-icon")!
+        }
+    }
+    
+    var bubbleImage: UIImage {
+        switch self {
+        case .html:
+            return UIImage(named: "html-bubble")!
+        case .css:
+            return UIImage(named: "html-bubble")!
+        case .javaScript:
+            return UIImage(named: "js-bubble")!
+        case .php:
+            return UIImage(named: "php-bubble")!
         }
     }
     

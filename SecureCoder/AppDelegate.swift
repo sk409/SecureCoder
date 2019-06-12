@@ -10,9 +10,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
         window?.makeKeyAndVisible()
-        let templateViewContainer = TemplateViewController()
-        templateViewContainer.setContentViewController(CoursesViewController(), options: nil)
-        window?.rootViewController = templateViewContainer
+        window?.rootViewController = CoursesViewController()
+//        let templateViewContainer = TemplateViewController()
+//        templateViewContainer.setContentViewController(CoursesViewController(), options: nil)
+//        window?.rootViewController = templateViewContainer
         //window?.rootViewController = CoursesViewController()
 //        let lessonViewController = LessonViewController()
 //        lessonViewController.lesson = HTML11()

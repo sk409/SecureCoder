@@ -8,7 +8,7 @@ struct UserFileManager {
     
     static func formatLessonTextToAnserText(_ lessonText: String) -> String {
         let answerText = lessonText.replacingOccurrences(of: "[#?]\\[[#?]|[#?]\\][#?]|@\\[@[a-z]+@\\]@", with: "", options: .regularExpression)
-        print(answerText)
+//        print(answerText)
         return answerText
     }
     
