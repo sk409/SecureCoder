@@ -10,6 +10,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
         window?.makeKeyAndVisible()
+        _ = Application.shared
+        //let a = Application.shared.course(.html)
         window?.rootViewController = CoursesViewController()
 //        let templateViewContainer = TemplateViewController()
 //        templateViewContainer.setContentViewController(CoursesViewController(), options: nil)

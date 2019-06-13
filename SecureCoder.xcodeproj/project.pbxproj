@@ -16,6 +16,7 @@
 		D718EBCC2252CFA500727383 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D718EBCA2252CFA500727383 /* LaunchScreen.storyboard */; };
 		D718EBDC2253609E00727383 /* PHPAutoCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D718EBDB2253609E00727383 /* PHPAutoCompleter.swift */; };
 		D718EBDE225360D600727383 /* CodeAutoCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D718EBDD225360D600727383 /* CodeAutoCompleter.swift */; };
+		D71A0AEA22B1D1F80088326D /* SectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A0AE922B1D1F80088326D /* SectionButton.swift */; };
 		D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */; };
 		D71C2C2422A0EAAF008CCCD0 /* UIColor+make.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */; };
 		D71C2C2622A0F656008CCCD0 /* CourseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2522A0F656008CCCD0 /* CourseCard.swift */; };
@@ -46,7 +47,7 @@
 		D753108422892CC4000D6D9B /* KeyboardControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D753108322892CC4000D6D9B /* KeyboardControlButton.swift */; };
 		D75A99D422A29B080086E710 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75A99D322A29B080086E710 /* Course.swift */; };
 		D75A99D622A29B530086E710 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75A99D522A29B530086E710 /* Section.swift */; };
-		D75ACB4222A8F64A002D23D7 /* Course in Resources */ = {isa = PBXBuildFile; fileRef = D75ACB4122A8F64A002D23D7 /* Course */; };
+		D75ACB4222A8F64A002D23D7 /* Courses in Resources */ = {isa = PBXBuildFile; fileRef = D75ACB4122A8F64A002D23D7 /* Courses */; };
 		D75AFF2E2290FBE70025BAF2 /* UIColor+ApplicationColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */; };
 		D75BD388227E660700AA7E7F /* KeyboardHomeControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75BD387227E660700AA7E7F /* KeyboardHomeControlButton.swift */; };
 		D75BD38A227E680D00AA7E7F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75BD389227E680D00AA7E7F /* File.swift */; };
@@ -114,6 +115,7 @@
 		D718EBCD2252CFA500727383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D718EBDB2253609E00727383 /* PHPAutoCompleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPAutoCompleter.swift; sourceTree = "<group>"; };
 		D718EBDD225360D600727383 /* CodeAutoCompleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeAutoCompleter.swift; sourceTree = "<group>"; };
+		D71A0AE922B1D1F80088326D /* SectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionButton.swift; sourceTree = "<group>"; };
 		D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+make.swift"; sourceTree = "<group>"; };
 		D71C2C2522A0F656008CCCD0 /* CourseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCard.swift; sourceTree = "<group>"; };
@@ -144,7 +146,7 @@
 		D753108322892CC4000D6D9B /* KeyboardControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardControlButton.swift; sourceTree = "<group>"; };
 		D75A99D322A29B080086E710 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		D75A99D522A29B530086E710 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
-		D75ACB4122A8F64A002D23D7 /* Course */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Course; sourceTree = "<group>"; };
+		D75ACB4122A8F64A002D23D7 /* Courses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Courses; sourceTree = "<group>"; };
 		D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ApplicationColor.swift"; sourceTree = "<group>"; };
 		D75BD387227E660700AA7E7F /* KeyboardHomeControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHomeControlButton.swift; sourceTree = "<group>"; };
 		D75BD389227E680D00AA7E7F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -245,7 +247,7 @@
 				D70643C0227D66320034B858 /* Assets.xcassets */,
 				D718EBCD2252CFA500727383 /* Info.plist */,
 				D718EBC52252CFA300727383 /* SecureCoder.xcdatamodeld */,
-				D75ACB4122A8F64A002D23D7 /* Course */,
+				D75ACB4122A8F64A002D23D7 /* Courses */,
 			);
 			path = SecureCoder;
 			sourceTree = "<group>";
@@ -326,6 +328,7 @@
 				D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */,
 				D7381E2622AD097F0070DDE6 /* TabView.swift */,
 				D7256C2922ADFEB00093A5AA /* FileTableViewCell.swift */,
+				D71A0AE922B1D1F80088326D /* SectionButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -495,7 +498,7 @@
 				D71E4ECA228BA5D300B267E8 /* KeyboardView.xib in Resources */,
 				D7A5667522597648002EF185 /* Main.storyboard in Resources */,
 				D76BBF7B22687C58005DE694 /* DescriptionImageCollectionViewCell.xib in Resources */,
-				D75ACB4222A8F64A002D23D7 /* Course in Resources */,
+				D75ACB4222A8F64A002D23D7 /* Courses in Resources */,
 				D718EBCC2252CFA500727383 /* LaunchScreen.storyboard in Resources */,
 				D70643C1227D66320034B858 /* Assets.xcassets in Resources */,
 			);
@@ -586,6 +589,7 @@
 				D7F1825C2265E7FC00CD4413 /* DescriptionPage.swift in Sources */,
 				D75BD388227E660700AA7E7F /* KeyboardHomeControlButton.swift in Sources */,
 				D77E958F227FCD63000A7B21 /* KeyboardRightControlButton.swift in Sources */,
+				D71A0AEA22B1D1F80088326D /* SectionButton.swift in Sources */,
 				D726997022964578009988E6 /* CoursesViewController.swift in Sources */,
 				D77059AE2292357700E66D7B /* CodeEditorViewController.swift in Sources */,
 				D709EB80228679F10079BFF9 /* FileCrawler.swift in Sources */,

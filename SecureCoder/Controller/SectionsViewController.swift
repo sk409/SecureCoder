@@ -2,6 +2,8 @@ import UIKit
 
 class SectionsViewController: UIViewController {
     
+    private static let cellID = "CELL"
+    
     var course: Course?
     
     override func viewDidLoad() {
@@ -57,7 +59,7 @@ class SectionsViewController: UIViewController {
         sectionsTableView.delegate = self
         sectionsTableView.separatorStyle = .none
         sectionsTableView.tableFooterView = UIView()
-        sectionsTableView.register(SectionCardTableViewCell.self, forCellReuseIdentifier: "CELL")
+        sectionsTableView.register(SectionCardTableViewCell.self, forCellReuseIdentifier: SectionsViewController.cellID)
         sectionsTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             sectionsTableView.centerXAnchor.constraint(equalTo: bodyView.centerXAnchor),
@@ -82,7 +84,12 @@ class SectionsViewController: UIViewController {
             ])
     }
     
-    private func transitionToCodeViewController(with lesson: Lesson) {
+    @objc
+    private func handleTransitionToCodeEditorViewControllerButton(_ sender: UIButton) {
+        guard let section = (sender as? SectionButton)?.section else {
+            return
+        }
+        let lesson = section.lessons.first
         let codeViewController = CodeEditorViewController()
         codeViewController.lesson = lesson
         present(codeViewController, animated: true)
@@ -103,17 +110,19 @@ extension SectionsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let sectionCardTableViewCell = tableView.dequeueReusableCell(withIdentifier: "CELL") as? SectionCardTableViewCell else {
+        guard let sectionCardTableViewCell = tableView.dequeueReusableCell(withIdentifier: SectionsViewController.cellID) as? SectionCardTableViewCell else {
             return UITableViewCell()
         }
+        let section = course?.sections[indexPath.row]
         sectionCardTableViewCell.language = course?.language
-        sectionCardTableViewCell.section = course?.sections[indexPath.row]
-        sectionCardTableViewCell.transitionToCodeViewController = transitionToCodeViewController
+        sectionCardTableViewCell.section = section
+        sectionCardTableViewCell.transitionToCodeViewControllerButton.section = section
+        sectionCardTableViewCell.transitionToCodeViewControllerButton.addTarget(self, action: #selector(handleTransitionToCodeEditorViewControllerButton(_:)), for: .touchUpInside)
         return sectionCardTableViewCell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return UITableView.automaticDimension
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 300
+    }
     
 }

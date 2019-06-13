@@ -16,7 +16,11 @@ class CodeEditorViewController: UIViewController {
     private var codeEditorViews = [CodeEditorView]()
     
     private let keyboardView = KeyboardView()
+    private let showPreviewWebViewButton = UIButton()
+    private let showAnswerWebViewButton = UIButton()
+    private let webViewContainer = UIView()
     private let previewWebView = WKWebView()
+    private let answerWebView = WKWebView()
     private let codeEditorViewContainer = UIView()
     private let fileTableView = UITableView()
     private let fileButton = UIButton()
@@ -90,15 +94,6 @@ class CodeEditorViewController: UIViewController {
             keyboardView.heightAnchor.constraint(equalTo: keyboardView.widthAnchor),
             ])
         
-        view.addSubview(previewWebView)
-        previewWebView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            previewWebView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            previewWebView.trailingAnchor.constraint(equalTo: codeEditorViewContainer.leadingAnchor),
-            previewWebView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            previewWebView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            ])
-        
         view.addSubview(fileTableView)
         fileTableView.dataSource = self
         fileTableView.delegate = self
@@ -128,6 +123,66 @@ class CodeEditorViewController: UIViewController {
         if let activeQuestion = activeCodeEditorView?.activeQuestion {
             setKeyboardButtonTitles(with: activeQuestion)
         }
+        
+        let distanceToSeparator: CGFloat = 8
+        let webViewButtonsContainer = UIView()
+        view.addSubview(webViewButtonsContainer)
+        webViewButtonsContainer.backgroundColor = UIColor(white: 0.8, alpha: 1)
+        webViewButtonsContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webViewButtonsContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            webViewButtonsContainer.trailingAnchor.constraint(equalTo: codeEditorViewContainer.leadingAnchor),
+            webViewButtonsContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            webViewButtonsContainer.heightAnchor.constraint(equalToConstant: 44),
+            ])
+        webViewButtonsContainer.addSubview(showPreviewWebViewButton)
+        showPreviewWebViewButton.setTitle("プレビュー", for: .normal)
+        showPreviewWebViewButton.setTitleColor(.black, for: .normal)
+        showPreviewWebViewButton.titleLabel?.font = .systemFont(ofSize: 14)
+        showPreviewWebViewButton.addTarget(self, action: #selector(showPreviewWebView), for: .touchUpInside)
+        showPreviewWebViewButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            showPreviewWebViewButton.leadingAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.leadingAnchor),
+            showPreviewWebViewButton.topAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.topAnchor),
+            showPreviewWebViewButton.bottomAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.bottomAnchor),
+            showPreviewWebViewButton.widthAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.widthAnchor, multiplier: 0.25)
+            ])
+        let webViewButtonsSeparator = UIView()
+        webViewButtonsContainer.addSubview(webViewButtonsSeparator)
+        webViewButtonsSeparator.backgroundColor = UIColor(white: 0.5, alpha: 1)
+        webViewButtonsSeparator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webViewButtonsSeparator.leadingAnchor.constraint(equalTo: showPreviewWebViewButton.trailingAnchor, constant: distanceToSeparator),
+            webViewButtonsSeparator.centerYAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.centerYAnchor),
+            webViewButtonsSeparator.widthAnchor.constraint(equalToConstant: 1),
+            webViewButtonsSeparator.heightAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.heightAnchor, multiplier: 0.6666)
+            ])
+        webViewButtonsContainer.addSubview(showAnswerWebViewButton)
+        showAnswerWebViewButton.setTitle("見本", for: .normal)
+        showAnswerWebViewButton.setTitleColor(.black, for: .normal)
+        showAnswerWebViewButton.titleLabel?.font = .systemFont(ofSize: 14)
+        showAnswerWebViewButton.addTarget(self, action: #selector(showAnswerWebView), for: .touchUpInside)
+        showAnswerWebViewButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            showAnswerWebViewButton.leadingAnchor.constraint(equalTo: webViewButtonsSeparator.trailingAnchor, constant: distanceToSeparator),
+            showAnswerWebViewButton.topAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.topAnchor),
+            showAnswerWebViewButton.bottomAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.bottomAnchor),
+            showAnswerWebViewButton.widthAnchor.constraint(equalTo: showPreviewWebViewButton.widthAnchor)
+            ])
+        
+        
+        view.addSubview(webViewContainer)
+        webViewContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webViewContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            webViewContainer.trailingAnchor.constraint(equalTo: codeEditorViewContainer.leadingAnchor),
+            webViewContainer.topAnchor.constraint(equalTo: webViewButtonsContainer.bottomAnchor),
+            webViewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            ])
+        if let indexFile = lesson.index {
+            answerWebView.load(URLRequest(url: indexFile.answerURL))
+        }
+        showPreviewWebView()
     }
     
     private func changeCodeEditorView(to codeEditorView: CodeEditorView) {
@@ -253,7 +308,7 @@ class CodeEditorViewController: UIViewController {
             let previewText = UserFileManager.formatUserTextToPreviewText(newUserText)
             try previewText.write(to: lesson.files[fileIndex].previewURL, atomically: true, encoding: .utf8)
         } catch {
-            Application.writeErrorLog(error.localizedDescription)
+            Application.printErrorLog(error.localizedDescription)
         }
     }
     
@@ -395,6 +450,32 @@ class CodeEditorViewController: UIViewController {
                 question.caret.frame.origin.x = textSize.width
             }
         }
+    }
+    
+    private func showWebView(_ webView: WKWebView) {
+        webViewContainer.subviews.forEach { $0.removeFromSuperview() }
+        webViewContainer.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webView.leadingAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.bottomAnchor),
+            ])
+    }
+    
+    @objc
+    private func showPreviewWebView() {
+        showWebView(previewWebView)
+        showAnswerWebViewButton.backgroundColor = .clear
+        showPreviewWebViewButton.backgroundColor = UIColor(white: 0.95, alpha: 1)
+    }
+    
+    @objc
+    private func showAnswerWebView() {
+        showWebView(answerWebView)
+        showAnswerWebViewButton.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        showPreviewWebViewButton.backgroundColor = .clear
     }
     
 }
