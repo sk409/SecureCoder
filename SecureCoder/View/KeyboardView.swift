@@ -9,79 +9,52 @@ class KeyboardView: UIView {
     
     private(set) var buttons = [UIButton]()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupSubviews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setupSubviews()
-    }
-    
-    func setTitlesRandom(answer: String) {
-        var selectedCharacters = [answer]
-        let candidates = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "-", "=", "^", "~", "¥", "|", "@", "`", "[", "{", ";", "+", ":", "+", "]", "}", ",", "<", ".", ">", "/", "?", "_",]
-        let answerRowIndex = Int.random(in: 0...(KeyboardView.rowCount - 1))
-        let answerColumnIndex = Int.random(in: 0...(KeyboardView.columnCount - 1))
-        for rowIndex in 0...(KeyboardView.rowCount - 1) {
-            for columnIndex in 0...(KeyboardView.columnCount - 1) {
-                let button = buttons[rowIndex * KeyboardView.columnCount + columnIndex]
-                button.alpha = 1
-                var title = answer
-                if rowIndex != answerRowIndex || columnIndex != answerColumnIndex {
-                    while selectedCharacters.contains(title) {
-                        title = candidates[Int.random(in: 0...(candidates.count - 1))]
-                    }
-                }
-                selectedCharacters.append(title)
-                button.setTitle(title, for: .normal)
-            }
-        }
-    }
-    
-    func setTitle(rowIndex: Int, columnIndex: Int, title: String) {
-        for i in 0...(KeyboardView.rowCount - 1) {
-            for j in 0...(KeyboardView.columnCount - 1) {
-                let button = buttons[i * KeyboardView.columnCount + j]
-                if i == rowIndex && j == columnIndex {
-                    button.setTitle(title, for: .normal)
-                } else {
-                    button.alpha = 0
-                }
-            }
-        }
-    }
-    
-    private func setupSubviews() {
-        addSubview(contentView)
-        contentView.distribution = .fillEqually
-        contentView.axis = .vertical
-        contentView.spacing = 8
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+    func build(with characters: [Character]) {
+        let characterSet = characters.reduce([Character]()) { $0.contains($1) ? $0 : $0 + [$1] }.shuffled()
+        buttons.removeAll(keepingCapacity: true)
+        let rowCount = Int(min(3, ceil(sqrt(CGFloat(characterSet.count)))))
+        let columnCount = Int(ceil(CGFloat(characterSet.count) / CGFloat(rowCount)))
+        let rowSpacing: CGFloat = 8
+        let columnSpacing: CGFloat = 8
+        let containerStackView = UIStackView()
+        addSubview(containerStackView)
+        containerStackView.axis = .vertical
+        containerStackView.distribution = .fillEqually
+        containerStackView.spacing = rowSpacing
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            contentView.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
-            contentView.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
-            contentView.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor),
+            containerStackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            containerStackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            containerStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            containerStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             ])
-        for _ in 0...(KeyboardView.rowCount - 1) {
-            let row = UIStackView()
-            contentView.addArrangedSubview(row)
-            row.distribution = .fillEqually
-            row.axis = .horizontal
-            row.spacing = 8
-            for _ in 0...(KeyboardView.columnCount - 1) {
-                let button = UIButton()
-                buttons.append(button)
-                row.addArrangedSubview(button)
-                button.backgroundColor = UIColor(white: 0.35, alpha: 1)
-                button.layer.borderColor = UIColor.white.cgColor
-                button.layer.borderWidth = 0.25
-                //button.layer.cornerRadius = 22
-                button.setTitleColor(.white, for: .normal)
+        for rowIndex in 0..<rowCount {
+            let buttonsStackView = UIStackView()
+            buttonsStackView.axis = .horizontal
+            buttonsStackView.distribution = .fillEqually
+            buttonsStackView.spacing = columnSpacing
+            for columnIndex in 0..<columnCount {
+                let characterIndex = rowIndex * columnCount + columnIndex
+                if characterIndex < characterSet.count {
+                    let button = UIButton()
+                    buttons.append(button)
+                    buttonsStackView.addArrangedSubview(button)
+                    button.backgroundColor = UIColor(white: 0.35, alpha: 1)
+                    button.layer.borderColor = UIColor.white.cgColor
+                    button.layer.borderWidth = 0.25
+                    button.setTitle(String(characterSet[characterIndex]), for: .normal)
+                    button.setTitleColor(.white, for: .normal)
+                } else {
+                    let dummy = UIView()
+                    buttonsStackView.addArrangedSubview(dummy)
+                }
             }
+            containerStackView.addArrangedSubview(buttonsStackView)
         }
+        let buttonSize: CGFloat = 44
+        bounds.size = CGSize(
+            width: CGFloat(columnCount) * buttonSize + CGFloat(columnCount - 1) * columnSpacing,
+            height: CGFloat(rowCount) * buttonSize + CGFloat(rowCount - 1) * rowSpacing)
     }
     
 }

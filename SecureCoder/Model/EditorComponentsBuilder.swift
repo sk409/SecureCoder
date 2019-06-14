@@ -18,8 +18,8 @@ struct EditorComponentsBuilder {
                 height: spaceSize.height
             )
         }
-        let questionHandler: (String, ProgramingLanguage) -> Void = { answer, language in
-            let question = QuestionTextField(answer: answer, language: language)
+        let questionHandler: (Int, String, ProgramingLanguage) -> Void = { questionIndex, answer, language in
+            let question = QuestionTextField(index: questionIndex, answer: answer, language: language)
             //scrollView.addSubview(question)
             //questions.append(question)
             question.caret.alpha = 0

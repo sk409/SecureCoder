@@ -11,33 +11,33 @@ struct UserFileManager {
         return answerText
     }
     
-    static func createUserFileIfNotExists(lessonFile: File) {
-//        try! FileManager.default.removeItem(at: lessonFile.userURL)
-//        try! FileManager.default.removeItem(at: lessonFile.previewURL)
-//        try! FileManager.default.removeItem(at: lessonFile.answerURL)
-        if !FileManager.default.fileExists(atPath: lessonFile.userURL.path) {
-            let userText = LessonTextParser().parse(lessonFile.text)
-            let succeeded = FileManager.default.createFile(atPath: lessonFile.userURL.path, contents: userText.data(using: .utf8), attributes: nil)
-            if !succeeded {
-                Application.printErrorLog("Failed to create user file.")
-            }
-        }
-        if !FileManager.default.fileExists(atPath: lessonFile.previewURL.path) {
-            let userText = LessonTextParser().parse(lessonFile.text)
-            let previewText = formatUserTextToPreviewText(userText)
-            let succeeded = FileManager.default.createFile(atPath: lessonFile.previewURL.path, contents: previewText.data(using: .utf8), attributes: nil)
-            if !succeeded {
-                Application.printErrorLog("Failed to create preview file.")
-            }
-        }
-        if !FileManager.default.fileExists(atPath: lessonFile.answerURL.path) {
-            let answerText = formatLessonTextToAnserText(lessonFile.text)
-            let succeeded = FileManager.default.createFile(atPath: lessonFile.answerURL.path, contents: answerText.data(using: .utf8), attributes: nil)
-            if !succeeded {
-                Application.printErrorLog("Failed to create answer file.")
-            }
-        }
-    }
+//    static func createUserFileIfNotExists(lessonFile: File) {
+////        try! FileManager.default.removeItem(at: lessonFile.userURL)
+////        try! FileManager.default.removeItem(at: lessonFile.previewURL)
+////        try! FileManager.default.removeItem(at: lessonFile.answerURL)
+//        if !FileManager.default.fileExists(atPath: lessonFile.userURL.path) {
+//            let userText = LessonTextParser().parse(lessonFile.text)
+//            let succeeded = FileManager.default.createFile(atPath: lessonFile.userURL.path, contents: userText.data(using: .utf8), attributes: nil)
+//            if !succeeded {
+//                Application.printErrorLog("Failed to create user file.")
+//            }
+//        }
+//        if !FileManager.default.fileExists(atPath: lessonFile.previewURL.path) {
+//            let userText = LessonTextParser().parse(lessonFile.text)
+//            let previewText = formatUserTextToPreviewText(userText)
+//            let succeeded = FileManager.default.createFile(atPath: lessonFile.previewURL.path, contents: previewText.data(using: .utf8), attributes: nil)
+//            if !succeeded {
+//                Application.printErrorLog("Failed to create preview file.")
+//            }
+//        }
+//        if !FileManager.default.fileExists(atPath: lessonFile.answerURL.path) {
+//            let answerText = formatLessonTextToAnserText(lessonFile.text)
+//            let succeeded = FileManager.default.createFile(atPath: lessonFile.answerURL.path, contents: answerText.data(using: .utf8), attributes: nil)
+//            if !succeeded {
+//                Application.printErrorLog("Failed to create answer file.")
+//            }
+//        }
+//    }
     
     static func extractUserAnswers(userText: String) -> [String] {
         var answerIndex = 0

@@ -9,13 +9,12 @@ class CodeEditorViewController: UIViewController {
     }
     
     var lesson: Lesson?
-    var font = UIFont.boldSystemFont(ofSize: 16)
-    var tintColor = UIColor.white
     
+    private var font = UIFont.boldSystemFont(ofSize: 18)
+    private var tintColor = UIColor.white
     private var activeCodeEditorView: CodeEditorView?
     private var codeEditorViews = [CodeEditorView]()
     
-    private let keyboardView = KeyboardView()
     private let showPreviewWebViewButton = UIButton()
     private let showAnswerWebViewButton = UIButton()
     private let webViewContainer = UIView()
@@ -28,20 +27,15 @@ class CodeEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        lesson?.files.forEach { UserFileManager.createUserFileIfNotExists(lessonFile: $0) }
         setupSubviews()
         showSlide()
         loadUserFile()
     }
     
     private func setupSubviews() {
-        
         guard let lesson = lesson else {
             return
         }
-        
-        let keyboardSize: CGFloat = 128
-        let codeEditorViewContainerSize = CGSize(width: view.bounds.width * 0.55, height: view.bounds.height)
         view.addSubview(codeEditorViewContainer)
         codeEditorViewContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -50,50 +44,44 @@ class CodeEditorViewController: UIViewController {
             codeEditorViewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             codeEditorViewContainer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.55)
             ])
-        lesson.files.forEach { file in
+        for (fileIndex, file) in lesson.files.enumerated() {
             let codeEditorView = CodeEditorView()
             codeEditorViews.append(codeEditorView)
-            codeEditorView.scrollView.contentSize = codeEditorViewContainerSize
-            let editorComponents = EditorComponentsBuilder().build(pointer: .zero, font: font, tintColor: tintColor, lessonText: file.text)
+            let editorComponents = EditorComponentsBuilder().build(
+                pointer: .zero,
+                font: font,
+                tintColor: tintColor,
+                lessonText: file.text)
             editorComponents.forEach { editorComponent in
+                let bufferSize = CGSize(width: 64, height: 132)
                 codeEditorView.scrollView.addSubview(editorComponent)
-                codeEditorView.scrollView.contentSize.width = max(codeEditorView.scrollView.contentSize.width, editorComponent.frame.origin.x + editorComponent.bounds.width + keyboardSize)
-                codeEditorView.scrollView.contentSize.height = max(codeEditorView.scrollView.contentSize.height, editorComponent.frame.origin.y + editorComponent.bounds.height + keyboardSize)
-                guard let question = editorComponent as? QuestionTextField else {
-                    return
+                codeEditorView.scrollView.contentSize.width = max(
+                    codeEditorView.scrollView.contentSize.width,
+                    editorComponent.frame.origin.x + editorComponent.bounds.width + bufferSize.width)
+                codeEditorView.scrollView.contentSize.height = max(codeEditorView.scrollView.contentSize.height,
+                        editorComponent.frame.origin.y + editorComponent.bounds.height + bufferSize.height)
+                if let question = editorComponent as? QuestionTextField {
+                    question.editorView = codeEditorView
+                    question.addTarget(self, action: #selector(handleQuestionTextFieldEditingChangedEvent(_:)), for: .editingChanged)
+                    codeEditorView.questions.append(question)
                 }
-                question.editorView = codeEditorView
-                question.addTarget(self, action: #selector(handleQuestionTextFieldEditingChangedEvent(_:)), for: .editingChanged)
-                codeEditorView.questions.append(question)
             }
-        }
-        changeCodeEditorView(to: codeEditorViews[0])
-        for (fileIndex, file) in lesson.files.enumerated() {
+            codeEditorView.questions.forEach { $0.keyboardView.buttons.forEach { $0.addTarget(self, action: #selector(handleKeyboardButtonTouchUpInsideEvent(_:)), for: .touchUpInside) }}
+            codeEditorView.setNextQuestion()
             guard let userText = try? String(contentsOf: file.userURL) else {
                 return
             }
-            let codeEditorView = codeEditorViews[fileIndex]
             let userAnswers = UserFileManager.extractUserAnswers(userText: userText)
             for (userAnswerIndex, userAnswer) in userAnswers.enumerated() {
-                codeEditorView.questions[userAnswerIndex].insertText(userAnswer)
-                guard codeEditorView.questions[userAnswerIndex].isCompleted else {
+                guard !userAnswer.isEmpty else {
                     break
                 }
+                codeEditorView.questions[userAnswerIndex].insertText(userAnswer)
+            }
+            if fileIndex == 0 || codeEditorView.isCompleted {
+                changeCodeEditorView(to: codeEditorView)
             }
         }
-        activeCodeEditorView?.activeQuestion?.activate(true)
-        
-        view.addSubview(keyboardView)
-        keyboardView.backgroundColor = UIColor(white: 0.25, alpha: 1)
-        keyboardView.buttons.forEach { $0.addTarget(self, action: #selector(handleKeyboardButtonTouchUpInsideEvent(_:)), for: .touchUpInside) }
-        keyboardView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            keyboardView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            keyboardView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
-            keyboardView.widthAnchor.constraint(equalToConstant: keyboardSize),
-            keyboardView.heightAnchor.constraint(equalTo: keyboardView.widthAnchor),
-            ])
-        
         view.addSubview(fileTableView)
         fileTableView.dataSource = self
         fileTableView.delegate = self
@@ -103,10 +91,9 @@ class CodeEditorViewController: UIViewController {
         fileTableView.frame = CGRect(
             x: view.bounds.width,
             y: 0,
-            width: ceil(codeEditorViewContainerSize.width * 0.7),
-            height: view.bounds.height
-        )
-        
+            width: view.bounds.width * 0.4,
+            height: view.bounds.height)
+
         let fileButtonSize: CGFloat = 44
         view.addSubview(fileButton)
         fileButton.layer.cornerRadius = fileButtonSize * 0.5
@@ -119,11 +106,7 @@ class CodeEditorViewController: UIViewController {
             fileButton.widthAnchor.constraint(equalToConstant: fileButtonSize),
             fileButton.heightAnchor.constraint(equalTo: fileButton.widthAnchor),
             ])
-        
-        if let activeQuestion = activeCodeEditorView?.activeQuestion {
-            setKeyboardButtonTitles(with: activeQuestion)
-        }
-        
+
         let distanceToSeparator: CGFloat = 8
         let webViewButtonsContainer = UIView()
         view.addSubview(webViewButtonsContainer)
@@ -169,8 +152,8 @@ class CodeEditorViewController: UIViewController {
             showAnswerWebViewButton.bottomAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.bottomAnchor),
             showAnswerWebViewButton.widthAnchor.constraint(equalTo: showPreviewWebViewButton.widthAnchor)
             ])
-        
-        
+
+
         view.addSubview(webViewContainer)
         webViewContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -204,14 +187,14 @@ class CodeEditorViewController: UIViewController {
         //        present(slideViewController, animated: true)
     }
     
-    private func setKeyboardButtonTitles(with question: QuestionTextField) {
-        let next = String(question.answer[question.text?.count ?? 0])
-        if next == " " {
-            keyboardView.setTitle(rowIndex: 1, columnIndex: 1, title: " ")
-        } else {
-            keyboardView.setTitlesRandom(answer: next)
-        }
-    }
+//    private func setKeyboardButtonTitles(with question: QuestionTextField) {
+//        let next = String(question.answer[question.text?.count ?? 0])
+//        if next == " " {
+//            keyboardView.setTitle(rowIndex: 1, columnIndex: 1, title: " ")
+//        } else {
+//            keyboardView.setTitlesRandom(answer: next)
+//        }
+//    }
     
     private func playCorrectAnimation() {
         let font = UIFont.boldSystemFont(ofSize: 18)
@@ -336,10 +319,35 @@ class CodeEditorViewController: UIViewController {
         guard let question = codeEditorView.activeQuestion else {
             return
         }
-        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut
-            , animations: {
+        UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
                 codeEditorView.scrollView.contentOffset.y = question.frame.origin.y - question.bounds.height
         })
+    }
+    
+    private func showWebView(_ webView: WKWebView) {
+        webViewContainer.subviews.forEach { $0.removeFromSuperview() }
+        webViewContainer.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webView.leadingAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.bottomAnchor),
+            ])
+    }
+    
+    @objc
+    private func showPreviewWebView() {
+        showWebView(previewWebView)
+        showAnswerWebViewButton.backgroundColor = .clear
+        showPreviewWebViewButton.backgroundColor = UIColor(white: 0.95, alpha: 1)
+    }
+    
+    @objc
+    private func showAnswerWebView() {
+        showWebView(answerWebView)
+        showAnswerWebViewButton.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        showPreviewWebViewButton.backgroundColor = .clear
     }
     
     @objc
@@ -370,24 +378,19 @@ class CodeEditorViewController: UIViewController {
     
     @objc
     private func handleKeyboardButtonTouchUpInsideEvent(_ sender: UIButton) {
-        guard let activeCodeEditorView = activeCodeEditorView else {
-            return
-        }
-        guard let question = activeCodeEditorView.activeQuestion else {
-            return
-        }
-        guard let title = sender.title(for: .normal) else {
-            return
-        }
-        guard let text = question.text else {
+        guard let activeCodeEditorView = activeCodeEditorView,
+              let question = activeCodeEditorView.activeQuestion,
+              let title = sender.title(for: .normal),
+              let text = question.text
+        else {
             return
         }
         let shouldInsert = question.answer[text.count...(text.count + title.count - 1)] == title
         if shouldInsert {
             question.insertText(title)
-            if !question.isCompleted {
-                setKeyboardButtonTitles(with: question)
-            }
+//            if !question.isCompleted {
+//                setKeyboardButtonTitles(with: question)
+//            }
         } else {
             playNGAnimation()
         }
@@ -398,18 +401,12 @@ class CodeEditorViewController: UIViewController {
         guard let codeEditorView = question.editorView else {
             return
         }
-        let questionIndex = codeEditorView.activeQuestionIndex
         saveText(question: question)
         loadUserFile()
         if question.isCompleted {
             playCorrectAnimation()
             codeEditorView.setNextQuestion()
-            if let nextQuestion = codeEditorView.activeQuestion {
-                question.activate(false)
-                nextQuestion.activate(true)
-                setKeyboardButtonTitles(with: nextQuestion)
-                scrollToQuestion(codeEditorView: codeEditorView)
-            } else {
+            if codeEditorView.isCompleted {
                 if let codeEditorViewIndex = codeEditorViews.firstIndex(of: codeEditorView) {
                     var nextCodeEidotrViewIndex = codeEditorViewIndex + 1
                     while nextCodeEidotrViewIndex < codeEditorViews.count {
@@ -419,23 +416,24 @@ class CodeEditorViewController: UIViewController {
                         nextCodeEidotrViewIndex += 1
                     }
                     if nextCodeEidotrViewIndex == codeEditorViews.count {
-                        UIView.animate(withDuration: 1) {
-                            self.keyboardView.alpha = 0
-                        }
+                        //                        UIView.animate(withDuration: 1) {
+                        //                            self.keyboardView.alpha = 0
+                        //                        }
                     } else {
                         let nextCodeEditor = codeEditorViews[nextCodeEidotrViewIndex]
                         nextCodeEditor.activeQuestion?.activate(true)
                         changeCodeEditorView(to: nextCodeEditor)
-                        setKeyboardButtonTitles(with: nextCodeEditor.activeQuestion!)
                         scrollToQuestion(codeEditorView: nextCodeEditor)
                     }
                 }
+            } else {
+                scrollToQuestion(codeEditorView: codeEditorView)
             }
         } else {
             playOKAnimation()
         }
         if question.markedTextRange == nil {
-            let key = "<!--" + String(questionIndex) + "-->"
+            let key = "<!--" + String(question.index) + "-->"
             let pattern =  key + ".*" + key
             if let fileIndex = codeEditorViews.firstIndex(of: codeEditorView),
                 let url = lesson?.files[fileIndex].userURL,
@@ -450,32 +448,6 @@ class CodeEditorViewController: UIViewController {
                 question.caret.frame.origin.x = textSize.width
             }
         }
-    }
-    
-    private func showWebView(_ webView: WKWebView) {
-        webViewContainer.subviews.forEach { $0.removeFromSuperview() }
-        webViewContainer.addSubview(webView)
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            webView.leadingAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.trailingAnchor),
-            webView.topAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.topAnchor),
-            webView.bottomAnchor.constraint(equalTo: webViewContainer.safeAreaLayoutGuide.bottomAnchor),
-            ])
-    }
-    
-    @objc
-    private func showPreviewWebView() {
-        showWebView(previewWebView)
-        showAnswerWebViewButton.backgroundColor = .clear
-        showPreviewWebViewButton.backgroundColor = UIColor(white: 0.95, alpha: 1)
-    }
-    
-    @objc
-    private func showAnswerWebView() {
-        showWebView(answerWebView)
-        showAnswerWebViewButton.backgroundColor = UIColor(white: 0.95, alpha: 1)
-        showPreviewWebViewButton.backgroundColor = .clear
     }
     
 }

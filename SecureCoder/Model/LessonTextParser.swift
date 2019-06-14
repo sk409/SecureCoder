@@ -17,7 +17,7 @@ struct LessonTextParser {
     var delegate: LessonTextParserDelegate?
     var newLineHandler: (() -> Void)?
     var spaceHandler: (() -> Void)?
-    var questionHandler: ((String, ProgramingLanguage) -> Void)?
+    var questionHandler: ((Int, String, ProgramingLanguage) -> Void)?
     var templateHandler: ((String, ProgramingLanguage) -> Void)?
     
     func parse(_ lessonText: String) -> String {
@@ -46,12 +46,12 @@ struct LessonTextParser {
                 let answer = String(cache[3...(cache.count - 4)])
                 text += "<!--" + String(answerIndex) + "-->"
                 text += "<!--" + String(answerIndex) + "-->"
-                answerIndex += 1
                 delegate?.lessonTextParser(self, token: .question, text: answer, language: language)
                 if language != nil {
-                    questionHandler?(answer, language!)
+                    questionHandler?(answerIndex, answer, language!)
                 }
                 cache.removeAll()
+                answerIndex += 1
             } else if cache.hasPrefix("#[#") && cache.hasSuffix("#]#") {
                 let template = String(cache[3...(cache.count - 4)])
                 text += template

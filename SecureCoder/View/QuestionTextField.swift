@@ -4,19 +4,22 @@ class QuestionTextField: UITextField {
     
     weak var editorView: CodeEditorView?
     
+    let index: Int
     let answer: String
     let language: ProgramingLanguage
-    
     let caret = CaretView()
+    let keyboardView = KeyboardView()
     
     var isCompleted: Bool {
         return text == answer
     }
     
-    init(answer: String, language: ProgramingLanguage) {
+    init(index: Int, answer: String, language: ProgramingLanguage) {
+        self.index = index
         self.answer = answer
         self.language = language
         super.init(frame: .zero)
+        keyboardView.build(with: answer.map { $0 })
     }
     
     required init?(coder aDecoder: NSCoder) {
