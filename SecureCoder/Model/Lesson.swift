@@ -9,6 +9,7 @@ struct Slide: Codable {
 struct Description: Codable {
     let title: String
     let content: String
+    let index: Int
 }
 
 struct Lesson {
@@ -16,10 +17,10 @@ struct Lesson {
     let title: String
     let files: [File]
     let slides: [Slide]
-    let descriptios: [Description]
+    let descriptios: [String: [Description]]
     private(set) var index: File?
     
-    init(title: String, files: [File], slides: [Slide], descriptios: [Description]) {
+    init(title: String, files: [File], slides: [Slide], descriptios: [String: [Description]]) {
         self.title = title
         self.files = files
         self.slides = slides

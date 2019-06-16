@@ -23,7 +23,7 @@
 		D71C2C2822A104DC008CCCD0 /* WhitenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2722A104DC008CCCD0 /* WhitenView.swift */; };
 		D71E4ECA228BA5D300B267E8 /* KeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D71E4EC9228BA5D300B267E8 /* KeyboardView.xib */; };
 		D71E4ECC228BD51700B267E8 /* AutoCorrectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E4ECB228BD51700B267E8 /* AutoCorrectButton.swift */; };
-		D71F646E22890DA500BB8C31 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F646D22890DA500BB8C31 /* KeyboardButton.swift */; };
+		D71F646E22890DA500BB8C31 /* b.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F646D22890DA500BB8C31 /* b.swift */; };
 		D721CF9B227C086300D0038A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D721CF9A227C086300D0038A /* WebKit.framework */; };
 		D724D4302283C5E2009176C3 /* KeyboardShiftControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724D42F2283C5E2009176C3 /* KeyboardShiftControlButton.swift */; };
 		D724D43422841AFC009176C3 /* KeyboardToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724D43322841AFC009176C3 /* KeyboardToolView.swift */; };
@@ -51,6 +51,9 @@
 		D75AFF2E2290FBE70025BAF2 /* UIColor+ApplicationColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */; };
 		D75BD388227E660700AA7E7F /* KeyboardHomeControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75BD387227E660700AA7E7F /* KeyboardHomeControlButton.swift */; };
 		D75BD38A227E680D00AA7E7F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75BD389227E680D00AA7E7F /* File.swift */; };
+		D762AF5B22B47E9A001C94A2 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D762AF5A22B47E9A001C94A2 /* KeyboardButton.swift */; };
+		D762AF5D22B48543001C94A2 /* UIView+darken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D762AF5C22B48543001C94A2 /* UIView+darken.swift */; };
+		D762AF5F22B49290001C94A2 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D762AF5E22B49290001C94A2 /* DescriptionView.swift */; };
 		D76BBF7A22687C58005DE694 /* DescriptionImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76BBF7822687C58005DE694 /* DescriptionImageCollectionViewCell.swift */; };
 		D76BBF7B22687C58005DE694 /* DescriptionImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D76BBF7922687C58005DE694 /* DescriptionImageCollectionViewCell.xib */; };
 		D76BBF7D2268A0B5005DE694 /* URLQueryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76BBF7C2268A0B5005DE694 /* URLQueryObject.swift */; };
@@ -122,7 +125,7 @@
 		D71C2C2722A104DC008CCCD0 /* WhitenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhitenView.swift; sourceTree = "<group>"; };
 		D71E4EC9228BA5D300B267E8 /* KeyboardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyboardView.xib; sourceTree = "<group>"; };
 		D71E4ECB228BD51700B267E8 /* AutoCorrectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCorrectButton.swift; sourceTree = "<group>"; };
-		D71F646D22890DA500BB8C31 /* KeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
+		D71F646D22890DA500BB8C31 /* b.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = b.swift; sourceTree = "<group>"; };
 		D721CF9A227C086300D0038A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D724D42F2283C5E2009176C3 /* KeyboardShiftControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShiftControlButton.swift; sourceTree = "<group>"; };
 		D724D43322841AFC009176C3 /* KeyboardToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolView.swift; sourceTree = "<group>"; };
@@ -150,6 +153,9 @@
 		D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ApplicationColor.swift"; sourceTree = "<group>"; };
 		D75BD387227E660700AA7E7F /* KeyboardHomeControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHomeControlButton.swift; sourceTree = "<group>"; };
 		D75BD389227E680D00AA7E7F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		D762AF5A22B47E9A001C94A2 /* KeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
+		D762AF5C22B48543001C94A2 /* UIView+darken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+darken.swift"; sourceTree = "<group>"; };
+		D762AF5E22B49290001C94A2 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		D76BBF7822687C58005DE694 /* DescriptionImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D76BBF7922687C58005DE694 /* DescriptionImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DescriptionImageCollectionViewCell.xib; path = ../View/DescriptionImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		D76BBF7C2268A0B5005DE694 /* URLQueryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryObject.swift; sourceTree = "<group>"; };
@@ -329,6 +335,8 @@
 				D7381E2622AD097F0070DDE6 /* TabView.swift */,
 				D7256C2922ADFEB00093A5AA /* FileTableViewCell.swift */,
 				D71A0AE922B1D1F80088326D /* SectionButton.swift */,
+				D762AF5A22B47E9A001C94A2 /* KeyboardButton.swift */,
+				D762AF5E22B49290001C94A2 /* DescriptionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -372,6 +380,7 @@
 				D7B027252281432B00E54F30 /* CGPoint+operators.swift */,
 				D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */,
 				D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */,
+				D762AF5C22B48543001C94A2 /* UIView+darken.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -420,7 +429,7 @@
 				D7E45A84227D424300E54FCC /* a.swift */,
 				D77E9599227FF995000A7B21 /* KeyboardInputButton.swift */,
 				D724D43322841AFC009176C3 /* KeyboardToolView.swift */,
-				D71F646D22890DA500BB8C31 /* KeyboardButton.swift */,
+				D71F646D22890DA500BB8C31 /* b.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -513,7 +522,7 @@
 			files = (
 				D726997422966B41009988E6 /* SectionsViewController.swift in Sources */,
 				D75A99D422A29B080086E710 /* Course.swift in Sources */,
-				D71F646E22890DA500BB8C31 /* KeyboardButton.swift in Sources */,
+				D71F646E22890DA500BB8C31 /* b.swift in Sources */,
 				D72BB8D5225425680043D909 /* String+subscript.swift in Sources */,
 				D7AF14AD228524B100022937 /* String+is~.swift in Sources */,
 				D73A96A1228275E900267743 /* AutoCorrectView.swift in Sources */,
@@ -531,6 +540,7 @@
 				D724D43422841AFC009176C3 /* KeyboardToolView.swift in Sources */,
 				D7C2A49422672D9C00A6AF18 /* Array+numberingSort.swift in Sources */,
 				D72BB8D92254C8560043D909 /* PHPSyntaxHighlighter.swift in Sources */,
+				D762AF5B22B47E9A001C94A2 /* KeyboardButton.swift in Sources */,
 				D724D4302283C5E2009176C3 /* KeyboardShiftControlButton.swift in Sources */,
 				D7722E812293A3FC00A749BF /* SlideCollectionViewCell.swift in Sources */,
 				D7A5667B2259FF39002EF185 /* LessonType.swift in Sources */,
@@ -549,6 +559,7 @@
 				D75A99D622A29B530086E710 /* Section.swift in Sources */,
 				D776B531227EA5E000DD0FB5 /* KeyboardUpControlButton.swift in Sources */,
 				D77E958B227FCC74000A7B21 /* KeyboardPageDownControlButton.swift in Sources */,
+				D762AF5F22B49290001C94A2 /* DescriptionView.swift in Sources */,
 				D781CE1D225DFF7A00B90A26 /* Character+is~.swift in Sources */,
 				D74B15E122AB94CD0035047B /* EditorComponentsBuilder.swift in Sources */,
 				D71C2C2622A0F656008CCCD0 /* CourseCard.swift in Sources */,
@@ -562,6 +573,7 @@
 				D7A5666C22588BC1002EF185 /* HTTPMethod.swift in Sources */,
 				D715CA0522AB2C360087CAB9 /* UserFileManager.swift in Sources */,
 				D7C2A49222670A3E00A6AF18 /* String+toArray.swift in Sources */,
+				D762AF5D22B48543001C94A2 /* UIView+darken.swift in Sources */,
 				D77E9591227FD48D000A7B21 /* KeyboardDownControlButton.swift in Sources */,
 				D7256C2A22ADFEB00093A5AA /* FileTableViewCell.swift in Sources */,
 				D7319A9A2298F20500369273 /* CodeEditorView.swift in Sources */,

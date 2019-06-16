@@ -2,18 +2,13 @@ import UIKit
 
 class KeyboardView: UIView {
     
-    static let rowCount = 3
-    static let columnCount = 3
-    
-    let contentView = UIStackView()
-    
     private(set) var buttons = [UIButton]()
     
     func build(with characters: [Character]) {
-        let characterSet = characters.reduce([Character]()) { $0.contains($1) ? $0 : $0 + [$1] }.shuffled()
+        //let characterSet = characters.reduce([Character]()) { $0.contains($1) ? $0 : $0 + [$1] }.shuffled()
         buttons.removeAll(keepingCapacity: true)
-        let rowCount = Int(min(3, ceil(sqrt(CGFloat(characterSet.count)))))
-        let columnCount = Int(ceil(CGFloat(characterSet.count) / CGFloat(rowCount)))
+        let rowCount = Int(min(3, ceil(sqrt(CGFloat(characters.count)))))
+        let columnCount = Int(ceil(CGFloat(characters.count) / CGFloat(rowCount)))
         let rowSpacing: CGFloat = 8
         let columnSpacing: CGFloat = 8
         let containerStackView = UIStackView()
@@ -28,6 +23,7 @@ class KeyboardView: UIView {
             containerStackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             containerStackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             ])
+        let shuffledCharacters = characters.shuffled()
         for rowIndex in 0..<rowCount {
             let buttonsStackView = UIStackView()
             buttonsStackView.axis = .horizontal
@@ -35,15 +31,11 @@ class KeyboardView: UIView {
             buttonsStackView.spacing = columnSpacing
             for columnIndex in 0..<columnCount {
                 let characterIndex = rowIndex * columnCount + columnIndex
-                if characterIndex < characterSet.count {
+                if characterIndex < shuffledCharacters.count {
                     let button = UIButton()
                     buttons.append(button)
                     buttonsStackView.addArrangedSubview(button)
-                    button.backgroundColor = UIColor(white: 0.35, alpha: 1)
-                    button.layer.borderColor = UIColor.white.cgColor
-                    button.layer.borderWidth = 0.25
-                    button.setTitle(String(characterSet[characterIndex]), for: .normal)
-                    button.setTitleColor(.white, for: .normal)
+                    button.setTitle(String(shuffledCharacters[characterIndex]), for: .normal)
                 } else {
                     let dummy = UIView()
                     buttonsStackView.addArrangedSubview(dummy)

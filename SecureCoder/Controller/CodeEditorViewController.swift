@@ -4,6 +4,8 @@ import WebKit
 
 class CodeEditorViewController: UIViewController {
     
+    private static let cellID = "CELL"
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -21,22 +23,36 @@ class CodeEditorViewController: UIViewController {
     private let previewWebView = WKWebView()
     private let answerWebView = WKWebView()
     private let codeEditorViewContainer = UIView()
-    private let fileTableView = UITableView()
+    private let filesTableView = UITableView()
     private let fileButton = UIButton()
+    private let blackOutView = UIView()
+    private let descriptionView = DescriptionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
+        addSubviews()
         setupSubviews()
         showSlide()
         loadUserFile()
     }
     
-    private func setupSubviews() {
-        guard let lesson = lesson else {
-            return
-        }
+    private func addSubviews() {
         view.addSubview(codeEditorViewContainer)
+        view.addSubview(filesTableView)
+        view.addSubview(fileButton)
+        view.addSubview(webViewContainer)
+    }
+
+    private func setupSubviews() {
+        setupWebviews()
+        setupFileButton()
+        setupFilesTableView()
+        setupDescriptionView()
+        setupCodeEditorViewContainer()
+        setupCodeEditorViews()
+    }
+    
+    private func setupCodeEditorViewContainer() {
         codeEditorViewContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             codeEditorViewContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
@@ -44,58 +60,41 @@ class CodeEditorViewController: UIViewController {
             codeEditorViewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             codeEditorViewContainer.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.55)
             ])
+    }
+    
+    private func setupCodeEditorViews() {
+        guard let lesson = lesson else {
+            return
+        }
         for (fileIndex, file) in lesson.files.enumerated() {
             let codeEditorView = CodeEditorView()
             codeEditorViews.append(codeEditorView)
-            let editorComponents = EditorComponentsBuilder().build(
-                pointer: .zero,
-                font: font,
-                tintColor: tintColor,
-                lessonText: file.text)
-            editorComponents.forEach { editorComponent in
-                let bufferSize = CGSize(width: 64, height: 132)
-                codeEditorView.scrollView.addSubview(editorComponent)
-                codeEditorView.scrollView.contentSize.width = max(
-                    codeEditorView.scrollView.contentSize.width,
-                    editorComponent.frame.origin.x + editorComponent.bounds.width + bufferSize.width)
-                codeEditorView.scrollView.contentSize.height = max(codeEditorView.scrollView.contentSize.height,
-                        editorComponent.frame.origin.y + editorComponent.bounds.height + bufferSize.height)
-                if let question = editorComponent as? QuestionTextField {
-                    question.editorView = codeEditorView
-                    question.addTarget(self, action: #selector(handleQuestionTextFieldEditingChangedEvent(_:)), for: .editingChanged)
-                    codeEditorView.questions.append(question)
-                }
-            }
-            codeEditorView.questions.forEach { $0.keyboardView.buttons.forEach { $0.addTarget(self, action: #selector(handleKeyboardButtonTouchUpInsideEvent(_:)), for: .touchUpInside) }}
+            codeEditorView.questionDidChangeEventHandler = handleQuestionDidChangeEvent(_:)
+            setupCodeEditorViewComponents(codeEditorView: codeEditorView, lessonText: file.text)
+            setupQuestions(codeEditorView.questions)
             codeEditorView.setNextQuestion()
-            guard let userText = try? String(contentsOf: file.userURL) else {
-                return
-            }
-            let userAnswers = UserFileManager.extractUserAnswers(userText: userText)
-            for (userAnswerIndex, userAnswer) in userAnswers.enumerated() {
-                guard !userAnswer.isEmpty else {
-                    break
-                }
-                codeEditorView.questions[userAnswerIndex].insertText(userAnswer)
-            }
+            setUserAnswersToQuestionTextFields(file: file, questions: codeEditorView.questions)
             if fileIndex == 0 || codeEditorView.isCompleted {
                 changeCodeEditorView(to: codeEditorView)
             }
         }
-        view.addSubview(fileTableView)
-        fileTableView.dataSource = self
-        fileTableView.delegate = self
-        fileTableView.register(FileTableViewCell.self, forCellReuseIdentifier: "CELL")
-        fileTableView.tableFooterView = UIView()
-        fileTableView.backgroundColor = .lightGray
-        fileTableView.frame = CGRect(
+    }
+    
+    private func setupFilesTableView() {
+        filesTableView.dataSource = self
+        filesTableView.delegate = self
+        filesTableView.register(FileTableViewCell.self, forCellReuseIdentifier: CodeEditorViewController.cellID)
+        filesTableView.tableFooterView = UIView()
+        filesTableView.backgroundColor = .lightGray
+        filesTableView.frame = CGRect(
             x: view.bounds.width,
             y: 0,
             width: view.bounds.width * 0.4,
             height: view.bounds.height)
-
+    }
+    
+    private func setupFileButton() {
         let fileButtonSize: CGFloat = 44
-        view.addSubview(fileButton)
         fileButton.layer.cornerRadius = fileButtonSize * 0.5
         fileButton.setBackgroundImage(UIImage(named: "file-icon"), for: .normal)
         fileButton.addTarget(self, action: #selector(handleFileButtonTouchUpInsideEvent(_:)), for: .touchUpInside)
@@ -106,8 +105,9 @@ class CodeEditorViewController: UIViewController {
             fileButton.widthAnchor.constraint(equalToConstant: fileButtonSize),
             fileButton.heightAnchor.constraint(equalTo: fileButton.widthAnchor),
             ])
-
-        let distanceToSeparator: CGFloat = 8
+    }
+    
+    private func setupWebviews() {
         let webViewButtonsContainer = UIView()
         view.addSubview(webViewButtonsContainer)
         webViewButtonsContainer.backgroundColor = UIColor(white: 0.8, alpha: 1)
@@ -118,6 +118,16 @@ class CodeEditorViewController: UIViewController {
             webViewButtonsContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             webViewButtonsContainer.heightAnchor.constraint(equalToConstant: 44),
             ])
+        let webViewButtonsSeparator = UIView()
+        webViewButtonsContainer.addSubview(webViewButtonsSeparator)
+        webViewButtonsSeparator.backgroundColor = UIColor(white: 0.5, alpha: 1)
+        webViewButtonsSeparator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webViewButtonsSeparator.centerXAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.centerXAnchor),
+            webViewButtonsSeparator.centerYAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.centerYAnchor),
+            webViewButtonsSeparator.widthAnchor.constraint(equalToConstant: 1),
+            webViewButtonsSeparator.heightAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.heightAnchor, multiplier: 0.6666)
+            ])
         webViewButtonsContainer.addSubview(showPreviewWebViewButton)
         showPreviewWebViewButton.setTitle("プレビュー", for: .normal)
         showPreviewWebViewButton.setTitleColor(.black, for: .normal)
@@ -126,19 +136,9 @@ class CodeEditorViewController: UIViewController {
         showPreviewWebViewButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             showPreviewWebViewButton.leadingAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.leadingAnchor),
+            showPreviewWebViewButton.trailingAnchor.constraint(equalTo: webViewButtonsSeparator.leadingAnchor),
             showPreviewWebViewButton.topAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.topAnchor),
             showPreviewWebViewButton.bottomAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.bottomAnchor),
-            showPreviewWebViewButton.widthAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.widthAnchor, multiplier: 0.25)
-            ])
-        let webViewButtonsSeparator = UIView()
-        webViewButtonsContainer.addSubview(webViewButtonsSeparator)
-        webViewButtonsSeparator.backgroundColor = UIColor(white: 0.5, alpha: 1)
-        webViewButtonsSeparator.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            webViewButtonsSeparator.leadingAnchor.constraint(equalTo: showPreviewWebViewButton.trailingAnchor, constant: distanceToSeparator),
-            webViewButtonsSeparator.centerYAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.centerYAnchor),
-            webViewButtonsSeparator.widthAnchor.constraint(equalToConstant: 1),
-            webViewButtonsSeparator.heightAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.heightAnchor, multiplier: 0.6666)
             ])
         webViewButtonsContainer.addSubview(showAnswerWebViewButton)
         showAnswerWebViewButton.setTitle("見本", for: .normal)
@@ -147,14 +147,11 @@ class CodeEditorViewController: UIViewController {
         showAnswerWebViewButton.addTarget(self, action: #selector(showAnswerWebView), for: .touchUpInside)
         showAnswerWebViewButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            showAnswerWebViewButton.leadingAnchor.constraint(equalTo: webViewButtonsSeparator.trailingAnchor, constant: distanceToSeparator),
+            showAnswerWebViewButton.leadingAnchor.constraint(equalTo: webViewButtonsSeparator.trailingAnchor),
             showAnswerWebViewButton.topAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.topAnchor),
             showAnswerWebViewButton.bottomAnchor.constraint(equalTo: webViewButtonsContainer.safeAreaLayoutGuide.bottomAnchor),
             showAnswerWebViewButton.widthAnchor.constraint(equalTo: showPreviewWebViewButton.widthAnchor)
             ])
-
-
-        view.addSubview(webViewContainer)
         webViewContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             webViewContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -162,10 +159,80 @@ class CodeEditorViewController: UIViewController {
             webViewContainer.topAnchor.constraint(equalTo: webViewButtonsContainer.bottomAnchor),
             webViewContainer.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             ])
-        if let indexFile = lesson.index {
+        if let indexFile = lesson?.index {
             answerWebView.load(URLRequest(url: indexFile.answerURL))
         }
         showPreviewWebView()
+    }
+
+    private func setupQuestions(_ questions: [QuestionTextField]) {
+        for question in questions {
+            question.keyboardView.backgroundColor = UIColor(white: 0.25, alpha: 1)
+            for button in question.keyboardView.buttons {
+                button.backgroundColor = UIColor(white: 0.35, alpha: 1)
+                button.layer.borderColor = UIColor.white.cgColor
+                button.layer.borderWidth = 0.25
+                button.setTitleColor(.white, for: .normal)
+                button.addTarget(self, action: #selector(handleKeyboardButtonTouchUpInsideEvent(_:)), for: .touchUpInside)
+            }
+        }
+    }
+    
+    private func setupCodeEditorViewComponents(codeEditorView: CodeEditorView, lessonText: String) {
+        let editorComponents = EditorComponentsBuilder().build(
+            pointer: .zero,
+            font: font,
+            tintColor: tintColor,
+            lessonText: lessonText)
+        editorComponents.forEach { editorComponent in
+            let bufferSize = CGSize(width: 64, height: 132)
+            codeEditorView.scrollView.addSubview(editorComponent)
+            codeEditorView.scrollView.contentSize.width = max(
+                codeEditorView.scrollView.contentSize.width,
+                editorComponent.frame.origin.x + editorComponent.bounds.width + bufferSize.width)
+            codeEditorView.scrollView.contentSize.height = max(codeEditorView.scrollView.contentSize.height,
+                                                               editorComponent.frame.origin.y + editorComponent.bounds.height + bufferSize.height)
+            if let question = editorComponent as? QuestionTextField {
+                question.editorView = codeEditorView
+                question.addTarget(self, action: #selector(handleQuestionTextFieldEditingChangedEvent(_:)), for: .editingChanged)
+                codeEditorView.questions.append(question)
+            }
+        }
+    }
+    
+    private func setupDescriptionView() {
+        view.addSubview(blackOutView)
+        blackOutView.alpha = 0
+        blackOutView.backgroundColor = UIColor.black.withAlphaComponent(0.65)
+        view.addSubview(descriptionView)
+        descriptionView.alpha = 0
+        descriptionView.backgroundColor = .make(fromHex: "#3a474e")
+        descriptionView.translatesAutoresizingMaskIntoConstraints = false
+        descriptionView.titleLabel.textColor = .black
+        descriptionView.titleLabel.font = .boldSystemFont(ofSize: 24)
+        descriptionView.contentTextView.textColor = .black
+        descriptionView.contentTextView.font = .systemFont(ofSize: 20)
+        descriptionView.contentTextView.backgroundColor = .clear
+        descriptionView.closeButton.addTarget(self, action: #selector(hideDescriptionView), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            descriptionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            descriptionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            descriptionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            descriptionView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.5)
+            ])
+    }
+    
+    private func setUserAnswersToQuestionTextFields(file: File, questions: [QuestionTextField]) {
+        guard let userText = try? String(contentsOf: file.userURL) else {
+            return
+        }
+        let userAnswers = UserFileManager.extractUserAnswers(userText: userText)
+        for (userAnswerIndex, userAnswer) in userAnswers.enumerated() {
+            guard !userAnswer.isEmpty else {
+                break
+            }
+            questions[userAnswerIndex].insertText(userAnswer)
+        }
     }
     
     private func changeCodeEditorView(to codeEditorView: CodeEditorView) {
@@ -187,14 +254,23 @@ class CodeEditorViewController: UIViewController {
         //        present(slideViewController, animated: true)
     }
     
-//    private func setKeyboardButtonTitles(with question: QuestionTextField) {
-//        let next = String(question.answer[question.text?.count ?? 0])
-//        if next == " " {
-//            keyboardView.setTitle(rowIndex: 1, columnIndex: 1, title: " ")
-//        } else {
-//            keyboardView.setTitlesRandom(answer: next)
-//        }
-//    }
+    private func showDescriptionView(with data: Description) {
+        blackOutView.frame = view.bounds
+        descriptionView.titleLabel.text = data.title
+        descriptionView.contentTextView.text = data.content
+        UIView.animate(withDuration: 0.5) {
+            self.blackOutView.alpha = 1
+            self.descriptionView.alpha = 1
+        }
+    }
+    
+    @objc
+    private func hideDescriptionView() {
+        UIView.animate(withDuration: 0.5) {
+            self.blackOutView.alpha = 0
+            self.descriptionView.alpha = 0
+        }
+    }
     
     private func playCorrectAnimation() {
         let font = UIFont.boldSystemFont(ofSize: 18)
@@ -241,10 +317,12 @@ class CodeEditorViewController: UIViewController {
         label.backgroundColor = backgroundColor
         label.alpha = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
-        label.widthAnchor.constraint(equalToConstant: width).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        NSLayoutConstraint.activate([
+            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            label.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -8),
+            label.widthAnchor.constraint(equalToConstant: width),
+            label.heightAnchor.constraint(equalToConstant: 30)
+            ])
         UIView.animate(withDuration: 0.5, animations: {
             label.alpha = 1
         }) { _ in
@@ -257,26 +335,15 @@ class CodeEditorViewController: UIViewController {
     }
     
     private func saveText(question: QuestionTextField) {
-        guard let lesson = lesson else {
-            return
-        }
-        guard let questionText = question.text else {
-            return
-        }
-        guard !questionText.isEmpty else {
-            return
-        }
-        guard let codeEditorView = question.editorView else {
-            return
-        }
-        guard let fileIndex = codeEditorViews.firstIndex(of: codeEditorView) else {
-            return
-        }
-        guard let userText = try? String(contentsOf: lesson.files[fileIndex].userURL) else {
-            return
-        }
-        let pattern = "<!--" + String(codeEditorView.activeQuestionIndex) + "-->"
-        guard let regex = try? NSRegularExpression(pattern: pattern) else {
+        guard let lesson = lesson,
+              let questionText = question.text,
+              !questionText.isEmpty,
+              let codeEditorView = question.editorView,
+              let fileIndex = codeEditorViews.firstIndex(of: codeEditorView),
+              let userText = try? String(contentsOf: lesson.files[fileIndex].userURL),
+              let regex = try? NSRegularExpression(pattern:
+                "<!--" + String(codeEditorView.activeQuestionIndex) + "-->")
+        else {
             return
         }
         let matches = regex.matches(in: userText, range: NSRange(location: 0, length: (userText as NSString).length))
@@ -320,8 +387,28 @@ class CodeEditorViewController: UIViewController {
             return
         }
         UIView.animate(withDuration: 1, delay: 0, options: .curveEaseInOut, animations: {
-                codeEditorView.scrollView.contentOffset.y = question.frame.origin.y - question.bounds.height
+            codeEditorView.scrollView.contentOffset.y = question.frame.origin.y - question.bounds.height
         })
+    }
+    
+    private func insertCharacterIfCorrect(to question: QuestionTextField, answer: Character, character: Character) -> Bool {
+        guard (answer == character) else {
+            return false
+        }
+        question.insertText(String(character))
+        return true
+    }
+    
+    private func handleQuestionDidChangeEvent(_ codeEditorView: CodeEditorView) {
+        let questionIndex = codeEditorView.activeQuestionIndex
+        guard let fileIndex = codeEditorViews.firstIndex(of: codeEditorView),
+              let file = lesson?.files[fileIndex],
+              let descriptions = lesson?.descriptios[file.title],
+              let description = descriptions.first(where: {$0.index == questionIndex})
+        else {
+            return
+        }
+        showDescriptionView(with: description)
     }
     
     private func showWebView(_ webView: WKWebView) {
@@ -357,20 +444,20 @@ class CodeEditorViewController: UIViewController {
         rotateAnimation.repeatCount = 1
         rotateAnimation.duration = animationDuration
         let x: CGFloat
-        if fileTableView.frame.origin.x < view.bounds.width {
+        if filesTableView.frame.origin.x < view.bounds.width {
             x = view.bounds.width
             rotateAnimation.toValue = -2 * CGFloat.pi
         } else {
-            x = view.bounds.width - fileTableView.bounds.width
+            x = view.bounds.width - filesTableView.bounds.width
             rotateAnimation.toValue = 2 * CGFloat.pi
         }
         fileButton.layer.add(rotateAnimation, forKey: "rotation")
         UIView.animate(withDuration: animationDuration, animations: {
-            self.fileTableView.frame.origin.x = x
+            self.filesTableView.frame.origin.x = x
         }) {_ in
-            if self.fileTableView.frame.origin.x == self.view.bounds.width {
+            if self.filesTableView.frame.origin.x == self.view.bounds.width {
                 self.fileButton.setBackgroundImage(UIImage(named: "file-icon"), for: .normal)
-            } else if self.fileTableView.frame.origin.x == self.view.bounds.width - self.fileTableView.bounds.width {
+            } else if self.filesTableView.frame.origin.x <= (self.view.bounds.width - self.filesTableView.bounds.width) * 1.1 {
                 self.fileButton.setBackgroundImage(UIImage(named: "cross-icon"), for: .normal)
             }
         }
@@ -378,19 +465,16 @@ class CodeEditorViewController: UIViewController {
     
     @objc
     private func handleKeyboardButtonTouchUpInsideEvent(_ sender: UIButton) {
-        guard let activeCodeEditorView = activeCodeEditorView,
-              let question = activeCodeEditorView.activeQuestion,
-              let title = sender.title(for: .normal),
-              let text = question.text
+        guard let question = activeCodeEditorView?.activeQuestion,
+              let senderTitle = sender.title(for: .normal)
         else {
             return
         }
-        let shouldInsert = question.answer[text.count...(text.count + title.count - 1)] == title
-        if shouldInsert {
-            question.insertText(title)
-//            if !question.isCompleted {
-//                setKeyboardButtonTitles(with: question)
-//            }
+        let answer = question.answer[question.text?.count ?? 0]
+        let succeeded = insertCharacterIfCorrect(to: question, answer: answer, character: Character(senderTitle))
+        if succeeded {
+            sender.darken(coeff: 0.5)
+            sender.isEnabled = false
         } else {
             playNGAnimation()
         }
@@ -408,19 +492,19 @@ class CodeEditorViewController: UIViewController {
             codeEditorView.setNextQuestion()
             if codeEditorView.isCompleted {
                 if let codeEditorViewIndex = codeEditorViews.firstIndex(of: codeEditorView) {
-                    var nextCodeEidotrViewIndex = codeEditorViewIndex + 1
-                    while nextCodeEidotrViewIndex < codeEditorViews.count {
-                        if !codeEditorViews[nextCodeEidotrViewIndex].questions.isEmpty {
+                    var nextCodeEditorViewIndex = codeEditorViewIndex + 1
+                    while nextCodeEditorViewIndex < codeEditorViews.count {
+                        if !codeEditorViews[nextCodeEditorViewIndex].questions.isEmpty {
                             break
                         }
-                        nextCodeEidotrViewIndex += 1
+                        nextCodeEditorViewIndex += 1
                     }
-                    if nextCodeEidotrViewIndex == codeEditorViews.count {
-                        //                        UIView.animate(withDuration: 1) {
-                        //                            self.keyboardView.alpha = 0
-                        //                        }
+                    if nextCodeEditorViewIndex == codeEditorViews.count {
+                        UIView.animate(withDuration: 1) {
+                            codeEditorView.lastQuestion?.keyboardView.alpha = 0
+                        }
                     } else {
-                        let nextCodeEditor = codeEditorViews[nextCodeEidotrViewIndex]
+                        let nextCodeEditor = codeEditorViews[nextCodeEditorViewIndex]
                         nextCodeEditor.activeQuestion?.activate(true)
                         changeCodeEditorView(to: nextCodeEditor)
                         scrollToQuestion(codeEditorView: nextCodeEditor)
@@ -459,7 +543,7 @@ extension CodeEditorViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CELL") as? FileTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CodeEditorViewController.cellID) as? FileTableViewCell else {
             return UITableViewCell()
         }
         cell.backgroundColor = .lightGray

@@ -2,7 +2,7 @@ import UIKit
 
 extension UIColor {
     
-    static func make(from aHex: String) -> UIColor? {
+    static func make(fromHex aHex: String) -> UIColor? {
         var hex = aHex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         if hex.hasPrefix("#") {
             hex.removeFirst()

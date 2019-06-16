@@ -4,9 +4,16 @@ class CodeEditorView: UIView {
     
     let scrollView = UIScrollView()
     
+    var questionDidChangeEventHandler: ((CodeEditorView) -> Void)?
     var questions = [QuestionTextField]()
     var activeQuestion: QuestionTextField? {
         return activeQuestionIndex < questions.count ?  questions[activeQuestionIndex] : nil
+    }
+    var firstQuestion: QuestionTextField? {
+        return questions.first
+    }
+    var lastQuestion: QuestionTextField? {
+        return questions.last
     }
     var isCompleted: Bool {
         return activeQuestion == nil
@@ -40,12 +47,12 @@ class CodeEditorView: UIView {
             question.activate(true)
             let keyboardView = question.keyboardView
             addSubview(keyboardView)
-            keyboardView.backgroundColor = UIColor(white: 0.25, alpha: 1)
             keyboardView.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 keyboardView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
                 keyboardView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8)
                 ])
+            questionDidChangeEventHandler?(self)
         }
     }
     

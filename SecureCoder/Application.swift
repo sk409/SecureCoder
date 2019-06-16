@@ -6,7 +6,7 @@ struct Application {
     //static let webServerRootURLString = "http://localhost:80/"
     static let shared = Application()
     
-    static func print(_ text: String, file: String = #file, function: String = #function, line: Int = #line) {
+    static func print<T: CustomStringConvertible>(_ text: T, file: String = #file, function: String = #function, line: Int = #line) {
         Swift.print(file, ": ", function, "(", line, ")")
         Swift.print(text)
     }
@@ -91,7 +91,7 @@ struct Application {
         }
         var files = [File]()
         var slides = [Slide]()
-        var descriptions = [Description]()
+        var descriptions = [String: [Description]]()
         for contentInLessonDirectory in contentsInLessonDirectory {
             let folderURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
             guard let contentTitles = try? FileManager.default.contentsOfDirectory(atPath: folderURL.path) else {
@@ -110,8 +110,12 @@ struct Application {
                     return makeSlide(with: folderURL.appendingPathComponent(slideTitle))
                 }
             } else if contentInLessonDirectory == "descriptions" {
-                descriptions = contentTitles.compactMap { descriptionTitle in
-                    return makeDescription(with: folderURL.appendingPathComponent(descriptionTitle))
+                contentTitles.forEach { descriptionTitle in
+                    guard let description = makeDescriptions(with: folderURL.appendingPathComponent(descriptionTitle)) else {
+                        return
+                    }
+                    let describedFileName = descriptionTitle.replacingOccurrences(of: ".json", with: "")
+                    descriptions[describedFileName] = description
                 }
             }
         }
@@ -193,11 +197,11 @@ struct Application {
         return try? JSONDecoder().decode(Slide.self, from: data)
     }
     
-    private static func makeDescription(with descriptionURL: URL) -> Description? {
+    private static func makeDescriptions(with descriptionURL: URL) -> [Description]? {
         guard let data = try? Data(contentsOf: descriptionURL) else {
             return nil
         }
-        return try? JSONDecoder().decode(Description.self, from: data)
+        return try? JSONDecoder().decode([Description].self, from: data)
     }
     
     private let courses: [Course]
