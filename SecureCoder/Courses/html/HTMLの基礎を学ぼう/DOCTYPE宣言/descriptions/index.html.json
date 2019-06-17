@@ -6,12 +6,12 @@
     },
     {
         "title": "見出し1",
-        "content": "見出し1に設定してみよう。",
+        "content": "1つ目のHelloWorldという文字列を見出し1に設定してみよう。",
         "index": 2
     },
     {
         "title": "見出し2",
-        "content": "見出し2に設定してみよう。",
+        "content": "2つ目のHelloWorldという文字列を見出し1に設定してみよう。",
         "index": 4
-    },
+    }
 ]

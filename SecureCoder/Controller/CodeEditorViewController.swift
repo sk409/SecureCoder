@@ -206,13 +206,8 @@ class CodeEditorViewController: UIViewController {
         blackOutView.backgroundColor = UIColor.black.withAlphaComponent(0.65)
         view.addSubview(descriptionView)
         descriptionView.alpha = 0
-        descriptionView.backgroundColor = .make(fromHex: "#3a474e")
+        descriptionView.backgroundColor = .make(fromHex: "#3b485f")
         descriptionView.translatesAutoresizingMaskIntoConstraints = false
-        descriptionView.titleLabel.textColor = .black
-        descriptionView.titleLabel.font = .boldSystemFont(ofSize: 24)
-        descriptionView.contentTextView.textColor = .black
-        descriptionView.contentTextView.font = .systemFont(ofSize: 20)
-        descriptionView.contentTextView.backgroundColor = .clear
         descriptionView.closeButton.addTarget(self, action: #selector(hideDescriptionView), for: .touchUpInside)
         NSLayoutConstraint.activate([
             descriptionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -236,6 +231,22 @@ class CodeEditorViewController: UIViewController {
     }
     
     private func changeCodeEditorView(to codeEditorView: CodeEditorView) {
+        guard let lesson = lesson,
+              let codeEditorViewIndex = codeEditorViews.firstIndex(of: codeEditorView),
+              let descriptions = lesson.descriptios[lesson.files[codeEditorViewIndex].title] else {
+            return
+        }
+        descriptionView.descriptions = descriptions
+        descriptionView.titleLabels.forEach { titleLabel in
+            titleLabel.textColor = .black
+            titleLabel.font = .boldSystemFont(ofSize: 24)
+        }
+        descriptionView.contentTextViews.forEach { contentTextView in
+            contentTextView.textColor = .black
+            contentTextView.font = .systemFont(ofSize: 20)
+            contentTextView.backgroundColor = .clear
+        }
+        descriptionView.separatorViews.forEach { $0.backgroundColor = .white }
         activeCodeEditorView = codeEditorView
         codeEditorViewContainer.subviews.forEach { $0.removeFromSuperview() }
         codeEditorViewContainer.addSubview(codeEditorView)
@@ -254,10 +265,10 @@ class CodeEditorViewController: UIViewController {
         //        present(slideViewController, animated: true)
     }
     
-    private func showDescriptionView(with data: Description) {
+    private func showDescriptionView(descriptionIndex: Int) {
         blackOutView.frame = view.bounds
-        descriptionView.titleLabel.text = data.title
-        descriptionView.contentTextView.text = data.content
+        descriptionView.selectedDescriptionIndex = descriptionIndex
+        descriptionView.scrollToDescription(at: descriptionIndex, animate: false)
         UIView.animate(withDuration: 0.5) {
             self.blackOutView.alpha = 1
             self.descriptionView.alpha = 1
@@ -404,11 +415,11 @@ class CodeEditorViewController: UIViewController {
         guard let fileIndex = codeEditorViews.firstIndex(of: codeEditorView),
               let file = lesson?.files[fileIndex],
               let descriptions = lesson?.descriptios[file.title],
-              let description = descriptions.first(where: {$0.index == questionIndex})
+              let descriptionIndex = descriptions.firstIndex(where: {$0.index == questionIndex})
         else {
             return
         }
-        showDescriptionView(with: description)
+        showDescriptionView(descriptionIndex: descriptionIndex)
     }
     
     private func showWebView(_ webView: WKWebView) {
@@ -508,6 +519,11 @@ class CodeEditorViewController: UIViewController {
                         nextCodeEditor.activeQuestion?.activate(true)
                         changeCodeEditorView(to: nextCodeEditor)
                         scrollToQuestion(codeEditorView: nextCodeEditor)
+                        if let lesson = lesson,
+                           let descriptionIndex = lesson.descriptios[lesson.files[codeEditorViewIndex].title]?.firstIndex(where: { $0.index == 0 })
+                        {
+                            showDescriptionView(descriptionIndex: descriptionIndex)
+                        }
                     }
                 }
             } else {
