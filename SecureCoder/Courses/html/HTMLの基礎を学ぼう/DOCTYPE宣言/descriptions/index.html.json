@@ -1,17 +1,17 @@
 [
     {
         "title": "DOCTYPE宣言",
-        "content": "HTML5で文書を作成することを宣言してみよう。",
+        "content": "HTML5で文書を作成することを宣言しよう。",
         "index": 0
     },
     {
         "title": "見出し1",
-        "content": "1つ目のHelloWorldという文字列を見出し1に設定してみよう。",
+        "content": "1つ目のHelloWorldという文字列を見出し1に設定しよう。",
         "index": 2
     },
     {
         "title": "見出し2",
-        "content": "2つ目のHelloWorldという文字列を見出し1に設定してみよう。",
+        "content": "2つ目のHelloWorldという文字列を見出し2に設定しよう。",
         "index": 4
     }
 ]

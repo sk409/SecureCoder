@@ -563,7 +563,7 @@ extension CodeEditorViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         cell.backgroundColor = .lightGray
-        cell.iconImageView.image = UIImage(named: "file-icon")
+        cell.iconImageView.image = lesson?.files[indexPath.row].programingLanguage?.iconImage
         cell.fileLabel.text = lesson?.files[indexPath.row].title
         return cell
     }

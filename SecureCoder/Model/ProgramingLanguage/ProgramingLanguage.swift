@@ -7,6 +7,19 @@ enum ProgramingLanguage: String {
     case javaScript
     case php
     
+    init(extension: Extension) {
+        switch `extension` {
+        case .html:
+            self = .html
+        case .css:
+            self = .css
+        case .js:
+            self = .javaScript
+        case .php:
+            self = .php
+        }
+    }
+    
     var themeColor: UIColor {
         switch self {
         case .html:

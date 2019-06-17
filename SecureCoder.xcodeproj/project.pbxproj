@@ -42,6 +42,7 @@
 		D7381E2722AD097F0070DDE6 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7381E2622AD097F0070DDE6 /* TabView.swift */; };
 		D738B5B922A4E3700043E177 /* SectionCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */; };
 		D73A96A1228275E900267743 /* AutoCorrectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A96A0228275E900267743 /* AutoCorrectView.swift */; };
+		D745635922B7A23C00F8F68F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D745635822B7A23C00F8F68F /* Extension.swift */; };
 		D74B15E122AB94CD0035047B /* EditorComponentsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74B15E022AB94CD0035047B /* EditorComponentsBuilder.swift */; };
 		D74B15E322ABA5FC0035047B /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74B15E222ABA5FC0035047B /* Animator.swift */; };
 		D753108422892CC4000D6D9B /* KeyboardControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D753108322892CC4000D6D9B /* KeyboardControlButton.swift */; };
@@ -144,6 +145,7 @@
 		D7381E2622AD097F0070DDE6 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCardTableViewCell.swift; sourceTree = "<group>"; };
 		D73A96A0228275E900267743 /* AutoCorrectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCorrectView.swift; sourceTree = "<group>"; };
+		D745635822B7A23C00F8F68F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D74B15E022AB94CD0035047B /* EditorComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorComponentsBuilder.swift; sourceTree = "<group>"; };
 		D74B15E222ABA5FC0035047B /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		D753108322892CC4000D6D9B /* KeyboardControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardControlButton.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				D715CA0422AB2C360087CAB9 /* UserFileManager.swift */,
 				D74B15E022AB94CD0035047B /* EditorComponentsBuilder.swift */,
 				D74B15E222ABA5FC0035047B /* Animator.swift */,
+				D745635822B7A23C00F8F68F /* Extension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				D7319A982298EC3B00369273 /* CaretView.swift in Sources */,
 				D7A5666A22588753002EF185 /* DatabaseSession.swift in Sources */,
 				D7F9652F2292A4170086E98A /* SlideViewController.swift in Sources */,
+				D745635922B7A23C00F8F68F /* Extension.swift in Sources */,
 				D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */,
 				D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */,
 				D7A566772259C175002EF185 /* SelectLanguageViewController.swift in Sources */,
