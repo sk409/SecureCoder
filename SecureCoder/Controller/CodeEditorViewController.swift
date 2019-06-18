@@ -32,7 +32,6 @@ class CodeEditorViewController: UIViewController {
         super.viewDidLoad()
         addSubviews()
         setupSubviews()
-        showSlide()
         loadUserFile()
     }
     
@@ -260,9 +259,9 @@ class CodeEditorViewController: UIViewController {
     }
     
     private func showSlide() {
-        //        let slideViewController = SlideViewController()
-        //        slideViewController.slides = lesson?.slides
-        //        present(slideViewController, animated: true)
+        let slideViewController = SlideViewController()
+        slideViewController.slides = lesson?.slides
+        present(slideViewController, animated: true)
     }
     
     private func showDescriptionView(descriptionIndex: Int) {

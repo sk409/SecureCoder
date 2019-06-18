@@ -13,5 +13,10 @@
         "title": "見出し2",
         "content": "2つ目のHelloWorldという文字列を見出し2に設定しよう。",
         "index": 4
+    },
+    {
+        "title": "クラス",
+        "content": "Titleという文字列をtitleクラスに設定しよう。",
+        "index": 6
     }
 ]

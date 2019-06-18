@@ -8,98 +8,47 @@
 
 /* Begin PBXBuildFile section */
 		D70643C1227D66320034B858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70643C0227D66320034B858 /* Assets.xcassets */; };
-		D709EB80228679F10079BFF9 /* FileCrawler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D709EB7F228679F10079BFF9 /* FileCrawler.swift */; };
-		D70EE72422A797D9000EEC85 /* TemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70EE72322A797D9000EEC85 /* TemplateViewController.swift */; };
 		D715CA0522AB2C360087CAB9 /* UserFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D715CA0422AB2C360087CAB9 /* UserFileManager.swift */; };
 		D718EBBF2252CFA300727383 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D718EBBE2252CFA300727383 /* AppDelegate.swift */; };
 		D718EBC72252CFA300727383 /* SecureCoder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D718EBC52252CFA300727383 /* SecureCoder.xcdatamodeld */; };
 		D718EBCC2252CFA500727383 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D718EBCA2252CFA500727383 /* LaunchScreen.storyboard */; };
-		D718EBDC2253609E00727383 /* PHPAutoCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D718EBDB2253609E00727383 /* PHPAutoCompleter.swift */; };
-		D718EBDE225360D600727383 /* CodeAutoCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D718EBDD225360D600727383 /* CodeAutoCompleter.swift */; };
 		D71A0AEA22B1D1F80088326D /* SectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71A0AE922B1D1F80088326D /* SectionButton.swift */; };
 		D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */; };
 		D71C2C2422A0EAAF008CCCD0 /* UIColor+make.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */; };
 		D71C2C2622A0F656008CCCD0 /* CourseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2522A0F656008CCCD0 /* CourseCard.swift */; };
-		D71C2C2822A104DC008CCCD0 /* WhitenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2722A104DC008CCCD0 /* WhitenView.swift */; };
-		D71E4ECA228BA5D300B267E8 /* KeyboardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D71E4EC9228BA5D300B267E8 /* KeyboardView.xib */; };
-		D71E4ECC228BD51700B267E8 /* AutoCorrectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71E4ECB228BD51700B267E8 /* AutoCorrectButton.swift */; };
-		D71F646E22890DA500BB8C31 /* b.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71F646D22890DA500BB8C31 /* b.swift */; };
 		D721CF9B227C086300D0038A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D721CF9A227C086300D0038A /* WebKit.framework */; };
-		D724D4302283C5E2009176C3 /* KeyboardShiftControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724D42F2283C5E2009176C3 /* KeyboardShiftControlButton.swift */; };
-		D724D43422841AFC009176C3 /* KeyboardToolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D724D43322841AFC009176C3 /* KeyboardToolView.swift */; };
 		D7256C2A22ADFEB00093A5AA /* FileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7256C2922ADFEB00093A5AA /* FileTableViewCell.swift */; };
 		D7256C2C22AE2F490093A5AA /* CSSSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7256C2B22AE2F490093A5AA /* CSSSyntaxHighlighter.swift */; };
 		D726997022964578009988E6 /* CoursesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D726996F22964578009988E6 /* CoursesViewController.swift */; };
 		D726997222965AB1009988E6 /* ProgramingLanguageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D726997122965AB1009988E6 /* ProgramingLanguageCollectionViewCell.swift */; };
 		D726997422966B41009988E6 /* SectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D726997322966B41009988E6 /* SectionsViewController.swift */; };
 		D72BB8D5225425680043D909 /* String+subscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BB8D4225425680043D909 /* String+subscript.swift */; };
-		D72BB8D72254C7F80043D909 /* CodeSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BB8D62254C7F80043D909 /* CodeSyntaxHighlighter.swift */; };
 		D72BB8D92254C8560043D909 /* PHPSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BB8D82254C8560043D909 /* PHPSyntaxHighlighter.swift */; };
 		D72BB8DB2254D1C20043D909 /* UIColor+colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72BB8DA2254D1C20043D909 /* UIColor+colors.swift */; };
 		D72EB15F2294CB33007A35EA /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72EB15E2294CB33007A35EA /* KeyboardView.swift */; };
 		D7319A982298EC3B00369273 /* CaretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7319A972298EC3B00369273 /* CaretView.swift */; };
 		D7319A9A2298F20500369273 /* CodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7319A992298F20500369273 /* CodeEditorView.swift */; };
-		D7381E2722AD097F0070DDE6 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7381E2622AD097F0070DDE6 /* TabView.swift */; };
 		D738B5B922A4E3700043E177 /* SectionCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */; };
-		D73A96A1228275E900267743 /* AutoCorrectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73A96A0228275E900267743 /* AutoCorrectView.swift */; };
 		D745635922B7A23C00F8F68F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D745635822B7A23C00F8F68F /* Extension.swift */; };
 		D74B15E122AB94CD0035047B /* EditorComponentsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74B15E022AB94CD0035047B /* EditorComponentsBuilder.swift */; };
-		D74B15E322ABA5FC0035047B /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74B15E222ABA5FC0035047B /* Animator.swift */; };
-		D753108422892CC4000D6D9B /* KeyboardControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D753108322892CC4000D6D9B /* KeyboardControlButton.swift */; };
 		D75A99D422A29B080086E710 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75A99D322A29B080086E710 /* Course.swift */; };
 		D75A99D622A29B530086E710 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75A99D522A29B530086E710 /* Section.swift */; };
 		D75ACB4222A8F64A002D23D7 /* Courses in Resources */ = {isa = PBXBuildFile; fileRef = D75ACB4122A8F64A002D23D7 /* Courses */; };
-		D75AFF2E2290FBE70025BAF2 /* UIColor+ApplicationColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */; };
-		D75BD388227E660700AA7E7F /* KeyboardHomeControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75BD387227E660700AA7E7F /* KeyboardHomeControlButton.swift */; };
 		D75BD38A227E680D00AA7E7F /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75BD389227E680D00AA7E7F /* File.swift */; };
-		D762AF5B22B47E9A001C94A2 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D762AF5A22B47E9A001C94A2 /* KeyboardButton.swift */; };
 		D762AF5D22B48543001C94A2 /* UIView+darken.swift in Sources */ = {isa = PBXBuildFile; fileRef = D762AF5C22B48543001C94A2 /* UIView+darken.swift */; };
 		D762AF5F22B49290001C94A2 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D762AF5E22B49290001C94A2 /* DescriptionView.swift */; };
-		D76BBF7A22687C58005DE694 /* DescriptionImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76BBF7822687C58005DE694 /* DescriptionImageCollectionViewCell.swift */; };
-		D76BBF7B22687C58005DE694 /* DescriptionImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D76BBF7922687C58005DE694 /* DescriptionImageCollectionViewCell.xib */; };
-		D76BBF7D2268A0B5005DE694 /* URLQueryObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76BBF7C2268A0B5005DE694 /* URLQueryObject.swift */; };
-		D76F60AC225743B40044C0AF /* EditorTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D76F60AB225743B40044C0AF /* EditorTextView.swift */; };
 		D77059AE2292357700E66D7B /* CodeEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77059AD2292357700E66D7B /* CodeEditorViewController.swift */; };
 		D7722E812293A3FC00A749BF /* SlideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7722E802293A3FC00A749BF /* SlideCollectionViewCell.swift */; };
 		D7722E832293A64900A749BF /* LastSlideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7722E822293A64900A749BF /* LastSlideCollectionViewCell.swift */; };
-		D7722E852293BD1600A749BF /* FlickButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7722E842293BD1600A749BF /* FlickButton.swift */; };
-		D776B531227EA5E000DD0FB5 /* KeyboardUpControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D776B530227EA5E000DD0FB5 /* KeyboardUpControlButton.swift */; };
-		D77E9589227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E9588227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift */; };
-		D77E958B227FCC74000A7B21 /* KeyboardPageDownControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E958A227FCC74000A7B21 /* KeyboardPageDownControlButton.swift */; };
-		D77E958D227FCCF9000A7B21 /* KeyboardLeftControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E958C227FCCF9000A7B21 /* KeyboardLeftControlButton.swift */; };
-		D77E958F227FCD63000A7B21 /* KeyboardRightControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E958E227FCD63000A7B21 /* KeyboardRightControlButton.swift */; };
-		D77E9591227FD48D000A7B21 /* KeyboardDownControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E9590227FD48D000A7B21 /* KeyboardDownControlButton.swift */; };
-		D77E9593227FE8AF000A7B21 /* KeyboardBackSpaceControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E9592227FE8AF000A7B21 /* KeyboardBackSpaceControlButton.swift */; };
-		D77E9595227FECC9000A7B21 /* KeyboardDeleteControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E9594227FECC9000A7B21 /* KeyboardDeleteControlButton.swift */; };
-		D77E959A227FF995000A7B21 /* KeyboardInputButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77E9599227FF995000A7B21 /* KeyboardInputButton.swift */; };
 		D781CE1D225DFF7A00B90A26 /* Character+is~.swift in Sources */ = {isa = PBXBuildFile; fileRef = D781CE1C225DFF7A00B90A26 /* Character+is~.swift */; };
-		D79E70FB227E88D200DFDE0E /* KeyboardEndControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D79E70FA227E88D200DFDE0E /* KeyboardEndControlButton.swift */; };
-		D7A2600222560D4400523A36 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2600122560D4400523A36 /* PreviewViewController.swift */; };
 		D7A2600422560FF000523A36 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2600322560FF000523A36 /* Application.swift */; };
-		D7A56668225822B0002EF185 /* CoderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A56667225822B0002EF185 /* CoderManager.swift */; };
-		D7A5666A22588753002EF185 /* DatabaseSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5666922588753002EF185 /* DatabaseSession.swift */; };
-		D7A5666C22588BC1002EF185 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5666B22588BC1002EF185 /* HTTPMethod.swift */; };
-		D7A5666E22589C0A002EF185 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5666D22589C0A002EF185 /* ServerResponse.swift */; };
-		D7A5667522597648002EF185 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A5667422597648002EF185 /* Main.storyboard */; };
-		D7A566772259C175002EF185 /* SelectLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A566762259C175002EF185 /* SelectLanguageViewController.swift */; };
-		D7A566792259C19C002EF185 /* SelectLessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A566782259C19C002EF185 /* SelectLessonViewController.swift */; };
-		D7A5667B2259FF39002EF185 /* LessonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5667A2259FF39002EF185 /* LessonType.swift */; };
-		D7A56683225A1316002EF185 /* JavaScriptAutoCompleter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A56682225A1316002EF185 /* JavaScriptAutoCompleter.swift */; };
 		D7A56685225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A56684225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift */; };
 		D7A56687225A17D3002EF185 /* Lesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A56686225A17D3002EF185 /* Lesson.swift */; };
 		D7A9F1A722AA9D920049C0DE /* LessonTextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A9F1A622AA9D920049C0DE /* LessonTextParser.swift */; };
 		D7AF14AD228524B100022937 /* String+is~.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF14AC228524B100022937 /* String+is~.swift */; };
-		D7AF14B12285524600022937 /* PHPAutoCorrectSuggester.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF14B02285524600022937 /* PHPAutoCorrectSuggester.swift */; };
 		D7AF14B52285762600022937 /* PHP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF14B42285762600022937 /* PHP.swift */; };
-		D7AF14B92285865B00022937 /* AutoCorrrectSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF14B82285865B00022937 /* AutoCorrrectSuggestion.swift */; };
-		D7B027262281432B00E54F30 /* CGPoint+operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B027252281432B00E54F30 /* CGPoint+operators.swift */; };
 		D7C2A49222670A3E00A6AF18 /* String+toArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2A49122670A3E00A6AF18 /* String+toArray.swift */; };
-		D7C2A49422672D9C00A6AF18 /* Array+numberingSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2A49322672D9C00A6AF18 /* Array+numberingSort.swift */; };
-		D7C2A4962267E8EA00A6AF18 /* AnswerChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2A4952267E8EA00A6AF18 /* AnswerChecker.swift */; };
-		D7E45A85227D424300E54FCC /* a.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E45A84227D424300E54FCC /* a.swift */; };
 		D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E5D501228A66DF007CE3C2 /* HTML.swift */; };
-		D7F1825A2265E7C400CD4413 /* DescriptionImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F182592265E7C400CD4413 /* DescriptionImageCollectionViewController.swift */; };
-		D7F1825C2265E7FC00CD4413 /* DescriptionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F1825B2265E7FC00CD4413 /* DescriptionPage.swift */; };
 		D7F96527229249370086E98A /* QuestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96526229249370086E98A /* QuestionTextField.swift */; };
 		D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96528229259120086E98A /* ProgramingLanguage.swift */; };
 		D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */; };
@@ -109,100 +58,49 @@
 
 /* Begin PBXFileReference section */
 		D70643C0227D66320034B858 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		D709EB7F228679F10079BFF9 /* FileCrawler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCrawler.swift; sourceTree = "<group>"; };
-		D70EE72322A797D9000EEC85 /* TemplateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateViewController.swift; sourceTree = "<group>"; };
 		D715CA0422AB2C360087CAB9 /* UserFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFileManager.swift; sourceTree = "<group>"; };
 		D718EBBB2252CFA300727383 /* SecureCoder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SecureCoder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D718EBBE2252CFA300727383 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D718EBC62252CFA300727383 /* SecureCoder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SecureCoder.xcdatamodel; sourceTree = "<group>"; };
 		D718EBCB2252CFA500727383 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D718EBCD2252CFA500727383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D718EBDB2253609E00727383 /* PHPAutoCompleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPAutoCompleter.swift; sourceTree = "<group>"; };
-		D718EBDD225360D600727383 /* CodeAutoCompleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeAutoCompleter.swift; sourceTree = "<group>"; };
 		D71A0AE922B1D1F80088326D /* SectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionButton.swift; sourceTree = "<group>"; };
 		D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+make.swift"; sourceTree = "<group>"; };
 		D71C2C2522A0F656008CCCD0 /* CourseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCard.swift; sourceTree = "<group>"; };
-		D71C2C2722A104DC008CCCD0 /* WhitenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhitenView.swift; sourceTree = "<group>"; };
-		D71E4EC9228BA5D300B267E8 /* KeyboardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = KeyboardView.xib; sourceTree = "<group>"; };
-		D71E4ECB228BD51700B267E8 /* AutoCorrectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCorrectButton.swift; sourceTree = "<group>"; };
-		D71F646D22890DA500BB8C31 /* b.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = b.swift; sourceTree = "<group>"; };
 		D721CF9A227C086300D0038A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		D724D42F2283C5E2009176C3 /* KeyboardShiftControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardShiftControlButton.swift; sourceTree = "<group>"; };
-		D724D43322841AFC009176C3 /* KeyboardToolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolView.swift; sourceTree = "<group>"; };
 		D7256C2922ADFEB00093A5AA /* FileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTableViewCell.swift; sourceTree = "<group>"; };
 		D7256C2B22AE2F490093A5AA /* CSSSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D726996F22964578009988E6 /* CoursesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesViewController.swift; sourceTree = "<group>"; };
 		D726997122965AB1009988E6 /* ProgramingLanguageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramingLanguageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D726997322966B41009988E6 /* SectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsViewController.swift; sourceTree = "<group>"; };
 		D72BB8D4225425680043D909 /* String+subscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+subscript.swift"; sourceTree = "<group>"; };
-		D72BB8D62254C7F80043D909 /* CodeSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D72BB8D82254C8560043D909 /* PHPSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D72BB8DA2254D1C20043D909 /* UIColor+colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+colors.swift"; sourceTree = "<group>"; };
 		D72EB15E2294CB33007A35EA /* KeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 		D7319A972298EC3B00369273 /* CaretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretView.swift; sourceTree = "<group>"; };
 		D7319A992298F20500369273 /* CodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeEditorView.swift; sourceTree = "<group>"; };
-		D7381E2622AD097F0070DDE6 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCardTableViewCell.swift; sourceTree = "<group>"; };
-		D73A96A0228275E900267743 /* AutoCorrectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCorrectView.swift; sourceTree = "<group>"; };
 		D745635822B7A23C00F8F68F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D74B15E022AB94CD0035047B /* EditorComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorComponentsBuilder.swift; sourceTree = "<group>"; };
-		D74B15E222ABA5FC0035047B /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
-		D753108322892CC4000D6D9B /* KeyboardControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardControlButton.swift; sourceTree = "<group>"; };
 		D75A99D322A29B080086E710 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		D75A99D522A29B530086E710 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		D75ACB4122A8F64A002D23D7 /* Courses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Courses; sourceTree = "<group>"; };
-		D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ApplicationColor.swift"; sourceTree = "<group>"; };
-		D75BD387227E660700AA7E7F /* KeyboardHomeControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardHomeControlButton.swift; sourceTree = "<group>"; };
 		D75BD389227E680D00AA7E7F /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
-		D762AF5A22B47E9A001C94A2 /* KeyboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
 		D762AF5C22B48543001C94A2 /* UIView+darken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+darken.swift"; sourceTree = "<group>"; };
 		D762AF5E22B49290001C94A2 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
-		D76BBF7822687C58005DE694 /* DescriptionImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionImageCollectionViewCell.swift; sourceTree = "<group>"; };
-		D76BBF7922687C58005DE694 /* DescriptionImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DescriptionImageCollectionViewCell.xib; path = ../View/DescriptionImageCollectionViewCell.xib; sourceTree = "<group>"; };
-		D76BBF7C2268A0B5005DE694 /* URLQueryObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryObject.swift; sourceTree = "<group>"; };
-		D76F60AB225743B40044C0AF /* EditorTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorTextView.swift; sourceTree = "<group>"; };
 		D77059AD2292357700E66D7B /* CodeEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeEditorViewController.swift; sourceTree = "<group>"; };
 		D7722E802293A3FC00A749BF /* SlideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCollectionViewCell.swift; sourceTree = "<group>"; };
 		D7722E822293A64900A749BF /* LastSlideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSlideCollectionViewCell.swift; sourceTree = "<group>"; };
-		D7722E842293BD1600A749BF /* FlickButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickButton.swift; sourceTree = "<group>"; };
-		D776B530227EA5E000DD0FB5 /* KeyboardUpControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardUpControlButton.swift; sourceTree = "<group>"; };
-		D77E9588227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPageUpControlButton.swift; sourceTree = "<group>"; };
-		D77E958A227FCC74000A7B21 /* KeyboardPageDownControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPageDownControlButton.swift; sourceTree = "<group>"; };
-		D77E958C227FCCF9000A7B21 /* KeyboardLeftControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLeftControlButton.swift; sourceTree = "<group>"; };
-		D77E958E227FCD63000A7B21 /* KeyboardRightControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardRightControlButton.swift; sourceTree = "<group>"; };
-		D77E9590227FD48D000A7B21 /* KeyboardDownControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDownControlButton.swift; sourceTree = "<group>"; };
-		D77E9592227FE8AF000A7B21 /* KeyboardBackSpaceControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBackSpaceControlButton.swift; sourceTree = "<group>"; };
-		D77E9594227FECC9000A7B21 /* KeyboardDeleteControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDeleteControlButton.swift; sourceTree = "<group>"; };
-		D77E9599227FF995000A7B21 /* KeyboardInputButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardInputButton.swift; sourceTree = "<group>"; };
 		D781CE1C225DFF7A00B90A26 /* Character+is~.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+is~.swift"; sourceTree = "<group>"; };
-		D79E70FA227E88D200DFDE0E /* KeyboardEndControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEndControlButton.swift; sourceTree = "<group>"; };
-		D7A2600122560D4400523A36 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		D7A2600322560FF000523A36 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
-		D7A56667225822B0002EF185 /* CoderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoderManager.swift; sourceTree = "<group>"; };
-		D7A5666922588753002EF185 /* DatabaseSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseSession.swift; sourceTree = "<group>"; };
-		D7A5666B22588BC1002EF185 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
-		D7A5666D22589C0A002EF185 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
-		D7A5667422597648002EF185 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "SecureCoder/New Group/Main.storyboard"; sourceTree = SOURCE_ROOT; };
-		D7A566762259C175002EF185 /* SelectLanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLanguageViewController.swift; sourceTree = "<group>"; };
-		D7A566782259C19C002EF185 /* SelectLessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLessonViewController.swift; sourceTree = "<group>"; };
-		D7A5667A2259FF39002EF185 /* LessonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonType.swift; sourceTree = "<group>"; };
-		D7A56682225A1316002EF185 /* JavaScriptAutoCompleter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptAutoCompleter.swift; sourceTree = "<group>"; };
 		D7A56684225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D7A56686225A17D3002EF185 /* Lesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lesson.swift; sourceTree = "<group>"; };
 		D7A9F1A622AA9D920049C0DE /* LessonTextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTextParser.swift; sourceTree = "<group>"; };
 		D7AF14AC228524B100022937 /* String+is~.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+is~.swift"; sourceTree = "<group>"; };
-		D7AF14B02285524600022937 /* PHPAutoCorrectSuggester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPAutoCorrectSuggester.swift; sourceTree = "<group>"; };
 		D7AF14B42285762600022937 /* PHP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHP.swift; sourceTree = "<group>"; };
-		D7AF14B82285865B00022937 /* AutoCorrrectSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCorrrectSuggestion.swift; sourceTree = "<group>"; };
-		D7B027252281432B00E54F30 /* CGPoint+operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+operators.swift"; sourceTree = "<group>"; };
 		D7C2A49122670A3E00A6AF18 /* String+toArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+toArray.swift"; sourceTree = "<group>"; };
-		D7C2A49322672D9C00A6AF18 /* Array+numberingSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+numberingSort.swift"; sourceTree = "<group>"; };
-		D7C2A4952267E8EA00A6AF18 /* AnswerChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerChecker.swift; sourceTree = "<group>"; };
-		D7E45A84227D424300E54FCC /* a.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = a.swift; path = SecureCoder/View/Editor/Keyboard/a.swift; sourceTree = SOURCE_ROOT; };
 		D7E5D501228A66DF007CE3C2 /* HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML.swift; sourceTree = "<group>"; };
-		D7F182592265E7C400CD4413 /* DescriptionImageCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionImageCollectionViewController.swift; sourceTree = "<group>"; };
-		D7F1825B2265E7FC00CD4413 /* DescriptionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionPage.swift; sourceTree = "<group>"; };
 		D7F96526229249370086E98A /* QuestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTextField.swift; sourceTree = "<group>"; };
 		D7F96528229259120086E98A /* ProgramingLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramingLanguage.swift; sourceTree = "<group>"; };
 		D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLSyntaxHighlighter.swift; sourceTree = "<group>"; };
@@ -242,10 +140,7 @@
 		D718EBBD2252CFA300727383 /* SecureCoder */ = {
 			isa = PBXGroup;
 			children = (
-				D73778312268653F001341FD /* XIB */,
-				D7A566732259763B002EF185 /* StoryBoard */,
 				D76F60B022576AC80044C0AF /* Extension */,
-				D75BD382227E61CA00AA7E7F /* Protocol */,
 				D76F60AF22576A8D0044C0AF /* Model */,
 				D76F60AE22576A890044C0AF /* View */,
 				D76F60AD22576A810044C0AF /* Controller */,
@@ -268,34 +163,12 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D73778312268653F001341FD /* XIB */ = {
-			isa = PBXGroup;
-			children = (
-				D76BBF7922687C58005DE694 /* DescriptionImageCollectionViewCell.xib */,
-				D71E4EC9228BA5D300B267E8 /* KeyboardView.xib */,
-			);
-			path = XIB;
-			sourceTree = "<group>";
-		};
-		D75BD382227E61CA00AA7E7F /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				D709EB7F228679F10079BFF9 /* FileCrawler.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
 		D75BD38B227E681F00AA7E7F /* Code */ = {
 			isa = PBXGroup;
 			children = (
 				D7F9652C229280860086E98A /* SyntaxHighlighter.swift */,
-				D72BB8D62254C7F80043D909 /* CodeSyntaxHighlighter.swift */,
-				D718EBDD225360D600727383 /* CodeAutoCompleter.swift */,
-				D718EBDB2253609E00727383 /* PHPAutoCompleter.swift */,
 				D72BB8D82254C8560043D909 /* PHPSyntaxHighlighter.swift */,
-				D7A56682225A1316002EF185 /* JavaScriptAutoCompleter.swift */,
 				D7A56684225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift */,
-				D7AF14B02285524600022937 /* PHPAutoCorrectSuggester.swift */,
 				D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */,
 				D7256C2B22AE2F490093A5AA /* CSSSyntaxHighlighter.swift */,
 			);
@@ -305,15 +178,10 @@
 		D76F60AD22576A810044C0AF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				D7A2600122560D4400523A36 /* PreviewViewController.swift */,
-				D7A566762259C175002EF185 /* SelectLanguageViewController.swift */,
-				D7A566782259C19C002EF185 /* SelectLessonViewController.swift */,
-				D7F182592265E7C400CD4413 /* DescriptionImageCollectionViewController.swift */,
 				D77059AD2292357700E66D7B /* CodeEditorViewController.swift */,
 				D7F9652E2292A4170086E98A /* SlideViewController.swift */,
 				D726996F22964578009988E6 /* CoursesViewController.swift */,
 				D726997322966B41009988E6 /* SectionsViewController.swift */,
-				D70EE72322A797D9000EEC85 /* TemplateViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -321,23 +189,17 @@
 		D76F60AE22576A890044C0AF /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D7EF5439227E7E6D002FFC40 /* Editor */,
-				D76BBF7822687C58005DE694 /* DescriptionImageCollectionViewCell.swift */,
 				D7F96526229249370086E98A /* QuestionTextField.swift */,
 				D7722E802293A3FC00A749BF /* SlideCollectionViewCell.swift */,
 				D7722E822293A64900A749BF /* LastSlideCollectionViewCell.swift */,
-				D7722E842293BD1600A749BF /* FlickButton.swift */,
 				D72EB15E2294CB33007A35EA /* KeyboardView.swift */,
 				D726997122965AB1009988E6 /* ProgramingLanguageCollectionViewCell.swift */,
 				D7319A972298EC3B00369273 /* CaretView.swift */,
 				D7319A992298F20500369273 /* CodeEditorView.swift */,
 				D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */,
-				D71C2C2722A104DC008CCCD0 /* WhitenView.swift */,
 				D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */,
-				D7381E2622AD097F0070DDE6 /* TabView.swift */,
 				D7256C2922ADFEB00093A5AA /* FileTableViewCell.swift */,
 				D71A0AE922B1D1F80088326D /* SectionButton.swift */,
-				D762AF5A22B47E9A001C94A2 /* KeyboardButton.swift */,
 				D762AF5E22B49290001C94A2 /* DescriptionView.swift */,
 			);
 			path = View;
@@ -348,24 +210,14 @@
 			children = (
 				D7AF14B62285762A00022937 /* ProgramingLanguage */,
 				D75BD38B227E681F00AA7E7F /* Code */,
-				D7A5666D22589C0A002EF185 /* ServerResponse.swift */,
-				D7A56667225822B0002EF185 /* CoderManager.swift */,
-				D7A5666922588753002EF185 /* DatabaseSession.swift */,
-				D7A5666B22588BC1002EF185 /* HTTPMethod.swift */,
-				D7A5667A2259FF39002EF185 /* LessonType.swift */,
 				D7A56686225A17D3002EF185 /* Lesson.swift */,
-				D7F1825B2265E7FC00CD4413 /* DescriptionPage.swift */,
-				D7C2A4952267E8EA00A6AF18 /* AnswerChecker.swift */,
-				D76BBF7C2268A0B5005DE694 /* URLQueryObject.swift */,
 				D75BD389227E680D00AA7E7F /* File.swift */,
-				D7AF14B82285865B00022937 /* AutoCorrrectSuggestion.swift */,
 				D71C2C2522A0F656008CCCD0 /* CourseCard.swift */,
 				D75A99D322A29B080086E710 /* Course.swift */,
 				D75A99D522A29B530086E710 /* Section.swift */,
 				D7A9F1A622AA9D920049C0DE /* LessonTextParser.swift */,
 				D715CA0422AB2C360087CAB9 /* UserFileManager.swift */,
 				D74B15E022AB94CD0035047B /* EditorComponentsBuilder.swift */,
-				D74B15E222ABA5FC0035047B /* Animator.swift */,
 				D745635822B7A23C00F8F68F /* Extension.swift */,
 			);
 			path = Model;
@@ -379,40 +231,10 @@
 				D7AF14AC228524B100022937 /* String+is~.swift */,
 				D72BB8DA2254D1C20043D909 /* UIColor+colors.swift */,
 				D781CE1C225DFF7A00B90A26 /* Character+is~.swift */,
-				D7C2A49322672D9C00A6AF18 /* Array+numberingSort.swift */,
-				D7B027252281432B00E54F30 /* CGPoint+operators.swift */,
-				D75AFF2D2290FBE70025BAF2 /* UIColor+ApplicationColor.swift */,
 				D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */,
 				D762AF5C22B48543001C94A2 /* UIView+darken.swift */,
 			);
 			path = Extension;
-			sourceTree = "<group>";
-		};
-		D77E9598227FF978000A7B21 /* ControlButton */ = {
-			isa = PBXGroup;
-			children = (
-				D753108322892CC4000D6D9B /* KeyboardControlButton.swift */,
-				D75BD387227E660700AA7E7F /* KeyboardHomeControlButton.swift */,
-				D79E70FA227E88D200DFDE0E /* KeyboardEndControlButton.swift */,
-				D77E9588227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift */,
-				D77E958A227FCC74000A7B21 /* KeyboardPageDownControlButton.swift */,
-				D77E958C227FCCF9000A7B21 /* KeyboardLeftControlButton.swift */,
-				D77E958E227FCD63000A7B21 /* KeyboardRightControlButton.swift */,
-				D776B530227EA5E000DD0FB5 /* KeyboardUpControlButton.swift */,
-				D77E9590227FD48D000A7B21 /* KeyboardDownControlButton.swift */,
-				D77E9592227FE8AF000A7B21 /* KeyboardBackSpaceControlButton.swift */,
-				D77E9594227FECC9000A7B21 /* KeyboardDeleteControlButton.swift */,
-				D724D42F2283C5E2009176C3 /* KeyboardShiftControlButton.swift */,
-			);
-			path = ControlButton;
-			sourceTree = "<group>";
-		};
-		D7A566732259763B002EF185 /* StoryBoard */ = {
-			isa = PBXGroup;
-			children = (
-				D7A5667422597648002EF185 /* Main.storyboard */,
-			);
-			path = StoryBoard;
 			sourceTree = "<group>";
 		};
 		D7AF14B62285762A00022937 /* ProgramingLanguage */ = {
@@ -423,29 +245,6 @@
 				D7E5D501228A66DF007CE3C2 /* HTML.swift */,
 			);
 			path = ProgramingLanguage;
-			sourceTree = "<group>";
-		};
-		D7B0272022812AFD00E54F30 /* Keyboard */ = {
-			isa = PBXGroup;
-			children = (
-				D77E9598227FF978000A7B21 /* ControlButton */,
-				D7E45A84227D424300E54FCC /* a.swift */,
-				D77E9599227FF995000A7B21 /* KeyboardInputButton.swift */,
-				D724D43322841AFC009176C3 /* KeyboardToolView.swift */,
-				D71F646D22890DA500BB8C31 /* b.swift */,
-			);
-			path = Keyboard;
-			sourceTree = "<group>";
-		};
-		D7EF5439227E7E6D002FFC40 /* Editor */ = {
-			isa = PBXGroup;
-			children = (
-				D7B0272022812AFD00E54F30 /* Keyboard */,
-				D76F60AB225743B40044C0AF /* EditorTextView.swift */,
-				D73A96A0228275E900267743 /* AutoCorrectView.swift */,
-				D71E4ECB228BD51700B267E8 /* AutoCorrectButton.swift */,
-			);
-			path = Editor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -507,9 +306,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D71E4ECA228BA5D300B267E8 /* KeyboardView.xib in Resources */,
-				D7A5667522597648002EF185 /* Main.storyboard in Resources */,
-				D76BBF7B22687C58005DE694 /* DescriptionImageCollectionViewCell.xib in Resources */,
 				D75ACB4222A8F64A002D23D7 /* Courses in Resources */,
 				D718EBCC2252CFA500727383 /* LaunchScreen.storyboard in Resources */,
 				D70643C1227D66320034B858 /* Assets.xcassets in Resources */,
@@ -525,95 +321,47 @@
 			files = (
 				D726997422966B41009988E6 /* SectionsViewController.swift in Sources */,
 				D75A99D422A29B080086E710 /* Course.swift in Sources */,
-				D71F646E22890DA500BB8C31 /* b.swift in Sources */,
 				D72BB8D5225425680043D909 /* String+subscript.swift in Sources */,
 				D7AF14AD228524B100022937 /* String+is~.swift in Sources */,
-				D73A96A1228275E900267743 /* AutoCorrectView.swift in Sources */,
 				D7319A982298EC3B00369273 /* CaretView.swift in Sources */,
-				D7A5666A22588753002EF185 /* DatabaseSession.swift in Sources */,
 				D7F9652F2292A4170086E98A /* SlideViewController.swift in Sources */,
 				D745635922B7A23C00F8F68F /* Extension.swift in Sources */,
 				D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */,
 				D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */,
-				D7A566772259C175002EF185 /* SelectLanguageViewController.swift in Sources */,
-				D74B15E322ABA5FC0035047B /* Animator.swift in Sources */,
 				D7A56685225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift in Sources */,
-				D79E70FB227E88D200DFDE0E /* KeyboardEndControlButton.swift in Sources */,
-				D7722E852293BD1600A749BF /* FlickButton.swift in Sources */,
 				D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */,
-				D724D43422841AFC009176C3 /* KeyboardToolView.swift in Sources */,
-				D7C2A49422672D9C00A6AF18 /* Array+numberingSort.swift in Sources */,
 				D72BB8D92254C8560043D909 /* PHPSyntaxHighlighter.swift in Sources */,
-				D762AF5B22B47E9A001C94A2 /* KeyboardButton.swift in Sources */,
-				D724D4302283C5E2009176C3 /* KeyboardShiftControlButton.swift in Sources */,
 				D7722E812293A3FC00A749BF /* SlideCollectionViewCell.swift in Sources */,
-				D7A5667B2259FF39002EF185 /* LessonType.swift in Sources */,
 				D7A9F1A722AA9D920049C0DE /* LessonTextParser.swift in Sources */,
-				D77E9589227FCC0A000A7B21 /* KeyboardPageUpControlButton.swift in Sources */,
-				D76F60AC225743B40044C0AF /* EditorTextView.swift in Sources */,
-				D7A56668225822B0002EF185 /* CoderManager.swift in Sources */,
 				D726997222965AB1009988E6 /* ProgramingLanguageCollectionViewCell.swift in Sources */,
 				D7A56687225A17D3002EF185 /* Lesson.swift in Sources */,
 				D7722E832293A64900A749BF /* LastSlideCollectionViewCell.swift in Sources */,
-				D77E9593227FE8AF000A7B21 /* KeyboardBackSpaceControlButton.swift in Sources */,
-				D7A5666E22589C0A002EF185 /* ServerResponse.swift in Sources */,
-				D7B027262281432B00E54F30 /* CGPoint+operators.swift in Sources */,
 				D7A2600422560FF000523A36 /* Application.swift in Sources */,
 				D7F96527229249370086E98A /* QuestionTextField.swift in Sources */,
 				D75A99D622A29B530086E710 /* Section.swift in Sources */,
-				D776B531227EA5E000DD0FB5 /* KeyboardUpControlButton.swift in Sources */,
-				D77E958B227FCC74000A7B21 /* KeyboardPageDownControlButton.swift in Sources */,
 				D762AF5F22B49290001C94A2 /* DescriptionView.swift in Sources */,
 				D781CE1D225DFF7A00B90A26 /* Character+is~.swift in Sources */,
 				D74B15E122AB94CD0035047B /* EditorComponentsBuilder.swift in Sources */,
 				D71C2C2622A0F656008CCCD0 /* CourseCard.swift in Sources */,
-				D753108422892CC4000D6D9B /* KeyboardControlButton.swift in Sources */,
-				D7AF14B92285865B00022937 /* AutoCorrrectSuggestion.swift in Sources */,
 				D718EBC72252CFA300727383 /* SecureCoder.xcdatamodeld in Sources */,
-				D7A2600222560D4400523A36 /* PreviewViewController.swift in Sources */,
-				D75AFF2E2290FBE70025BAF2 /* UIColor+ApplicationColor.swift in Sources */,
-				D7381E2722AD097F0070DDE6 /* TabView.swift in Sources */,
-				D7E45A85227D424300E54FCC /* a.swift in Sources */,
-				D7A5666C22588BC1002EF185 /* HTTPMethod.swift in Sources */,
 				D715CA0522AB2C360087CAB9 /* UserFileManager.swift in Sources */,
 				D7C2A49222670A3E00A6AF18 /* String+toArray.swift in Sources */,
 				D762AF5D22B48543001C94A2 /* UIView+darken.swift in Sources */,
-				D77E9591227FD48D000A7B21 /* KeyboardDownControlButton.swift in Sources */,
 				D7256C2A22ADFEB00093A5AA /* FileTableViewCell.swift in Sources */,
 				D7319A9A2298F20500369273 /* CodeEditorView.swift in Sources */,
 				D738B5B922A4E3700043E177 /* SectionCardTableViewCell.swift in Sources */,
-				D71E4ECC228BD51700B267E8 /* AutoCorrectButton.swift in Sources */,
 				D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */,
-				D76BBF7D2268A0B5005DE694 /* URLQueryObject.swift in Sources */,
-				D718EBDE225360D600727383 /* CodeAutoCompleter.swift in Sources */,
-				D7A566792259C19C002EF185 /* SelectLessonViewController.swift in Sources */,
-				D77E958D227FCCF9000A7B21 /* KeyboardLeftControlButton.swift in Sources */,
-				D7AF14B12285524600022937 /* PHPAutoCorrectSuggester.swift in Sources */,
 				D72BB8DB2254D1C20043D909 /* UIColor+colors.swift in Sources */,
-				D718EBDC2253609E00727383 /* PHPAutoCompleter.swift in Sources */,
 				D75BD38A227E680D00AA7E7F /* File.swift in Sources */,
-				D71C2C2822A104DC008CCCD0 /* WhitenView.swift in Sources */,
-				D76BBF7A22687C58005DE694 /* DescriptionImageCollectionViewCell.swift in Sources */,
 				D71C2C2422A0EAAF008CCCD0 /* UIColor+make.swift in Sources */,
 				D718EBBF2252CFA300727383 /* AppDelegate.swift in Sources */,
-				D7A56683225A1316002EF185 /* JavaScriptAutoCompleter.swift in Sources */,
 				D7AF14B52285762600022937 /* PHP.swift in Sources */,
-				D70EE72422A797D9000EEC85 /* TemplateViewController.swift in Sources */,
 				D72EB15F2294CB33007A35EA /* KeyboardView.swift in Sources */,
-				D72BB8D72254C7F80043D909 /* CodeSyntaxHighlighter.swift in Sources */,
 				D7256C2C22AE2F490093A5AA /* CSSSyntaxHighlighter.swift in Sources */,
-				D7F1825C2265E7FC00CD4413 /* DescriptionPage.swift in Sources */,
-				D75BD388227E660700AA7E7F /* KeyboardHomeControlButton.swift in Sources */,
-				D77E958F227FCD63000A7B21 /* KeyboardRightControlButton.swift in Sources */,
 				D71A0AEA22B1D1F80088326D /* SectionButton.swift in Sources */,
 				D726997022964578009988E6 /* CoursesViewController.swift in Sources */,
 				D77059AE2292357700E66D7B /* CodeEditorViewController.swift in Sources */,
-				D709EB80228679F10079BFF9 /* FileCrawler.swift in Sources */,
-				D7F1825A2265E7C400CD4413 /* DescriptionImageCollectionViewController.swift in Sources */,
 				D7F9652D229280860086E98A /* SyntaxHighlighter.swift in Sources */,
-				D7C2A4962267E8EA00A6AF18 /* AnswerChecker.swift in Sources */,
-				D77E959A227FF995000A7B21 /* KeyboardInputButton.swift in Sources */,
-				D77E9595227FECC9000A7B21 /* KeyboardDeleteControlButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
