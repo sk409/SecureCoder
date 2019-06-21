@@ -151,7 +151,8 @@ struct Application {
         // TEST
         ///////////////////////////////////////////////////////
         if !FileManager.default.fileExists(atPath: userURL.path) {
-            let userText = LessonTextParser().parse(text)
+            var lessonTextParser = LessonTextParser()
+            let userText = lessonTextParser.parse(text)
             let succeeded = FileManager.default.createFile(
                 atPath: userURL.path,
                 contents: userText.data(using: .utf8),
@@ -161,7 +162,8 @@ struct Application {
             }
         }
         if !FileManager.default.fileExists(atPath: previewURL.path) {
-            let userText = LessonTextParser().parse(text)
+            var lessonTextParser = LessonTextParser()
+            let userText = lessonTextParser.parse(text)
             let previewText = UserFileManager.formatUserTextToPreviewText(userText)
             let succeeded = FileManager.default.createFile(
                 atPath: previewURL.path,

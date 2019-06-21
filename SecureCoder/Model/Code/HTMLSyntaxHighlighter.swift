@@ -41,6 +41,7 @@ struct HTMLSyntaxHighlighter {
                         isComment = false
                     } else {
                         appendCharacter(character, tintColor)
+                        isTag = false
                         isInTag = false
                     }
                 } else if character == "\"" {

@@ -8,6 +8,7 @@ struct File {
     let userURL: URL
     let previewURL: URL
     let answerURL: URL
+    var `extension`: Extension?
     var programingLanguage: ProgramingLanguage?
     
     init(title: String, text: String, url: URL, userURL: URL, previewURL: URL, answerURL: URL) {
@@ -20,6 +21,7 @@ struct File {
         if let extensionString = title.split(separator: ".").last,
             let `extension` = Extension(rawValue: String(extensionString))
         {
+            self.extension = `extension`
             programingLanguage = ProgramingLanguage(extension: `extension`)
         }
     }

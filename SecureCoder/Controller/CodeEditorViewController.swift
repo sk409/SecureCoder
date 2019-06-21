@@ -66,10 +66,13 @@ class CodeEditorViewController: UIViewController {
             return
         }
         for (fileIndex, file) in lesson.files.enumerated() {
+            guard let `extension` = file.extension else {
+                continue
+            }
             let codeEditorView = CodeEditorView()
             codeEditorViews.append(codeEditorView)
             codeEditorView.questionDidChangeEventHandler = handleQuestionDidChangeEvent(_:)
-            setupCodeEditorViewComponents(codeEditorView: codeEditorView, lessonText: file.text)
+            setupCodeEditorViewComponents(codeEditorView: codeEditorView, lessonText: file.text, language: ProgramingLanguage(extension: `extension`))
             setupQuestions(codeEditorView.questions)
             codeEditorView.setNextQuestion()
             setUserAnswersToQuestionTextFields(file: file, questions: codeEditorView.questions)
@@ -177,12 +180,13 @@ class CodeEditorViewController: UIViewController {
         }
     }
     
-    private func setupCodeEditorViewComponents(codeEditorView: CodeEditorView, lessonText: String) {
+    private func setupCodeEditorViewComponents(codeEditorView: CodeEditorView, lessonText: String, language: ProgramingLanguage) {
         let editorComponents = EditorComponentsBuilder().build(
             pointer: .zero,
             font: font,
             tintColor: tintColor,
-            lessonText: lessonText)
+            lessonText: lessonText,
+            language: language)
         editorComponents.forEach { editorComponent in
             let bufferSize = CGSize(width: 64, height: 132)
             codeEditorView.scrollView.addSubview(editorComponent)
