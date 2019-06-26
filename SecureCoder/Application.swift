@@ -17,20 +17,6 @@ struct Application {
         Swift.print("|----ERROR----|")
     }
     
-    static func makeDirectoryIfNotExists(url: URL) {
-        if !FileManager.default.fileExists(atPath: url.path) {
-            do {
-                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                Application.printErrorLog(error.localizedDescription)
-            }
-        }
-    }
-    
-    static func makeDirectoriesIfNotExists(urls: [URL]) {
-        urls.forEach { makeDirectoryIfNotExists(url: $0) }
-    }
-    
     private static func makeCourse(with courseDirectoryURL: URL) -> Course? {
         let courseTitle = courseDirectoryURL.lastPathComponent
         guard let contentsInCourseDirectory = try? FileManager.default.contentsOfDirectory(atPath: courseDirectoryURL.path),
@@ -56,10 +42,15 @@ struct Application {
             if contentInSectionDirectory == "data.json", let data = try? Data(contentsOf: sectionDirectoryURL.appendingPathComponent(contentInSectionDirectory)) {
                 sectionData = try? JSONDecoder().decode(SectionData.self, from: data)
             } else {
-                let userDirectoryURL = documentURL.appendingPathComponent(courseTitle).appendingPathComponent(sectionTitle).appendingPathComponent(contentInSectionDirectory)
+                let userDirectoryURL: URL
+                if courseTitle == "php" {
+                    userDirectoryURL = URLUtils.make(["http://localhost/users", courseTitle, sectionTitle, contentInSectionDirectory])!
+                } else {
+                    userDirectoryURL = documentURL.appendingPathComponent(courseTitle).appendingPathComponent(sectionTitle).appendingPathComponent(contentInSectionDirectory)
+                }
                 let previewDirectoryURL = userDirectoryURL.appendingPathComponent("preview")
                 let answerDirectoryURL = userDirectoryURL.appendingPathComponent("answer")
-                makeDirectoriesIfNotExists(urls: [
+                FileUtils.makeDirectoriesIfNotExists(urls: [
                     previewDirectoryURL,
                     answerDirectoryURL,
                     ])
@@ -142,47 +133,18 @@ struct Application {
         let answerURL = answerDirectoryURL.appendingPathComponent(fileTitle)
         ///////////////////////////////////////////////////////
         // TEST
-        if FileManager.default.fileExists(atPath: userURL.path) {
-            try! FileManager.default.removeItem(at: userURL)
-        }
-        if FileManager.default.fileExists(atPath: previewURL.path) {
-            try! FileManager.default.removeItem(at: previewURL)
-        }
+        FileUtils.deleteFileIfExists(url: userURL)
+        FileUtils.deleteFileIfExists(url: previewURL)
+        FileUtils.deleteFileIfExists(url: answerURL)
         // TEST
         ///////////////////////////////////////////////////////
-        if !FileManager.default.fileExists(atPath: userURL.path) {
-            var lessonTextParser = LessonTextParser()
-            let userText = lessonTextParser.parse(text)
-            let succeeded = FileManager.default.createFile(
-                atPath: userURL.path,
-                contents: userText.data(using: .utf8),
-                attributes: nil)
-            if !succeeded {
-                Application.printErrorLog("Failed to create user file.")
-            }
-        }
-        if !FileManager.default.fileExists(atPath: previewURL.path) {
-            var lessonTextParser = LessonTextParser()
-            let userText = lessonTextParser.parse(text)
-            let previewText = UserFileManager.formatUserTextToPreviewText(userText)
-            let succeeded = FileManager.default.createFile(
-                atPath: previewURL.path,
-                contents: previewText.data(using: .utf8),
-                attributes: nil)
-            if !succeeded {
-                Application.printErrorLog("Failed to create preview file.")
-            }
-        }
-        if !FileManager.default.fileExists(atPath: answerURL.path) {
-            let answerText = UserFileManager.formatLessonTextToAnserText(text)
-            let succeeded = FileManager.default.createFile(
-                atPath: answerURL.path,
-                contents: answerText.data(using: .utf8),
-                attributes: nil)
-            if !succeeded {
-                Application.printErrorLog("Failed to create answer file.")
-            }
-        }
+        var lessonTextParser = LessonTextParser()
+        let userText = lessonTextParser.parse(text)
+        FileUtils.makeFileIfNotExists(url: userURL, text: userText)
+        let previewText = TextUtils.formatUserTextToPreviewText(userText)
+        FileUtils.makeFileIfNotExists(url: previewURL, text: previewText)
+        let answerText = TextUtils.formatLessonTextToAnserText(text)
+        FileUtils.makeFileIfNotExists(url: answerURL, text: answerText)
         return File(
             title: fileTitle,
             text: text,

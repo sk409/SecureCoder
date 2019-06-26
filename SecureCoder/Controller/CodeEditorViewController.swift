@@ -27,22 +27,26 @@ class CodeEditorViewController: UIViewController {
     private let fileButton = UIButton()
     private let blackOutView = UIView()
     private let descriptionView = DescriptionView()
+    private let slidesLauncher = SlidesLauncher()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addSubviews()
         setupSubviews()
         loadUserFile()
     }
     
-    private func addSubviews() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let slides = lesson?.slides {
+            slidesLauncher.show(slides: slides)
+        }
+    }
+
+    private func setupSubviews() {
         view.addSubview(codeEditorViewContainer)
         view.addSubview(filesTableView)
         view.addSubview(fileButton)
         view.addSubview(webViewContainer)
-    }
-
-    private func setupSubviews() {
         setupWebviews()
         setupFileButton()
         setupFilesTableView()
@@ -65,7 +69,7 @@ class CodeEditorViewController: UIViewController {
         guard let lesson = lesson else {
             return
         }
-        for (fileIndex, file) in lesson.files.enumerated() {
+        for file in lesson.files {
             guard let `extension` = file.extension else {
                 continue
             }
@@ -76,9 +80,15 @@ class CodeEditorViewController: UIViewController {
             setupQuestions(codeEditorView.questions)
             codeEditorView.setNextQuestion()
             setUserAnswersToQuestionTextFields(file: file, questions: codeEditorView.questions)
-            if fileIndex == 0 || codeEditorView.isCompleted {
+            if codeEditorView.isCompleted {
                 changeCodeEditorView(to: codeEditorView)
             }
+        }
+        if activeCodeEditorView == nil,
+           let indexFile = lesson.index,
+           let indexFileIndex = lesson.files.firstIndex(where: {$0.title == indexFile.title })
+        {
+            changeCodeEditorView(to: codeEditorViews[indexFileIndex])
         }
     }
     
@@ -224,7 +234,7 @@ class CodeEditorViewController: UIViewController {
         guard let userText = try? String(contentsOf: file.userURL) else {
             return
         }
-        let userAnswers = UserFileManager.extractUserAnswers(userText: userText)
+        let userAnswers = TextUtils.extractUserAnswers(userText: userText)
         for (userAnswerIndex, userAnswer) in userAnswers.enumerated() {
             guard !userAnswer.isEmpty else {
                 break
@@ -260,12 +270,6 @@ class CodeEditorViewController: UIViewController {
             codeEditorView.topAnchor.constraint(equalTo: codeEditorViewContainer.safeAreaLayoutGuide.topAnchor),
             codeEditorView.bottomAnchor.constraint(equalTo: codeEditorViewContainer.safeAreaLayoutGuide.bottomAnchor),
             ])
-    }
-    
-    private func showSlide() {
-        let slideViewController = SlideViewController()
-        slideViewController.slides = lesson?.slides
-        present(slideViewController, animated: true)
     }
     
     private func showDescriptionView(descriptionIndex: Int) {
@@ -369,7 +373,7 @@ class CodeEditorViewController: UIViewController {
         let newUserText = userText.replacingCharacters(in: startIndex..<endIndex, with: questionText)
         do {
             try newUserText.write(to: lesson.files[fileIndex].userURL, atomically: true, encoding: .utf8)
-            let previewText = UserFileManager.formatUserTextToPreviewText(newUserText)
+            let previewText = TextUtils.formatUserTextToPreviewText(newUserText)
             try previewText.write(to: lesson.files[fileIndex].previewURL, atomically: true, encoding: .utf8)
         } catch {
             Application.printErrorLog(error.localizedDescription)

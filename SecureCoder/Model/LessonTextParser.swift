@@ -74,7 +74,7 @@ struct LessonTextParser {
             }
             lessonTextIndex += 1
         }
-        delegate?.lessonTextParser(self, finishedParsing: UserFileManager.formatUserTextToPreviewText(text))
+        delegate?.lessonTextParser(self, finishedParsing: TextUtils.formatUserTextToPreviewText(text))
         return text
     }
     
