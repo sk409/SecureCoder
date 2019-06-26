@@ -1,0 +1,4 @@
+<?php
+const RESPONSE_SUCCEEDED = "SUCCEEDED";
+const RESPONSE_FAILED = "FAILED";
+
