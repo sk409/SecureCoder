@@ -101,7 +101,7 @@ enum ProgramingLanguage: String {
     func makeAnswerKey(value: String) -> String {
         switch self {
         case .html:
-            return "<!--" + value + "-->"
+            return "/*" + value + "*/"
         case .css:
             return "/*" + value + "*/"
         case .javaScript:

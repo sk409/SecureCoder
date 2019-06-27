@@ -15,8 +15,9 @@ struct HTMLSyntaxHighlighter {
         let attributedString = NSMutableAttributedString(string: text, attributes: [.foregroundColor: tintColor, .font: font])
         if let openTagRegex = try? NSRegularExpression(pattern: "<(?!!--)(?!\\?php)[^/].+?>", options: .dotMatchesLineSeparators) {
             let matches = openTagRegex.matches(in: text, range: NSRange(location: 0, length: (text as NSString).length))
+            matches.forEach { print((text as NSString).substring(with: $0.range))}
             for match in matches {
-                if let tagNameRegex = try? NSRegularExpression(pattern: "<[^ ]+") {
+                if let tagNameRegex = try? NSRegularExpression(pattern: "<[^ >]+") {
                     if let tagNameMatch = tagNameRegex.matches(in: text, range: match.range).first {
                         attributedString.addAttributes([.foregroundColor: PHP.tagColor], range: NSRange(location: tagNameMatch.range.location + 1, length: tagNameMatch.range.length - 1))
                     }

@@ -561,8 +561,6 @@ class CodeEditorViewController: UIViewController {
                 let userText = try? String(contentsOf: url),
                 let regex = try? NSRegularExpression(pattern: pattern)
             {
-//                Application.print(userText)
-//                Application.print(pattern)
                 let attributedUserText = SyntaxHighlighter.decorate(userText, tintColor: tintColor, font: font, language: question.language)
                 let matches = regex.matches(in: userText, range: NSRange(location: 0, length: (userText as NSString).length))
                 let range = NSRange(location: matches[0].range.location + key.count, length: matches[0].range.length - key.count * 2)
