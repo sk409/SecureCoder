@@ -13,7 +13,7 @@ struct SyntaxHighlighter {
         case .css:
             return CSSSyntaxHighlighter(tintColor: tintColor, font: font).syntaxHighlight(text)
         case .javaScript:
-            return PHPSyntaxHighlighter(tintColor: tintColor, font: font).syntaxHighlight(text)
+            return JavaScriptSyntaxHighlighter(tintColor: tintColor, font: font).syntaxHighlight(text)
         case .php:
             return PHPSyntaxHighlighter(tintColor: tintColor, font: font).syntaxHighlight(text)
         }

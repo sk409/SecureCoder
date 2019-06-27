@@ -12,22 +12,52 @@ struct PHPSyntaxHighlighter {
     }
     
     func syntaxHighlight(_ text: String) -> NSMutableAttributedString {
-        let highlighted = NSMutableAttributedString()
-        var cache = ""
-        var index = 0
-        while index <= (text.count - 1) {
-            let character = text[index]
-            if character.isPrintable() && character != ";" {
-                cache.append(character)
-            } else {
-                highlighted.append(makeAttributedString(text: cache))
-                highlighted.append(NSAttributedString(string: String(character), attributes: [.foregroundColor: tintColor, .font: font]))
-                cache.removeAll()
+        let attributedString = HTMLSyntaxHighlighter(tintColor: tintColor, font: font).syntaxHighlight(text)
+        if let phpRegex = try? NSRegularExpression(pattern: "<\\?php.*?\\?>", options: .dotMatchesLineSeparators) {
+            let matches = phpRegex.matches(in: text, range: NSRange(location: 0, length: (text as NSString).length))
+            for match in matches {
+                attributedString.addAttributes([.foregroundColor: PHP.tagColor], range: NSRange(location: match.range.location, length: 5))
+                attributedString.addAttributes([.foregroundColor: PHP.tagColor], range: NSRange(location: match.range.location + match.range.length - 2, length: 2))
+                let a = PHP.reservedWords.flatMap { "((/\\*.*?\\*/)| )\($0)((/\\*.*?\\*/)| )" + "|" }
+                var reservedWordPattern = String(a)
+                reservedWordPattern.removeLast()
+                reservedWordPattern = "(" + reservedWordPattern
+                reservedWordPattern += ")"
+                if let reservedWordRegex = try? NSRegularExpression(pattern: reservedWordPattern) {
+                    let reservedWordMatches = reservedWordRegex.matches(in: text, range: match.range)
+                    for reservedWordMatch in reservedWordMatches {
+                        attributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: reservedWordMatch.range)
+                    }
+                }
+                if let stringRegex = try? NSRegularExpression(pattern: "\".*\"") {
+                    let stringMatches = stringRegex.matches(in: text, range: match.range)
+                    for stringMatch in stringMatches {
+                        attributedString.addAttributes([.foregroundColor: PHP.stringColor], range: stringMatch.range)
+                    }
+                }
+                if let functionRegex = try? NSRegularExpression(pattern: "((/\\*.*?\\*/)| )[a-zA-Z_][a-zA-Z0-9_]*\\(\\)") {
+                    let functionMatches = functionRegex.matches(in: text, range: match.range)
+                    for functionMatch in functionMatches {
+                        //print((text as NSString).substring(with: functionMatch.range))
+                        attributedString.addAttributes([.foregroundColor: PHP.functionColor], range: NSRange(location: functionMatch.range.location, length: functionMatch.range.length - 2))
+                    }
+                }
+                if let variableRegex = try? NSRegularExpression(pattern: "((/\\*.*?\\*/)| )\\$[a-zA-Z_][a-zA-Z0-9_]*((/\\*.*?\\*/)| )") {
+                    let variableMatches = variableRegex.matches(in: text, range: match.range)
+                    for variableMatch in variableMatches {
+                        attributedString.addAttributes([.foregroundColor: PHP.variableColor], range: variableMatch.range)
+                    }
+                }
+//                if let classRegex = try? NSRegularExpression(pattern: "(new +[a-zA-Z_][a-zA-Z0-9_]*\\(\\)") {
+//                    let classMatches = classRegex.matches(in: text, range: match.range)
+//                    for classMatch in classMatches {
+//                        print((text as NSString).substring(with: classMatch.range))
+//                        attributedString.addAttributes([.foregroundColor: PHP.classColor], range: classMatch.range)
+//                    }
+//                }
             }
-            index += 1
         }
-        highlighted.append(makeAttributedString(text: cache))
-        return highlighted
+        return attributedString
 //        let tagColor = UIColor.turquoiseBlue
 //        let reservedWordColor = UIColor.rosePink
 //        let classColor = UIColor.turquoiseBlue
