@@ -7,6 +7,11 @@ struct CSSSyntaxHighlighter {
     
     func syntaxHighlight(_ text: String) -> NSMutableAttributedString {
         let attributedString = NSMutableAttributedString(string: text, attributes: [.font: font, .foregroundColor: tintColor])
+        guard let commentRegex = try? NSRegularExpression(pattern: "/\\*.*\\*/", options: NSRegularExpression.Options()) else {
+            return NSMutableAttributedString()
+        }
+        let commentMatches = commentRegex.matches(in: text, options: NSRegularExpression.MatchingOptions(), range: NSRange(location: 0, length: (text as NSString).length))
+        commentMatches.forEach { attributedString.addAttributes([.font: font, .foregroundColor: UIColor.forestGreen], range: $0.range)}
         guard let selectorRegex = try? NSRegularExpression(pattern: ".*\\{") else {
             return NSMutableAttributedString()
         }
@@ -22,11 +27,6 @@ struct CSSSyntaxHighlighter {
         }
         let valueMatches = valueRegex.matches(in: text, range: NSRange(location: 0, length: (text as NSString).length))
         valueMatches.forEach {attributedString.addAttributes([.font: font, .foregroundColor: UIColor.mintGreen], range: NSRange(location: $0.range.location + 1, length: $0.range.length - 2)) }
-        guard let commentRegex = try? NSRegularExpression(pattern: "/\\*.*\\*/", options: NSRegularExpression.Options()) else {
-            return NSMutableAttributedString()
-        }
-        let commentMatches = commentRegex.matches(in: text, options: NSRegularExpression.MatchingOptions(), range: NSRange(location: 0, length: (text as NSString).length))
-        commentMatches.forEach { attributedString.addAttributes([.font: font, .foregroundColor: UIColor.forestGreen], range: $0.range)}
         return attributedString
     }
     

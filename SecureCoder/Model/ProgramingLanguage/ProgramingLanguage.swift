@@ -98,4 +98,17 @@ enum ProgramingLanguage: String {
         }
     }
     
+    func makeAnswerKey(value: String) -> String {
+        switch self {
+        case .html:
+            return "<!--" + value + "-->"
+        case .css:
+            return "/*" + value + "*/"
+        case .javaScript:
+            return "/*" + value + "*/"
+        case .php:
+            return "/*" + value + "*/"
+        }
+    }
+    
 }

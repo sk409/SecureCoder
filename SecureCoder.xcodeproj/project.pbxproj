@@ -54,13 +54,13 @@
 		D7A9F1A722AA9D920049C0DE /* LessonTextParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A9F1A622AA9D920049C0DE /* LessonTextParser.swift */; };
 		D7AF14AD228524B100022937 /* String+is~.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF14AC228524B100022937 /* String+is~.swift */; };
 		D7AF14B52285762600022937 /* PHP.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AF14B42285762600022937 /* PHP.swift */; };
+		D7B22F0622C45721009E97D5 /* String+escape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B22F0522C45721009E97D5 /* String+escape.swift */; };
 		D7C950D822BC6A8D00524823 /* TemplateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C950D722BC6A8D00524823 /* TemplateLabel.swift */; };
 		D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E5D501228A66DF007CE3C2 /* HTML.swift */; };
 		D7F96527229249370086E98A /* QuestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96526229249370086E98A /* QuestionTextField.swift */; };
 		D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96528229259120086E98A /* ProgramingLanguage.swift */; };
 		D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */; };
 		D7F9652D229280860086E98A /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652C229280860086E98A /* SyntaxHighlighter.swift */; };
-		D7F9652F2292A4170086E98A /* SlidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652E2292A4170086E98A /* SlidesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,13 +113,13 @@
 		D7A9F1A622AA9D920049C0DE /* LessonTextParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTextParser.swift; sourceTree = "<group>"; };
 		D7AF14AC228524B100022937 /* String+is~.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+is~.swift"; sourceTree = "<group>"; };
 		D7AF14B42285762600022937 /* PHP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHP.swift; sourceTree = "<group>"; };
+		D7B22F0522C45721009E97D5 /* String+escape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+escape.swift"; sourceTree = "<group>"; };
 		D7C950D722BC6A8D00524823 /* TemplateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateLabel.swift; sourceTree = "<group>"; };
 		D7E5D501228A66DF007CE3C2 /* HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML.swift; sourceTree = "<group>"; };
 		D7F96526229249370086E98A /* QuestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTextField.swift; sourceTree = "<group>"; };
 		D7F96528229259120086E98A /* ProgramingLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramingLanguage.swift; sourceTree = "<group>"; };
 		D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D7F9652C229280860086E98A /* SyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxHighlighter.swift; sourceTree = "<group>"; };
-		D7F9652E2292A4170086E98A /* SlidesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				D77059AD2292357700E66D7B /* CodeEditorViewController.swift */,
-				D7F9652E2292A4170086E98A /* SlidesViewController.swift */,
 				D726996F22964578009988E6 /* CoursesViewController.swift */,
 				D726997322966B41009988E6 /* SectionsViewController.swift */,
 			);
@@ -262,6 +261,7 @@
 				D781CE1C225DFF7A00B90A26 /* Character+is~.swift */,
 				D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */,
 				D762AF5C22B48543001C94A2 /* UIView+darken.swift */,
+				D7B22F0522C45721009E97D5 /* String+escape.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -356,7 +356,6 @@
 				D7AF14AD228524B100022937 /* String+is~.swift in Sources */,
 				D730541622C30120005906EB /* HTTPMethod.swift in Sources */,
 				D7319A982298EC3B00369273 /* CaretView.swift in Sources */,
-				D7F9652F2292A4170086E98A /* SlidesViewController.swift in Sources */,
 				D745635922B7A23C00F8F68F /* Extension.swift in Sources */,
 				D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */,
 				D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */,
@@ -365,6 +364,7 @@
 				D72BB8D92254C8560043D909 /* PHPSyntaxHighlighter.swift in Sources */,
 				D7722E812293A3FC00A749BF /* SlideCollectionViewCell.swift in Sources */,
 				D7A9F1A722AA9D920049C0DE /* LessonTextParser.swift in Sources */,
+				D7B22F0622C45721009E97D5 /* String+escape.swift in Sources */,
 				D7C950D822BC6A8D00524823 /* TemplateLabel.swift in Sources */,
 				D726997222965AB1009988E6 /* ProgramingLanguageCollectionViewCell.swift in Sources */,
 				D7A56687225A17D3002EF185 /* Lesson.swift in Sources */,

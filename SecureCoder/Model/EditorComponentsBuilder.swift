@@ -65,7 +65,7 @@ class EditorComponentsBuilder {
 //        parser.spaceHandler = spaceHandler
 //        parser.questionHandler = questionHandler
 //        parser.templateHandler = templateHandler
-        _ = parser.parse(lessonText)
+        _ = parser.parse(lessonText, language: language)
         return views
     }
     

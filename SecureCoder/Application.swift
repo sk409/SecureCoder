@@ -42,15 +42,23 @@ struct Application {
             if contentInSectionDirectory == "data.json", let data = try? Data(contentsOf: sectionDirectoryURL.appendingPathComponent(contentInSectionDirectory)) {
                 sectionData = try? JSONDecoder().decode(SectionData.self, from: data)
             } else {
-                let userDirectoryURL: URL
+                let userDirectoryURL = documentURL.appendingPathComponent(courseTitle).appendingPathComponent(sectionTitle).appendingPathComponent(contentInSectionDirectory)
+//                if courseTitle == "php" {
+//                    userDirectoryURL = URLUtils.make(["http://localhost/users", courseTitle, sectionTitle, contentInSectionDirectory])!
+//                } else {
+//                    userDirectoryURL =
+//                }
+                let previewDirectoryURL: URL
+                let answerDirectoryURL: URL
                 if courseTitle == "php" {
-                    userDirectoryURL = URLUtils.make(["http://localhost/users", courseTitle, sectionTitle, contentInSectionDirectory])!
+                    previewDirectoryURL = URLUtils.make(["http://localhost", courseTitle, sectionTitle, contentInSectionDirectory, "preview"])!
+                    answerDirectoryURL = URLUtils.make(["http://localhost", courseTitle, sectionTitle, contentInSectionDirectory, "answer"])!
                 } else {
-                    userDirectoryURL = documentURL.appendingPathComponent(courseTitle).appendingPathComponent(sectionTitle).appendingPathComponent(contentInSectionDirectory)
+                    previewDirectoryURL = userDirectoryURL.appendingPathComponent("preview")
+                    answerDirectoryURL = userDirectoryURL.appendingPathComponent("answer")
                 }
-                let previewDirectoryURL = userDirectoryURL.appendingPathComponent("preview")
-                let answerDirectoryURL = userDirectoryURL.appendingPathComponent("answer")
-                FileUtils.makeDirectoriesIfNotExists(urls: [
+                FileUtils.makeDirectories(urls: [
+                    userDirectoryURL,
                     previewDirectoryURL,
                     answerDirectoryURL,
                     ])
@@ -131,27 +139,30 @@ struct Application {
         let userURL = userDirectoryURL.appendingPathComponent(fileTitle)
         let previewURL = previewDirectoryURL.appendingPathComponent(fileTitle)
         let answerURL = answerDirectoryURL.appendingPathComponent(fileTitle)
-        ///////////////////////////////////////////////////////
-        // TEST
-        FileUtils.deleteFileIfExists(url: userURL)
-        FileUtils.deleteFileIfExists(url: previewURL)
-        FileUtils.deleteFileIfExists(url: answerURL)
-        // TEST
-        ///////////////////////////////////////////////////////
-        var lessonTextParser = LessonTextParser()
-        let userText = lessonTextParser.parse(text)
-        FileUtils.makeFileIfNotExists(url: userURL, text: userText)
-        let previewText = TextUtils.formatUserTextToPreviewText(userText)
-        FileUtils.makeFileIfNotExists(url: previewURL, text: previewText)
-        let answerText = TextUtils.formatLessonTextToAnserText(text)
-        FileUtils.makeFileIfNotExists(url: answerURL, text: answerText)
-        return File(
+        let file = File(
             title: fileTitle,
             text: text,
             url: fileURL,
             userURL: userURL,
             previewURL: previewURL,
             answerURL: answerURL)
+        ///////////////////////////////////////////////////////
+        // TEST
+        FileUtils.deleteFile(url: userURL)
+        FileUtils.deleteFile(url: previewURL)
+        FileUtils.deleteFile(url: answerURL)
+        // TEST
+        ///////////////////////////////////////////////////////
+        if let programingLanguage = file.programingLanguage {
+            var lessonTextParser = LessonTextParser()
+            let userText = lessonTextParser.parse(text, language: programingLanguage)
+            FileUtils.makeFile(url: userURL, text: userText)
+            let previewText = TextUtils.formatUserTextToPreviewText(userText, language: programingLanguage)
+            FileUtils.makeFile(url: previewURL, text: previewText)
+            let answerText = TextUtils.formatLessonTextToAnserText(text)
+            FileUtils.makeFile(url: answerURL, text: answerText)
+        }
+        return file
     }
     
     private static func makeSlide(with slideURL: URL) -> Slide? {

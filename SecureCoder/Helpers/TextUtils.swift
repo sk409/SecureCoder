@@ -2,8 +2,8 @@ import Foundation
 
 struct TextUtils {
     
-    static func formatUserTextToPreviewText(_ userText: String) -> String {
-        return userText.replacingOccurrences(of: "<!--[0-9]+-->", with: "", options: .regularExpression)
+    static func formatUserTextToPreviewText(_ userText: String, language: ProgramingLanguage) -> String {
+        return userText.replacingOccurrences(of: language.makeAnswerKey(value: "[0-9]+").appendingRegularExpressionEscaping(), with: "", options: .regularExpression)
     }
     
     static func formatLessonTextToAnserText(_ lessonText: String) -> String {
@@ -11,13 +11,13 @@ struct TextUtils {
         return answerText
     }
     
-    static func extractUserAnswers(userText: String) -> [String] {
+    static func extractUserAnswers(userText: String, language: ProgramingLanguage) -> [String] {
         var answerIndex = 0
         var cache = ""
         var userAnswers = [String]()
         for character in userText {
             cache.append(character)
-            let pattern = "<!--" + String(answerIndex) + "-->"
+            let pattern = language.makeAnswerKey(value: String(answerIndex)).appendingRegularExpressionEscaping()
             guard let regex = try? NSRegularExpression(pattern: pattern) else {
                 continue
             }

@@ -18,7 +18,7 @@ struct LessonTextParser {
 //    var questionHandler: ((Int, String, ProgramingLanguage) -> Void)?
 //    var templateHandler: ((NSRange, String, ProgramingLanguage) -> Void)?
     
-    mutating func parse(_ lessonText: String) -> String {
+    mutating func parse(_ lessonText: String, language: ProgramingLanguage) -> String {
         var text = ""
         var cache = ""
         var lessonTextIndex = 0
@@ -47,7 +47,7 @@ struct LessonTextParser {
 //            }
             else if cache.hasPrefix("?[?") && cache.hasSuffix("?]?") {
                 let answer = String(cache[3...(cache.count - 4)])
-                let key = "<!--" + String(questionIndex) + "-->"
+                let key = language.makeAnswerKey(value: String(questionIndex))
                 text += key
                 text += key
                 //templateRange.location += (key.count * 2)
@@ -74,7 +74,7 @@ struct LessonTextParser {
             }
             lessonTextIndex += 1
         }
-        delegate?.lessonTextParser(self, finishedParsing: TextUtils.formatUserTextToPreviewText(text))
+        delegate?.lessonTextParser(self, finishedParsing: TextUtils.formatUserTextToPreviewText(text, language: language))
         return text
     }
     

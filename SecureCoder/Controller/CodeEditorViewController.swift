@@ -231,10 +231,12 @@ class CodeEditorViewController: UIViewController {
     }
     
     private func setUserAnswersToQuestionTextFields(file: File, questions: [QuestionTextField]) {
-        guard let userText = try? String(contentsOf: file.userURL) else {
+        guard let userText = try? String(contentsOf: file.userURL),
+              let language = file.programingLanguage
+        else {
             return
         }
-        let userAnswers = TextUtils.extractUserAnswers(userText: userText)
+        let userAnswers = TextUtils.extractUserAnswers(userText: userText, language: language)
         for (userAnswerIndex, userAnswer) in userAnswers.enumerated() {
             guard !userAnswer.isEmpty else {
                 break
@@ -359,11 +361,13 @@ class CodeEditorViewController: UIViewController {
               let codeEditorView = question.editorView,
               let fileIndex = codeEditorViews.firstIndex(of: codeEditorView),
               let userText = try? String(contentsOf: lesson.files[fileIndex].userURL),
-              let regex = try? NSRegularExpression(pattern:
-                "<!--" + String(codeEditorView.activeQuestionIndex) + "-->")
+              let language = lesson.files[fileIndex].programingLanguage,
+              let regex = try? NSRegularExpression(pattern: language.makeAnswerKey(value: String(codeEditorView.activeQuestionIndex)).appendingRegularExpressionEscaping())
         else {
             return
         }
+//        print(lesson.files[fileIndex].userURL)
+//        print(try? String(contentsOf: lesson.files[fileIndex].userURL))
         let matches = regex.matches(in: userText, range: NSRange(location: 0, length: (userText as NSString).length))
         guard matches.count == 2 else {
             return
@@ -371,13 +375,19 @@ class CodeEditorViewController: UIViewController {
         let startIndex = userText.index(userText.startIndex, offsetBy: matches[0].range.location + matches[0].range.length)
         let endIndex = userText.index(userText.startIndex, offsetBy: matches[1].range.location)
         let newUserText = userText.replacingCharacters(in: startIndex..<endIndex, with: questionText)
-        do {
-            try newUserText.write(to: lesson.files[fileIndex].userURL, atomically: true, encoding: .utf8)
-            let previewText = TextUtils.formatUserTextToPreviewText(newUserText)
-            try previewText.write(to: lesson.files[fileIndex].previewURL, atomically: true, encoding: .utf8)
-        } catch {
-            Application.printErrorLog(error.localizedDescription)
-        }
+        //try! newUserText.write(to: lesson.files[fileIndex].userURL, atomically: true, encoding: .utf8)
+        FileUtils.saveFile(url: lesson.files[fileIndex].userURL, text: newUserText)
+        let previewText = TextUtils.formatUserTextToPreviewText(newUserText, language: language)
+        FileUtils.saveFile(url: lesson.files[fileIndex].previewURL, text: previewText)
+        //Application.print(lesson.files[fileIndex].previewURL)
+        //try! previewText.write(to: lesson.files[fileIndex].previewURL, atomically: true, encoding: .utf8)
+//        do {
+//            try newUserText.write(to: lesson.files[fileIndex].userURL, atomically: true, encoding: .utf8)
+//            let previewText = TextUtils.formatUserTextToPreviewText(newUserText, language: language)
+//            try previewText.write(to: lesson.files[fileIndex].previewURL, atomically: true, encoding: .utf8)
+//        } catch {
+//            Application.printErrorLog(error.localizedDescription)
+//        }
     }
     
     private func loadUserFile() {
@@ -539,14 +549,20 @@ class CodeEditorViewController: UIViewController {
         } else {
             playOKAnimation()
         }
-        if question.markedTextRange == nil {
-            let key = "<!--" + String(question.index) + "-->"
-            let pattern =  key + ".*" + key
+        if question.markedTextRange == nil,
+           let fileIndex = codeEditorViews.firstIndex(of: codeEditorView),
+           let language = lesson?.files[fileIndex].programingLanguage
+        {
+            let key = language.makeAnswerKey(value: String(question.index))
+            let escapedKey = key.appendingRegularExpressionEscaping()
+            let pattern =  escapedKey + ".*" + escapedKey
             if let fileIndex = codeEditorViews.firstIndex(of: codeEditorView),
                 let url = lesson?.files[fileIndex].userURL,
                 let userText = try? String(contentsOf: url),
                 let regex = try? NSRegularExpression(pattern: pattern)
             {
+//                Application.print(userText)
+//                Application.print(pattern)
                 let attributedUserText = SyntaxHighlighter.decorate(userText, tintColor: tintColor, font: font, language: question.language)
                 let matches = regex.matches(in: userText, range: NSRange(location: 0, length: (userText as NSString).length))
                 let range = NSRange(location: matches[0].range.location + key.count, length: matches[0].range.length - key.count * 2)
