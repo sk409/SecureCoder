@@ -7,21 +7,27 @@ class CaretView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        startAnimation()
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        startAnimation()
+        setupViews()
     }
     
     func startAnimation() {
+        alpha = 1
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: animationTimeInterval, target: self, selector: #selector(animate), userInfo: nil, repeats: true)
     }
     
     func stopAnimation() {
+        alpha = 0
         timer?.invalidate()
+    }
+    
+    private func setupViews() {
+        alpha = 0
     }
     
     @objc

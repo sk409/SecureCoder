@@ -36,4 +36,12 @@ extension UIColor {
     
     static let orientalBlue = UIColor(red: 0.1882, green: 0.2588, blue: 0.5215, alpha: 1)
     
+    static let deepSkyBlue = UIColor(red: 0, green: 0.7490, blue: 1, alpha: 1)
+    
+    static let springGreen = UIColor.make(fromHex: "00ff7f")!
+    
+    static let meduimSeaGreen = UIColor.make(fromHex: "3cb371")!
+    
+    static let royalBlue = UIColor.make(fromHex: "4169e1")!
+    
 }

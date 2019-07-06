@@ -2,7 +2,8 @@ import UIKit
 
 class QuestionTextField: UITextField {
     
-    weak var editorView: CodeEditorView?
+//    weak var editorView: CodeEditorView?
+//
     
     let index: Int
     let answer: String
@@ -10,43 +11,104 @@ class QuestionTextField: UITextField {
     let caret = CaretView()
     let keyboardView = KeyboardView()
     
-    var isCompleted: Bool {
-        return text == answer
-    }
-    
+    private(set) var isActive = false
+//
+//    var isCompleted: Bool {
+//        return text == answer
+//    }
+//    
     init(index: Int, answer: String, language: ProgramingLanguage) {
         self.index = index
         self.answer = answer
         self.language = language
         super.init(frame: .zero)
-        keyboardView.build(with: answer.map { $0 })
+        //keyboardView.build(with: answer.map { $0 })
     }
-    
+//
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        setupSubviews()
+    @objc
+    func handleEditingChangedEvent() {
+        let size = text!.size(withAttributes: [.font: font!])
+        caret.frame.origin.x = size.width
     }
     
-    func activate(_ active: Bool) {
-        if active {
-            caret.alpha = 1
+    func activate(isActive: Bool, keyboardViewDidShow: (() -> Void)?, keyboardViewDidHide: (() -> Void)?) {
+        self.isActive = isActive
+        if isActive {
+            addTarget(self, action: #selector(handleEditingChangedEvent), for: .editingChanged)
+            addSubview(caret)
+            caret.backgroundColor = .white
             caret.startAnimation()
-            isUserInteractionEnabled = true
+            caret.frame = CGRect(x: 0, y: 0, width: 2, height: safeAreaLayoutGuide.layoutFrame.height)
+            if let window = UIApplication.shared.keyWindow {
+                window.addSubview(keyboardView)
+                let keyboardViewSize = CGSize(width: window.bounds.size.width * 0.5, height: window.bounds.size.width * 0.25)
+                keyboardView.alpha = 0
+                keyboardView.frame = CGRect(
+                    x: window.safeAreaLayoutGuide.layoutFrame.maxX - keyboardViewSize.width,
+                    y: window.safeAreaLayoutGuide.layoutFrame.maxY - keyboardViewSize.height,
+                    width: keyboardViewSize.width,
+                    height: keyboardViewSize.height
+                )
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.keyboardView.alpha = 1
+                }) { _ in
+                    keyboardViewDidShow?()
+                }
+            }
         } else {
-            caret.alpha = 0
+            removeTarget(self, action: #selector(handleEditingChangedEvent), for: .editingChanged)
+            caret.removeFromSuperview()
             caret.stopAnimation()
-            isUserInteractionEnabled = false
+            UIView.animate(withDuration: 0.5, animations: {
+                self.keyboardView.alpha = 0
+            }) { _ in
+                keyboardViewDidHide?()
+            }
         }
+        let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
+        borderColorAnimation.delegate = self
+        borderColorAnimation.toValue = isActive ? UIColor.green.cgColor : UIColor.white.cgColor
+        borderColorAnimation.duration = 0.5
+        borderColorAnimation.isRemovedOnCompletion = false
+        borderColorAnimation.fillMode = .forwards
+        layer.add(borderColorAnimation, forKey: "borderColorAnimation")
     }
     
-    private func setupSubviews() {
-        addSubview(caret)
-        caret.frame = CGRect(origin: caret.frame.origin, size: CGSize(width: 1, height: bounds.height))
-        caret.backgroundColor = .turquoiseBlue
+    
+//    
+//    override func draw(_ rect: CGRect) {
+//        super.draw(rect)
+//        setupSubviews()
+//    }
+//    
+//    func activate(_ active: Bool) {
+//        if active {
+//            caret.alpha = 1
+//            caret.startAnimation()
+//            isUserInteractionEnabled = true
+//        } else {
+//            caret.alpha = 0
+//            caret.stopAnimation()
+//            isUserInteractionEnabled = false
+//        }
+//    }
+//    
+//    private func setupSubviews() {
+//        addSubview(caret)
+//        caret.frame = CGRect(origin: caret.frame.origin, size: CGSize(width: 1, height: bounds.height))
+//        caret.backgroundColor = .turquoiseBlue
+//    }
+    
+}
+
+extension QuestionTextField: CAAnimationDelegate {
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        layer.removeAnimation(forKey: "borderColor")
     }
     
 }

@@ -1,15 +1,16 @@
 
-struct SectionData: Decodable {
+struct SectionInfo: Decodable {
+    let index: Int
     let title: String
-    let content: String
-    let skills: [String]
+    let description: String
 }
 
 struct Section {
     
+    let index: Int
     let title: String
-    let content: String
-    let skills: [String]
-    var lessons: [Lesson]
+    let description: String
+    let safeLesson: Lesson
+    let unsafeLesson: Lesson
     
 }

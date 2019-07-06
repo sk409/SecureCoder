@@ -12,7 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         _ = Application.shared
         //let a = Application.shared.course(.html)
-        window?.rootViewController = CoursesViewController()
+        window?.rootViewController = CourseSelectionViewController()
         //        let templateViewContainer = TemplateViewController()
         //        templateViewContainer.setContentViewController(CoursesViewController(), options: nil)
         //        window?.rootViewController = templateViewContainer
