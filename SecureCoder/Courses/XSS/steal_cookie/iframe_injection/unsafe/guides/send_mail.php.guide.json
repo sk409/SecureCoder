@@ -1,0 +1,38 @@
+{
+    "index": 3,
+    "fileName": "send_mail.php",
+    "explainers": [
+            {
+                "questionIndices": [],
+                "focusLabels": ["$cookie = $_GET[\"cookie\"];"],
+                "focusComponents": [
+                    []
+                ],
+                "texts": ["これが攻撃者が用意した自分自身に対してユーザのCookieをメールで送信するスクリプトです。\n$cookie = $_GET[\"cookie\"]の部分で送信されたユーザのCookieを取得しています。\nこのCookieの値を攻撃者にメールで送信します。次はその処理を見てみましょう。"]
+            },
+            {
+                "questionIndices": [],
+                "focusLabels": ["function send_mail($cookie) {\n    // ここで攻撃者は自分にメールを送信してクッキーの値を入手します。\n}", "send_mail($cookie);"],
+                "focusComponents": [
+                    []
+                ],
+                "texts": ["本来はsend_mail()にて実際にメールを送信しますが今回はサンプルであるためメールを送信する処理は記述していません。"]
+            },
+            {
+                "questionIndices": [],
+                "focusLabels": ["echo \"攻撃成功\";", "echo $cookie;"],
+                "focusComponents": [
+                    []
+                ],
+                "texts": ["今回は分かりやすさを狙って攻撃成功というメッセージとともにCookieの値を表示していますが、実際には攻撃者がこのようなメッセージを表示することはありません。"]
+            },
+            {
+                "questionIndices": [],
+                "focusLabels": [],
+                "focusComponents": [
+                    []
+                ],
+                "texts": ["各ファイルの説明は以上です。\nそれでは実際にプレビューを確認し、攻撃の流れを見てみましょう。"]
+            }
+        ]
+}

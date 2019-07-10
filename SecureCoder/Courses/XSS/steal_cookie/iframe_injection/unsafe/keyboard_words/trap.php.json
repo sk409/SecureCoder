@@ -1,0 +1,15 @@
+{
+    "fileName": "trap.php",
+    "words": [
+        [
+            "<",
+            " ",
+            ">",
+            "script",
+            "src",
+            "http://www.trap.cp.jp/iframe_injection.js",
+            "/",
+            "="
+        ]
+    ]
+}

@@ -1,0 +1,6 @@
+{
+    "fileName": "welcome.php",
+    "words": [
+        ["echo", " ", "$_GET", "[", "\"", "name", "\"", "]", ";"]
+    ]
+}
