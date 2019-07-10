@@ -238,6 +238,7 @@ struct Application {
                                                     sectionInfo = try? JSONDecoder().decode(SectionInfo.self, from: sectionInfoData)
                                                 }
                                             } else {
+                                                var lessonInfo: LessonInfo?
                                                 var domains = [Domain]()
                                                 var guides = [Guide]()
                                                 var keyboardWords = [KeyboardWords]()
@@ -292,14 +293,21 @@ struct Application {
                                                                     }
                                                                 }
                                                             }
+                                                        } else if contentInLessonDirectory == "info.json" {
+                                                            let infoJSONURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
+                                                            if let lessonInfoData = try? Data(contentsOf: infoJSONURL) {
+                                                                lessonInfo = try? JSONDecoder().decode(LessonInfo.self, from: lessonInfoData)
+                                                            }
                                                         }
                                                     }
                                                 }
                                                 guides.sort { $0.index < $1.index }
-                                                if lessonTitle == "safe" {
-                                                    safeLesson = Lesson(domains: domains, guides: guides, keyboardWords: keyboardWords)
-                                                } else {
-                                                    unsafeLesson = Lesson(domains: domains, guides: guides, keyboardWords: keyboardWords)
+                                                if let li = lessonInfo {
+                                                    if lessonTitle == "safe" {
+                                                        safeLesson = Lesson(title: li.title, domains: domains, guides: guides, keyboardWords: keyboardWords)
+                                                    } else {
+                                                        unsafeLesson = Lesson(title: li.title, domains: domains, guides: guides, keyboardWords: keyboardWords)
+                                                    }
                                                 }
                                             }
                                         }

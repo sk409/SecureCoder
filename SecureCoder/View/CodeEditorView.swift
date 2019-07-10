@@ -46,63 +46,88 @@ class CodeEditorView: UIView {
     private(set) var questions: [QuestionTextField]?
     private(set) var templates: [TemplateLabel]?
     
+    private var focusableViews = [FocusableView]()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(scrollView)
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        addSubview(scrollView)
+        setupViews()
     }
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        scrollView.frame = safeAreaLayoutGuide.layoutFrame
         drawFunctionHandler?(self)
     }
     
-    func focus(_ texts: [String]) {
-        guard !texts.isEmpty, let components = components else {
+    func focus(labelTexts: [String], componentIndices: [[Int]]) {
+        guard let components = components else {
             return
         }
-        var focusedComponents = [UIView]()
+        var focusedViews = [UIView]()
         for component in components {
-            guard let labelText = (component as? TemplateLabel)?.text else {
+            guard let templateLabel = component as? TemplateLabel,
+                  let labelText = templateLabel.text
+            else {
                 continue
             }
-            if texts.contains(labelText) {
-                let borderAnimationDuration: TimeInterval = 1
-                let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
-                borderWidthAnimation.fromValue = 0
-                borderWidthAnimation.toValue = 1
-                borderWidthAnimation.duration = borderAnimationDuration
-                borderWidthAnimation.isRemovedOnCompletion = false
-                borderWidthAnimation.fillMode = .forwards
-                component.layer.add(borderWidthAnimation, forKey: "borderWidthAnimation")
-                let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
-                borderColorAnimation.fromValue = UIColor.clear.cgColor
-                borderColorAnimation.toValue = UIColor.red.cgColor
-                borderColorAnimation.duration = borderAnimationDuration
-                borderColorAnimation.isRemovedOnCompletion = false
-                borderColorAnimation.fillMode = .forwards
-                component.layer.add(borderColorAnimation, forKey: "borderColorAnimation")
-                focusedComponents.append(component)
+            if labelTexts.contains(labelText) {
+                templateLabel.focus(with: 1, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .white)
+                focusedViews.append(component)
             }
         }
         for component in components {
-            guard !focusedComponents.contains(component) else {
+            guard let templateLabel = component as? TemplateLabel,
+                  !focusedViews.contains(component) else {
                 continue
             }
-            component.layer.removeAllAnimations()
-            component.layer.borderWidth = 0
-            component.layer.borderColor = UIColor.clear.cgColor
+            templateLabel.unfocus(with: 1)
         }
-        if let firstFocusedComponent = focusedComponents.first {
+        for componentIndexArray in componentIndices {
+            let focusableView = FocusableView()
+            scrollView.addSubview(focusableView)
+            focusableViews.append(focusableView)
+            focusedViews.append(focusableView)
+            focusableView.frame.origin = CGPoint(x: CGFloat.infinity, y: .infinity)
+            for componentIndex in componentIndexArray {
+                focusableView.frame.origin.x = min(focusableView.frame.origin.x, components[componentIndex].frame.origin.x)
+                focusableView.frame.origin.y = min(focusableView.frame.origin.y,
+                                                   components[componentIndex].frame.origin.y)
+            }
+            for componentIndex in componentIndexArray {
+                focusableView.frame.size.width = max(focusableView.bounds.size.width, components[componentIndex].frame.maxX)
+                focusableView.frame.size.height = max(focusableView.bounds.size.height,
+                                                      components[componentIndex].frame.maxY)
+            }
+            focusableView.frame.size.width -= focusableView.frame.origin.x
+            focusableView.frame.size.height -= focusableView.frame.origin.y
+            let buffer = CGSize(width: 0, height: 10)
+            focusableView.frame.origin.x -= buffer.width / 2
+            focusableView.frame.origin.y -= buffer.height / 2
+            focusableView.frame.size.width += buffer.width
+            focusableView.frame.size.height += buffer.height
+            focusableView.focus(with: 1, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .white)
+        }
+        var topFocusedView: UIView?
+        var minY = CGFloat.infinity
+        for focusedView in focusedViews {
+            if focusedView.frame.origin.y < minY {
+                minY = focusedView.frame.origin.y
+                topFocusedView = focusedView
+            }
+        }
+        if let tfv = topFocusedView {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
-                self.scrollView.contentOffset.y = firstFocusedComponent.frame.origin.y
+                self.scrollView.contentOffset.y = tfv.frame.origin.y
             }, completion: nil)
         }
+    }
+    
+    func removeAllFocusableViews() {
+        focusableViews.forEach { $0.removeFromSuperview() }
     }
     
     func scroll(to component: UIView?) {
@@ -121,6 +146,17 @@ class CodeEditorView: UIView {
         } else {
             self.question = self.questions?.first
         }
+    }
+    
+    private func setupViews() {
+        addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            ])
     }
     
 //    var questionDidChangeEventHandler: ((CodeEditorView) -> Void)?

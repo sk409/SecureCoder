@@ -1,9 +1,7 @@
 import UIKit
 
-class TemplateLabel: UILabel {
+class FocusableView: UIView {
     
-    var range: NSRange?
-    var line = 0
     var cache = [String: Any]()
     
     func focus(with duration: TimeInterval, borderWidth: CGFloat, borderColor: CGColor, backgroundColor: UIColor) {

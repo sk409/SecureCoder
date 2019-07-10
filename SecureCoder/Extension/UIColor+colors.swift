@@ -44,4 +44,6 @@ extension UIColor {
     
     static let royalBlue = UIColor.make(fromHex: "4169e1")!
     
+    static let linkColor = UIColor.make(fromHex: "0000EE")!
+    
 }

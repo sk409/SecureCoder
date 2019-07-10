@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Application.shared
         //let a = Application.shared.course(.html)
         window?.rootViewController = CourseSelectionViewController()
+//        window?.rootViewController = IFrameInjectionUnsafeWebSimulatorViewController()
         //        let templateViewContainer = TemplateViewController()
         //        templateViewContainer.setContentViewController(CoursesViewController(), options: nil)
         //        window?.rootViewController = templateViewContainer

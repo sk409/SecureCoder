@@ -38,6 +38,9 @@
 		D730541A22C31424005906EB /* URLUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D730541922C31424005906EB /* URLUtils.swift */; };
 		D7319A982298EC3B00369273 /* CaretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7319A972298EC3B00369273 /* CaretView.swift */; };
 		D7319A9A2298F20500369273 /* CodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7319A992298F20500369273 /* CodeEditorView.swift */; };
+		D7327FD222D2DE9400586B29 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7327FD122D2DE9400586B29 /* Text.swift */; };
+		D7327FD422D2DF6C00586B29 /* A.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7327FD322D2DF6C00586B29 /* A.swift */; };
+		D7327FDC22D336F600586B29 /* WebElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7327FDB22D336F600586B29 /* WebElementView.swift */; };
 		D735DAE722C1EB5300B8C2B7 /* Courses in Resources */ = {isa = PBXBuildFile; fileRef = D735DAE522C1EAB200B8C2B7 /* Courses */; };
 		D738B5B922A4E3700043E177 /* SectionCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */; };
 		D745635922B7A23C00F8F68F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D745635822B7A23C00F8F68F /* Extension.swift */; };
@@ -55,9 +58,17 @@
 		D77059AE2292357700E66D7B /* LessonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77059AD2292357700E66D7B /* LessonViewController.swift */; };
 		D7722E812293A3FC00A749BF /* SlideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7722E802293A3FC00A749BF /* SlideCollectionViewCell.swift */; };
 		D7722E832293A64900A749BF /* LastSlideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7722E822293A64900A749BF /* LastSlideCollectionViewCell.swift */; };
+		D77771C222D42E7500ACCDAB /* CodeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77771C122D42E7500ACCDAB /* CodeLabel.swift */; };
+		D77771C822D456FA00ACCDAB /* FocusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77771C722D456FA00ACCDAB /* FocusableView.swift */; };
 		D77EE57F22D0415A00013DA6 /* Explainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77EE57E22D0415A00013DA6 /* Explainer.swift */; };
 		D77EE58122D07B9D00013DA6 /* KeyboardWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77EE58022D07B9D00013DA6 /* KeyboardWords.swift */; };
 		D77EE58322D085A000013DA6 /* NotificationMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77EE58222D085A000013DA6 /* NotificationMessage.swift */; };
+		D77F1FCB22D1AA3400FC3005 /* WebSimulatorViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F1FCA22D1AA3400FC3005 /* WebSimulatorViewControllerFactory.swift */; };
+		D77F1FCD22D1AA4400FC3005 /* WebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F1FCC22D1AA4400FC3005 /* WebSimulatorViewController.swift */; };
+		D77F1FD022D1AA7C00FC3005 /* IFrameInjectionUnsafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F1FCF22D1AA7C00FC3005 /* IFrameInjectionUnsafeWebSimulatorViewController.swift */; };
+		D77F1FDF22D2013400FC3005 /* H1.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F1FDE22D2013400FC3005 /* H1.swift */; };
+		D77F1FE122D203F800FC3005 /* P.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F1FE022D203F800FC3005 /* P.swift */; };
+		D77F1FE322D2057300FC3005 /* IFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F1FE222D2057300FC3005 /* IFrame.swift */; };
 		D781CE1D225DFF7A00B90A26 /* Character+is~.swift in Sources */ = {isa = PBXBuildFile; fileRef = D781CE1C225DFF7A00B90A26 /* Character+is~.swift */; };
 		D7A2600422560FF000523A36 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2600322560FF000523A36 /* Application.swift */; };
 		D7A56685225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A56684225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift */; };
@@ -68,6 +79,7 @@
 		D7B22F0622C45721009E97D5 /* String+escape.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B22F0522C45721009E97D5 /* String+escape.swift */; };
 		D7C950D822BC6A8D00524823 /* TemplateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C950D722BC6A8D00524823 /* TemplateLabel.swift */; };
 		D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7E5D501228A66DF007CE3C2 /* HTML.swift */; };
+		D7EBEBCE22D5784400564E27 /* WebSimulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBEBCD22D5784400564E27 /* WebSimulatorView.swift */; };
 		D7F96527229249370086E98A /* QuestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96526229249370086E98A /* QuestionTextField.swift */; };
 		D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96528229259120086E98A /* ProgramingLanguage.swift */; };
 		D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */; };
@@ -108,6 +120,9 @@
 		D730541922C31424005906EB /* URLUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLUtils.swift; sourceTree = "<group>"; };
 		D7319A972298EC3B00369273 /* CaretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretView.swift; sourceTree = "<group>"; };
 		D7319A992298F20500369273 /* CodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeEditorView.swift; sourceTree = "<group>"; };
+		D7327FD122D2DE9400586B29 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		D7327FD322D2DF6C00586B29 /* A.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A.swift; sourceTree = "<group>"; };
+		D7327FDB22D336F600586B29 /* WebElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebElementView.swift; sourceTree = "<group>"; };
 		D735DAE522C1EAB200B8C2B7 /* Courses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Courses; sourceTree = "<group>"; };
 		D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCardTableViewCell.swift; sourceTree = "<group>"; };
 		D745635822B7A23C00F8F68F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -125,9 +140,17 @@
 		D77059AD2292357700E66D7B /* LessonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewController.swift; sourceTree = "<group>"; };
 		D7722E802293A3FC00A749BF /* SlideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCollectionViewCell.swift; sourceTree = "<group>"; };
 		D7722E822293A64900A749BF /* LastSlideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastSlideCollectionViewCell.swift; sourceTree = "<group>"; };
+		D77771C122D42E7500ACCDAB /* CodeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLabel.swift; sourceTree = "<group>"; };
+		D77771C722D456FA00ACCDAB /* FocusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusableView.swift; sourceTree = "<group>"; };
 		D77EE57E22D0415A00013DA6 /* Explainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Explainer.swift; sourceTree = "<group>"; };
 		D77EE58022D07B9D00013DA6 /* KeyboardWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardWords.swift; sourceTree = "<group>"; };
 		D77EE58222D085A000013DA6 /* NotificationMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMessage.swift; sourceTree = "<group>"; };
+		D77F1FCA22D1AA3400FC3005 /* WebSimulatorViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSimulatorViewControllerFactory.swift; sourceTree = "<group>"; };
+		D77F1FCC22D1AA4400FC3005 /* WebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSimulatorViewController.swift; sourceTree = "<group>"; };
+		D77F1FCF22D1AA7C00FC3005 /* IFrameInjectionUnsafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFrameInjectionUnsafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
+		D77F1FDE22D2013400FC3005 /* H1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = H1.swift; sourceTree = "<group>"; };
+		D77F1FE022D203F800FC3005 /* P.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P.swift; sourceTree = "<group>"; };
+		D77F1FE222D2057300FC3005 /* IFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFrame.swift; sourceTree = "<group>"; };
 		D781CE1C225DFF7A00B90A26 /* Character+is~.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+is~.swift"; sourceTree = "<group>"; };
 		D7A2600322560FF000523A36 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		D7A56684225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptSyntaxHighlighter.swift; sourceTree = "<group>"; };
@@ -138,6 +161,7 @@
 		D7B22F0522C45721009E97D5 /* String+escape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+escape.swift"; sourceTree = "<group>"; };
 		D7C950D722BC6A8D00524823 /* TemplateLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateLabel.swift; sourceTree = "<group>"; };
 		D7E5D501228A66DF007CE3C2 /* HTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTML.swift; sourceTree = "<group>"; };
+		D7EBEBCD22D5784400564E27 /* WebSimulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSimulatorView.swift; sourceTree = "<group>"; };
 		D7F96526229249370086E98A /* QuestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTextField.swift; sourceTree = "<group>"; };
 		D7F96528229259120086E98A /* ProgramingLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramingLanguage.swift; sourceTree = "<group>"; };
 		D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLSyntaxHighlighter.swift; sourceTree = "<group>"; };
@@ -169,12 +193,12 @@
 			path = SyntaxHighlighters;
 			sourceTree = "<group>";
 		};
-		D70CE12322CF7A1900BD5922 /* Delegates */ = {
+		D70CE12322CF7A1900BD5922 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				D70CE12422CF7A2D00BD5922 /* SyntaxHighlighterDelegate.swift */,
 			);
-			path = Delegates;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		D718EBB22252CFA300727383 = {
@@ -197,7 +221,8 @@
 		D718EBBD2252CFA300727383 /* SecureCoder */ = {
 			isa = PBXGroup;
 			children = (
-				D70CE12322CF7A1900BD5922 /* Delegates */,
+				D77F1FC922D1AA1800FC3005 /* Factories */,
+				D70CE12322CF7A1900BD5922 /* Protocols */,
 				D767B19322C0A54D00920BDA /* Helpers */,
 				D76F60B022576AC80044C0AF /* Extension */,
 				D76F60AF22576A8D0044C0AF /* Model */,
@@ -240,6 +265,7 @@
 		D76F60AD22576A810044C0AF /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D77F1FCE22D1AA6100FC3005 /* WebSimulatorViewControllers */,
 				D77059AD2292357700E66D7B /* LessonViewController.swift */,
 				D726996F22964578009988E6 /* CourseSelectionViewController.swift */,
 				D7278C8322C9BA1300A6BBE0 /* LessonSelectionViewController.swift */,
@@ -251,6 +277,7 @@
 		D76F60AE22576A890044C0AF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D77F1FDD22D2012700FC3005 /* WebSimulator */,
 				D7F96526229249370086E98A /* QuestionTextField.swift */,
 				D7722E802293A3FC00A749BF /* SlideCollectionViewCell.swift */,
 				D7722E822293A64900A749BF /* LastSlideCollectionViewCell.swift */,
@@ -268,6 +295,8 @@
 				D74ACBA622CC691200713343 /* CellButton.swift */,
 				D719935522CF266500A3365F /* GuideMessageTextView.swift */,
 				D70CE11E22CF4AB500BD5922 /* FileTableView.swift */,
+				D77771C122D42E7500ACCDAB /* CodeLabel.swift */,
+				D77771C722D456FA00ACCDAB /* FocusableView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -305,6 +334,37 @@
 				D7B22F0522C45721009E97D5 /* String+escape.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		D77F1FC922D1AA1800FC3005 /* Factories */ = {
+			isa = PBXGroup;
+			children = (
+				D77F1FCA22D1AA3400FC3005 /* WebSimulatorViewControllerFactory.swift */,
+			);
+			path = Factories;
+			sourceTree = "<group>";
+		};
+		D77F1FCE22D1AA6100FC3005 /* WebSimulatorViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D77F1FCC22D1AA4400FC3005 /* WebSimulatorViewController.swift */,
+				D77F1FCF22D1AA7C00FC3005 /* IFrameInjectionUnsafeWebSimulatorViewController.swift */,
+			);
+			path = WebSimulatorViewControllers;
+			sourceTree = "<group>";
+		};
+		D77F1FDD22D2012700FC3005 /* WebSimulator */ = {
+			isa = PBXGroup;
+			children = (
+				D77F1FDE22D2013400FC3005 /* H1.swift */,
+				D77F1FE022D203F800FC3005 /* P.swift */,
+				D77F1FE222D2057300FC3005 /* IFrame.swift */,
+				D7327FD122D2DE9400586B29 /* Text.swift */,
+				D7327FD322D2DF6C00586B29 /* A.swift */,
+				D7EBEBCD22D5784400564E27 /* WebSimulatorView.swift */,
+				D7327FDB22D336F600586B29 /* WebElementView.swift */,
+			);
+			path = WebSimulator;
 			sourceTree = "<group>";
 		};
 		D7AF14B62285762A00022937 /* ProgramingLanguage */ = {
@@ -391,7 +451,10 @@
 			files = (
 				D75A99D422A29B080086E710 /* Course.swift in Sources */,
 				D72BB8D5225425680043D909 /* String+subscript.swift in Sources */,
+				D7327FDC22D336F600586B29 /* WebElementView.swift in Sources */,
+				D77771C222D42E7500ACCDAB /* CodeLabel.swift in Sources */,
 				D719935222CF154E00A3365F /* Domain.swift in Sources */,
+				D77771C822D456FA00ACCDAB /* FocusableView.swift in Sources */,
 				D767B19522C0A55B00920BDA /* SlideLauncher.swift in Sources */,
 				D7AF14AD228524B100022937 /* String+is~.swift in Sources */,
 				D730541622C30120005906EB /* HTTPMethod.swift in Sources */,
@@ -402,6 +465,7 @@
 				D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */,
 				D7A56685225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift in Sources */,
 				D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */,
+				D7327FD222D2DE9400586B29 /* Text.swift in Sources */,
 				D72BB8D92254C8560043D909 /* PHPSyntaxHighlighter.swift in Sources */,
 				D77EE57F22D0415A00013DA6 /* Explainer.swift in Sources */,
 				D7722E812293A3FC00A749BF /* SlideCollectionViewCell.swift in Sources */,
@@ -409,6 +473,7 @@
 				D7B22F0622C45721009E97D5 /* String+escape.swift in Sources */,
 				D70CE12222CF5B5900BD5922 /* GuideTextSyntaxHighlighter.swift in Sources */,
 				D7C950D822BC6A8D00524823 /* TemplateLabel.swift in Sources */,
+				D77F1FE122D203F800FC3005 /* P.swift in Sources */,
 				D726997222965AB1009988E6 /* ProgramingLanguageCollectionViewCell.swift in Sources */,
 				D7A56687225A17D3002EF185 /* Lesson.swift in Sources */,
 				D719935622CF266500A3365F /* GuideMessageTextView.swift in Sources */,
@@ -417,14 +482,18 @@
 				D7A2600422560FF000523A36 /* Application.swift in Sources */,
 				D77EE58322D085A000013DA6 /* NotificationMessage.swift in Sources */,
 				D7F96527229249370086E98A /* QuestionTextField.swift in Sources */,
+				D77F1FCB22D1AA3400FC3005 /* WebSimulatorViewControllerFactory.swift in Sources */,
 				D75A99D622A29B530086E710 /* Section.swift in Sources */,
 				D719935422CF249500A3365F /* Guide.swift in Sources */,
 				D730541422C2FE15005906EB /* URLTask.swift in Sources */,
+				D77F1FDF22D2013400FC3005 /* H1.swift in Sources */,
 				D762AF5F22B49290001C94A2 /* DescriptionView.swift in Sources */,
 				D781CE1D225DFF7A00B90A26 /* Character+is~.swift in Sources */,
 				D74B15E122AB94CD0035047B /* EditorComponentsBuilder.swift in Sources */,
 				D71C2C2622A0F656008CCCD0 /* CourseCard.swift in Sources */,
 				D718EBC72252CFA300727383 /* SecureCoder.xcdatamodeld in Sources */,
+				D77F1FD022D1AA7C00FC3005 /* IFrameInjectionUnsafeWebSimulatorViewController.swift in Sources */,
+				D7327FD422D2DF6C00586B29 /* A.swift in Sources */,
 				D715CA0522AB2C360087CAB9 /* TextUtils.swift in Sources */,
 				D762AF5D22B48543001C94A2 /* UIView+darken.swift in Sources */,
 				D7256C2A22ADFEB00093A5AA /* FileTableViewCell.swift in Sources */,
@@ -432,6 +501,8 @@
 				D738B5B922A4E3700043E177 /* SectionCardTableViewCell.swift in Sources */,
 				D70CE12522CF7A2D00BD5922 /* SyntaxHighlighterDelegate.swift in Sources */,
 				D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */,
+				D7EBEBCE22D5784400564E27 /* WebSimulatorView.swift in Sources */,
+				D77F1FCD22D1AA4400FC3005 /* WebSimulatorViewController.swift in Sources */,
 				D72BB8DB2254D1C20043D909 /* UIColor+colors.swift in Sources */,
 				D75BD38A227E680D00AA7E7F /* File.swift in Sources */,
 				D71C2C2422A0EAAF008CCCD0 /* UIColor+make.swift in Sources */,
@@ -442,6 +513,7 @@
 				D74ACBA322CC508500713343 /* Chapter.swift in Sources */,
 				D72EB15F2294CB33007A35EA /* KeyboardView.swift in Sources */,
 				D730541A22C31424005906EB /* URLUtils.swift in Sources */,
+				D77F1FE322D2057300FC3005 /* IFrame.swift in Sources */,
 				D7256C2C22AE2F490093A5AA /* CSSSyntaxHighlighter.swift in Sources */,
 				D71A0AEA22B1D1F80088326D /* SectionButton.swift in Sources */,
 				D726997022964578009988E6 /* CourseSelectionViewController.swift in Sources */,

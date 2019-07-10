@@ -11,6 +11,19 @@ class LessonViewController: UIViewController {
             guide = lesson?.guides.first
         }
     }
+    var codeEditorViewIndexPath: IndexPath? {
+        guard let lesson = lesson, let guide = guide else {
+                return nil
+        }
+        for (domainIndex, domain) in lesson.domains.enumerated() {
+            for (fileIndex, file) in domain.files.enumerated() {
+                if file.name == guide.fileName {
+                    return IndexPath(row: fileIndex, section: domainIndex)
+                }
+            }
+        }
+        return nil
+    }
     var guide: Guide?
     var codeEditorView: CodeEditorView?
     var guideMessageTextView: GuideMessageTextView?
@@ -18,28 +31,44 @@ class LessonViewController: UIViewController {
     var tintColor = UIColor.white
     
     let fileTableView = FileTableView()
-    let fileButton = UIButton()
+    let showPreviewButton = UIButton()
     
     private var codeEditorViews = [CodeEditorView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
-        changeCodeEditorView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        layoutSubviews()
+        changeCodeEditorView()
         setGuideMessageTextView()
         showGuideMessageTextView(completion: nil)
     }
     
     private func setupViews() {
         view.addSubview(fileTableView)
-        view.addSubview(fileButton)
-        setupCodeEditorViews()
+        view.addSubview(showPreviewButton)
         setupFileTableView()
-        setupFileButton()
+        setupCodeEditorViews()
+        setupShowPreviewButton()
+    }
+    
+    private func layoutSubviews() {
+        fileTableView.frame = CGRect(
+            x: view.safeAreaInsets.left,
+            y: view.safeAreaInsets.top,
+            width: view.safeAreaLayoutGuide.layoutFrame.width * 0.25,
+            height: view.safeAreaLayoutGuide.layoutFrame.height
+        )
+    }
+    
+    private func setupFileTableView() {
+        fileTableView.dataSource = self
+        fileTableView.delegate = self
+        fileTableView.backgroundColor = UIColor(red: 46/255, green: 50/255, blue: 60/255, alpha: 1)
     }
     
     private func setupCodeEditorViews() {
@@ -48,7 +77,7 @@ class LessonViewController: UIViewController {
                 let codeEditorView = CodeEditorView()
                 codeEditorViews.append(codeEditorView)
                 codeEditorView.scrollBuffer = CGSize(width: 0, height: view.frame.height * 0.5)
-                let editorComponents = EditorComponentsBuilder().build(pointer: .zero, font: font, tintColor: tintColor, text: file.text, language: .html)
+                let editorComponents = EditorComponentsBuilder().build(origin: CGPoint(x: 0, y: 15), font: font, tintColor: tintColor, text: file.text, language: .html)
                 codeEditorView.components = editorComponents
                 if let keyboardWords = lesson?.keyboardWords.first(where: {$0.fileName == file.name}),
                    let questions = codeEditorView.questions
@@ -65,43 +94,47 @@ class LessonViewController: UIViewController {
             }
         }
     }
-    
-    private func setupFileTableView() {
-        fileTableView.dataSource = self
-        fileTableView.delegate = self
-        fileTableView.frame.origin = CGPoint(x: view.frame.width, y: 0)
-    }
-    
-    private func setupFileButton() {
-        fileButton.setBackgroundImage(UIImage(named: "file-icon"), for: .normal)
-        fileButton.addTarget(self, action: #selector(handleFileButton(_:)), for: .touchUpInside)
-        fileButton.translatesAutoresizingMaskIntoConstraints = false
+
+    private func setupShowPreviewButton() {
+        showPreviewButton.alpha = 0
+        showPreviewButton.setBackgroundImage(UIImage(named: "next_button"), for: .normal)
+        showPreviewButton.addTarget(self, action: #selector(handleShowPreviewButton(_:)), for: .touchUpInside)
+        showPreviewButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            fileButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            fileButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-            fileButton.widthAnchor.constraint(equalToConstant: 44),
-            fileButton.heightAnchor.constraint(equalTo: fileButton.widthAnchor)
+            showPreviewButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
+            showPreviewButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            showPreviewButton.widthAnchor.constraint(equalToConstant: 44),
+            showPreviewButton.heightAnchor.constraint(equalTo: showPreviewButton.widthAnchor),
             ])
     }
     
     private func changeCodeEditorView() {
-        guard let lesson = lesson,
-              let guide = guide,
-              let index = lesson.domains.compactMap({$0}).flatMap({$0.files}).firstIndex(where: {$0.name == guide.fileName})
-        else {
+        guard let codeEditorViewIndexPath = codeEditorViewIndexPath else {
+            return
+        }
+        changeCodeEditorView(
+            domainIndex: codeEditorViewIndexPath.section,
+            fileIndex: codeEditorViewIndexPath.row
+        )
+    }
+    
+    private func changeCodeEditorView(domainIndex: Int, fileIndex: Int) {
+        guard let lesson = lesson else {
             return
         }
         codeEditorViews.forEach { $0.removeFromSuperview() }
-        let codeEditorView = codeEditorViews[index]
+        let codeEditorViewIndex = lesson.domains.prefix(domainIndex).reduce(0, { $0 + $1.files.count }) + fileIndex
+        let codeEditorView = codeEditorViews[codeEditorViewIndex]
         self.codeEditorView = codeEditorView
         view.addSubview(codeEditorView)
         view.sendSubviewToBack(codeEditorView)
         codeEditorView.frame = CGRect(
-            x: view.safeAreaInsets.left,
+            x: fileTableView.frame.maxX,
             y: view.safeAreaInsets.top,
-            width: view.safeAreaLayoutGuide.layoutFrame.width,
+            width: view.safeAreaLayoutGuide.layoutFrame.width - fileTableView.bounds.width,
             height: view.safeAreaLayoutGuide.layoutFrame.height
         )
+        fileTableView.selectRow(at: IndexPath(row: fileIndex, section: domainIndex), animated: true, scrollPosition: .top)
     }
     
     private func setGuideMessageTextView() {
@@ -115,7 +148,7 @@ class LessonViewController: UIViewController {
         }
         view.addSubview(guideMessageTextView)
         guideMessageTextView.frame = CGRect(
-            x: 0,
+            x: view.safeAreaInsets.left,
             y: view.frame.height,
             width: view.safeAreaLayoutGuide.layoutFrame.width,
             height: view.safeAreaLayoutGuide.layoutFrame.height * 0.45
@@ -132,6 +165,7 @@ class LessonViewController: UIViewController {
         }
         UIView.animate(withDuration: 0.5, animations: {
             guideMessageTextView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.height - guideMessageTextView.frame.height
+            self.fileTableView.frame.size.height -= guideMessageTextView.frame.height
         }) { _ in
             completion?()
         }
@@ -140,6 +174,7 @@ class LessonViewController: UIViewController {
     private func hideGuideMessageTextView(completion: @escaping () -> Void) {
         UIView.animate(withDuration: 0.5, animations: {
             self.guideMessageTextView?.frame.origin.y = self.view.frame.height
+            self.fileTableView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height
         }) { _ in
             completion()
         }
@@ -147,16 +182,22 @@ class LessonViewController: UIViewController {
     
     private func handleCodeEditorViewDrawFunction(_ sender: CodeEditorView) {
         setGuideMessageTextView()
-        showGuideMessageTextView(completion: nil)
+        showGuideMessageTextView() {
+            guard let codeEditorViewIndexPath = self.codeEditorViewIndexPath else {
+                return
+            }
+            self.fileTableView.scrollToRow(at: codeEditorViewIndexPath, at: .top, animated: true)
+        }
         sender.drawFunctionHandler = nil
     }
     
     private func handleGuideMessageTextViewSettingNewExplainer(_ sender: GuideMessageTextView) {
+        codeEditorView?.removeAllFocusableViews()
         if sender.questionIndices.isEmpty {
             guard let explainer = sender.explainer, let codeEditorView = codeEditorView else {
                 return
             }
-            codeEditorView.focus(explainer.focuses)
+            codeEditorView.focus(labelTexts: explainer.focusLabels, componentIndices: explainer.focusComponents)
             sender.setMessage()
         } else {
             codeEditorView?.setNextQuestion()
@@ -179,6 +220,12 @@ class LessonViewController: UIViewController {
                 if let codeEditorView = self.codeEditorView {
                     codeEditorView.drawFunctionHandler = self.handleCodeEditorViewDrawFunction
                 }
+            } else {
+                let animationDuration: TimeInterval = 0.5
+                self.codeEditorView?.components?.forEach { ($0 as? TemplateLabel)?.unfocus(with: animationDuration) }
+                UIView.animate(withDuration: animationDuration) {
+                    self.showPreviewButton.alpha = 1
+                }
             }
         }
     }
@@ -188,13 +235,13 @@ class LessonViewController: UIViewController {
         guard let question = codeEditorView?.question else {
             return
         }
-        let origin = CGPoint(x: view.bounds.width * 0.8, y: view.bounds.height * 0.4)
+        //let origin = CGPoint(x: view.bounds.width * 0.8, y: view.bounds.height * 0.4)
         let font = UIFont.boldSystemFont(ofSize: 24)
         let textColor = UIColor.white
         let newText = question.text! + sender.title(for: .normal)!
         if question.answer == newText {
             question.insertText(sender.title(for: .normal)!)
-            NotificationMessage.send(text: "正解", origin: origin, font: font, textColor: textColor, backgroundColor: .forestGreen)
+            NotificationMessage.send(text: "正解", axisX: .right, axisY: .center, size: nil, font: font, textColor: textColor, backgroundColor: .forestGreen, lifeSeconds: 1)
             if let guideMessageTextView = guideMessageTextView {
                 guideMessageTextView.questionIndices.removeFirst()
                 question.activate(isActive: false, keyboardViewDidShow: nil, keyboardViewDidHide: {
@@ -209,21 +256,20 @@ class LessonViewController: UIViewController {
             }
         } else if question.answer.hasPrefix(newText) {
             question.insertText(sender.title(for: .normal)!)
-            NotificationMessage.send(text: "○", origin: origin, font: font, textColor: textColor, backgroundColor: .forestGreen)
+            NotificationMessage.send(text: "○", axisX: .right, axisY: .center, size: nil, font: font, textColor: textColor, backgroundColor: .forestGreen, lifeSeconds: 1)
         } else {
-            NotificationMessage.send(text: "✖︎", origin: origin, font: font, textColor: textColor, backgroundColor: .red)
+            NotificationMessage.send(text: "✖︎", axisX: .right, axisY: .center, size: nil, font: font, textColor: textColor, backgroundColor: .red, lifeSeconds: 1)
         }
     }
     
     @objc
-    private func handleFileButton(_ sender: UIButton) {
-        let width = view.safeAreaLayoutGuide.layoutFrame.width * 0.4
-        let x = fileTableView.isExpanded ? view.frame.width : view.safeAreaInsets.left + view.safeAreaLayoutGuide.layoutFrame.width - width
-        fileTableView.isExpanded = !fileTableView.isExpanded
-        fileTableView.frame.size = CGSize(width: width, height: view.safeAreaLayoutGuide.layoutFrame.height)
-        UIView.animate(withDuration: 0.1) {
-            self.fileTableView.frame.origin = CGPoint(x: x, y: 0)
+    private func handleShowPreviewButton(_ sender: UIButton) {
+        guard let lessonTitle = lesson?.title,
+               let previewViewController = WebSimulatorViewControllerFactory.make(lessonTitle: lessonTitle)
+        else {
+            return
         }
+        present(previewViewController, animated: true)
     }
     
 }
@@ -241,15 +287,30 @@ extension LessonViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = lesson?.domains[indexPath.section].files[indexPath.row].name
+        cell.textLabel?.textColor = .white
+        cell.textLabel?.font = .systemFont(ofSize: 14)
+        cell.textLabel?.numberOfLines = 0
+        cell.contentView.backgroundColor = UIColor(red: 46/255, green: 50/255, blue: 60/255, alpha: 1)
+        let selectedBackgroundView = UIView()
+        selectedBackgroundView.backgroundColor = UIColor(red: 105/255, green: 105/255, blue: 105/255, alpha: 1)
+        cell.selectedBackgroundView = selectedBackgroundView
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
-        label.backgroundColor = .lightGray
+        label.backgroundColor = UIColor(red: 63/255, green: 63/255, blue: 63/255, alpha: 1)
+        label.font = .boldSystemFont(ofSize: 16)
         label.text = lesson?.domains[section].name
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.layoutMargins = UIEdgeInsets(top: -16, left: 0, bottom: 0, right: 0)
         return label
     }
+    
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return 40
+//    }
     
     
 }

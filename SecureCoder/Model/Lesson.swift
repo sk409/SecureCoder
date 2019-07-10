@@ -12,9 +12,13 @@ struct Description: Codable {
     let index: Int
 }
 
+struct LessonInfo: Decodable {
+    let title: String
+}
+
 struct Lesson {
     
-    //let title: String
+    let title: String
     let domains: [Domain]
     let guides: [Guide]
     let keyboardWords: [KeyboardWords]
