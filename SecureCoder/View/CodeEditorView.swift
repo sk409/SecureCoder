@@ -30,8 +30,26 @@ class CodeEditorView: UIView {
         }
     }
     
+    var file: File?
     var scrollBuffer: CGSize?
     var drawFunctionHandler: ((CodeEditorView) -> Void)?
+    
+    var text: String {
+        guard let components = components else {
+            return ""
+        }
+        var text = ""
+        for component in components {
+            if let templateLabel = (component as? TemplateLabel), let labelText = templateLabel.text {
+                text += labelText
+            } else if let questionTextField = (component as? QuestionTextField),
+                let textFieldText = questionTextField.text
+            {
+                text += textFieldText
+            }
+        }
+        return text
+    }
     
     let scrollView = UIScrollView()
     
@@ -146,6 +164,28 @@ class CodeEditorView: UIView {
         } else {
             self.question = self.questions?.first
         }
+    }
+    
+    func range(of componentView: UIView) -> NSRange? {
+        guard let components = components,
+            components.contains(componentView) else {
+            return nil
+        }
+        var range = NSRange(location: 0, length: 0)
+        for component in components {
+            var componentText = ""
+            if let templateLabel = (component as? TemplateLabel), let labelText = templateLabel.text {
+                componentText = labelText
+            } else if let questionTextField = (component as? QuestionTextField), let textFieldText = questionTextField.text
+            {
+                componentText = textFieldText
+            }
+            range = NSRange(location: range.location + range.length, length: componentText.count)
+            if component == componentView {
+                break
+            }
+        }
+        return range
     }
     
     private func setupViews() {

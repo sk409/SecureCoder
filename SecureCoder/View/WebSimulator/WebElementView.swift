@@ -97,7 +97,7 @@ class WebElementView: UILabel {
     }
     
     func set(code: String, language: ProgramingLanguage) {
-        var syntaxHighlighter = SyntaxHighlighter(tintColor: .black, font: .boldSystemFont(ofSize: 16))
+        var syntaxHighlighter = SyntaxHighlighter(tintColor: .white, font: .boldSystemFont(ofSize: 16))
         syntaxHighlighter.programingLanguage = language
         codeLabel.attributedText = syntaxHighlighter.syntaxHighlight(code)
         codeLabel.numberOfLines = 0
@@ -106,7 +106,7 @@ class WebElementView: UILabel {
     private func setupViews() {
         isUserInteractionEnabled = true
         addSubview(codeLabel)
-        codeLabel.backgroundColor = .lightGray
+        codeLabel.backgroundColor = .black
     }
     
 }

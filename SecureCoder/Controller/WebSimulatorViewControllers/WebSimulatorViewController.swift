@@ -4,11 +4,11 @@ class WebSimulatorViewController: UIViewController {
     
     var setNextGuideTextHandler: (() -> Void)?
     var endGuideHandler: (() -> Void)?
-    var guideTexts = [String]()
     
     let webSimulatorView = WebSimulatorView()
     let guideTextView = UITextView()
     
+    private var guideTexts = [NSMutableAttributedString]()
     private let blackOutScrollView = UIScrollView()
     
     override func viewDidLoad() {
@@ -56,7 +56,7 @@ class WebSimulatorViewController: UIViewController {
         guard !guideTexts.isEmpty else {
             return
         }
-        guideTextView.text = guideTexts.removeFirst()
+        guideTextView.attributedText = guideTexts.removeFirst()
     }
     
     func showGuideTextView(completion: (() -> Void)?) {
@@ -128,12 +128,13 @@ class WebSimulatorViewController: UIViewController {
             self.blackOutScrollView.alpha = 1
             self.blackOutScrollView.frame = window.safeAreaLayoutGuide.layoutFrame
             self.blackOutScrollView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-            self.blackOutScrollView.contentSize.width = max(elementViewFrame.maxX, elementView.codeLabel.frame.maxX)
-            self.blackOutScrollView.contentSize.height = max(elementViewFrame.maxY, elementView.codeLabel.frame.maxY)
+            self.blackOutScrollView.contentSize.width = max(elementViewFrame.maxX, elementView.codeLabel.frame.maxX + elementView.frame.origin.x)
+            self.blackOutScrollView.contentSize.height = max(elementViewFrame.maxY, elementView.codeLabel.frame.maxY + elementView.frame.origin.y)
             self.blackOutScrollView.contentSize.height += self.guideTextView.bounds.height
+            let buffer = CGSize(width: 8, height: 8)
+            self.blackOutScrollView.contentSize.width += buffer.width
+            self.blackOutScrollView.contentSize.height += buffer.height
             window.addSubview(self.blackOutScrollView)
-//            print(self.blackOutScrollView)
-//            print(elementView)
             self.blackOutScrollView.addSubview(elementView)
             window.bringSubviewToFront(self.guideTextView)
             completion?()
@@ -148,7 +149,6 @@ class WebSimulatorViewController: UIViewController {
         }
         elementView.removeFromSuperview()
         elementView.frame.origin.y = elementView.cache["frame.origin.y"] as! CGFloat
-        //webSimulatorView.contentView.addSubview(elementView)
         superview.addSubview(elementView)
         UIView.animate(withDuration: duration, animations: {
             self.blackOutScrollView.alpha = 0
@@ -157,6 +157,21 @@ class WebSimulatorViewController: UIViewController {
             elementView.unfocus()
             completion?()
         }
+    }
+    
+    func appendGuideText(_ text: String, programingLanguages: ProgramingLanguage?...) {
+        let mutableAttributedString = NSMutableAttributedString(string: text, attributes: [.foregroundColor: UIColor.black, .font: UIFont.boldSystemFont(ofSize: 18)])
+        var syntaxHighlighter = SyntaxHighlighter()
+        for programingLanguage in programingLanguages {
+            syntaxHighlighter.programingLanguage = programingLanguage
+            if programingLanguage == .php {
+                var phpSyntaxHighlighter = PHPSyntaxHighlighter()
+                phpSyntaxHighlighter.force = true
+                syntaxHighlighter.delegate = phpSyntaxHighlighter
+            }
+            _ = syntaxHighlighter.syntaxHighlight(mutableAttributedString)
+        }
+        guideTexts.append(mutableAttributedString)
     }
     
 //    func focus(on views: UIView...) {
@@ -239,7 +254,7 @@ class WebSimulatorViewController: UIViewController {
         guideTextView.isScrollEnabled = false
         guideTextView.frame.origin.y = view.frame.height
         guideTextView.backgroundColor = .lightGray
-        guideTextView.font = .boldSystemFont(ofSize: 18)
+        //guideTextView.font = .boldSystemFont(ofSize: 18)
         //guideTextView.textContainer.lineBreakMode = .byCharWrapping
         guideTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGuideTextViewTapGesture(_:))))
     }

@@ -76,8 +76,9 @@ class LessonViewController: UIViewController {
             for file in domain.files {
                 let codeEditorView = CodeEditorView()
                 codeEditorViews.append(codeEditorView)
+                codeEditorView.file = file
                 codeEditorView.scrollBuffer = CGSize(width: 0, height: view.frame.height * 0.5)
-                let editorComponents = EditorComponentsBuilder().build(origin: CGPoint(x: 0, y: 15), font: font, tintColor: tintColor, text: file.text, language: .html)
+                let editorComponents = EditorComponentsBuilder().build(origin: CGPoint(x: 0, y: 15), font: font, tintColor: tintColor, text: file.text, language: file.programingLanguage)
                 codeEditorView.components = editorComponents
                 if let keyboardWords = lesson?.keyboardWords.first(where: {$0.fileName == file.name}),
                    let questions = codeEditorView.questions
@@ -232,15 +233,24 @@ class LessonViewController: UIViewController {
     
     @objc
     private func handleKeyboardButton(_ sender: UIButton) {
-        guard let question = codeEditorView?.question else {
+        guard let codeEditorView = codeEditorView,
+            let programingLanguage = codeEditorView.file?.programingLanguage,
+            let question = codeEditorView.question
+        else {
             return
         }
         //let origin = CGPoint(x: view.bounds.width * 0.8, y: view.bounds.height * 0.4)
         let font = UIFont.boldSystemFont(ofSize: 24)
         let textColor = UIColor.white
         let newText = question.text! + sender.title(for: .normal)!
+        var syntaxHighlighter = SyntaxHighlighter(tintColor: tintColor, font: self.font)
+        syntaxHighlighter.programingLanguage = programingLanguage
         if question.answer == newText {
             question.insertText(sender.title(for: .normal)!)
+            let attributedText = syntaxHighlighter.syntaxHighlight(codeEditorView.text)
+            if let questionRange = codeEditorView.range(of: question) {
+                question.attributedText = attributedText.attributedSubstring(from: questionRange)
+            }
             NotificationMessage.send(text: "正解", axisX: .right, axisY: .center, size: nil, font: font, textColor: textColor, backgroundColor: .forestGreen, lifeSeconds: 1)
             if let guideMessageTextView = guideMessageTextView {
                 guideMessageTextView.questionIndices.removeFirst()
@@ -256,6 +266,10 @@ class LessonViewController: UIViewController {
             }
         } else if question.answer.hasPrefix(newText) {
             question.insertText(sender.title(for: .normal)!)
+            let attributedText = syntaxHighlighter.syntaxHighlight(codeEditorView.text)
+            if let questionRange = codeEditorView.range(of: question) {
+                question.attributedText = attributedText.attributedSubstring(from: questionRange)
+            }
             NotificationMessage.send(text: "○", axisX: .right, axisY: .center, size: nil, font: font, textColor: textColor, backgroundColor: .forestGreen, lifeSeconds: 1)
         } else {
             NotificationMessage.send(text: "✖︎", axisX: .right, axisY: .center, size: nil, font: font, textColor: textColor, backgroundColor: .red, lifeSeconds: 1)

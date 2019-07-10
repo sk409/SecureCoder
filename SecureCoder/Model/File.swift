@@ -4,6 +4,14 @@ struct File {
     
     let name: String
     let text: String
+    let programingLanguage: ProgramingLanguage!
+    
+    init(name: String, text: String) {
+        self.name = name
+        self.text = text
+        programingLanguage = ProgramingLanguage(extension: Extension(rawValue: String(name.split(separator: ".").last!))!)
+    }
+    
 //    let url: URL
 //    let userURL: URL
 //    let previewURL: URL

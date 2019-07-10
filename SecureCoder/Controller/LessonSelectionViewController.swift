@@ -4,6 +4,7 @@ class LessonSelectionViewController: UIViewController {
     
     var section: Section?
     
+    let backButton = UIButton()
     let headerView = UIView()
     let sectionTitleLabel = UILabel()
     let bodyView = UIView()
@@ -18,8 +19,18 @@ class LessonSelectionViewController: UIViewController {
     
     private func setupViews() {
         view.addSubview(headerView)
+        view.addSubview(backButton)
         headerView.addSubview(sectionTitleLabel)
         view.addSubview(bodyView)
+        backButton.setBackgroundImage(UIImage(named: "back-icon"), for: .normal)
+        backButton.addTarget(self, action: #selector(handleBackButton(_:)), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            backButton.widthAnchor.constraint(equalToConstant: 32),
+            backButton.heightAnchor.constraint(equalTo: backButton.widthAnchor)
+            ])
         bodyView.addSubview(sectionDescriptionTextView)
         bodyView.addSubview(experienceButton)
         bodyView.addSubview(takeMeasuresButton)
@@ -84,6 +95,11 @@ class LessonSelectionViewController: UIViewController {
         let lessonViewController = LessonViewController()
         lessonViewController.lesson = lesson
         present(lessonViewController, animated: true)
+    }
+    
+    @objc
+    private func handleBackButton(_ sender: UIButton) {
+        dismiss(animated: true)
     }
     
 }

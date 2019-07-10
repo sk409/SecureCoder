@@ -2,60 +2,37 @@ import UIKit
 
 struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
     
-    func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString, tintColor: UIColor, font: UIFont, lineSpacing: CGFloat?) -> NSMutableAttributedString {
+    func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString) -> NSMutableAttributedString {
         let text = mutableAttributedString.string
-        var index = 0
-        var isComment = false
-        var isTag = false
-        var isInTag = false
-        var isInString = false
-        let addColorAttribute: (Int, UIColor) -> Void = { index, color in
-            let range = NSRange(location: index, length: 1)
-            mutableAttributedString.addAttribute(.foregroundColor, value: color, range: range)
+        let fullRange = NSRange(location: 0, length: (text as NSString).length)
+        let openTags = ["<p", "<h1", "<body", "<a", "<script", "<iframe"]
+        let openTagRegex = try! NSRegularExpression(pattern: openTags.joined(separator: "|"))
+        let openTagMatches = openTagRegex.matches(in: text, range: fullRange)
+        for openTagMatch in openTagMatches {
+            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.tagColor, range: NSRange(location: openTagMatch.range.location + 1, length: openTagMatch.range.length - 1))
         }
-        while index <= (text.count - 1) {
-            let character = text[index]
-            if character != ">" && isComment {
-                addColorAttribute(index, PHP.commentColor)
-            } else {
-                if character == "<" && !isInString {
-                    if index <= (text.count - 4) && text[index + 1] == "!" && text[index + 2] == "-" && text[index + 3] == "-" {
-                        addColorAttribute(index, PHP.commentColor)
-                        isComment = true
-                    } else {
-                        addColorAttribute(index, tintColor)
-                        isTag = true
-                    }
-                } else if character == ">" && !isInString {
-                    let stringCount = mutableAttributedString.string.count
-                    if 2 <= stringCount && mutableAttributedString.string[stringCount - 2] == "-" && mutableAttributedString.string[stringCount - 1] == "-" {
-                        addColorAttribute(index, PHP.commentColor)
-                        isComment = false
-                    } else {
-                        addColorAttribute(index, tintColor)
-                        isTag = false
-                        isInTag = false
-                    }
-                } else if character == "\"" {
-                    addColorAttribute(index, PHP.stringColor)
-                    isInString = !isInString
-                } else {
-                    if isInString {
-                        addColorAttribute(index, PHP.stringColor)
-                    }
-                    else if isTag {
-                        if character == " " {
-                            isTag = false
-                            isInTag = true
-                        } else {
-                            addColorAttribute(index, PHP.tagColor)
-                        }
-                    } else if isInTag {
-                        addColorAttribute(index, PHP.attributeColor)
-                    }
-                }
-            }
-            index += 1
+        let closeTags = openTags.map { String($0[0]) + "/" + $0[1...] }
+        let closeTagRegex = try! NSRegularExpression(pattern: closeTags.joined(separator: "|"))
+        let closeTagMatches = closeTagRegex.matches(in: text, range: fullRange)
+        for closeTagMatch in closeTagMatches {
+            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.tagColor, range: NSRange(location: closeTagMatch.range.location + 1, length: closeTagMatch.range.length - 1))
+        }
+        let attributes = ["href", "src"]
+        let attributeRegex = try! NSRegularExpression(pattern: attributes.joined(separator: "|"))
+        let attributeMatches = attributeRegex.matches(in: text, range: fullRange)
+        for attributeMatch in attributeMatches {
+            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.attributeColor, range: attributeMatch.range)
+        }
+        let valueRegex = try! NSRegularExpression(pattern: "=[^ >]+")
+        let valueMatches = valueRegex.matches(in: text, range: fullRange)
+        for valueMatch in valueMatches {
+            //let back = text[valueMatch.range.location + valueMatch.range.length - 1] == ">" ? 1 : 0
+            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: NSRange(location: valueMatch.range.location + 1, length: valueMatch.range.length - 1))
+        }
+        let stringRegex = try! NSRegularExpression(pattern: "\".*?\"")
+        let stringMatches = stringRegex.matches(in: text, range: fullRange)
+        for stringMatch in stringMatches {
+            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: stringMatch.range)
         }
         return mutableAttributedString
     }

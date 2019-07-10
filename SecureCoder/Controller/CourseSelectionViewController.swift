@@ -4,8 +4,6 @@ class CourseSelectionViewController: UIViewController {
     
     private static let cellId = "cellId"
     
-    let navigationTableView = UITableView()
-    let separatorView = UIView()
     let coursesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: {
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .horizontal
@@ -18,27 +16,7 @@ class CourseSelectionViewController: UIViewController {
     }
     
     private func setupViews() {
-        view.addSubview(navigationTableView)
-        view.addSubview(separatorView)
         view.addSubview(coursesCollectionView)
-        navigationTableView.dataSource = self
-        navigationTableView.delegate = self
-        navigationTableView.tableFooterView = UIView()
-        navigationTableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            navigationTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            navigationTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            navigationTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            navigationTableView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.2),
-            ])
-        separatorView.backgroundColor = .lightGray
-        separatorView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            separatorView.leadingAnchor.constraint(equalTo: navigationTableView.trailingAnchor),
-            separatorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            separatorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            separatorView.widthAnchor.constraint(equalToConstant: 0.5),
-            ])
         coursesCollectionView.dataSource = self
         coursesCollectionView.delegate = self
         coursesCollectionView.backgroundColor = .white
@@ -46,7 +24,7 @@ class CourseSelectionViewController: UIViewController {
         coursesCollectionView.register(CourseCardCollectionViewCell.self, forCellWithReuseIdentifier: CourseSelectionViewController.cellId)
         coursesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            coursesCollectionView.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor),
+            coursesCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             coursesCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             coursesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             coursesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -90,7 +68,7 @@ extension CourseSelectionViewController: UICollectionViewDataSource, UICollectio
 //    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height * 0.99)
+        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -103,24 +81,6 @@ extension CourseSelectionViewController: UICollectionViewDataSource, UICollectio
     
 }
 
-extension CourseSelectionViewController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Application.shared.courses.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.text = Application.shared.courses[indexPath.row].title
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coursesCollectionView.scrollToItem(at: IndexPath(item: indexPath.row, section: indexPath.section), at: .left, animated: true)
-    }
-    
-}
 
 
 

@@ -4,7 +4,7 @@ protocol SyntaxHighlighterDelegate {
     
     func syntaxHighlight(_ text: String, tintColor: UIColor, font: UIFont, lineSpacing: CGFloat?) -> NSMutableAttributedString
     
-    func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString, tintColor: UIColor, font: UIFont, lineSpacing: CGFloat?) -> NSMutableAttributedString
+    func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString) -> NSMutableAttributedString
     
 }
 
@@ -18,7 +18,7 @@ extension SyntaxHighlighterDelegate {
             attributes[.paragraphStyle] = paragraphStyle
         }
         let mutableAttributedString = NSMutableAttributedString(string: text, attributes: attributes)
-        return syntaxHighlight(mutableAttributedString, tintColor: tintColor, font: font, lineSpacing: lineSpacing)
+        return syntaxHighlight(mutableAttributedString)
     }
     
 }

@@ -3,8 +3,8 @@ import UIKit
 
 struct SyntaxHighlighter {
     
-    var tintColor: UIColor
-    var font: UIFont
+    var tintColor: UIColor?
+    var font: UIFont?
     var lineSpacing: CGFloat?
     
     var programingLanguage: ProgramingLanguage? {
@@ -27,6 +27,10 @@ struct SyntaxHighlighter {
     
     var delegate: SyntaxHighlighterDelegate?
     
+    init() {
+        
+    }
+    
     init(tintColor: UIColor, font: UIFont) {
         self.tintColor = tintColor
         self.font = font
@@ -39,20 +43,24 @@ struct SyntaxHighlighter {
     }
     
     func syntaxHighlight(_ text: String) -> NSMutableAttributedString {
-        var attributes = [NSMutableAttributedString.Key.foregroundColor: tintColor, .font: font]
-        if let lineSpacing = lineSpacing {
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineSpacing = lineSpacing
-            attributes[.paragraphStyle] = paragraphStyle
+//        var attributes = [NSMutableAttributedString.Key.foregroundColor: tintColor, .font: font]
+//        if let lineSpacing = lineSpacing {
+//            let paragraphStyle = NSMutableParagraphStyle()
+//            paragraphStyle.lineSpacing = lineSpacing
+//            attributes[.paragraphStyle] = paragraphStyle
+//        }
+//        return syntaxHighlight(NSMutableAttributedString(string: text, attributes: attributes))
+        guard let tintColor = tintColor, let font = font else {
+            return NSMutableAttributedString()
         }
-        return syntaxHighlight(NSMutableAttributedString(string: text, attributes: attributes))
+        return delegate?.syntaxHighlight(text, tintColor: tintColor, font: font, lineSpacing: lineSpacing) ?? NSMutableAttributedString(string: "")
     }
     
     func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString) -> NSMutableAttributedString {
         guard let delegate = delegate else {
             return NSMutableAttributedString()
         }
-        return delegate.syntaxHighlight(mutableAttributedString, tintColor: tintColor, font: font, lineSpacing: lineSpacing)
+        return delegate.syntaxHighlight(mutableAttributedString)
     }
     
 }

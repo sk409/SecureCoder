@@ -1,6 +1,6 @@
 import UIKit
 
-enum ProgramingLanguage: String {
+enum ProgramingLanguage: String, Decodable {
     
     case html
     case css

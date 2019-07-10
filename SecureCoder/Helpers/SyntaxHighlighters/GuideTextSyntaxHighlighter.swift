@@ -2,7 +2,7 @@ import UIKit
 
 struct GuideTextSyntaxHighlighter: SyntaxHighlighterDelegate {
     
-    func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString, tintColor: UIColor, font: UIFont, lineSpacing: CGFloat?) -> NSMutableAttributedString {
+    func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString) -> NSMutableAttributedString {
         let text = mutableAttributedString.string
         let urlRegex = try! NSRegularExpression(pattern: "https?://[a-zA-Z./]*")
         let urlMatches = urlRegex.matches(in: text, range: NSRange(location: 0, length: (text as NSString).length))

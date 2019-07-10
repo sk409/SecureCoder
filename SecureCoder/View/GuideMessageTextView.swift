@@ -35,14 +35,21 @@ class GuideMessageTextView: UITextView {
     }
     
     func setMessage() {
-        guard let messages = explainer?.texts else {
+        guard let messages = explainer?.messages else {
             return
         }
         var syntaxHighlighter = SyntaxHighlighter(tintColor: .black, font: .boldSystemFont(ofSize: 16), lineSpacing: 8)
         syntaxHighlighter.delegate = GuideTextSyntaxHighlighter()
-        var syntaxHighlighted = syntaxHighlighter.syntaxHighlight(messages[messageIndex])
-        syntaxHighlighter.programingLanguage = .html
-        syntaxHighlighted = syntaxHighlighter.syntaxHighlight(syntaxHighlighted)
+        var syntaxHighlighted = syntaxHighlighter.syntaxHighlight(messages[messageIndex].text)
+        explainer?.messages[messageIndex].languages.forEach { language in
+            syntaxHighlighter.programingLanguage = language
+            if language == .php {
+                var phpSyntaxHighlighter = PHPSyntaxHighlighter()
+                phpSyntaxHighlighter.force = true
+                syntaxHighlighter.delegate = phpSyntaxHighlighter
+            }
+            syntaxHighlighted = syntaxHighlighter.syntaxHighlight(syntaxHighlighted)
+        }
         attributedText = syntaxHighlighted
     }
     
@@ -57,7 +64,7 @@ class GuideMessageTextView: UITextView {
         }
         messageIndex += 1
         if explainerIndex < explainers.count {
-            if messageIndex < explainers[explainerIndex].texts.count {
+            if messageIndex < explainers[explainerIndex].messages.count {
                 setMessage()
             } else {
                 questionIndices = explainers[explainerIndex].questionIndices

@@ -3,17 +3,18 @@ import UIKit
 struct PHP {
     
     static let tagColor = UIColor.turquoiseBlue
-    static let reservedWordColor = UIColor.rosePink
-    static let classColor = UIColor.turquoiseBlue
+    static let reservedWordColor = UIColor.reservedWordRed
+    static let classColor = UIColor.functionBlue
     static let interfaceColor = UIColor.turquoiseBlue
     static let traitColor = UIColor.turquoiseBlue
-    static let functionColor = UIColor.mintGreen
-    static let commentColor = UIColor.forestGreen
+    static let functionColor = UIColor.functionBlue
+    static let commentColor = UIColor.commentGreen
     static let variableColor = UIColor.cobaltBlue
-    static let stringColor = UIColor.signalRed
+    static let valueColor = UIColor.stringRed
+    static let stringColor = UIColor.stringRed
     static let attributeColor = UIColor.cobaltBlue
+    static let numberColor = UIColor.lightSeaGreen
     static let constantColor = UIColor.white
-    static let numberColor = UIColor.purple
     
     static let reservedWords = ["__halt_compiler","abstract","and","array","as","break","callable","case","catch","class","clone","const","continue","declare","default","die","do","echo","else","elseif","empty","enddeclare","endfor","endforeach","endif","endswitch","endwhile","eval","exit","extends","final","finally","for","foreach","function","global","goto","if","implements","include","include_once","instanceof","insteadof","interface","isset","list","namespace","new","or","print","private","protected","public","require","require_once","return","static","switch","throw","trait","try","unset","use","var","while","xor","yield",
         ]

