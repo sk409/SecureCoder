@@ -27,8 +27,12 @@
                         "languages": ["html", "javaScript"]
                     },
                     {
-                        "text": "この<iframe>要素によって脆弱なWebサイトに攻撃者の用意したsend_mail.phpというサイトが埋め込まれ、さらにクエリパラメータのcookieの値にユーザのCookieが設定されて送信されます。\nそして攻撃者はsend_mail.php内で受け取ったユーザのCookieの値を自分自身に対してメールで送信することにより、攻撃が完了します。",
+                        "text": "この<iframe>要素によって脆弱なWebサイトに攻撃者の用意したsend_mail.phpというサイトが埋め込まれ、さらにクエリパラメータのcookieの値にユーザのCookieが設定されて送信されます。",
                         "languages": ["html"]
+                    },
+                    {
+                        "text": "そして攻撃者はsend_mail.php内で受け取ったユーザのCookieの値を自分自身に対してメールで送信することにより、攻撃が完了します。",
+                        "languages": []
                     }
                 ]
             },

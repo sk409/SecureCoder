@@ -4,13 +4,26 @@
     "explainers": [
             {
                 "questionIndices": [],
+                "focusLabels": [],
+                "focusComponents": [
+                    []
+                ],
+                "messages": [
+                    {
+                        "text": "これが攻撃者が用意した自分自身に対してユーザのCookieをメールで送信するスクリプトです。",
+                        "languages": []
+                    }
+                ]
+            },
+            {
+                "questionIndices": [],
                 "focusLabels": ["$cookie = $_GET[\"cookie\"];"],
                 "focusComponents": [
                     []
                 ],
                 "messages": [
                     {
-                        "text": "これが攻撃者が用意した自分自身に対してユーザのCookieをメールで送信するスクリプトです。\n$cookie = $_GET[\"cookie\"]の部分で送信されたユーザのCookieを取得しています。\nこのCookieの値を攻撃者にメールで送信します。次はその処理を見てみましょう。",
+                        "text": "$cookie = $_GET[\"cookie\"]の部分で送信されたユーザのCookieを取得しています。\nこのCookieの値を攻撃者にメールで送信します。\n次はその処理を見てみましょう。",
                         "languages": ["php"]
                     }
                 ]

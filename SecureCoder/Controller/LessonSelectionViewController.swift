@@ -43,7 +43,7 @@ class LessonSelectionViewController: UIViewController {
             headerView.heightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.heightAnchor, multiplier: 0.2),
             ])
         sectionTitleLabel.text = section?.title
-        sectionTitleLabel.font = .boldSystemFont(ofSize: 24)
+        sectionTitleLabel.font = .boldSystemFont(ofSize: 20)
         sectionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             sectionTitleLabel.leadingAnchor.constraint(equalTo: sectionDescriptionTextView.leadingAnchor),

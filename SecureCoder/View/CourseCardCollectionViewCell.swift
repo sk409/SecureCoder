@@ -12,11 +12,11 @@ class CourseCardCollectionViewCell: UICollectionViewCell {
             course?.threats.forEach { threat in
                 let threatLabel = UILabel()
                 self.threatLabelsStackView.addArrangedSubview(threatLabel)
-                threatLabel.font = .systemFont(ofSize: 16)
+                threatLabel.font = .systemFont(ofSize: 20)
                 threatLabel.text = "・" + threat
             }
             let threatsCount = course?.threats.count ?? 0
-            let threatLabelHeight: CGFloat = 16
+            let threatLabelHeight: CGFloat = 20
             threatLabelsStackView.heightAnchor.constraint(equalToConstant: threatLabelHeight * CGFloat(threatsCount))
         }
     }
@@ -89,7 +89,7 @@ class CourseCardCollectionViewCell: UICollectionViewCell {
             bodyView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             ])
         threatTitleLabel.text = "想定される脅威"
-        threatTitleLabel.font = .boldSystemFont(ofSize: 18)
+        threatTitleLabel.font = .boldSystemFont(ofSize: 24)
         threatTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             threatTitleLabel.leadingAnchor.constraint(equalTo: bodyView.safeAreaLayoutGuide.leadingAnchor, constant: 8),

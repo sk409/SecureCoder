@@ -160,7 +160,7 @@ class WebSimulatorViewController: UIViewController {
     }
     
     func appendGuideText(_ text: String, programingLanguages: ProgramingLanguage?...) {
-        let mutableAttributedString = NSMutableAttributedString(string: text, attributes: [.foregroundColor: UIColor.black, .font: UIFont.boldSystemFont(ofSize: 18)])
+        let mutableAttributedString = NSMutableAttributedString(string: text, attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldSystemFont(ofSize: 18)])
         var syntaxHighlighter = SyntaxHighlighter()
         for programingLanguage in programingLanguages {
             syntaxHighlighter.programingLanguage = programingLanguage
@@ -253,7 +253,7 @@ class WebSimulatorViewController: UIViewController {
         guideTextView.isEditable = false
         guideTextView.isScrollEnabled = false
         guideTextView.frame.origin.y = view.frame.height
-        guideTextView.backgroundColor = .lightGray
+        guideTextView.backgroundColor = .black
         //guideTextView.font = .boldSystemFont(ofSize: 18)
         //guideTextView.textContainer.lineBreakMode = .byCharWrapping
         guideTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGuideTextViewTapGesture(_:))))
