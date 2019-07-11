@@ -346,6 +346,21 @@ extension LessonViewController: UITableViewDataSource, UITableViewDelegate {
         return label
     }
     
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        guard let lesson = lesson, let guide = guide, let guideIndex = lesson.guides.firstIndex(of: guide) else {
+            return nil
+        }
+        guard guideIndex == (lesson.guides.count - 1) else {
+            NotificationMessage.send(text: "全ての説明を読むまでファイルの変更はできません", axisX: .right, axisY: .center, size: nil, font: .boldSystemFont(ofSize: 18), textColor: .white, backgroundColor: .red, lifeSeconds: 2)
+            return nil
+        }
+        return indexPath
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        changeCodeEditorView(domainIndex: indexPath.section, fileIndex: indexPath.row)
+    }
+    
 //    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 //        return 40
 //    }
