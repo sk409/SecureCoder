@@ -9,14 +9,10 @@ class QuestionTextField: UITextField {
     let answer: String
     let language: ProgramingLanguage
     let caret = CaretView()
-    let keyboardView = KeyboardView()
+    var keyboardView: KeyboardView?
     
     private(set) var isActive = false
-//
-//    var isCompleted: Bool {
-//        return text == answer
-//    }
-//    
+
     init(index: Int, answer: String, language: ProgramingLanguage) {
         self.index = index
         self.answer = answer
@@ -29,8 +25,7 @@ class QuestionTextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc
-    func handleEditingChangedEvent() {
+    func moveCaret() {
         let size = text!.size(withAttributes: [.font: font!])
         caret.frame.origin.x = size.width
     }
@@ -38,33 +33,29 @@ class QuestionTextField: UITextField {
     func activate(isActive: Bool, keyboardViewDidShow: (() -> Void)?, keyboardViewDidHide: (() -> Void)?) {
         self.isActive = isActive
         if isActive {
-            addTarget(self, action: #selector(handleEditingChangedEvent), for: .editingChanged)
             addSubview(caret)
             caret.backgroundColor = .white
             caret.startAnimation()
             caret.frame = CGRect(x: 0, y: 0, width: 2, height: safeAreaLayoutGuide.layoutFrame.height)
-            if let window = UIApplication.shared.keyWindow {
+            if let window = UIApplication.shared.keyWindow, let keyboardView = keyboardView {
                 window.addSubview(keyboardView)
-                let keyboardViewSize = CGSize(width: window.bounds.size.width * 0.5, height: window.bounds.size.width * 0.25)
+//                let keyboardViewSize = CGSize(width: window.bounds.size.width * 0.5, height: window.bounds.size.width * 0.25)
                 keyboardView.alpha = 0
-                keyboardView.frame = CGRect(
-                    x: window.safeAreaLayoutGuide.layoutFrame.maxX - keyboardViewSize.width,
-                    y: window.safeAreaLayoutGuide.layoutFrame.maxY - keyboardViewSize.height,
-                    width: keyboardViewSize.width,
-                    height: keyboardViewSize.height
+                keyboardView.frame.origin = CGPoint(
+                    x: window.safeAreaLayoutGuide.layoutFrame.maxX - keyboardView.bounds.width,
+                    y: window.safeAreaLayoutGuide.layoutFrame.maxY - keyboardView.bounds.height
                 )
                 UIView.animate(withDuration: 0.5, animations: {
-                    self.keyboardView.alpha = 1
+                    self.keyboardView?.alpha = 1
                 }) { _ in
                     keyboardViewDidShow?()
                 }
             }
         } else {
-            removeTarget(self, action: #selector(handleEditingChangedEvent), for: .editingChanged)
             caret.removeFromSuperview()
             caret.stopAnimation()
             UIView.animate(withDuration: 0.5, animations: {
-                self.keyboardView.alpha = 0
+                self.keyboardView?.alpha = 0
             }) { _ in
                 keyboardViewDidHide?()
             }

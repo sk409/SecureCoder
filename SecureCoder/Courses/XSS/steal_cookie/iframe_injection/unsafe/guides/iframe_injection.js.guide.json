@@ -59,8 +59,8 @@
                 ],
                 "messages": [
                     {
-                        "text": "この赤枠で囲まれた部分で脆弱なWebサイトの<body>要素に<iframe>要素を追加しています。",
-                        "languages": ["html"]
+                        "text": "「document.body.appendChild(iframe);」の部分で脆弱なWebサイトの<body>要素に<iframe>要素を追加しています。",
+                        "languages": ["html", "javaScript"]
                     }
                 ]
             },

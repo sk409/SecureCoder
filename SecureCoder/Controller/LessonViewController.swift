@@ -43,9 +43,9 @@ class LessonViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         layoutSubviews()
-        changeCodeEditorView()
         setGuideMessageTextView()
         showGuideMessageTextView(completion: nil)
+        changeCodeEditorView()
     }
     
     private func setupViews() {
@@ -72,7 +72,10 @@ class LessonViewController: UIViewController {
     }
     
     private func setupCodeEditorViews() {
-        lesson?.domains.forEach { domain in
+        guard let lesson = lesson else {
+            return
+        }
+        for domain in lesson.domains {
             for file in domain.files {
                 let codeEditorView = CodeEditorView()
                 codeEditorViews.append(codeEditorView)
@@ -80,13 +83,11 @@ class LessonViewController: UIViewController {
                 codeEditorView.scrollBuffer = CGSize(width: 0, height: view.frame.height * 0.5)
                 let editorComponents = EditorComponentsBuilder().build(origin: CGPoint(x: 0, y: 15), font: font, tintColor: tintColor, text: file.text, language: file.programingLanguage)
                 codeEditorView.components = editorComponents
-                if let keyboardWords = lesson?.keyboardWords.first(where: {$0.fileName == file.name}),
-                   let questions = codeEditorView.questions
-                {
+                if let questions = codeEditorView.questions {
                     for (questionIndex, question) in questions.enumerated() {
-                        question.keyboardView.backgroundColor = .darkGray
-                        question.keyboardView.setWords(keyboardWords.words[questionIndex])
-                        question.keyboardView.buttons.forEach { button in
+                        question.keyboardView = KeyboardViewFactory.make(name: [lesson.title, file.name, String(questionIndex)].joined(separator: "_"))!
+                        question.keyboardView?.backgroundColor = .darkGray
+                        question.keyboardView?.buttons.forEach { button in
                             button.backgroundColor = .lightGray
                             button.addTarget(self, action: #selector(handleKeyboardButton(_:)), for: .touchUpInside)
                         }
@@ -203,7 +204,11 @@ class LessonViewController: UIViewController {
         } else {
             codeEditorView?.setNextQuestion()
             hideGuideMessageTextView {
-                self.codeEditorView?.scroll(to: self.codeEditorView?.question)
+                if let codeEditorView = self.codeEditorView, let question = self.codeEditorView?.question {
+                    codeEditorView.scroll(to: question)
+                    codeEditorView.fit()
+                    codeEditorView.scrollView.contentSize.height = max(codeEditorView.scrollView.contentSize.height, question.frame.maxY + self.view.bounds.height - question.bounds.height)
+                }
             }
         }
     }
@@ -232,26 +237,43 @@ class LessonViewController: UIViewController {
     }
     
     @objc
-    private func handleKeyboardButton(_ sender: UIButton) {
+    private func handleKeyboardButton(_ sender: KeyboardButton) {
         guard let codeEditorView = codeEditorView,
-            let programingLanguage = codeEditorView.file?.programingLanguage,
             let question = codeEditorView.question
         else {
             return
         }
-        //let origin = CGPoint(x: view.bounds.width * 0.8, y: view.bounds.height * 0.4)
-        let font = UIFont.boldSystemFont(ofSize: 24)
-        let textColor = UIColor.white
         let newText = question.text! + sender.title(for: .normal)!
-        var syntaxHighlighter = SyntaxHighlighter(tintColor: tintColor, font: self.font)
-        syntaxHighlighter.programingLanguage = programingLanguage
-        if question.answer == newText {
-            question.insertText(sender.title(for: .normal)!)
-            let attributedText = syntaxHighlighter.syntaxHighlight(codeEditorView.text)
-            if let questionRange = codeEditorView.range(of: question) {
-                question.attributedText = attributedText.attributedSubstring(from: questionRange)
+        let isCompleted = question.answer == newText
+        let isCorrect = question.answer.hasPrefix(newText)
+        if isCompleted || isCorrect {
+            let attributedText = NSMutableAttributedString(attributedString: question.attributedText ?? NSAttributedString())
+            attributedText.append(NSAttributedString(string: sender.title(for: .normal)!, attributes: [.foregroundColor: sender.titleColor(for: .normal)!]))
+            question.attributedText = attributedText
+            question.moveCaret()
+            let questionMaxX = question.frame.origin.x + question.sizeThatFits(CGSize(width: CGFloat.infinity, height: .infinity)).width
+            let scrollViewMaxX = codeEditorView.scrollView.contentOffset.x + codeEditorView.scrollView.bounds.width
+            if scrollViewMaxX <= questionMaxX {
+                UIView.animate(withDuration: 0.2) {
+                    codeEditorView.scrollView.contentOffset.x = questionMaxX - codeEditorView.scrollView.bounds.width
+                }
             }
-            NotificationMessage.send(text: "正解", axisX: .right, axisY: .center, size: nil, font: font, textColor: textColor, backgroundColor: .forestGreen, lifeSeconds: 1)
+            sender.count -= 1
+            if sender.count == 0 {
+                var hue: CGFloat = 0
+                var saturation: CGFloat = 0
+                var brightness: CGFloat = 0
+                var alpha: CGFloat = 0
+                sender.backgroundColor!.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+                sender.backgroundColor = UIColor(hue: hue, saturation: saturation, brightness: brightness * 0.25, alpha: alpha)
+                sender.isEnabled = false
+            }
+        }
+        let notificationMessage: String
+        let notificationBackgroundColor: UIColor
+        if isCompleted {
+            notificationMessage = "正解"
+            notificationBackgroundColor = .forestGreen
             if let guideMessageTextView = guideMessageTextView {
                 guideMessageTextView.questionIndices.removeFirst()
                 question.activate(isActive: false, keyboardViewDidShow: nil, keyboardViewDidHide: {
@@ -259,21 +281,23 @@ class LessonViewController: UIViewController {
                         guideMessageTextView.setMessage()
                         self.showGuideMessageTextView(completion: nil)
                     } else {
-                        self.codeEditorView?.setNextQuestion()
-                        self.codeEditorView?.scroll(to: self.codeEditorView?.question)
+                        if let codeEditorView = self.codeEditorView, let question = codeEditorView.question {
+                            codeEditorView.setNextQuestion()
+                            codeEditorView.scroll(to: question)
+                            codeEditorView.fit()
+                            codeEditorView.scrollView.contentSize.height = max(codeEditorView.scrollView.contentSize.height, question.frame.maxY + self.view.bounds.height - question.bounds.height)
+                        }
                     }
                 })
             }
-        } else if question.answer.hasPrefix(newText) {
-            question.insertText(sender.title(for: .normal)!)
-            let attributedText = syntaxHighlighter.syntaxHighlight(codeEditorView.text)
-            if let questionRange = codeEditorView.range(of: question) {
-                question.attributedText = attributedText.attributedSubstring(from: questionRange)
-            }
-            NotificationMessage.send(text: "○", axisX: .right, axisY: .center, size: nil, font: font, textColor: textColor, backgroundColor: .forestGreen, lifeSeconds: 1)
+        } else if isCorrect {
+            notificationMessage = "○"
+            notificationBackgroundColor = .forestGreen
         } else {
-            NotificationMessage.send(text: "✖︎", axisX: .right, axisY: .center, size: nil, font: font, textColor: textColor, backgroundColor: .red, lifeSeconds: 1)
+            notificationMessage = "✖︎"
+            notificationBackgroundColor = .red
         }
+        NotificationMessage.send(text: notificationMessage, axisX: .right, axisY: .center, size: nil, font: .boldSystemFont(ofSize: 24), textColor: .white, backgroundColor: notificationBackgroundColor, lifeSeconds: 1)
     }
     
     @objc

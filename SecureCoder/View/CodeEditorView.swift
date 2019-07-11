@@ -6,12 +6,9 @@ class CodeEditorView: UIView {
         didSet {
             questions = []
             templates = []
+            fit()
             components?.forEach { component in
                 scrollView.addSubview(component)
-                scrollView.contentSize = CGSize(
-                    width: max(scrollView.contentSize.width, component.frame.maxX),
-                    height: max(scrollView.contentSize.height, component.frame.maxY)
-                )
                 if let questionTextField = component as? QuestionTextField {
                     self.questions?.append(questionTextField)
                 } else if let templateLabel = component as? TemplateLabel {
@@ -45,6 +42,22 @@ class CodeEditorView: UIView {
         }
         return text
     }
+    //************************************************
+    // 未テスト
+    var answer: String {
+        guard let components = components else {
+            return ""
+        }
+        return components.reduce("") { result, view in
+            if let templateLabel = (view as? TemplateLabel), let labelText = templateLabel.text {
+                return result + labelText
+            } else if let questionTextField = (view as? QuestionTextField) {
+                return result + questionTextField.answer
+            }
+            return result
+        }
+    }
+    //************************************************
     
     let scrollView = UIScrollView()
     
@@ -100,6 +113,9 @@ class CodeEditorView: UIView {
             templateLabel.unfocus(with: 1)
         }
         for componentIndexArray in componentIndices {
+            guard !componentIndexArray.isEmpty else {
+                continue
+            }
             let focusableView = FocusableView()
             scrollView.addSubview(focusableView)
             focusableViews.append(focusableView)
@@ -126,17 +142,24 @@ class CodeEditorView: UIView {
         }
         var topFocusedView: UIView?
         var minY = CGFloat.infinity
+        var maxX: CGFloat = 0
+        var maxY: CGFloat = 0
         for focusedView in focusedViews {
             if focusedView.frame.origin.y < minY {
                 minY = focusedView.frame.origin.y
                 topFocusedView = focusedView
             }
+            maxX = max(maxX, focusedView.frame.origin.x)
+            maxY = max(maxY, focusedView.frame.origin.y)
         }
         if let tfv = topFocusedView {
             UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
                 self.scrollView.contentOffset.y = tfv.frame.origin.y
             }, completion: nil)
         }
+        fit()
+        scrollView.contentSize.width = max(scrollView.contentSize.width, maxX + scrollView.bounds.width)
+        scrollView.contentSize.height = max(scrollView.contentSize.height, maxY + scrollView.bounds.height)
     }
     
     func removeAllFocusableViews() {
@@ -188,6 +211,15 @@ class CodeEditorView: UIView {
         return range
     }
     
+    func fit() {
+        components?.forEach { component in
+            self.scrollView.contentSize = CGSize(
+                width: max(self.scrollView.contentSize.width, component.frame.maxX),
+                height: max(self.scrollView.contentSize.height, component.frame.maxY)
+            )
+        }
+    }
+    
     private func setupViews() {
         addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -198,65 +230,5 @@ class CodeEditorView: UIView {
             scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             ])
     }
-    
-//    var questionDidChangeEventHandler: ((CodeEditorView) -> Void)?
-//    var questions = [QuestionTextField]()
-//    var activeQuestion: QuestionTextField? {
-//        return activeQuestionIndex < questions.count ?  questions[activeQuestionIndex] : nil
-//    }
-//    var firstQuestion: QuestionTextField? {
-//        return questions.first
-//    }
-//    var lastQuestion: QuestionTextField? {
-//        return questions.last
-//    }
-//    var isCompleted: Bool {
-//        return activeQuestion == nil
-//    }
-//
-//    private(set) var activeQuestionIndex = -1
-//
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        addSubviews()
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//        addSubviews()
-//    }
-//
-//    override func draw(_ rect: CGRect) {
-//        super.draw(rect)
-//        setupSubviews()
-//    }
-//
-//    func setNextQuestion() {
-//        if 0 <= activeQuestionIndex && activeQuestionIndex <= (questions.count - 1) {
-//            questions[activeQuestionIndex].activate(false)
-//            questions[activeQuestionIndex].keyboardView.removeFromSuperview()
-//        }
-//        activeQuestionIndex += 1
-//        if activeQuestionIndex <= (questions.count - 1) {
-//            let question = questions[activeQuestionIndex]
-//            question.activate(true)
-//            let keyboardView = question.keyboardView
-//            addSubview(keyboardView)
-//            keyboardView.translatesAutoresizingMaskIntoConstraints = false
-//            NSLayoutConstraint.activate([
-//                keyboardView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -8),
-//                keyboardView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -8)
-//                ])
-//            questionDidChangeEventHandler?(self)
-//        }
-//    }
-//
-//    private func addSubviews() {
-//        addSubview(scrollView)
-//    }
-//
-//    private func setupSubviews() {
-//        scrollView.frame = safeAreaLayoutGuide.layoutFrame
-//    }
     
 }

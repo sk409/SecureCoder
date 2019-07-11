@@ -241,7 +241,7 @@ struct Application {
                                                 var lessonInfo: LessonInfo?
                                                 var domains = [Domain]()
                                                 var guides = [Guide]()
-                                                var keyboardWords = [KeyboardWords]()
+                                                //var keyboardWords = [KeyboardWords]()
                                                 let lessonTitle = contentInSectionDirectory
                                                 let lessonDirectoryURL = sectionDirectoryURL.appendingPathComponent(lessonTitle)
                                                 if let contentsInLessonDirectory = try? FileManager.default.contentsOfDirectory(atPath: lessonDirectoryURL.path)
@@ -281,19 +281,21 @@ struct Application {
                                                                     }
                                                                 }
                                                             }
-                                                        } else if contentInLessonDirectory == "keyboard_words" {
-                                                            let keyboardWordsDirectoryURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
-                                                            if let keyboardWordsJSONs = try? FileManager.default.contentsOfDirectory(atPath: keyboardWordsDirectoryURL.path) {
-                                                                for keyboardWordsJSON in keyboardWordsJSONs {
-                                                                    let keyboardWordsURL = keyboardWordsDirectoryURL.appendingPathComponent(keyboardWordsJSON)
-                                                                    if let keyboardWordsData = try? Data(contentsOf: keyboardWordsURL) {
-                                                                        if let kw = try? JSONDecoder().decode(KeyboardWords.self, from: keyboardWordsData) {
-                                                                            keyboardWords.append(kw)
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        } else if contentInLessonDirectory == "info.json" {
+                                                        }
+//                                                        else if contentInLessonDirectory == "keyboard_datas" {
+//                                                            let keyboardWordsDirectoryURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
+//                                                            if let keyboardWordsJSONs = try? FileManager.default.contentsOfDirectory(atPath: keyboardWordsDirectoryURL.path) {
+//                                                                for keyboardWordsJSON in keyboardWordsJSONs {
+//                                                                    let keyboardWordsURL = keyboardWordsDirectoryURL.appendingPathComponent(keyboardWordsJSON)
+//                                                                    if let keyboardWordsData = try? Data(contentsOf: keyboardWordsURL) {
+//                                                                        if let kw = try? JSONDecoder().decode(KeyboardWords.self, from: keyboardWordsData) {
+//                                                                            keyboardWords.append(kw)
+//                                                                        }
+//                                                                    }
+//                                                                }
+//                                                            }
+//                                                        }
+                                                        else if contentInLessonDirectory == "info.json" {
                                                             let infoJSONURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
                                                             if let lessonInfoData = try? Data(contentsOf: infoJSONURL) {
                                                                 lessonInfo = try? JSONDecoder().decode(LessonInfo.self, from: lessonInfoData)
@@ -304,9 +306,9 @@ struct Application {
                                                 guides.sort { $0.index < $1.index }
                                                 if let li = lessonInfo {
                                                     if lessonTitle == "safe" {
-                                                        safeLesson = Lesson(title: li.title, domains: domains, guides: guides, keyboardWords: keyboardWords)
+                                                        safeLesson = Lesson(title: li.title, domains: domains, guides: guides)
                                                     } else {
-                                                        unsafeLesson = Lesson(title: li.title, domains: domains, guides: guides, keyboardWords: keyboardWords)
+                                                        unsafeLesson = Lesson(title: li.title, domains: domains, guides: guides)
                                                     }
                                                 }
                                             }

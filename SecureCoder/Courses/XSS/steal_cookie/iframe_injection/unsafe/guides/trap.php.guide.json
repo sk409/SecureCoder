@@ -27,7 +27,11 @@
                 ],
                 "messages": [
                     {
-                        "text": "この赤枠で囲まれた<a>タグ内に脆弱なWebサイトにスクリプトを埋め込むためのコード記述していきます。",
+                        "text": "赤枠で囲まれた<a>タグ内に脆弱なWebサイトにスクリプトを埋め込むためのコード記述していきます。",
+                        "languages": ["html"]
+                    },
+                    {
+                        "text": "以下がその<a>タグの内容です。\n<a href=\"http://www.unsafe.co.jp/welcome.php?name=\">",
                         "languages": ["html"]
                     },
                     {
