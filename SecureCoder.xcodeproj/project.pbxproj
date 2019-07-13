@@ -45,6 +45,10 @@
 		D7336B5522D5923700F4A045 /* JavaScript.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7336B5422D5923700F4A045 /* JavaScript.swift */; };
 		D735DAE722C1EB5300B8C2B7 /* Courses in Resources */ = {isa = PBXBuildFile; fileRef = D735DAE522C1EAB200B8C2B7 /* Courses */; };
 		D738B5B922A4E3700043E177 /* SectionCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */; };
+		D73B85EB22D98067002E4BB8 /* GuideMessageCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73B85EA22D98067002E4BB8 /* GuideMessageCollectionView.swift */; };
+		D73B85ED22D9827D002E4BB8 /* GuideMessageCollectionViewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73B85EC22D9827D002E4BB8 /* GuideMessageCollectionViewTextCell.swift */; };
+		D73B85EF22D99D45002E4BB8 /* GuideMessageCollectionViewButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73B85EE22D99D45002E4BB8 /* GuideMessageCollectionViewButtonCell.swift */; };
+		D73B85F122D9A86F002E4BB8 /* Focusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73B85F022D9A86F002E4BB8 /* Focusable.swift */; };
 		D745635922B7A23C00F8F68F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D745635822B7A23C00F8F68F /* Extension.swift */; };
 		D74ACBA322CC508500713343 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74ACBA222CC508500713343 /* Chapter.swift */; };
 		D74ACBA522CC675E00713343 /* SectionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74ACBA422CC675E00713343 /* SectionSelectionViewController.swift */; };
@@ -132,6 +136,10 @@
 		D7336B5422D5923700F4A045 /* JavaScript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScript.swift; sourceTree = "<group>"; };
 		D735DAE522C1EAB200B8C2B7 /* Courses */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Courses; sourceTree = "<group>"; };
 		D738B5B822A4E3700043E177 /* SectionCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionCardTableViewCell.swift; sourceTree = "<group>"; };
+		D73B85EA22D98067002E4BB8 /* GuideMessageCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideMessageCollectionView.swift; sourceTree = "<group>"; };
+		D73B85EC22D9827D002E4BB8 /* GuideMessageCollectionViewTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideMessageCollectionViewTextCell.swift; sourceTree = "<group>"; };
+		D73B85EE22D99D45002E4BB8 /* GuideMessageCollectionViewButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideMessageCollectionViewButtonCell.swift; sourceTree = "<group>"; };
+		D73B85F022D9A86F002E4BB8 /* Focusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Focusable.swift; sourceTree = "<group>"; };
 		D745635822B7A23C00F8F68F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D74ACBA222CC508500713343 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		D74ACBA422CC675E00713343 /* SectionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionSelectionViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				D70CE12422CF7A2D00BD5922 /* SyntaxHighlighterDelegate.swift */,
+				D73B85F022D9A86F002E4BB8 /* Focusable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -307,6 +316,9 @@
 				D70CE11E22CF4AB500BD5922 /* FileTableView.swift */,
 				D77771C122D42E7500ACCDAB /* CodeLabel.swift */,
 				D77771C722D456FA00ACCDAB /* FocusableView.swift */,
+				D73B85EA22D98067002E4BB8 /* GuideMessageCollectionView.swift */,
+				D73B85EC22D9827D002E4BB8 /* GuideMessageCollectionViewTextCell.swift */,
+				D73B85EE22D99D45002E4BB8 /* GuideMessageCollectionViewButtonCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -476,6 +488,7 @@
 				D72BB8D5225425680043D909 /* String+subscript.swift in Sources */,
 				D7336B5522D5923700F4A045 /* JavaScript.swift in Sources */,
 				D7327FDC22D336F600586B29 /* WebElementView.swift in Sources */,
+				D73B85F122D9A86F002E4BB8 /* Focusable.swift in Sources */,
 				D77771C222D42E7500ACCDAB /* CodeLabel.swift in Sources */,
 				D719935222CF154E00A3365F /* Domain.swift in Sources */,
 				D77771C822D456FA00ACCDAB /* FocusableView.swift in Sources */,
@@ -489,6 +502,7 @@
 				D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */,
 				D7A56685225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift in Sources */,
 				D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */,
+				D73B85EF22D99D45002E4BB8 /* GuideMessageCollectionViewButtonCell.swift in Sources */,
 				D7327FD222D2DE9400586B29 /* Text.swift in Sources */,
 				D72BB8D92254C8560043D909 /* PHPSyntaxHighlighter.swift in Sources */,
 				D7A4659322D6D5A400CF0E90 /* KeyboardIFrameInjectionUnsafeWelcome0View.swift in Sources */,
@@ -529,6 +543,7 @@
 				D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */,
 				D7EBEBCE22D5784400564E27 /* WebSimulatorView.swift in Sources */,
 				D77F1FCD22D1AA4400FC3005 /* WebSimulatorViewController.swift in Sources */,
+				D73B85ED22D9827D002E4BB8 /* GuideMessageCollectionViewTextCell.swift in Sources */,
 				D72BB8DB2254D1C20043D909 /* UIColor+colors.swift in Sources */,
 				D75BD38A227E680D00AA7E7F /* File.swift in Sources */,
 				D71C2C2422A0EAAF008CCCD0 /* UIColor+make.swift in Sources */,
@@ -544,6 +559,7 @@
 				D7256C2C22AE2F490093A5AA /* CSSSyntaxHighlighter.swift in Sources */,
 				D71A0AEA22B1D1F80088326D /* SectionButton.swift in Sources */,
 				D726997022964578009988E6 /* CourseSelectionViewController.swift in Sources */,
+				D73B85EB22D98067002E4BB8 /* GuideMessageCollectionView.swift in Sources */,
 				D74ACBA722CC691200713343 /* CellButton.swift in Sources */,
 				D74ACBA522CC675E00713343 /* SectionSelectionViewController.swift in Sources */,
 				D77059AE2292357700E66D7B /* LessonViewController.swift in Sources */,

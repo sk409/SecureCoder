@@ -254,8 +254,6 @@ class WebSimulatorViewController: UIViewController {
         guideTextView.isScrollEnabled = false
         guideTextView.frame.origin.y = view.frame.height
         guideTextView.backgroundColor = .black
-        //guideTextView.font = .boldSystemFont(ofSize: 18)
-        //guideTextView.textContainer.lineBreakMode = .byCharWrapping
         guideTextView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGuideTextViewTapGesture(_:))))
     }
     

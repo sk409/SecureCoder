@@ -4,7 +4,7 @@ struct Explainer: Decodable, Equatable {
         let text: String
         let languages: [ProgramingLanguage]
     }
-    let questionIndices: [Int]
+    var questionIndices: [Int]
     let focusLabels: [String]
     let focusComponents: [[Int]]
     let messages: [Message]

@@ -20,7 +20,7 @@ struct Lesson {
     
     let title: String
     let domains: [Domain]
-    let guides: [Guide]
+    var guides: [Guide]
 //    let slides: [Slide]
 //    let descriptios: [String: [Description]]
 //    private(set) var index: File?

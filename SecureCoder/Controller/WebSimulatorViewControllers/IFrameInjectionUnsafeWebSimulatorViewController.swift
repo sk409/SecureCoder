@@ -64,7 +64,7 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
     
     private func startGuide1() {
         endGuideHandler = guide1_1
-        appendGuideText("これが最初に見た攻撃者が用意した罠サイトです。", programingLanguages: nil)
+        appendGuideText("これが攻撃者が用意した罠サイトです。", programingLanguages: nil)
         setGuideText()
         showGuideTextView(completion: nil)
     }

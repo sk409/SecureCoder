@@ -1,6 +1,6 @@
 import UIKit
 
-class FocusableView: UIView {
+class FocusableView: UIView, Focusable {
     
     var cache = [String: Any]()
     
@@ -8,6 +8,7 @@ class FocusableView: UIView {
         cache["backgroundColor"] = self.backgroundColor
         cache["layer.borderWidth"] = layer.borderWidth
         cache["layer.borderColor"] = layer.borderColor
+        self.backgroundColor = backgroundColor
         layer.removeAllAnimations()
         let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
         borderWidthAnimation.toValue = borderWidth

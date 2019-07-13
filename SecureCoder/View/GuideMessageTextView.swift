@@ -72,23 +72,40 @@ class GuideMessageTextView: UITextView {
     }
     
     private func setupGestureRecognizers() {
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:))))
+        let leftSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGestureRecognizer(_:)))
+        leftSwipeGestureRecognizer.direction = .left
+        addGestureRecognizer(leftSwipeGestureRecognizer)
+        let rightSwipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGestureRecognizer(_:)))
+        rightSwipeGestureRecognizer.direction = .right
+        addGestureRecognizer(rightSwipeGestureRecognizer)
+        //addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:))))
     }
     
     @objc
-    private func handleTapGesture(_ sender: UITapGestureRecognizer) {
+    private func handleSwipeGestureRecognizer(_ sender: UISwipeGestureRecognizer) {
         guard let explainers = explainers else {
             return
         }
-        messageIndex += 1
+        if sender.direction == .left {
+            guard 0 < explainerIndex || 0 < messageIndex else {
+                return
+            }
+            messageIndex -= 1
+        } else {
+            messageIndex += 1
+        }
         if explainerIndex < explainers.count {
-            if messageIndex < explainers[explainerIndex].messages.count {
+            if 0 <= messageIndex && messageIndex < explainers[explainerIndex].messages.count {
                 setMessage()
             } else {
-                questionIndices = explainers[explainerIndex].questionIndices
+                if messageIndex < 0 {
+                    explainerIndex -= 1
+                } else {
+                    explainerIndex += 1
+                }
                 messageIndex = 0
-                explainerIndex += 1
                 if explainerIndex < explainers.count {
+                    questionIndices = explainers[explainerIndex].questionIndices
                     settingNewExplainerHandler?(self)
                 } else {
                     endNotificationHandler?(self)
@@ -96,5 +113,27 @@ class GuideMessageTextView: UITextView {
             }
         }
     }
+    
+//    @objc
+//    private func handleTapGesture(_ sender: UITapGestureRecognizer) {
+//        guard let explainers = explainers else {
+//            return
+//        }
+//        messageIndex += 1
+//        if explainerIndex < explainers.count {
+//            if messageIndex < explainers[explainerIndex].messages.count {
+//                setMessage()
+//            } else {
+//                questionIndices = explainers[explainerIndex].questionIndices
+//                messageIndex = 0
+//                explainerIndex += 1
+//                if explainerIndex < explainers.count {
+//                    settingNewExplainerHandler?(self)
+//                } else {
+//                    endNotificationHandler?(self)
+//                }
+//            }
+//        }
+//    }
     
 }

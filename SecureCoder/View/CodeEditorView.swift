@@ -24,7 +24,6 @@ class CodeEditorView: UIView {
     
     var file: File?
     var scrollBuffer: CGSize?
-    var drawFunctionHandler: ((CodeEditorView) -> Void)?
     
     var text: String {
         guard let components = components else {
@@ -65,9 +64,6 @@ class CodeEditorView: UIView {
         willSet {
             question?.activate(isActive: false, keyboardViewDidShow: nil, keyboardViewDidHide: nil)
         }
-        didSet {
-            question?.activate(isActive: true, keyboardViewDidShow: nil, keyboardViewDidHide: nil)
-        }
     }
     private(set) var questions: [QuestionTextField]?
     private(set) var templates: [TemplateLabel]?
@@ -84,16 +80,11 @@ class CodeEditorView: UIView {
         setupViews()
     }
     
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        drawFunctionHandler?(self)
-    }
-    
     func focus(labelTexts: [String], componentIndices: [[Int]]) {
         guard let components = components else {
             return
         }
-        var focusedViews = [UIView]()
+        var focuseViews = [UIView]()
         for component in components {
             guard let templateLabel = component as? TemplateLabel,
                   let labelText = templateLabel.text
@@ -101,16 +92,16 @@ class CodeEditorView: UIView {
                 continue
             }
             if labelTexts.contains(labelText) {
-                templateLabel.focus(with: 1, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .white)
-                focusedViews.append(component)
+//                templateLabel.focus(with: 0.5, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .white)
+                focuseViews.append(component)
             }
         }
         for component in components {
             guard let templateLabel = component as? TemplateLabel,
-                  !focusedViews.contains(component) else {
+                  !focuseViews.contains(component) else {
                 continue
             }
-            templateLabel.unfocus(with: 1)
+            templateLabel.unfocus(with: 0.5)
         }
         for componentIndexArray in componentIndices {
             guard !componentIndexArray.isEmpty else {
@@ -119,7 +110,7 @@ class CodeEditorView: UIView {
             let focusableView = FocusableView()
             scrollView.addSubview(focusableView)
             focusableViews.append(focusableView)
-            focusedViews.append(focusableView)
+            focuseViews.append(focusableView)
             focusableView.frame.origin = CGPoint(x: CGFloat.infinity, y: .infinity)
             for componentIndex in componentIndexArray {
                 focusableView.frame.origin.x = min(focusableView.frame.origin.x, components[componentIndex].frame.origin.x)
@@ -138,13 +129,13 @@ class CodeEditorView: UIView {
             focusableView.frame.origin.y -= buffer.height / 2
             focusableView.frame.size.width += buffer.width
             focusableView.frame.size.height += buffer.height
-            focusableView.focus(with: 1, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .white)
+//            focusableView.focus(with: 0.5, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .white)
         }
         var topFocusedView: UIView?
         var minY = CGFloat.infinity
         var maxX: CGFloat = 0
         var maxY: CGFloat = 0
-        for focusedView in focusedViews {
+        for focusedView in focuseViews {
             if focusedView.frame.origin.y < minY {
                 minY = focusedView.frame.origin.y
                 topFocusedView = focusedView
@@ -153,9 +144,14 @@ class CodeEditorView: UIView {
             maxY = max(maxY, focusedView.frame.origin.y)
         }
         if let tfv = topFocusedView {
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
+            //let animationDurection = TimeInterval(abs(scrollView.contentOffset.y - tfv.frame.origin.y) / 200)
+            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
                 self.scrollView.contentOffset.y = tfv.frame.origin.y
-            }, completion: nil)
+            }) { _ in
+                for focusView in focuseViews {
+                    (focusView as? Focusable)?.focus(with: 0.3, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .clear)
+                }
+            }
         }
         fit()
         scrollView.contentSize.width = max(scrollView.contentSize.width, maxX + scrollView.bounds.width)

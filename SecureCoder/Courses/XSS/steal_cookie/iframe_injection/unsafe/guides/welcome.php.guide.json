@@ -29,7 +29,7 @@
                 ]
             },
             {
-                "questionIndices": [0],
+                "questionIndices": [],
                 "focusLabels": [],
                 "focusComponents": [
                     [
@@ -58,7 +58,7 @@
                 ]
             },
             {
-                "questionIndices": [],
+                "questionIndices": [0],
                 "focusLabels": [],
                 "focusComponents": [
                     []

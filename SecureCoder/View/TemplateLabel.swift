@@ -1,6 +1,6 @@
 import UIKit
 
-class TemplateLabel: UILabel {
+class TemplateLabel: UILabel, Focusable {
     
     var range: NSRange?
     var line = 0
@@ -10,6 +10,7 @@ class TemplateLabel: UILabel {
         cache["backgroundColor"] = self.backgroundColor
         cache["layer.borderWidth"] = layer.borderWidth
         cache["layer.borderColor"] = layer.borderColor
+        self.backgroundColor = backgroundColor
         layer.removeAllAnimations()
         let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
         borderWidthAnimation.toValue = borderWidth
