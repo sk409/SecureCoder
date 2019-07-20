@@ -11,8 +11,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.makeKeyAndVisible()
         _ = Application.shared
-        window?.rootViewController = CourseSelectionViewController()
-//        window?.rootViewController = IFrameInjectionUnsafeWebSimulatorViewController()
+//        window?.rootViewController = CourseSelectionViewController()
+        window?.rootViewController = IFrameInjectionUnsafeWebSimulatorViewController()
         return true
     }
     

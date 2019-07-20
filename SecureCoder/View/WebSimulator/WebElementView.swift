@@ -25,7 +25,7 @@ class WebElementView: UILabel {
         setupViews()
     }
     
-    func focus(with duration: TimeInterval = 1, borderWidth: CGFloat = 1, borderColor: CGColor = UIColor.red.cgColor, backgroundColor: UIColor = .white, completion: (() -> Void)? = nil)
+    func focus(with duration: TimeInterval = 0.5, borderWidth: CGFloat = 1, borderColor: CGColor = UIColor.red.cgColor, backgroundColor: UIColor = .white, completion: (() -> Void)? = nil)
     {
         layer.removeAllAnimations()
         cache["backgroundColor"] = self.backgroundColor

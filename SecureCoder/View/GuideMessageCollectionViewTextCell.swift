@@ -18,6 +18,8 @@ class GuideMessageCollectionViewTextCell: UICollectionViewCell {
     
     private func setupViews() {
         addSubview(textView)
+        textView.isEditable = false
+        textView.isSelectable = false
         textView.backgroundColor = .black
         textView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

@@ -17,7 +17,7 @@
             },
             {
                 "questionIndices": [],
-                "focusLabels": ["  session_start();"],
+                "focusLabels": ["session_start();"],
                 "focusComponents": [
                     []
                 ],
@@ -33,9 +33,9 @@
                 "focusLabels": [],
                 "focusComponents": [
                     [
-                        5,
                         6,
-                        7
+                        7,
+                        8
                     ]
                 ],
                 "messages": [
