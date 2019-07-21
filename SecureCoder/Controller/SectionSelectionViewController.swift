@@ -40,7 +40,7 @@ class SectionSelectionViewController: UIViewController {
         NSLayoutConstraint.activate([
             backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
             backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            backButton.widthAnchor.constraint(equalToConstant: 32),
+            backButton.widthAnchor.constraint(equalToConstant: 44),
             backButton.heightAnchor.constraint(equalTo: backButton.widthAnchor),
             ])
         sectionsTableView.dataSource = self

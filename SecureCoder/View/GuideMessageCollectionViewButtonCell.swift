@@ -2,7 +2,7 @@ import UIKit
 
 class GuideMessageCollectionViewButtonCell: UICollectionViewCell {
     
-    let button = UIButton()
+    let button = UIButton(type: .system)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -16,8 +16,9 @@ class GuideMessageCollectionViewButtonCell: UICollectionViewCell {
     
     private func setupViews() {
         addSubview(button)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .appleGreen
+        button.backgroundColor = .forestGreen
         button.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),

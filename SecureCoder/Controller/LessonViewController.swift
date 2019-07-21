@@ -32,19 +32,6 @@ class LessonViewController: UIViewController {
         }
         return 0
     }
-    var codeEditorViewIndexPath: IndexPath? {
-        guard let lesson = lesson, let guide = guide else {
-            return nil
-        }
-        for (domainIndex, domain) in lesson.domains.enumerated() {
-            for (fileIndex, file) in domain.files.enumerated() {
-                if file.name == guide.fileName {
-                    return IndexPath(row: fileIndex, section: domainIndex)
-                }
-            }
-        }
-        return nil
-    }
     var guide: Guide?
     var explainer: Explainer?
     var codeEditorView: CodeEditorView?
@@ -52,6 +39,7 @@ class LessonViewController: UIViewController {
     var tintColor = UIColor.white
     
     let fileTableView = FileTableView()
+    let showGuideMessageButton = UIButton()
     let guideMessageCollectionView = GuideMessageCollectionView(frame: .zero, collectionViewLayout: {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -74,14 +62,17 @@ class LessonViewController: UIViewController {
     
     private func setupViews() {
         view.addSubview(fileTableView)
+        view.addSubview(showGuideMessageButton)
         view.addSubview(guideMessageCollectionView)
         //view.addSubview(showPreviewButton)
         setupFileTableView()
+        setupShowGuideMessageButton()
         setupCodeEditorViews()
         setupGuideMessageCollectionView()
     }
     
     private func layoutSubviews() {
+        showGuideMessageButton.alpha = 1
         fileTableView.frame = CGRect(
             x: view.safeAreaInsets.left,
             y: view.safeAreaInsets.top,
@@ -94,6 +85,24 @@ class LessonViewController: UIViewController {
         fileTableView.dataSource = self
         fileTableView.delegate = self
         fileTableView.backgroundColor = UIColor(red: 46/255, green: 50/255, blue: 60/255, alpha: 1)
+    }
+    
+    private func setupShowGuideMessageButton() {
+        let size: CGFloat = 44
+        showGuideMessageButton.alpha = 0
+        showGuideMessageButton.layer.cornerRadius = (size / 2)
+        showGuideMessageButton.backgroundColor = .forestGreen
+        showGuideMessageButton.titleLabel?.font = .boldSystemFont(ofSize: 24)
+        showGuideMessageButton.setTitle("?", for: .normal)
+        showGuideMessageButton.setTitleColor(.white, for: .normal)
+        showGuideMessageButton.addTarget(self, action: #selector(handleShowGuideMessageButton(_:)), for: .touchUpInside)
+        showGuideMessageButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            showGuideMessageButton.leadingAnchor.constraint(equalTo: fileTableView.trailingAnchor, constant: 8),
+            showGuideMessageButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8),
+            showGuideMessageButton.widthAnchor.constraint(equalToConstant: size),
+            showGuideMessageButton.heightAnchor.constraint(equalTo: showGuideMessageButton.widthAnchor),
+            ])
     }
     
     private func setupCodeEditorViews() {
@@ -112,9 +121,9 @@ class LessonViewController: UIViewController {
                 if let questions = codeEditorView.questions {
                     for (questionIndex, question) in questions.enumerated() {
                         question.keyboardView = KeyboardViewFactory.make(name: [lesson.title, file.name, String(questionIndex)].joined(separator: "_"))!
-                        question.keyboardView?.backgroundColor = .darkGray
+                        question.keyboardView?.backgroundColor = UIColor(white: 0.125, alpha: 1)
                         question.keyboardView?.buttons.forEach { button in
-                            button.backgroundColor = .lightGray
+                            button.backgroundColor = UIColor(white: 0.25, alpha: 1)
                             button.addTarget(self, action: #selector(handleKeyboardButton(_:)), for: .touchUpInside)
                         }
                     }
@@ -133,32 +142,65 @@ class LessonViewController: UIViewController {
         guideMessageCollectionView.dataSource = self
         guideMessageCollectionView.delegate = self
         guideMessageCollectionView.isPagingEnabled = true
+        guideMessageCollectionView.bounces = false
         guideMessageCollectionView.register(GuideMessageCollectionViewTextCell.self, forCellWithReuseIdentifier: LessonViewController.guideMessageCollectionViewTextCellId)
         guideMessageCollectionView.register(GuideMessageCollectionViewButtonCell.self, forCellWithReuseIdentifier: LessonViewController.guideMessageCollectionViewButtonCellId)
     }
-
-//    private func setupShowPreviewButton() {
-//        showPreviewButton.alpha = 0
-//        showPreviewButton.setBackgroundImage(UIImage(named: "next_button"), for: .normal)
-//        showPreviewButton.addTarget(self, action: #selector(handleShowPreviewButton(_:)), for: .touchUpInside)
-//        showPreviewButton.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            showPreviewButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
-//            showPreviewButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-//            showPreviewButton.widthAnchor.constraint(equalToConstant: 44),
-//            showPreviewButton.heightAnchor.constraint(equalTo: showPreviewButton.widthAnchor),
-//            ])
-//    }
     
     private func changeCodeEditorView() {
-        guard let codeEditorViewIndexPath = codeEditorViewIndexPath else {
+        guard let lesson = lesson, let guide = guide else {
             return
         }
-        changeCodeEditorView(
-            domainIndex: codeEditorViewIndexPath.section,
-            fileIndex: codeEditorViewIndexPath.row
-        )
+        var domainIndex: Int?
+        var fileIndex: Int?
+        for (di, domain) in lesson.domains.enumerated() {
+            for (fi, file) in domain.files.enumerated() {
+                if file.name == guide.fileName {
+                    domainIndex = di
+                    fileIndex = fi
+                    break
+                }
+            }
+            if domainIndex != nil && fileIndex != nil {
+                break
+            }
+        }
+        if let di = domainIndex, let fi = fileIndex {
+            changeCodeEditorView(
+                domainIndex: di,
+                fileIndex: fi
+            )
+        }
     }
+    
+    /*******************************************/
+    // 未テスト
+    /*******************************************/
+//    private func changeCodeEditorView(to codeEditorView: CodeEditorView) {
+//        guard let lesson = lesson, let editedFile = codeEditorView.file else {
+//            return
+//        }
+//        var domainIndex: Int?
+//        var fileIndex: Int?
+//        for (di, domain) in lesson.domains.enumerated() {
+//            for (fi, file) in domain.files.enumerated() {
+//                if file.name == editedFile.name {
+//                    domainIndex = di
+//                    fileIndex = fi
+//                    break
+//                }
+//            }
+//            if domainIndex != nil && fileIndex != nil {
+//                break
+//            }
+//        }
+//        if let di = domainIndex, let fi = fileIndex {
+//            changeCodeEditorView(
+//                domainIndex: di,
+//                fileIndex: fi
+//            )
+//        }
+//    }
     
     private func changeCodeEditorView(domainIndex: Int, fileIndex: Int) {
         guard let lesson = lesson else {
@@ -198,7 +240,17 @@ class LessonViewController: UIViewController {
     }
     
     @objc
+    private func handleShowGuideMessageButton(_ sender: UIButton) {
+        codeEditorView?.question?.activate(isActive: false, keyboardViewDidShow: nil) {
+            self.showGuideMessageCollectionView()
+        }
+    }
+    
+    @objc
     private func handleKeyboardButton(_ sender: KeyboardButton) {
+        if guide?.fileName != codeEditorView?.file?.name {
+            changeCodeEditorView()
+        }
         guard let codeEditorView = codeEditorView,
             let question = codeEditorView.question
         else {
@@ -322,16 +374,16 @@ extension LessonViewController: UITableViewDataSource, UITableViewDelegate {
         return label
     }
     
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        guard let lesson = lesson, let guide = guide, let guideIndex = lesson.guides.firstIndex(of: guide) else {
-            return nil
-        }
-        guard guideIndex == (lesson.guides.count - 1) else {
-            NotificationMessage.send(text: "全ての説明を読むまでファイルの変更はできません", axisX: .right, axisY: .center, size: nil, font: .boldSystemFont(ofSize: 18), textColor: .white, backgroundColor: .red, lifeSeconds: 2)
-            return nil
-        }
-        return indexPath
-    }
+//    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+//        guard let lesson = lesson, let guide = guide, let guideIndex = lesson.guides.firstIndex(of: guide) else {
+//            return nil
+//        }
+//        guard guideIndex == (lesson.guides.count - 1) else {
+//            NotificationMessage.send(text: "全ての説明を読むまでファイルの変更はできません", axisX: .right, axisY: .center, size: nil, font: .boldSystemFont(ofSize: 18), textColor: .white, backgroundColor: .red, lifeSeconds: 2)
+//            return nil
+//        }
+//        return indexPath
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         changeCodeEditorView(domainIndex: indexPath.section, fileIndex: indexPath.row)
@@ -447,6 +499,9 @@ extension LessonViewController: UICollectionViewDataSource, UICollectionViewDele
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let lesson = lesson else {
             return
+        }
+        if guide?.fileName != codeEditorView?.file?.name {
+            changeCodeEditorView()
         }
         var found = false
         var x: CGFloat = 0
