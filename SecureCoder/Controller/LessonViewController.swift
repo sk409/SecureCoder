@@ -284,9 +284,11 @@ class LessonViewController: UIViewController {
         }
         let notificationMessage: String
         let notificationBackgroundColor: UIColor
+        let notificationSize: CGSize
         if isCompleted {
             notificationMessage = "正解"
             notificationBackgroundColor = .forestGreen
+            notificationSize = CGSize(width: 64, height: 44)
             lesson?.guides[guideIndex].explainers[explainerIndex].questionIndices.removeFirst()
             question.activate(isActive: false, keyboardViewDidShow: nil, keyboardViewDidHide: {
                 guard let explainer = self.explainer else {
@@ -308,11 +310,13 @@ class LessonViewController: UIViewController {
         } else if isCorrect {
             notificationMessage = "○"
             notificationBackgroundColor = .forestGreen
+            notificationSize = CGSize(width: 44, height: 44)
         } else {
             notificationMessage = "✖︎"
             notificationBackgroundColor = .red
+            notificationSize = CGSize(width: 44, height: 44)
         }
-        NotificationMessage.send(text: notificationMessage, axisX: .right, axisY: .center, size: nil, font: .boldSystemFont(ofSize: 24), textColor: .white, backgroundColor: notificationBackgroundColor, lifeSeconds: 1)
+        NotificationMessage.send(text: notificationMessage, axisX: .center, axisY: .center, size: notificationSize, font: .boldSystemFont(ofSize: 24), textColor: .white, backgroundColor: notificationBackgroundColor, lifeSeconds: 1)
     }
     
     @objc
