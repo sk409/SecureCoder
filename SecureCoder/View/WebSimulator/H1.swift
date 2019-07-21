@@ -13,7 +13,7 @@ class H1: WebElementView {
     }
     
     private func setup() {
-        frame.size.height = 32
+        frame.size.height = 60
         font = .boldSystemFont(ofSize: 32)
         margin = UIEdgeInsets(top: 10, left: 0, bottom: 16, right: 0)
         display = .block

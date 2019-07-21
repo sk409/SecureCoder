@@ -30,13 +30,13 @@
             },
             {
                 "questionIndices": [],
-                "focusLabels": ["function send_mail($cookie) {\n    // ここで攻撃者は自分にメールを送信してクッキーの値を入手します。\n}", "send_mail($cookie);"],
+                "focusLabels": ["function sendMail($cookie) {\n    // ここで攻撃者は自分にメールを送信してクッキーの値を入手します。\n}", "sendMail($cookie);"],
                 "focusComponents": [
                     []
                 ],
                 "messages": [
                     {
-                        "text": "本来は「send_mail()」にて実際にメールを送信しますが今回はサンプルであるためメールを送信する処理は記述していません。",
+                        "text": "本来は「sendMail()」にて実際にメールを送信しますが今回はサンプルであるためメールを送信する処理は記述していません。",
                         "languages": ["php"]
                     }
                 ]

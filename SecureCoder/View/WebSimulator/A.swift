@@ -20,7 +20,7 @@ class A: WebElementView {
     }
     
     private func setup() {
-        frame.size.height = 16
+        frame.size.height = 44
         font = .systemFont(ofSize: 16)
         margin = .zero
         display = .inline

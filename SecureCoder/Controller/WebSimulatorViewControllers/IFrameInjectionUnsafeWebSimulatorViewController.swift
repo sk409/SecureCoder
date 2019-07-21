@@ -30,7 +30,7 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
         welcomeLabel.text = "ようこそ脆弱株式会社へ"
         nameLabel.text = "さん"
         nameLabel.set(
-            code: "<script src=\"http://www.trap.cp.jp/iframe_injection.js\"></script>さん",
+            code: "<p><script src=\"http://www.trap.cp.jp/iframe_injection.js\"></script>さん</p>",
             language: .html
         )
         feedbackIFrame.frame.size = CGSize(width: 320, height: 320)
@@ -42,6 +42,7 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
         feedbackIFrame.codeLabel.positionY = .top
         attackedLabel.text = "攻撃成功"
         sessIdLabel.text = "PHPSESSID=c4ad79dc6067469927e00e1adc847c78"
+        sessIdLabel.set(code: "echo $cookie;", language: .php)
         feedbackIFrame.webSimulatorView = feedbackView
     }
     
@@ -88,7 +89,7 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
             ])
         appendGuideSection([
             GuideText(
-                text: "この赤枠で囲まれた<p>タグには本来以下のコードでユーザの名前を表示しようとしていました。\n<p><?php echo $_GET[\"name\"]; ?>さん</p>\nしかし、実際には<p>タグの下に示したコードが実行されました。",
+                text: "この赤枠で囲まれた<p>要素には本来以下のコードでユーザの名前を表示しようとしていました。\n<p><?php echo $_GET[\"name\"]; ?>さん</p>\nしかし、本来の意図とは違って実際に実行されたのは<p>要素の下に示したコードです。",
                 programingLanguages: [.html, .php]
             ),
             GuideText(

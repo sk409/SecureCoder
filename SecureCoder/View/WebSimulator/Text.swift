@@ -13,7 +13,7 @@ class Text: WebElementView {
     }
     
     private func setup() {
-        frame.size.height = 17
+        frame.size.height = 44
         font = .systemFont(ofSize: 16)
         margin = .zero
         display = .inline

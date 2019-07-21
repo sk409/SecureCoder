@@ -13,7 +13,7 @@ class P: WebElementView {
     }
     
     private func setupViews() {
-        frame.size.height = 30
+        frame.size.height = 58
         font = .systemFont(ofSize: 16)
         margin = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
         display = .block

@@ -4,6 +4,10 @@ class KeyboardView: UIView {
     
     var buttons = [KeyboardButton]()
     
+    func makeButton() -> KeyboardButton {
+        return KeyboardButton(type: .system)
+    }
+    
     func alignButtons(groups: [KeyboardButton]...) {
         guard !groups.isEmpty else {
             return

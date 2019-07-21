@@ -99,6 +99,11 @@ class WebElementView: UILabel {
     func set(code: String, language: ProgramingLanguage) {
         var syntaxHighlighter = SyntaxHighlighter(tintColor: .white, font: .boldSystemFont(ofSize: 16))
         syntaxHighlighter.programingLanguage = language
+        if language == .php {
+            var phpSyntaxHighlighter = PHPSyntaxHighlighter()
+            phpSyntaxHighlighter.force = true
+            syntaxHighlighter.delegate = phpSyntaxHighlighter
+        }
         codeLabel.attributedText = syntaxHighlighter.syntaxHighlight(code)
         codeLabel.numberOfLines = 0
     }
