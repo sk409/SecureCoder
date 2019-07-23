@@ -1,6 +1,6 @@
 import UIKit
 
-class KeyboardIFrameInjectionUnsafeWelcome0View: KeyboardView {
+class KeyboardIFrameInjectionSafeWelcome0View: KeyboardView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,6 +20,16 @@ class KeyboardIFrameInjectionUnsafeWelcome0View: KeyboardView {
         let space = KeyboardView.makeButton()
         space.setTitle(" ", for: .normal)
         space.setTitleColor(.white, for: .normal)
+        space.count = 2
+        let comma = KeyboardView.makeButton()
+        comma.setTitle(",", for: .normal)
+        comma.setTitleColor(.white, for: .normal)
+        let openParenthesis = KeyboardView.makeButton()
+        openParenthesis.setTitle("(", for: .normal)
+        openParenthesis.setTitleColor(.white, for: .normal)
+        let closeParenthesis = KeyboardView.makeButton()
+        closeParenthesis.setTitle(")", for: .normal)
+        closeParenthesis.setTitleColor(.white, for: .normal)
         let openBracket = KeyboardView.makeButton()
         openBracket.setTitle("[", for: .normal)
         openBracket.setTitleColor(.white, for: .normal)
@@ -38,8 +48,13 @@ class KeyboardIFrameInjectionUnsafeWelcome0View: KeyboardView {
         let name = KeyboardView.makeButton()
         name.setTitle("name", for: .normal)
         name.setTitleColor(PHP.stringColor, for: .normal)
-        alignButtons(groups: [quotation, space], [openBracket, closeBracket, semicolon],
-                     [echo, get, name])
+        let htmlspecialchars = KeyboardView.makeButton()
+        htmlspecialchars.setTitle("htmlspecialchars", for: .normal)
+        htmlspecialchars.setTitleColor(PHP.functionColor, for: .normal)
+        let entquotes = KeyboardView.makeButton()
+        entquotes.setTitle("ENT_QUOTES", for: .normal)
+        entquotes.setTitleColor(.white, for: .normal)
+        alignButtons(groups: [quotation, space, comma, semicolon], [openParenthesis, closeParenthesis, openBracket, closeBracket], [echo, get, name], [htmlspecialchars, entquotes])
     }
     
 }

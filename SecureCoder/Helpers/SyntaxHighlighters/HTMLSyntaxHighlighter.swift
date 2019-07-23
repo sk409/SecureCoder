@@ -23,11 +23,23 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
         for attributeMatch in attributeMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.attributeColor, range: attributeMatch.range)
         }
-        let valueRegex = try! NSRegularExpression(pattern: "=[^ >]+")
+        let valueRegex = try! NSRegularExpression(pattern: "=[^ >)]+")
         let valueMatches = valueRegex.matches(in: text, range: fullRange)
         for valueMatch in valueMatches {
             //let back = text[valueMatch.range.location + valueMatch.range.length - 1] == ">" ? 1 : 0
-            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: NSRange(location: valueMatch.range.location + 1, length: valueMatch.range.length - 1))
+            let escapeRegex = try! NSRegularExpression(pattern: "&[a-zA-Z0-9]+;")
+            let escapeMathces = escapeRegex.matches(in: text, range: valueMatch.range)
+            if escapeMathces.isEmpty {
+                mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: NSRange(location: valueMatch.range.location + 1, length: valueMatch.range.length - 1))
+            } else {
+                let escapeMatch = escapeMathces.first!
+                mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: NSRange(location: valueMatch.range.location + 1, length: escapeMatch.range.location - valueMatch.range.location + 1))
+            }
+        }
+        let escapeRegex = try! NSRegularExpression(pattern: "&[a-zA-Z0-9]+;")
+        let escapeMathces = escapeRegex.matches(in: text, range: fullRange)
+        for escapeMatch in escapeMathces {
+            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.escapeColor, range: escapeMatch.range)
         }
         let stringRegex = try! NSRegularExpression(pattern: "\".*?\"")
         let stringMatches = stringRegex.matches(in: text, range: fullRange)

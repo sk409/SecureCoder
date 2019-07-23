@@ -8,6 +8,4 @@ struct Explainer: Decodable, Equatable {
     let focusLabels: [String]
     let focusComponents: [[Int]]
     let messages: [Message]
-//    let languages: [ProgramingLanguage]
-//    let texts: [String]
 }

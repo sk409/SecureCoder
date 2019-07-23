@@ -2,11 +2,11 @@ import UIKit
 
 class KeyboardView: UIView {
     
-    var buttons = [KeyboardButton]()
-    
-    func makeButton() -> KeyboardButton {
+    static func makeButton() -> KeyboardButton {
         return KeyboardButton(type: .system)
     }
+    
+    var buttons = [KeyboardButton]()
     
     func alignButtons(groups: [KeyboardButton]...) {
         guard !groups.isEmpty else {

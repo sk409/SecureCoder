@@ -6,6 +6,8 @@ struct WebSimulatorViewControllerFactory {
         switch lessonTitle {
         case "iframe_injection_unsafe":
             return IFrameInjectionUnsafeWebSimulatorViewController()
+        case "iframe_injection_safe":
+            return IFrameInjectionSafeWebSimulatorViewController()
         default:
             return nil
         }

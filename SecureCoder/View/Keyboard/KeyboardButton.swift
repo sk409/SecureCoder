@@ -2,6 +2,6 @@ import UIKit
 
 class KeyboardButton: UIButton {
     
-    var count = 0
+    var count = 1
     
 }

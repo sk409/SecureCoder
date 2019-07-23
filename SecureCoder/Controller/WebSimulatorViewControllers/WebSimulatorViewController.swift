@@ -315,7 +315,7 @@ extension WebSimulatorViewController: UICollectionViewDataSource, UICollectionVi
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WebSimulatorViewController.guideMessageCollectionViewButtonCellId, for: indexPath) as! GuideMessageCollectionViewButtonCell
-            cell.button.setTitle("レッスン選択画面に戻る", for: .normal)
+            cell.buttonTitle = "レッスン選択画面に戻る"
             cell.button.addTarget(self, action: #selector(handleCloseButton(_:)), for: .touchUpInside)
             return cell
         }

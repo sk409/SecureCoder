@@ -423,7 +423,8 @@ extension LessonViewController: UICollectionViewDataSource, UICollectionViewDele
             for (eIndex, explainer) in guide.explainers.enumerated() {
                 if explainerIndex == section {
                     let messageCount = explainer.questionIndices.isEmpty ? explainer.messages.count : 1
-                    if guideIndex == (lesson.guides.count - 1) && (eIndex == guide.explainers.count - 1) {
+                    if guideIndex == (lesson.guides.count - 1) && (eIndex == guide.explainers.count - 1) && explainer.questionIndices.isEmpty
+                    {
                         return messageCount + 1
                     } else {
                         return messageCount
@@ -455,14 +456,14 @@ extension LessonViewController: UICollectionViewDataSource, UICollectionViewDele
         }
         if explainer == nil {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LessonViewController.guideMessageCollectionViewButtonCellId, for: indexPath) as! GuideMessageCollectionViewButtonCell
-            cell.button.setTitle("プレビューを確認する", for: .normal)
+            cell.buttonTitle = "プレビューを確認する"
             cell.button.removeTarget(self, action: #selector(handleShowPreviewButton(_:)), for: .touchUpInside)
             cell.button.addTarget(self, action: #selector(handleShowPreviewButton(_:)), for: .touchUpInside)
             return cell
         } else {
             if !explainer!.questionIndices.isEmpty {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LessonViewController.guideMessageCollectionViewButtonCellId, for: indexPath) as! GuideMessageCollectionViewButtonCell
-                cell.button.setTitle("問題を解く", for: .normal)
+                cell.buttonTitle = "問題を解く"
                 cell.button.removeTarget(self, action: #selector(handleShowKeyboardViewButton(_:)), for: .touchUpInside)
                 cell.button.addTarget(self, action: #selector(handleShowKeyboardViewButton(_:)), for: .touchUpInside)
                 return cell

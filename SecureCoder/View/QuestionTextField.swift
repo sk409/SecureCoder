@@ -37,6 +37,7 @@ class QuestionTextField: UITextField {
             caret.backgroundColor = .white
             caret.startAnimation()
             caret.frame = CGRect(x: 0, y: 0, width: 2, height: safeAreaLayoutGuide.layoutFrame.height)
+            moveCaret()
             if let window = UIApplication.shared.keyWindow, let keyboardView = keyboardView {
                 window.addSubview(keyboardView)
 //                let keyboardViewSize = CGSize(width: window.bounds.size.width * 0.5, height: window.bounds.size.width * 0.25)
