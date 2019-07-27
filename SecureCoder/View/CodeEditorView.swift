@@ -91,6 +91,8 @@ class CodeEditorView: UIView {
             else {
                 continue
             }
+//            print(labelTexts.first)
+//            print(labelText)
             if labelTexts.contains(labelText) {
 //                templateLabel.focus(with: 0.5, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .white)
                 focuseViews.append(component)
@@ -131,31 +133,41 @@ class CodeEditorView: UIView {
             focusableView.frame.size.height += buffer.height
 //            focusableView.focus(with: 0.5, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .white)
         }
-        var topFocusedView: UIView?
-        var minY = CGFloat.infinity
-        var maxX: CGFloat = 0
-        var maxY: CGFloat = 0
-        for focusedView in focuseViews {
-            if focusedView.frame.origin.y < minY {
-                minY = focusedView.frame.origin.y
-                topFocusedView = focusedView
-            }
-            maxX = max(maxX, focusedView.frame.origin.x)
-            maxY = max(maxY, focusedView.frame.origin.y)
+        guard !focuseViews.isEmpty else {
+            return
         }
-        if let tfv = topFocusedView {
-            //let animationDurection = TimeInterval(abs(scrollView.contentOffset.y - tfv.frame.origin.y) / 200)
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
-                self.scrollView.contentOffset.y = tfv.frame.origin.y
-            }) { _ in
-                for focusView in focuseViews {
-                    (focusView as? Focusable)?.focus(with: 0.3, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .clear)
-                }
+        var maxX: CGFloat = 0
+        var minOriginX: CGFloat = CGFloat.infinity
+        var maxOriginX: CGFloat = 0
+        var minOriginY = CGFloat.infinity
+        var maxOriginY: CGFloat = 0
+        for focusedView in focuseViews {
+//            if focusedView.frame.origin.y < minY {
+//                minY = focusedView.frame.origin.y
+//                topFocusedView = focusedView
+//            }
+            maxX = max(maxX, focusedView.frame.maxX)
+            minOriginX = min(minOriginX, focusedView.frame.origin.x)
+            maxOriginX = max(maxOriginX, focusedView.frame.origin.x)
+            minOriginY = min(minOriginY, focusedView.frame.origin.y)
+            maxOriginY = max(maxOriginY, focusedView.frame.origin.y)
+        }
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+            if (self.scrollView.contentOffset.x + self.scrollView.bounds.width) <= maxX && (maxX - self.scrollView.bounds.width) <= minOriginX  {
+                self.scrollView.contentOffset.x = (maxX - self.scrollView.bounds.width)
+            }
+            if minOriginX < self.scrollView.contentOffset.x {
+                self.scrollView.contentOffset.x = minOriginX
+            }
+            self.scrollView.contentOffset.y = minOriginY
+        }) { _ in
+            for focusView in focuseViews {
+                (focusView as? Focusable)?.focus(with: 0.3, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .clear)
             }
         }
         fit()
-        scrollView.contentSize.width = max(scrollView.contentSize.width, maxX + scrollView.bounds.width)
-        scrollView.contentSize.height = max(scrollView.contentSize.height, maxY + scrollView.bounds.height)
+        scrollView.contentSize.width = max(scrollView.contentSize.width, maxOriginX + scrollView.bounds.width)
+        scrollView.contentSize.height = max(scrollView.contentSize.height, maxOriginY + scrollView.bounds.height)
     }
     
     func removeAllFocusableViews() {

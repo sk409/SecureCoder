@@ -19,7 +19,7 @@ class SectionSelectionViewController: UIViewController {
         view.addSubview(backButton)
         headerView.addSubview(courseTitleLabel)
         view.addSubview(sectionsTableView)
-        headerView.backgroundColor = .deepSkyBlue
+        headerView.backgroundColor = .systemBlue
         headerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),

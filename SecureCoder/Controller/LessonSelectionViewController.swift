@@ -34,7 +34,7 @@ class LessonSelectionViewController: UIViewController {
         bodyView.addSubview(sectionDescriptionTextView)
         bodyView.addSubview(experienceButton)
         bodyView.addSubview(takeMeasuresButton)
-        headerView.backgroundColor = .deepSkyBlue
+        headerView.backgroundColor = .systemBlue
         headerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -67,7 +67,7 @@ class LessonSelectionViewController: UIViewController {
             sectionDescriptionTextView.bottomAnchor.constraint(equalTo: bodyView.safeAreaLayoutGuide.bottomAnchor),
             sectionDescriptionTextView.widthAnchor.constraint(equalTo: bodyView.safeAreaLayoutGuide.widthAnchor, multiplier: 0.8),
             ])
-        experienceButton.backgroundColor = .deepSkyBlue
+        experienceButton.backgroundColor = .systemBlue
         experienceButton.setTitle("体験する", for: .normal)
         experienceButton.addTarget(self, action: #selector(transitionToLessonViewController(_:)), for: .touchUpInside)
         experienceButton.translatesAutoresizingMaskIntoConstraints = false
@@ -77,7 +77,7 @@ class LessonSelectionViewController: UIViewController {
             experienceButton.widthAnchor.constraint(equalToConstant: 88),
             experienceButton.heightAnchor.constraint(equalToConstant: 44),
             ])
-        takeMeasuresButton.backgroundColor = .deepSkyBlue
+        takeMeasuresButton.backgroundColor = .systemBlue
         takeMeasuresButton.setTitle("対策する", for: .normal)
         takeMeasuresButton.addTarget(self, action: #selector(transitionToLessonViewController(_:)), for: .touchUpInside)
         takeMeasuresButton.translatesAutoresizingMaskIntoConstraints = false

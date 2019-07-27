@@ -1,0 +1,109 @@
+{
+    "index": 0,
+    "fileName": "apply.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "これは粗大ゴミ回収の申し込みを行うWebページです。\n今回はこのサイトにあえて脆弱性を作り込むことでどのようなコードを書くと攻撃者に狙われてしまうのかを学習します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "ユーザが他のページから戻ってきた際に以前に入力した申し込み情報があれば入力欄に表示しておくことで、ユーザの負担を軽減しようとしています。\nしかし、その際に特殊文字のエスケープを行っていないためコードを直接埋め込むことが可能になってしまっています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この脆弱性によりHTMLの改ざんを行われ、ユーザが気付かないうちにクレジットカードの情報を入力してしまい攻撃者に情報を盗まれてしまう例を通してセキュアではないコーディングを学習します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "それでは実際に脆弱性のある部分を見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "<?php echo $_POST[\"address\"]; ?>",
+                "<?php echo $_POST[\"tel\"]; ?>",
+                "<?php echo $_POST[\"item\"]; ?>",
+                "<?php echo $_POST[\"num\"]; ?>"
+            ],
+            "focusComponents": [
+                [4, 5, 6]
+            ],
+            "messages": [
+                {
+                    "text": "1つは問題としてあるため空欄になっていますが、この赤枠で囲まれた部分に脆弱性があります。",
+                    "languages": []
+                },
+                {
+                    "text": "「echo $_POST[\"~\"]」の部分で特殊文字をエスケープしていないため、仮にPOSTリクエストで送られてきた値にHTMLが含まれていれば、それをそのままHTMLとして解釈してしまいます。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "今回は攻撃者にここを狙われ、HTMLの改ざんが行われます。",
+                    "languages": []
+                },
+                {
+                    "text": "なお、特殊文字のエスケープに関してよく分からない場合には同レッスンの対策編で解説していますのでそちらを参考にしてください。",
+                    "languages": []
+                },
+                {
+                    "text": "それでは実際に脆弱性を作り込んでみましょう。",
+                    "languages": []
+                },
+                {
+                    "text": "今回はPOSTリクエストで送られてきたnameの値を特殊文字のエスケープを行わずに表示します。\nなお、これから書くコードには脆弱性があるため、実際に開発を行う場合には絶対に同じコードを書かないでください。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [0],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "特殊文字のエスケープを行わずに表示しているため、直接コードを埋め込むことが可能になってしまっています。\n次は実際に攻撃を仕掛けるページを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

@@ -88,7 +88,7 @@ extension EditorComponentsBuilder: LessonTextParserDelegate {
         templateLabel.range = range
         templateLabel.line = line
         let size = template.size(withAttributes: [.font: font])
-        let x = pointer.origin.x + pointer.width + 5
+        let x = pointer.origin.x + pointer.width
         let y = pointer.origin.y
         templateLabel.frame = CGRect(x: x, y: y, width: size.width, height: size.height + 5)
         views.append(templateLabel)

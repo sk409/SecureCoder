@@ -51,7 +51,7 @@ class CourseCardCollectionViewCell: UICollectionViewCell {
         bodyView.addSubview(threatLabelsStackView)
         bodyView.addSubview(detailButton)
         bodyView.addSubview(startButton)
-        headerView.backgroundColor = .deepSkyBlue
+        headerView.backgroundColor = .systemBlue
         headerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
@@ -113,7 +113,7 @@ class CourseCardCollectionViewCell: UICollectionViewCell {
             detailButton.widthAnchor.constraint(equalToConstant: 88),
             detailButton.heightAnchor.constraint(equalToConstant: 44),
             ])
-        startButton.backgroundColor = .deepSkyBlue
+        startButton.backgroundColor = .systemBlue
         startButton.setTitle("開始", for: .normal)
         startButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

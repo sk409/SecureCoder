@@ -10,6 +10,10 @@ struct PHPSyntaxHighlighter: SyntaxHighlighterDelegate {
         let phpRegex = try! NSRegularExpression(pattern: "<\\?php.*?\\?>", options: .dotMatchesLineSeparators)
         let phpMatches = phpRegex.matches(in: text, range: NSRange(location: 0, length: (text as NSString).length))
         for phpMatch in phpMatches {
+            /************************************************/
+            // TODO: UIColor.whiteを修正する必要があるかも
+            mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.white, range: phpMatch.range)
+            /************************************************/
             mutableAttributedString.addAttributes([.foregroundColor: PHP.tagColor], range: NSRange(location: phpMatch.range.location, length: 5))
             mutableAttributedString.addAttributes([.foregroundColor: PHP.tagColor], range: NSRange(location: phpMatch.range.location + phpMatch.range.length - 2, length: 2))
         }
