@@ -1,6 +1,6 @@
 import UIKit
 
-class A: WebElementView {
+class A: WebElementButtonView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -12,18 +12,15 @@ class A: WebElementView {
         setup()
     }
     
-    func set(text: String) {
-        attributedText = NSMutableAttributedString(
-            string: text,
-            attributes: [.foregroundColor: UIColor.linkColor, .underlineColor: UIColor.linkColor, .underlineStyle: NSUnderlineStyle.single.rawValue]
-        )
+    override func set(text: String) {
+        set(attributedText: NSAttributedString(string: text, attributes: [.foregroundColor: UIColor.linkColor, .underlineColor: UIColor.linkColor, .underlineStyle: NSUnderlineStyle.single.rawValue]))
     }
     
     private func setup() {
         frame.size.height = 44
-        font = .systemFont(ofSize: 16)
         margin = .zero
         display = .inline
+        set(font: .systemFont(ofSize: 16))
     }
     
 }

@@ -262,6 +262,10 @@
                     "languages": [
                         "html"
                     ]
+                },
+                {
+                    "text": "次は、この<form>要素の送信先であるsend_mail.phpを見ていきましょう。",
+                    "languages": ["html"]
                 }
             ]
         }

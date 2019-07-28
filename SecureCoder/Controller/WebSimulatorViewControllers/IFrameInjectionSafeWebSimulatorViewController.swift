@@ -22,9 +22,9 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
             code: "<a href=\"http://www.safe.co.jp/welcome.php?name=<script src=http://www.trap.cp.jp/iframe_injection.js></script>\">\n    このサイト本当に面白い!!\n</a>",
             language: .html
         )
-        trapButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(showTrapButtonDisabledMessage(_:))))
-        welcomeLabel.text = "ようこそ脆弱株式会社へ"
-        nameLabel.text = "<script src=\"http://www.trap.cp.jp/iframe_injection.js\"></script>さん"
+        trapButton.button.addTarget(self, action: #selector(showTrapButtonDisabledMessage(_:)), for: .touchUpInside)
+        welcomeLabel.set(text: "ようこそ脆弱株式会社へ")
+        nameLabel.set(text: "<script src=\"http://www.trap.cp.jp/iframe_injection.js\"></script>さん")
         nameLabel.set(
             code: "<p><?php echo htmlspecialchars($_GET[\"name\"], ENT_QUOTES); ?>さん</p>",
             language: .php
@@ -32,8 +32,8 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
     }
     
     private func showTrap() {
-        webSimulatorView.clear()
-        webSimulatorView.appendElement(trapButton)
+        body.clear()
+        body.append(element: trapButton)
         clearGuideSections()
         appendGuideSection([GuideText(text: "これが攻撃者が用意した罠サイトです。")])
         appendGuideSection([
@@ -50,26 +50,32 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
                 text: "しかし、今回は特殊文字のエスケープを行なっているため、「<script src=http://www.trap.cp.jp/iframe_injection.js></script>」はHTML要素としてではなく、単純な文字列として解釈されます。",
                 programingLanguages: [.html]),
             ],
-                           onEnter: {
-                            self.focus(on: self.trapButton)
+                           onEnter: { completion in
+                            self.focus(on: self.trapButton) {
+                                completion?()
+                            }
+        }, onExit: { completion in
+            self.unfocus(elementView: self.trapButton) {
+                completion?()
+            }
         })
         appendGuideSection(
             [GuideText(text: "それでは実際にこのリンクをタップしてリンク先に遷移してみましょう。")],
-            onEnter: {
-                self.unfocusAll()
-                self.trapButton.gestureRecognizers?.forEach { self.trapButton.removeGestureRecognizer($0) }
-                self.trapButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleTrapButtonToShowWelcome(_:))))
+            onEnter: { completion in
+                self.trapButton.button.removeTarget(self, action: #selector(self.showTrapButtonDisabledMessage(_:)), for: .touchUpInside)
+                self.trapButton.button.addTarget(self, action: #selector(self.handleTrapButtonToShowWelcome(_:)), for: .touchUpInside)
+                completion?()
         })
         removeCloseButton()
         guideMessageCollectionView.reloadData()
         guideMessageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
-        showGuideMessageCollectionView(completion: nil)
+        showGuideMessageCollectionView()
     }
     
     private func showWelcome() {
-        webSimulatorView.clear()
-        webSimulatorView.appendElement(welcomeLabel)
-        webSimulatorView.appendElement(nameLabel)
+        body.clear()
+        body.append(element: welcomeLabel)
+        body.append(element: nameLabel)
         clearGuideSections()
         appendGuideSection([
             GuideText(text: "これがリンク先のWebサイトです。"),
@@ -96,15 +102,18 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
                 text: "Webアプリケーションの開発においては、ユーザから受け取った値を表示する場合は、今回行ったようにまずエスケープ処理を行いその後に表示するようにしましょう。"
             )
             ],
-                           onEnter: {
-                            self.focus(on: self.nameLabel)
+                           onEnter: { completion in
+                            self.focus(on: self.nameLabel) {
+                                completion?()
+                            }
+        }, onExit: { completion in
+            self.unfocus(elementView: self.nameLabel) {
+                completion?()
+            }
         })
         appendGuideSection([
             GuideText(text: "それでは今回のレッスンはこれで終了です。\n他の攻撃手法についても様々なレッスンを用意していますので、そちらも参考にしてみてください。\nお疲れ様でした。")
-            ],
-                           onEnter: {
-                            self.unfocusAll()
-        })
+            ])
         addCloseButton()
         guideMessageCollectionView.reloadData()
         guideMessageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
@@ -120,8 +129,9 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
     @objc
     private func handleTrapButtonToShowWelcome(_ sender: UIButton) {
         hideGuideMessageCollectionView {
-            self.unfocusAll(with: 0)
-            self.showWelcome()
+            self.unfocusAll() {
+                self.showWelcome()
+            }
         }
     }
     

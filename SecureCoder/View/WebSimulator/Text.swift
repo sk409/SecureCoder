@@ -1,6 +1,6 @@
 import UIKit
 
-class Text: WebElementView {
+class Text: WebElementLabelView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -14,9 +14,9 @@ class Text: WebElementView {
     
     private func setup() {
         frame.size.height = 44
-        font = .systemFont(ofSize: 16)
         margin = .zero
         display = .inline
+        set(font: .systemFont(ofSize: 16))
     }
     
 }

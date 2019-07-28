@@ -1,5 +1,84 @@
 {
     "index": 2,
     "fileName": "send_mail.php",
-    "explainers": []
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "これがユーザが入力したクレジットカードの情報を攻撃者にメールで送信するsend_mail.phpです。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "$name = $_POST[\"name\"];",
+                "$card_number = $_POST[\"card_number\"];",
+                "$expiration_date = $_POST[\"expiration_date\"];"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でユーザのクレジットカード情報を取得しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "function sendMail($name, $card_number, $expiration_date) {\n    // ここで攻撃者にクレジットカード情報を送信します。\n}",
+                "sendMail($name, $card_number, $expiration_date);"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でユーザのクレジットカード情報を攻撃者にメールで送信することによって攻撃が完了します。\n今回はサンプルであるため実際にメールを送信する処理は記述していません。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+                "echo \"カード名義: \", $name;",
+                "echo \"カード番号: \", $card_number;",
+                "echo \"有効期限: \", $expiration_date;"
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "今回は分かりやすさを狙って取得したユーザのクレジットカード情報を表示していますが、攻撃者が実際に取得したユーザの情報を表示することはありません。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [
+            ],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "各ファイルの説明は以上です。\nそれではプレビューを確認し、攻撃の流れを見てみましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
 }

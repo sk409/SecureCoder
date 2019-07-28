@@ -1,6 +1,6 @@
 import UIKit
 
-class WebElementView: UILabel {
+class WebElementView: UIView {
     
     enum Display {
         case inline
@@ -14,6 +14,10 @@ class WebElementView: UILabel {
     var display = Display.block
     
     let codeLabel = CodeLabel()
+    
+    var fitSize: CGSize {
+        return bounds.size
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -96,10 +100,10 @@ class WebElementView: UILabel {
         }
     }
     
-    func set(code: String, language: ProgramingLanguage) {
+    func set(code: String, language: ProgramingLanguage, force: Bool = true) {
         var syntaxHighlighter = SyntaxHighlighter(tintColor: .white, font: .boldSystemFont(ofSize: 16))
         syntaxHighlighter.programingLanguage = language
-        if language == .php {
+        if language == .php && force {
             var phpSyntaxHighlighter = PHPSyntaxHighlighter()
             phpSyntaxHighlighter.force = true
             syntaxHighlighter.delegate = phpSyntaxHighlighter
@@ -109,7 +113,7 @@ class WebElementView: UILabel {
     }
     
     private func setupViews() {
-        isUserInteractionEnabled = true
+        backgroundColor = .white
         addSubview(codeLabel)
         codeLabel.backgroundColor = .black
     }

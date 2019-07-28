@@ -5,9 +5,9 @@ class WebSimulatorViewController: UIViewController {
     struct GuideSection {
         var isActive = false
         let attributedTexts: [NSMutableAttributedString]
-        let onEnter: (() -> Void)?
-        let onExit: (() -> Void)?
-        init(attributedTexts: [NSMutableAttributedString], onEnter: (() -> Void)?, onExit: (() -> Void)?) {
+        let onEnter: (((() -> Void)?) -> Void)?
+        let onExit: (((() -> Void)?) -> Void)?
+        init(attributedTexts: [NSMutableAttributedString], onEnter: (((() -> Void)?) -> Void)?, onExit: (((() -> Void)?) -> Void)?) {
             self.attributedTexts = attributedTexts
             self.onEnter = onEnter
             self.onExit = onExit
@@ -34,7 +34,7 @@ class WebSimulatorViewController: UIViewController {
     private static let guideMessageCollectionViewTextCellId = "guideMessageCollectionViewTextCellId"
     private static let guideMessageCollectionViewButtonCellId = "guideMessageCollectionViewButtonCellId"
     
-    let webSimulatorView = WebSimulatorView()
+    let body = Body()
     let guideMessageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -62,7 +62,7 @@ class WebSimulatorViewController: UIViewController {
         )
         UIView.animate(withDuration: 0.5, animations: {
             self.guideMessageCollectionView.frame.origin.y = window.safeAreaLayoutGuide.layoutFrame.height - self.guideMessageCollectionView.bounds.height
-            self.webSimulatorView.contentView.contentSize.height += self.guideMessageCollectionView.bounds.height
+            self.body.scrollView.contentSize.height += self.guideMessageCollectionView.bounds.height
         }) { _ in
             completion?()
         }
@@ -74,7 +74,7 @@ class WebSimulatorViewController: UIViewController {
         }
         UIView.animate(withDuration: 0.5, animations: {
             self.guideMessageCollectionView.frame.origin.y = window.frame.height
-            self.webSimulatorView.contentView.contentSize.height -= self.guideMessageCollectionView.bounds.height
+            self.body.scrollView.contentSize.height -= self.guideMessageCollectionView.bounds.height
         }) { _ in
             self.guideMessageCollectionView.removeFromSuperview()
             completion?()
@@ -98,18 +98,18 @@ class WebSimulatorViewController: UIViewController {
             return
         }
         let elementViewFrame: CGRect
-        if webSimulatorView.elements.contains(elementView) {
+        if body.elements.contains(elementView) {
             elementViewFrame = elementView.frame
         } else {
             if let superView = elementView.superview {
-                elementViewFrame = superView.convert(elementView.frame, to: webSimulatorView.contentView)
+                elementViewFrame = superView.convert(elementView.frame, to: body.scrollView)
             } else {
                 elementViewFrame = .zero
             }
         }
-        guideMessageCollectionView.isScrollEnabled = false
+        //guideMessageCollectionView.isScrollEnabled = false
         UIView.animate(withDuration: duration, animations: {
-            self.webSimulatorView.contentView.contentOffset.y = elementViewFrame.origin.y
+            self.body.scrollView.contentOffset.y = elementViewFrame.origin.y
         }) { _ in
             defer {
                 self.guideMessageCollectionView.isScrollEnabled = true
@@ -144,7 +144,7 @@ class WebSimulatorViewController: UIViewController {
         elementView.removeFromSuperview()
         elementView.frame.origin.y = elementView.cache["frame.origin.y"] as! CGFloat
         superview.addSubview(elementView)
-        guideMessageCollectionView.isScrollEnabled = false
+        //guideMessageCollectionView.isScrollEnabled = false
         UIView.animate(withDuration: duration, animations: {
             self.blackOutScrollView.alpha = 0
         }) { _ in
@@ -157,12 +157,26 @@ class WebSimulatorViewController: UIViewController {
         }
     }
     
-    func unfocusAll(with duration: TimeInterval = 0.5) {
+    func unfocusAll(with duration: TimeInterval = 0.5, completion: (() -> Void)? = nil) {
+        var focusedWebElementViews = [WebElementView]()
         for focusedView in blackOutScrollView.subviews {
-            guard let focusedElementView = focusedView as? WebElementView else {
+            guard let focusedWebElementView = focusedView as? WebElementView else {
                 continue
             }
-            unfocus(elementView: focusedElementView)
+            focusedWebElementViews.append(focusedWebElementView)
+        }
+        guard !focusedWebElementViews.isEmpty else {
+            completion?()
+            return
+        }
+        var finished = 0
+        for focuedWebElementView in focusedWebElementViews {
+            unfocus(elementView: focuedWebElementView) {
+                finished += 1
+                if finished == focusedWebElementViews.count {
+                    completion?()
+                }
+            }
         }
     }
     
@@ -170,10 +184,7 @@ class WebSimulatorViewController: UIViewController {
         guideSections.removeAll(keepingCapacity: true)
     }
     
-    func appendGuideSection(_ guideTexts: [GuideText], onEnter: (() -> Void)? = nil, onExit: (() -> Void)? = nil) {
-        if onExit != nil {
-            fatalError()
-        }
+    func appendGuideSection(_ guideTexts: [GuideText], onEnter: (((() -> Void)?) -> Void)? = nil, onExit: (((() -> Void)?) -> Void)? = nil) {
         var attributedTexts = [NSMutableAttributedString]()
         var syntaxHighlighter = SyntaxHighlighter()
         for guideText in guideTexts {
@@ -193,11 +204,17 @@ class WebSimulatorViewController: UIViewController {
     }
     
     func addCloseButton() {
+        guard !isAddedCloseButton else {
+            return
+        }
         isAddedCloseButton = true
         guideMessageCollectionView.reloadData()
     }
     
     func removeCloseButton() {
+        guard isAddedCloseButton else {
+            return
+        }
         isAddedCloseButton = false
         guideMessageCollectionView.reloadData()
     }
@@ -270,13 +287,14 @@ class WebSimulatorViewController: UIViewController {
 //    }
     
     private func setupViews() {
-        view.addSubview(webSimulatorView)
-        webSimulatorView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(body)
+        body.margin = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        body.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            webSimulatorView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            webSimulatorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            webSimulatorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            webSimulatorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            body.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            body.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            body.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            body.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             ])
         guideMessageCollectionView.isPagingEnabled = true
         guideMessageCollectionView.dataSource = self
@@ -350,15 +368,34 @@ extension WebSimulatorViewController: UICollectionViewDataSource, UICollectionVi
             }
             section += 1
         }
+        var onEnter: (((() -> Void)?) -> Void)?
+        var onExit: (((() -> Void)?) -> Void)?
         for (index, guideSection) in guideSections.enumerated() {
             if !guideSection.isActive && index == section {
                 guideSections[index].isActive = true
-                unfocusAll(with: 0)
-                guideSection.onEnter?()
+                //unfocusAll(with: 0)
+                onEnter = guideSection.onEnter
             }
             else if guideSection.isActive && index != section {
-                guideSection.onExit?()
                 guideSections[index].isActive = false
+                onExit = guideSection.onExit
+            }
+        }
+        if onExit != nil {
+            guideMessageCollectionView.isScrollEnabled = false
+            onExit?() {
+                if onEnter == nil {
+                    self.guideMessageCollectionView.isScrollEnabled = true
+                } else {
+                    onEnter?() {
+                        self.guideMessageCollectionView.isScrollEnabled = true
+                    }
+                }
+            }
+        } else if onEnter != nil {
+            guideMessageCollectionView.isScrollEnabled = false
+            onEnter?() {
+                self.guideMessageCollectionView.isScrollEnabled = true
             }
         }
     }

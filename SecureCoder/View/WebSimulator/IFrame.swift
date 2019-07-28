@@ -2,7 +2,7 @@ import UIKit
 
 class IFrame: WebElementView {
     
-    var webSimulatorView: WebSimulatorView? {
+    var webSimulatorView: WebElementContainerView? {
         willSet {
             webSimulatorView?.removeFromSuperview()
         }
@@ -36,7 +36,7 @@ class IFrame: WebElementView {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
         margin = .zero
-        display = .block
+        display = .inline
     }
     
 }

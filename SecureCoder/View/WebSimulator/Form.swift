@@ -1,6 +1,6 @@
 import UIKit
 
-class P: WebElementLabelView {
+class Form: WebElementContainerView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -13,10 +13,7 @@ class P: WebElementLabelView {
     }
     
     private func setupViews() {
-        frame.size.height = 58
-        margin = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-        display = .block
-        set(font: .systemFont(ofSize: 16))
+        scrollView.isScrollEnabled = false
     }
     
 }
