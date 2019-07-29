@@ -50,10 +50,17 @@ struct SyntaxHighlighter {
 //            attributes[.paragraphStyle] = paragraphStyle
 //        }
 //        return syntaxHighlight(NSMutableAttributedString(string: text, attributes: attributes))
-        guard let tintColor = tintColor, let font = font else {
-            return NSMutableAttributedString()
+//        guard let tintColor = tintColor, let font = font else {
+//            return NSMutableAttributedString()
+//        }
+//        return delegate?.syntaxHighlight(text, tintColor: tintColor, font: font, lineSpacing: lineSpacing) ?? NSMutableAttributedString(string: "")
+        var attributes = [NSMutableAttributedString.Key.foregroundColor: tintColor, .font: font]
+        if let lineSpacing = lineSpacing {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = lineSpacing
+            attributes[.paragraphStyle] = paragraphStyle
         }
-        return delegate?.syntaxHighlight(text, tintColor: tintColor, font: font, lineSpacing: lineSpacing) ?? NSMutableAttributedString(string: "")
+        return delegate?.syntaxHighlight(NSMutableAttributedString(string: text, attributes: attributes as [NSAttributedString.Key : Any])) ?? NSMutableAttributedString(string: text, attributes: attributes as [NSAttributedString.Key : Any])
     }
     
     func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString) -> NSMutableAttributedString {

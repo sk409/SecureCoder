@@ -6,6 +6,9 @@ struct PHPSyntaxHighlighter: SyntaxHighlighterDelegate {
     var force = false
     
     func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString) -> NSMutableAttributedString {
+        var htmlSyntaxHighlighter = SyntaxHighlighter()
+        htmlSyntaxHighlighter.programingLanguage = .html
+        let mutableAttributedString = htmlSyntaxHighlighter.syntaxHighlight(mutableAttributedString)
         let text = mutableAttributedString.string
         let phpRegex = try! NSRegularExpression(pattern: "<\\?php.*?\\?>", options: .dotMatchesLineSeparators)
         let phpMatches = phpRegex.matches(in: text, range: NSRange(location: 0, length: (text as NSString).length))
@@ -28,12 +31,13 @@ struct PHPSyntaxHighlighter: SyntaxHighlighterDelegate {
         return mutableAttributedString
     }
     
-    func syntaxHighlight(_ text: String, tintColor: UIColor, font: UIFont, lineSpacing: CGFloat?) -> NSMutableAttributedString {
-        var htmlSyntaxHighlighter = SyntaxHighlighter(tintColor: tintColor, font: font, lineSpacing: lineSpacing)
-        htmlSyntaxHighlighter.programingLanguage = .html
-        let mutableAttributedString = htmlSyntaxHighlighter.syntaxHighlight(text)
-        return syntaxHighlight(mutableAttributedString)
-    }
+//    func syntaxHighlight(_ text: String, tintColor: UIColor, font: UIFont, lineSpacing: CGFloat?) -> NSMutableAttributedString {
+//        var htmlSyntaxHighlighter = SyntaxHighlighter(tintColor: tintColor, font: font, lineSpacing: lineSpacing)
+//        htmlSyntaxHighlighter.programingLanguage = .html
+//        let mutableAttributedString = htmlSyntaxHighlighter.syntaxHighlight(text)
+//        return syntaxHighlight(mutableAttributedString)
+////        return syntaxHighlight(NSMutableAttributedString(string: text))
+//    }
     
     private func execute(_ mutableAttributedString: NSMutableAttributedString, range: NSRange) {
         let text = mutableAttributedString.string

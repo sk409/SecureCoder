@@ -31,6 +31,8 @@ class WebElementContainerView: WebElementView {
     func clear() {
         pointer = CGPoint(x: margin.left, y: margin.top)
         scrollView.subviews.forEach { $0.removeFromSuperview() }
+        scrollView.contentOffset = .zero
+        scrollView.contentSize = .zero
     }
     
     func seekToTop() {

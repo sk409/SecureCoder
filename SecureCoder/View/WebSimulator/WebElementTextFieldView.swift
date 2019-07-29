@@ -16,6 +16,7 @@ class WebElementTextFieldView: WebElementView {
     
     private func setupViews() {
         addSubview(textField)
+        textField.clearButtonMode = .whileEditing
         textField.borderStyle = .roundedRect
         textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([

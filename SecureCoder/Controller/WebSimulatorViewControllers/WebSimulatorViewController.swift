@@ -16,6 +16,7 @@ class WebSimulatorViewController: UIViewController {
     
     struct GuideText {
         
+        var force = true
         let text: String
         let programingLanguages: [ProgramingLanguage]
         
@@ -24,8 +25,9 @@ class WebSimulatorViewController: UIViewController {
             programingLanguages = []
         }
         
-        init(text: String, programingLanguages: [ProgramingLanguage]) {
+        init(text: String, force: Bool = true, programingLanguages: [ProgramingLanguage]) {
             self.text = text
+            self.force = force
             self.programingLanguages = programingLanguages
         }
         
@@ -48,6 +50,7 @@ class WebSimulatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        registerObservers()
     }
     
     func showGuideMessageCollectionView(completion: (() -> Void)? = nil) {
@@ -94,9 +97,9 @@ class WebSimulatorViewController: UIViewController {
 //    }
     
     func focus(on elementView: WebElementView, with duration: TimeInterval = 0.5, completion: (() -> Void)? = nil) {
-        guard let window = UIApplication.shared.keyWindow else {
-            return
-        }
+//        guard let window = UIApplication.shared.keyWindow else {
+//            return
+//        }
         let elementViewFrame: CGRect
         if body.elements.contains(elementView) {
             elementViewFrame = elementView.frame
@@ -120,7 +123,7 @@ class WebSimulatorViewController: UIViewController {
             elementView.focus()
             elementView.frame.origin.y = 0
             self.blackOutScrollView.alpha = 1
-            self.blackOutScrollView.frame = window.safeAreaLayoutGuide.layoutFrame
+            self.blackOutScrollView.frame = self.view.safeAreaLayoutGuide.layoutFrame
             self.blackOutScrollView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
             self.blackOutScrollView.contentSize.width = max(elementViewFrame.maxX, elementView.codeLabel.frame.maxX + elementView.frame.origin.x)
             self.blackOutScrollView.contentSize.height = max(elementViewFrame.maxY, elementView.codeLabel.frame.maxY + elementView.frame.origin.y)
@@ -128,9 +131,9 @@ class WebSimulatorViewController: UIViewController {
             let buffer = CGSize(width: 8, height: 8)
             self.blackOutScrollView.contentSize.width += buffer.width
             self.blackOutScrollView.contentSize.height += buffer.height
-            window.addSubview(self.blackOutScrollView)
+            self.view.addSubview(self.blackOutScrollView)
             self.blackOutScrollView.addSubview(elementView)
-            window.bringSubviewToFront(self.guideMessageCollectionView)
+            self.view.bringSubviewToFront(self.guideMessageCollectionView)
             completion?()
         }
     }
@@ -148,9 +151,9 @@ class WebSimulatorViewController: UIViewController {
         UIView.animate(withDuration: duration, animations: {
             self.blackOutScrollView.alpha = 0
         }) { _ in
-            defer {
-                self.guideMessageCollectionView.isScrollEnabled = true
-            }
+//            defer {
+//                self.guideMessageCollectionView.isScrollEnabled = true
+//            }
             self.blackOutScrollView.removeFromSuperview()
             elementView.unfocus()
             completion?()
@@ -193,7 +196,7 @@ class WebSimulatorViewController: UIViewController {
                 syntaxHighlighter.programingLanguage = programingLanguage
                 if programingLanguage == .php {
                     var phpSyntaxHighlighter = PHPSyntaxHighlighter()
-                    phpSyntaxHighlighter.force = true
+                    phpSyntaxHighlighter.force = guideText.force
                     syntaxHighlighter.delegate = phpSyntaxHighlighter
                 }
                 _ = syntaxHighlighter.syntaxHighlight(attributedText)
@@ -288,6 +291,7 @@ class WebSimulatorViewController: UIViewController {
     
     private func setupViews() {
         view.addSubview(body)
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:))))
         body.margin = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         body.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -305,11 +309,45 @@ class WebSimulatorViewController: UIViewController {
         guideMessageCollectionView.register(GuideMessageCollectionViewButtonCell.self, forCellWithReuseIdentifier: WebSimulatorViewController.guideMessageCollectionViewButtonCellId)
     }
     
+    private func registerObservers() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(observeKeyboardNotification(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(observeKeyboardNotification(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc
+    private func handleTapGestureRecognizer(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+    }
+    
     @objc
     private func handleCloseButton(_ sender: UIButton) {
         guideMessageCollectionView.removeFromSuperview()
         presentingViewController?.presentingViewController?.dismiss(animated: true)
     }
+    
+//    @objc
+//    private func observeKeyboardNotification(_ notification: Notification) {
+//        guard let userInfo = notification.userInfo else {
+//            return
+//        }
+//        guard let keyboardRect = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
+//            return
+//        }
+//        guard let animationDuration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {
+//            return
+//        }
+//        let keyboardHeight = keyboardRect.cgRectValue.height
+//        UIView.animate(withDuration: animationDuration) {
+//            if notification.name == UIResponder.keyboardWillShowNotification {
+//                self.body.scrollView.contentSize.height += keyboardHeight
+//                self.blackOutScrollView.contentSize.height += keyboardHeight
+//            } else if notification.name == UIResponder.keyboardWillHideNotification {
+//                self.body.scrollView.contentSize.height -= keyboardHeight
+//                self.blackOutScrollView.contentSize.height -= keyboardHeight
+//            }
+//
+//        }
+//    }
     
 }
 
@@ -329,6 +367,7 @@ extension WebSimulatorViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section < guideSections.count {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WebSimulatorViewController.guideMessageCollectionViewTextCellId, for: indexPath) as! GuideMessageCollectionViewTextCell
+            cell.textView.setContentOffset(.zero, animated: false)
             cell.textView.attributedText = guideSections[indexPath.section].attributedTexts[indexPath.item]
             return cell
         } else {

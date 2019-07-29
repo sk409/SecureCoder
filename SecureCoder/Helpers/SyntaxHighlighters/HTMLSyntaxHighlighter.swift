@@ -41,15 +41,31 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
         for escapeMatch in escapeMathces {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.escapeColor, range: escapeMatch.range)
         }
-        let commentRegex = try! NSRegularExpression(pattern: "<!--.*?-->")
-        let commentMatches = commentRegex.matches(in: text, range: fullRange)
-        for commentMatch in commentMatches {
-            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.commentColor, range: commentMatch.range)
-        }
         let stringRegex = try! NSRegularExpression(pattern: "\".*?\"|'.*'", options: .dotMatchesLineSeparators)
         let stringMatches = stringRegex.matches(in: text, range: fullRange)
         for stringMatch in stringMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: stringMatch.range)
+        }
+        let commentRegex = try! NSRegularExpression(pattern: "<!--.*?-->", options: .dotMatchesLineSeparators)
+        let commentMatches = commentRegex.matches(in: text, range: fullRange)
+        for commentMatch in commentMatches {
+            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.commentColor, range: commentMatch.range)
+        }
+        let commentRegex2 = try! NSRegularExpression(pattern: "(?!.*-->)<!--.*\\z", options: .dotMatchesLineSeparators)
+        let commentMatches2 = commentRegex2.matches(in: text, range: fullRange)
+        for commentMatch in commentMatches2 {
+            /*******************************************/
+            // ダブルクォーテーションの中にシングルクォーテーションが入っている場合を考慮していないため多少手抜き
+            let singleQuotesCount = text[0..<commentMatch.range.location].filter { $0 == "'"}.count
+            guard singleQuotesCount.isMultiple(of: 2) else {
+                continue
+            }
+            let doubleQuotesCount = text[0..<commentMatch.range.location].filter { $0 == "\"" }.count
+            guard doubleQuotesCount.isMultiple(of: 2) else {
+                continue
+            }
+            /*******************************************/
+            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.commentColor, range: commentMatch.range)
         }
         return mutableAttributedString
     }
