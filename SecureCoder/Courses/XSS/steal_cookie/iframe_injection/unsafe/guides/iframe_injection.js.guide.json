@@ -38,19 +38,6 @@
             },
             {
                 "questionIndices": [],
-                "focusLabels": ["iframe.width = 320", "iframe.height = 320"],
-                "focusComponents": [
-                    []
-                ],
-                "messages": [
-                    {
-                        "text": "今回は分かりやすさを狙って<iframe>要素にwidth, heightを指定して、実際に画面に表示しようとしていますが本来であれば攻撃者はこの<iframe>要素の表示を隠すことによって攻撃を隠蔽します。",
-                        "languages": ["html"]
-                    }
-                ]
-            },
-            {
-                "questionIndices": [],
                 "focusLabels": [
                     "document.body.appendChild(iframe);"
                 ],

