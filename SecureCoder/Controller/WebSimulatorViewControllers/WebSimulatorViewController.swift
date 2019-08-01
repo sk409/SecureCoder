@@ -43,6 +43,11 @@ class WebSimulatorViewController: UIViewController {
         return layout
     }())
     
+    /******************************/
+    // guieMessageCollectionViewを表示しようとした時と非表示しようとした時に
+    // focuseしているかどうかが一致しているかを判定するためのテスト用フラグ
+    private var focusedFlag = false
+    /******************************/
     private var isAddedCloseButton = false
     private var guideSections = [GuideSection]()
     private let blackOutScrollView = UIScrollView()
@@ -54,30 +59,42 @@ class WebSimulatorViewController: UIViewController {
     }
     
     func showGuideMessageCollectionView(completion: (() -> Void)? = nil) {
-        guard let window = UIApplication.shared.keyWindow else {
-            return
-        }
-        window.addSubview(guideMessageCollectionView)
-        guideMessageCollectionView.frame.origin.x = window.safeAreaInsets.left
+//        guard let window = UIApplication.shared.keyWindow else {
+//            return
+//        }
+//        window.addSubview(guideMessageCollectionView)
+        view.addSubview(guideMessageCollectionView)
+        guideMessageCollectionView.frame.origin.x = view.safeAreaInsets.left
         guideMessageCollectionView.frame.size = CGSize(
-            width: window.safeAreaLayoutGuide.layoutFrame.width,
-            height: window.safeAreaLayoutGuide.layoutFrame.height * 0.4
+            width: view.safeAreaLayoutGuide.layoutFrame.width,
+            height: view.safeAreaLayoutGuide.layoutFrame.height * 0.4
         )
+        let focused = view.subviews.contains(blackOutScrollView)
+        if focused != focusedFlag {
+            //fatalError("bodyのscrollViewのcontentSizeがおかしくなります")
+            Application.print("bodyのscrollViewのcontentSizeがおかしくなります")
+        }
         UIView.animate(withDuration: 0.5, animations: {
-            self.guideMessageCollectionView.frame.origin.y = window.safeAreaLayoutGuide.layoutFrame.height - self.guideMessageCollectionView.bounds.height
-            self.body.scrollView.contentSize.height += self.guideMessageCollectionView.bounds.height
+            self.guideMessageCollectionView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.height - self.guideMessageCollectionView.bounds.height
+            if !focused {
+                self.body.scrollView.contentSize.height += self.guideMessageCollectionView.bounds.height
+            }
         }) { _ in
             completion?()
         }
     }
     
     func hideGuideMessageCollectionView(completion: (() -> Void)? = nil) {
-        guard let window = UIApplication.shared.keyWindow else {
-            return
-        }
+//        guard let window = UIApplication.shared.keyWindow else {
+//            return
+//        }
+        let focused = view.subviews.contains(blackOutScrollView)
+        focusedFlag = focused
         UIView.animate(withDuration: 0.5, animations: {
-            self.guideMessageCollectionView.frame.origin.y = window.frame.height
-            self.body.scrollView.contentSize.height -= self.guideMessageCollectionView.bounds.height
+            self.guideMessageCollectionView.frame.origin.y = self.view.bounds.height
+            if !focused {
+                self.body.scrollView.contentSize.height -= self.guideMessageCollectionView.bounds.height
+            }
         }) { _ in
             self.guideMessageCollectionView.removeFromSuperview()
             completion?()
@@ -124,6 +141,7 @@ class WebSimulatorViewController: UIViewController {
             elementView.frame.origin.y = 0
             self.blackOutScrollView.alpha = 1
             self.blackOutScrollView.frame = self.view.safeAreaLayoutGuide.layoutFrame
+            self.blackOutScrollView.contentOffset = .zero
             self.blackOutScrollView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
             self.blackOutScrollView.contentSize.width = max(elementViewFrame.maxX, elementView.codeLabel.frame.maxX + elementView.frame.origin.x)
             self.blackOutScrollView.contentSize.height = max(elementViewFrame.maxY, elementView.codeLabel.frame.maxY + elementView.frame.origin.y)
@@ -288,6 +306,11 @@ class WebSimulatorViewController: UIViewController {
 //            self.contentView.contentSize.width = maxX
 //        }
 //    }
+    
+    @objc
+    func handleDisabledButton(_ sender: UIButton) {
+        NotificationMessage.send(text: "全ての説明文を読むまでは次の画面に遷移できません。", axisX: .right, axisY: .center, size: nil, font: .boldSystemFont(ofSize: 18), textColor: .white, backgroundColor: .red, lifeSeconds: 2)
+    }
     
     private func setupViews() {
         view.addSubview(body)

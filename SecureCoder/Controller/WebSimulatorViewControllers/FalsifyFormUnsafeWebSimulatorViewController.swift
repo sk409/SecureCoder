@@ -34,14 +34,14 @@ class FalsifyFormUnsafeWebSimulatorViewController: WebSimulatorViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        //showTrap()
-        showApply()
+        showTrap()
+//        showApply()
 //        showSendMail()
         
     }
     
     private func setupViews() {
-        trapA.set(text: "脆弱市の粗大ゴミ改修費用がクレジットカードで支払えるようになりました!!これは便利です!!")
+        trapA.set(text: "脆弱市の粗大ゴミ回収費用がクレジットカードで支払えるようになりました!!これは便利です!!")
         trapA.set(code: "<input\n style=\"cursor:pointer;text-decoration:underline;color:blue;border:none;background:transparent;font-size:100%;\"\n type=\"submit\"\n value=\"脆弱市の粗大ゴミ改修費用がクレジットカードで支払えるようになりました!!これは便利です!!\"\n>", language: .html)
         trapA.button.addTarget(self, action: #selector(handleDisabledButton(_:)), for: .touchUpInside)
         oldTitleH1.set(text: "脆弱市 粗大ゴミ申し込みページ")
@@ -69,7 +69,7 @@ class FalsifyFormUnsafeWebSimulatorViewController: WebSimulatorViewController {
         applyButton.set(text: "申し込む")
         applyButton.button.addTarget(self, action: #selector(handleDisabledButton(_:)), for: .touchUpInside)
         thankH1.set(text: "ご登録ありがとうございました。")
-        thankH1.set(code: "<p>ご登録ありがとうございました。</p>", language: .html)
+        thankH1.set(code: "<h1>ご登録ありがとうございました。</h1>", language: .html)
         div2.set(code: """
 echo "カード名義: ", $name;
 echo "<br>";
@@ -294,7 +294,7 @@ sendMail($name, $card_number, $expiration_date);
 """, programingLanguages: [.php])
             ])
         appendGuideSection([
-            GuideText(text: "ユーザが攻撃に気づかないように「ご登録ありがとうございました」という、いかにもそれらしい<p>要素があります。", programingLanguages: [.html])
+            GuideText(text: "ユーザが攻撃に気づかないように「ご登録ありがとうございました」という、いかにもそれらしい<h1>要素があります。", programingLanguages: [.html])
             ], onEnter: { completion in
                 self.focus(on: self.thankH1) {
                     completion?()
@@ -335,11 +335,6 @@ sendMail($name, $card_number, $expiration_date);
         if self.expirationInput.textField.text == nil || self.expirationInput.textField.text!.isEmpty {
             self.expirationInput.textField.text = "0000-00-00"
         }
-    }
-    
-    @objc
-    private func handleDisabledButton(_ sender: UIButton) {
-        NotificationMessage.send(text: "全ての説明文を読むまでは次の画面に遷移できません。", axisX: .right, axisY: .center, size: nil, font: .boldSystemFont(ofSize: 18), textColor: .white, backgroundColor: .red, lifeSeconds: 2)
     }
     
     @objc

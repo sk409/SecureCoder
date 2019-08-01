@@ -267,6 +267,8 @@ struct Application {
                                                                 }
                                                             }
                                                         } else if contentInLessonDirectory == "guides" {
+//                                                            Swift.print(sectionDirectoryName)
+//                                                            Swift.print(lessonTitle)
                                                             let guideDirectoryURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
                                                             if let guideJSONNames = try? FileManager.default.contentsOfDirectory(atPath: guideDirectoryURL.path)
                                                             {

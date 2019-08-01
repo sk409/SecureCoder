@@ -11,6 +11,10 @@ struct KeyboardViewFactory {
             return KeyboardIFrameInjectionSafeWelcome0View()
         case "falsify_form_unsafe_apply.php_0":
             return KeyboardFalsifyFormUnsafeApply0View()
+        case "falsify_form_safe_apply.php_0":
+            return KeyboardFalsifyFormSafeApply0View()
+        case "no_quotes_unsafe_welcome.php_0":
+            return KeyboardNoQuotesUnsafeWelcome0View()
         default:
             return nil
         }

@@ -1,0 +1,88 @@
+{
+    "index": 1,
+    "fileName": "trap.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "これが先ほどの脆弱なWebページに攻撃を仕掛けるスクリプトです。\nなお、実際にこれから見ていくようなコードを用いて実在するWebサイトを攻撃するようなことは絶対にしないでください。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [1]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほどのWebページで見た<input>要素に設定したvalue属性に渡す値を生成しています。\nurlencodeは引数に渡された文字列をクエリ文字列で使用できる形式に変換します",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "今回は、GETリクエストのnameの値に「1 onclick=alert('クレジットカード情報が流出しました')」を設定しようとしています。",
+                    "languages": []
+                },
+                {
+                    "text": "この値について解説していきます。",
+                    "languages": []
+                },
+                {
+                    "text": "まず、最初の「1」はvalue属性に適当な値を設定しています。\n続いてスペースが記述されているためvalue属性は終了したと判定されます。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "次に記述されている「onclick=alert('クレジットカード情報が流出しました')」が新たな属性として解釈されます。",
+                    "languages": []
+                },
+                {
+                    "text": "具体的には、この値が設定された後の<input>要素は以下のようになります。\n<input type=text name=name value=1 onclick=alert('クレジットカード情報が流出しました')>",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "これにより、先ほどコードを記述した<input>要素はタップまたはクリックすると「クレジットカード情報が流出しました」というアラートを表示するようになってしまいます。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "このアラートが表示されることでユーザが直接不利益を被ることはありませんが、サイトへの信頼を失ってしまうことは避けられないでしょう。\nこの攻撃への対策は同レッスンの対策編を参照してください。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    3
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど見た脆弱なWebページに攻撃を仕掛ける値を設定して遷移しようとしています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "それでは実際にプレビューを確認し、攻撃の流れを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

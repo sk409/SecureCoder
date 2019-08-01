@@ -37,6 +37,7 @@ class LessonViewController: UIViewController {
     var codeEditorView: CodeEditorView?
     var font = UIFont.boldSystemFont(ofSize: 20)
     var tintColor = UIColor.white
+    var lineSpacing: CGFloat = 10
     
     let fileTableView = FileTableView()
     let showGuideMessageButton = UIButton()
@@ -115,7 +116,7 @@ class LessonViewController: UIViewController {
                 codeEditorViews.append(codeEditorView)
                 codeEditorView.file = file
                 codeEditorView.scrollBuffer = CGSize(width: 0, height: view.frame.height * 0.5)
-                let editorComponents = EditorComponentsBuilder().build(origin: CGPoint(x: 0, y: 15), font: font, tintColor: tintColor, text: file.text, language: file.programingLanguage)
+                let editorComponents = EditorComponentsBuilder().build(origin: CGPoint(x: 0, y: 15), font: font, tintColor: tintColor, text: file.text, lineSpacing: lineSpacing, language: file.programingLanguage)
                 codeEditorView.components = editorComponents
                 codeEditorView.setNextQuestion()
                 if let questions = codeEditorView.questions {
@@ -468,7 +469,7 @@ extension LessonViewController: UICollectionViewDataSource, UICollectionViewDele
                 cell.button.addTarget(self, action: #selector(handleShowKeyboardViewButton(_:)), for: .touchUpInside)
                 return cell
             } else {
-                var syntaxHighlighter = SyntaxHighlighter(tintColor: .white, font: .boldSystemFont(ofSize: 16), lineSpacing: 8)
+                var syntaxHighlighter = SyntaxHighlighter(tintColor: .white, font: .boldSystemFont(ofSize: 16), lineSpacing: lineSpacing)
                 syntaxHighlighter.delegate = GuideTextSyntaxHighlighter()
                 var attributedText = syntaxHighlighter.syntaxHighlight(explainer!.messages[indexPath.item].text)
                 explainer!.messages[indexPath.item].languages.forEach { language in

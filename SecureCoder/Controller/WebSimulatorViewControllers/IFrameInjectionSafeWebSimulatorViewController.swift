@@ -22,7 +22,7 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
             code: "<a href=\"http://www.safe.co.jp/welcome.php?name=<script src=http://www.trap.cp.jp/iframe_injection.js></script>\">\n    このサイト本当に面白い!!\n</a>",
             language: .html
         )
-        trapButton.button.addTarget(self, action: #selector(showTrapButtonDisabledMessage(_:)), for: .touchUpInside)
+        trapButton.button.addTarget(self, action: #selector(handleDisabledButton(_:)), for: .touchUpInside)
         welcomeLabel.set(text: "ようこそ脆弱株式会社へ")
         nameLabel.set(text: "<script src=\"http://www.trap.cp.jp/iframe_injection.js\"></script>さん")
         nameLabel.set(
@@ -62,7 +62,7 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
         appendGuideSection(
             [GuideText(text: "それでは実際にこのリンクをタップしてリンク先に遷移してみましょう。")],
             onEnter: { completion in
-                self.trapButton.button.removeTarget(self, action: #selector(self.showTrapButtonDisabledMessage(_:)), for: .touchUpInside)
+                self.trapButton.button.removeTarget(self, action: #selector(self.handleDisabledButton(_:)), for: .touchUpInside)
                 self.trapButton.button.addTarget(self, action: #selector(self.handleTrapButtonToShowWelcome(_:)), for: .touchUpInside)
                 completion?()
         })
@@ -118,12 +118,6 @@ class IFrameInjectionSafeWebSimulatorViewController: WebSimulatorViewController 
         guideMessageCollectionView.reloadData()
         guideMessageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
         showGuideMessageCollectionView()
-    }
-    
-    
-    @objc
-    private func showTrapButtonDisabledMessage(_ sender: UIButton) {
-        NotificationMessage.send(text: "全ての説明文を読むまでは次の画面に遷移できません。", axisX: .right, axisY: .center, size: nil, font: .boldSystemFont(ofSize: 18), textColor: .white, backgroundColor: .red, lifeSeconds: 2)
     }
     
     @objc

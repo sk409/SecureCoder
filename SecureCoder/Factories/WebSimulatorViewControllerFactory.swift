@@ -10,6 +10,10 @@ struct WebSimulatorViewControllerFactory {
             return IFrameInjectionSafeWebSimulatorViewController()
         case "falsify_form_unsafe":
             return FalsifyFormUnsafeWebSimulatorViewController()
+        case "falsify_form_safe":
+            return FalsifyFormSafeWebSimulatorViewController()
+        case "no_quotes_unsafe":
+            return NoQuotesUnsafeWebSimulatorViewController()
         default:
             return nil
         }

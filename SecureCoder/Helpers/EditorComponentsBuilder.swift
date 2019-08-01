@@ -4,16 +4,18 @@ class EditorComponentsBuilder {
     
     private var font: UIFont?
     private var tintColor: UIColor?
+    private var lineSpacing: CGFloat?
     private var programingLanguage: ProgramingLanguage?
     private var line = 1
     private var pointer = CGRect()
     private var views = [UIView]()
     
-    func build(origin: CGPoint, font: UIFont, tintColor: UIColor, text: String, language: ProgramingLanguage) -> [UIView] {
+    func build(origin: CGPoint, font: UIFont, tintColor: UIColor, text: String, lineSpacing: CGFloat, language: ProgramingLanguage) -> [UIView] {
         self.pointer.origin = origin
         self.pointer.size = .zero
         self.font = font
         self.tintColor = tintColor
+        self.lineSpacing = lineSpacing
         self.programingLanguage = language
         line = 1
         views = []
@@ -32,8 +34,9 @@ extension EditorComponentsBuilder: LessonTextParserDelegate {
 //            return
 //        }
         line += 1
-        let lineMargin: CGFloat = 5
-        self.pointer = CGRect(x: 0, y: pointer.origin.y + pointer.height + lineMargin, width: 0, height: 0)
+        //let lineMargin: CGFloat = 5
+        let lineSpacing = self.lineSpacing ?? 0
+        self.pointer = CGRect(x: 0, y: pointer.origin.y + pointer.height + lineSpacing, width: 0, height: 0)
     }
     
     func lessonTextParserHandleSpace(_ lessonTextParser: LessonTextParser) {

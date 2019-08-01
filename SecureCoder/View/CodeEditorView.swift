@@ -24,6 +24,7 @@ class CodeEditorView: UIView {
     
     var file: File?
     var scrollBuffer: CGSize?
+    var scrollOffset = CGSize(width: 4, height: 4)
     
     var text: String {
         guard let components = components else {
@@ -105,9 +106,17 @@ class CodeEditorView: UIView {
             }
             templateLabel.unfocus(with: 0.5)
         }
+        
         for componentIndexArray in componentIndices {
             guard !componentIndexArray.isEmpty else {
                 continue
+            }
+            var isIncludeQuestion = false
+            for componentIndex in componentIndexArray  {
+                if components[componentIndex] is QuestionTextField {
+                    isIncludeQuestion = true
+                    break
+                }
             }
             let focusableView = FocusableView()
             scrollView.addSubview(focusableView)
@@ -126,7 +135,7 @@ class CodeEditorView: UIView {
             }
             focusableView.frame.size.width -= focusableView.frame.origin.x
             focusableView.frame.size.height -= focusableView.frame.origin.y
-            let buffer = CGSize(width: 0, height: 10)
+            let buffer = isIncludeQuestion ? CGSize(width: 2, height: 6) : .zero
             focusableView.frame.origin.x -= buffer.width / 2
             focusableView.frame.origin.y -= buffer.height / 2
             focusableView.frame.size.width += buffer.width
@@ -153,13 +162,18 @@ class CodeEditorView: UIView {
             maxOriginY = max(maxOriginY, focusedView.frame.origin.y)
         }
         UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
-            if (self.scrollView.contentOffset.x + self.scrollView.bounds.width) <= maxX && (maxX - self.scrollView.bounds.width) <= minOriginX  {
-                self.scrollView.contentOffset.x = (maxX - self.scrollView.bounds.width)
-            }
-            if minOriginX < self.scrollView.contentOffset.x {
-                self.scrollView.contentOffset.x = minOriginX
-            }
-            self.scrollView.contentOffset.y = minOriginY
+//            if (self.scrollView.contentOffset.x + self.scrollView.bounds.width) <= maxX {
+//                if (maxX - self.scrollView.bounds.width) <= minOriginX {
+//                    self.scrollView.contentOffset.x = (maxX - self.scrollView.bounds.width)
+//                } else if (self.scrollView.contentOffset.x + self.scrollView.bounds.width) <= minOriginX {
+//                    self.scrollView.contentOffset.x = minOriginX
+//                }
+//            }
+//            if minOriginX < self.scrollView.contentOffset.x {
+//                self.scrollView.contentOffset.x = minOriginX
+//            }
+            self.scrollView.contentOffset.x = (minOriginX - self.scrollOffset.width)
+            self.scrollView.contentOffset.y = (minOriginY - self.scrollOffset.height)
         }) { _ in
             for focusView in focuseViews {
                 (focusView as? Focusable)?.focus(with: 0.3, borderWidth: 1, borderColor: UIColor.red.cgColor, backgroundColor: .clear)
@@ -179,12 +193,16 @@ class CodeEditorView: UIView {
             return
         }
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
-            self.scrollView.contentOffset.y = component.frame.origin.y
-            if self.bounds.width <= component.frame.origin.x {
-                self.scrollView.contentOffset.x = component.frame.origin.x
-            } else {
-                self.scrollView.contentOffset.x = 0
-            }
+            self.scrollView.contentOffset = CGPoint(
+                x: component.frame.origin.x - self.scrollOffset.width,
+                y: component.frame.origin.y - self.scrollOffset.height
+            )
+//            self.scrollView.contentOffset.y = component.frame.origin.y
+//            if self.bounds.width <= component.frame.origin.x {
+//                self.scrollView.contentOffset.x = component.frame.origin.x
+//            } else {
+//                self.scrollView.contentOffset.x = 0
+//            }
         }, completion: nil)
     }
     

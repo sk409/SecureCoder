@@ -17,23 +17,27 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
         for closeTagMatch in closeTagMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.tagColor, range: NSRange(location: closeTagMatch.range.location + 1, length: closeTagMatch.range.length - 1))
         }
-        let attributes = ["href", "src", "method", "action", "type", "name", "value", "style"]
+        let attributes = ["href", "src", "method", "action", "type", "name", "value", "style", "id", "onclick"]
         let attributeRegex = try! NSRegularExpression(pattern: attributes.joined(separator: "|"))
         let attributeMatches = attributeRegex.matches(in: text, range: fullRange)
         for attributeMatch in attributeMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.attributeColor, range: attributeMatch.range)
         }
-        let valueRegex = try! NSRegularExpression(pattern: "=[^ >)]+", options: .dotMatchesLineSeparators)
-        let valueMatches = valueRegex.matches(in: text, range: fullRange)
-        for valueMatch in valueMatches {
-            //let back = text[valueMatch.range.location + valueMatch.range.length - 1] == ">" ? 1 : 0
-            let escapeRegex = try! NSRegularExpression(pattern: "&[a-zA-Z0-9]+;")
-            let escapeMathces = escapeRegex.matches(in: text, range: valueMatch.range)
-            if escapeMathces.isEmpty {
-                mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: NSRange(location: valueMatch.range.location + 1, length: valueMatch.range.length - 1))
-            } else {
-                let escapeMatch = escapeMathces.first!
-                mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: NSRange(location: valueMatch.range.location + 1, length: escapeMatch.range.location - valueMatch.range.location + 1))
+        let tagRegex = try! NSRegularExpression(pattern: (openTags.map { $0 + ".*>"}).joined(separator: "|")
+            , options: .dotMatchesLineSeparators)
+        let tagMatches = tagRegex.matches(in: text, range: fullRange)
+        for tagMatch in tagMatches {
+            let valueRegex = try! NSRegularExpression(pattern: "=[^ >]+", options: .dotMatchesLineSeparators)
+            let valueMatches = valueRegex.matches(in: text, range: tagMatch.range)
+            for valueMatch in valueMatches {
+                let gtRegex = try! NSRegularExpression(pattern: "&gt;")
+                let gtMathces = gtRegex.matches(in: text, range: valueMatch.range)
+                if gtMathces.isEmpty {
+                    mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: NSRange(location: valueMatch.range.location + 1, length: valueMatch.range.length - 1))
+                } else {
+                    let gtMatch = gtMathces.first!
+                    mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: NSRange(location: valueMatch.range.location + 1, length: gtMatch.range.location - valueMatch.range.location + 1))
+                }
             }
         }
         let escapeRegex = try! NSRegularExpression(pattern: "&[a-zA-Z0-9]+;")
@@ -41,11 +45,14 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
         for escapeMatch in escapeMathces {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.escapeColor, range: escapeMatch.range)
         }
+        /*******************************/
+        // "で囲ってある文字列の中にスペースがある場合、うまくシンタックスハイライトされないため無理やり
         let stringRegex = try! NSRegularExpression(pattern: "\".*?\"|'.*'", options: .dotMatchesLineSeparators)
         let stringMatches = stringRegex.matches(in: text, range: fullRange)
         for stringMatch in stringMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: stringMatch.range)
         }
+        /*******************************/
         let commentRegex = try! NSRegularExpression(pattern: "<!--.*?-->", options: .dotMatchesLineSeparators)
         let commentMatches = commentRegex.matches(in: text, range: fullRange)
         for commentMatch in commentMatches {

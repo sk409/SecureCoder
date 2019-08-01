@@ -20,12 +20,12 @@ class WebElementButtonView: WebElementView {
     
     func set(text: String) {
         button.setTitle(text, for: .normal)
-        frame.size.width = button.sizeThatFits(CGSize(width: CGFloat.infinity, height: .infinity)).width
+        frame.size.width = button.sizeThatFits(CGSize(width: CGFloat.infinity, height: .infinity)).width + 8
     }
     
     func set(attributedText: NSAttributedString) {
         button.setAttributedTitle(attributedText, for: .normal)
-        frame.size.width = button.sizeThatFits(CGSize(width: CGFloat.infinity, height: .infinity)).width
+        frame.size.width = button.sizeThatFits(CGSize(width: CGFloat.infinity, height: .infinity)).width + 8
     }
     
     func set(font: UIFont) {
