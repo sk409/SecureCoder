@@ -14,6 +14,8 @@ struct WebSimulatorViewControllerFactory {
             return FalsifyFormSafeWebSimulatorViewController()
         case "no_quotes_unsafe":
             return NoQuotesUnsafeWebSimulatorViewController()
+        case "no_quotes_safe":
+            return NoQuotesSafeWebSimulatorViewController()
         default:
             return nil
         }

@@ -11,27 +11,29 @@ class LessonViewController: UIViewController {
     
     var lesson: Lesson? {
         didSet {
-            guide = lesson?.guides.first
-            explainer = guide?.explainers.first
+            guide = lesson?.guides[guideIndex]
+            explainer = guide?.explainers[explainerIndex]
         }
     }
-    var guideIndex: Int {
-        guard let lesson = lesson, let guide = guide, let guideIndex = lesson.guides.firstIndex(of: guide) else {
-            return 0
-        }
-        return guideIndex
-    }
-    var explainerIndex: Int {
-        guard let lesson = lesson, let explainer = explainer else {
-            return 0
-        }
-        for guide in lesson.guides {
-            if let explainerIndex = guide.explainers.firstIndex(of: explainer) {
-                return explainerIndex
-            }
-        }
-        return 0
-    }
+    var guideIndex = 0
+    var explainerIndex = 0
+//    var guideIndex: Int {
+//        guard let lesson = lesson, let guide = guide, let guideIndex = lesson.guides.firstIndex(of: guide) else {
+//            return 0
+//        }
+//        return guideIndex
+//    }
+//    var explainerIndex: Int {
+//        guard let lesson = lesson, let explainer = explainer else {
+//            return 0
+//        }
+//        for guide in lesson.guides {
+//            if let explainerIndex = guide.explainers.firstIndex(of: explainer) {
+//                return explainerIndex
+//            }
+//        }
+//        return 0
+//    }
     var guide: Guide?
     var explainer: Explainer?
     var codeEditorView: CodeEditorView?
@@ -56,6 +58,8 @@ class LessonViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+//        guide = lesson?.guides.first
+//        explainer = guide?.explainers.first
         layoutSubviews()
         showGuideMessageCollectionView(completion: nil)
         changeCodeEditorView()
@@ -299,12 +303,14 @@ class LessonViewController: UIViewController {
                     self.guideMessageCollectionView.reloadData()
                     self.showGuideMessageCollectionView()
                 } else {
-                    if let codeEditorView = self.codeEditorView, let question = codeEditorView.question {
+                    if let codeEditorView = self.codeEditorView {
                         codeEditorView.setNextQuestion()
                         codeEditorView.question?.activate(isActive: true, keyboardViewDidShow: nil, keyboardViewDidHide: nil)
-                        codeEditorView.scroll(to: question)
-                        codeEditorView.fit()
-                        codeEditorView.scrollView.contentSize.height = max(codeEditorView.scrollView.contentSize.height, question.frame.maxY + self.view.bounds.height - question.bounds.height)
+                        if let question = codeEditorView.question {
+                            codeEditorView.scroll(to: question)
+                            codeEditorView.fit()
+                            codeEditorView.scrollView.contentSize.height = max(codeEditorView.scrollView.contentSize.height, question.frame.maxY + self.view.bounds.height - question.bounds.height)
+                        }
                     }
                 }
             })
@@ -544,6 +550,8 @@ extension LessonViewController: UICollectionViewDataSource, UICollectionViewDele
         if let explainer = explainer {
             codeEditorView?.focus(labelTexts: explainer.focusLabels, componentIndices: explainer.focusComponents)
         }
+        self.guideIndex = guideIndex
+        self.explainerIndex = explainerIndex
     }
     
 }

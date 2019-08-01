@@ -109,6 +109,9 @@
 		D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96528229259120086E98A /* ProgramingLanguage.swift */; };
 		D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */; };
 		D7F9652D229280860086E98A /* SyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F9652C229280860086E98A /* SyntaxHighlighter.swift */; };
+		D7FA06FD22F294C4001DE1CF /* KeyboardNoQuotesSafeWelcome0View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA06FC22F294C4001DE1CF /* KeyboardNoQuotesSafeWelcome0View.swift */; };
+		D7FA06FF22F29550001DE1CF /* KeyboardNoQuotesSafeWelcome1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA06FE22F29550001DE1CF /* KeyboardNoQuotesSafeWelcome1View.swift */; };
+		D7FA070122F2B9F3001DE1CF /* NoQuotesSafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FA070022F2B9F3001DE1CF /* NoQuotesSafeWebSimulatorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -216,6 +219,9 @@
 		D7F96528229259120086E98A /* ProgramingLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramingLanguage.swift; sourceTree = "<group>"; };
 		D7F9652A229259860086E98A /* HTMLSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D7F9652C229280860086E98A /* SyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxHighlighter.swift; sourceTree = "<group>"; };
+		D7FA06FC22F294C4001DE1CF /* KeyboardNoQuotesSafeWelcome0View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNoQuotesSafeWelcome0View.swift; sourceTree = "<group>"; };
+		D7FA06FE22F29550001DE1CF /* KeyboardNoQuotesSafeWelcome1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardNoQuotesSafeWelcome1View.swift; sourceTree = "<group>"; };
+		D7FA070022F2B9F3001DE1CF /* NoQuotesSafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoQuotesSafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -407,6 +413,7 @@
 				D73058DE22ED32D4005E0966 /* FalsifyFormUnsafeWebSimulatorViewController.swift */,
 				D7AD483522EEC57500544819 /* FalsifyFormSafeWebSimulatorViewController.swift */,
 				D7AD483922F1985C00544819 /* NoQuotesUnsafeWebSimulatorViewController.swift */,
+				D7FA070022F2B9F3001DE1CF /* NoQuotesSafeWebSimulatorViewController.swift */,
 			);
 			path = WebSimulatorViewControllers;
 			sourceTree = "<group>";
@@ -445,6 +452,8 @@
 				D788ED4122EBD8840064826B /* KeyboardFalsifyFormUnsafeApply0View.swift */,
 				D7AD483322EEC14A00544819 /* KeyboardFalsifyFormSafeApply0View.swift */,
 				D7AD483722F15B5400544819 /* KeyboardNoQuotesUnsafeWelcome0View.swift */,
+				D7FA06FC22F294C4001DE1CF /* KeyboardNoQuotesSafeWelcome0View.swift */,
+				D7FA06FE22F29550001DE1CF /* KeyboardNoQuotesSafeWelcome1View.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -547,6 +556,7 @@
 				D730541622C30120005906EB /* HTTPMethod.swift in Sources */,
 				D7319A982298EC3B00369273 /* CaretView.swift in Sources */,
 				D745635922B7A23C00F8F68F /* Extension.swift in Sources */,
+				D7FA06FD22F294C4001DE1CF /* KeyboardNoQuotesSafeWelcome0View.swift in Sources */,
 				D7F9652B229259860086E98A /* HTMLSyntaxHighlighter.swift in Sources */,
 				D70CE11F22CF4AB500BD5922 /* FileTableView.swift in Sources */,
 				D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */,
@@ -575,6 +585,7 @@
 				D7AD483622EEC57500544819 /* FalsifyFormSafeWebSimulatorViewController.swift in Sources */,
 				D7A2600422560FF000523A36 /* Application.swift in Sources */,
 				D700D68B22ED4C3A00FE6631 /* WebElementTextFieldView.swift in Sources */,
+				D7FA070122F2B9F3001DE1CF /* NoQuotesSafeWebSimulatorViewController.swift in Sources */,
 				D77EE58322D085A000013DA6 /* NotificationMessage.swift in Sources */,
 				D7F96527229249370086E98A /* QuestionTextField.swift in Sources */,
 				D77F1FCB22D1AA3400FC3005 /* WebSimulatorViewControllerFactory.swift in Sources */,
@@ -622,6 +633,7 @@
 				D726997022964578009988E6 /* CourseSelectionViewController.swift in Sources */,
 				D7AD483A22F1985C00544819 /* NoQuotesUnsafeWebSimulatorViewController.swift in Sources */,
 				D73B85EB22D98067002E4BB8 /* GuideMessageCollectionView.swift in Sources */,
+				D7FA06FF22F29550001DE1CF /* KeyboardNoQuotesSafeWelcome1View.swift in Sources */,
 				D700D68922ED3F8F00FE6631 /* WebElementTextViewView.swift in Sources */,
 				D700D68522ED3E6D00FE6631 /* WebElementLabelView.swift in Sources */,
 				D74ACBA722CC691200713343 /* CellButton.swift in Sources */,

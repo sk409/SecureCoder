@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = FalsifyFormUnsafeWebSimulatorViewController()
 //        window?.rootViewController = FalsifyFormSafeWebSimulatorViewController()
 //        window?.rootViewController = NoQuotesUnsafeWebSimulatorViewController()
+//        window?.rootViewController = NoQuotesSafeWebSimulatorViewController()
         return true
     }
     

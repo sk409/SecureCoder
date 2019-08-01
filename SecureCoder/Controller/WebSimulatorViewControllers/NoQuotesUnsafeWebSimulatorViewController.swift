@@ -41,7 +41,7 @@ class NoQuotesUnsafeWebSimulatorViewController: WebSimulatorViewController {
             GuideText(text: "これが攻撃者が用意した罠サイトです。")
             ])
         appendGuideSection([
-            GuideText(text: "この赤枠で囲まれたリンクをタップすると攻撃を仕掛ける値とともに脆弱なWebページに遷移します。\nリンクの下に示されたコードと見比べて見ましょう。"),
+            GuideText(text: "この赤枠で囲まれたリンクをタップすると攻撃を仕掛ける値とともに脆弱なWebページに遷移します。\nリンクの下に示されたコードと見比べてみましょう。"),
             GuideText(text: "このクエリパラメータの値の$nameには以下の値が設定されていました。\n$name = urlencode(\"1 onclick=alert('クレジットカード情報が流出しました')\");", programingLanguages: [.php]),
             GuideText(text: "つまり攻撃者の意図としては、GETリクエストで受け取った値を引用符を用いずに出力して属性値に設定している要素にonclickイベントを設定しようとしています。", programingLanguages: [.php]),
             GuideText(text: "そして、今回最初に見た脆弱なWebページは属性値を引用符で囲っていなかったのでこの攻撃が成立してしまいます。")
