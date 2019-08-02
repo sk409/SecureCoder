@@ -43,11 +43,6 @@ class WebSimulatorViewController: UIViewController {
         return layout
     }())
     
-    /******************************/
-    // guieMessageCollectionViewを表示しようとした時と非表示しようとした時に
-    // focuseしているかどうかが一致しているかを判定するためのテスト用フラグ
-    private var focusedFlag = false
-    /******************************/
     private var isAddedCloseButton = false
     private var guideSections = [GuideSection]()
     private let blackOutScrollView = UIScrollView()
@@ -59,64 +54,31 @@ class WebSimulatorViewController: UIViewController {
     }
     
     func showGuideMessageCollectionView(completion: (() -> Void)? = nil) {
-//        guard let window = UIApplication.shared.keyWindow else {
-//            return
-//        }
-//        window.addSubview(guideMessageCollectionView)
         view.addSubview(guideMessageCollectionView)
         guideMessageCollectionView.frame.origin.x = view.safeAreaInsets.left
         guideMessageCollectionView.frame.size = CGSize(
             width: view.safeAreaLayoutGuide.layoutFrame.width,
             height: view.safeAreaLayoutGuide.layoutFrame.height * 0.4
         )
-        let focused = view.subviews.contains(blackOutScrollView)
-        if focused != focusedFlag {
-            //fatalError("bodyのscrollViewのcontentSizeがおかしくなります")
-            Application.print("bodyのscrollViewのcontentSizeがおかしくなります")
-        }
         UIView.animate(withDuration: 0.5, animations: {
             self.guideMessageCollectionView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.height - self.guideMessageCollectionView.bounds.height
-            if !focused {
-                self.body.scrollView.contentSize.height += self.guideMessageCollectionView.bounds.height
-            }
+            self.body.scrollView.contentSize.height += self.guideMessageCollectionView.bounds.height
         }) { _ in
             completion?()
         }
     }
     
     func hideGuideMessageCollectionView(completion: (() -> Void)? = nil) {
-//        guard let window = UIApplication.shared.keyWindow else {
-//            return
-//        }
-        let focused = view.subviews.contains(blackOutScrollView)
-        focusedFlag = focused
         UIView.animate(withDuration: 0.5, animations: {
             self.guideMessageCollectionView.frame.origin.y = self.view.bounds.height
-            if !focused {
-                self.body.scrollView.contentSize.height -= self.guideMessageCollectionView.bounds.height
-            }
+            self.body.scrollView.contentSize.height -= self.guideMessageCollectionView.bounds.height
         }) { _ in
             self.guideMessageCollectionView.removeFromSuperview()
             completion?()
         }
     }
     
-//    func fit() {
-//        contentView.contentSize = .zero
-//        for elementView in elementsPerLine.flatMap({$0.compactMap { $0 }}) {
-//            contentView.contentSize.width = max(contentView.contentSize.width, elementView.frame.maxX)
-//            contentView.contentSize.height = max(contentView.contentSize.width, elementView.frame.maxY)
-//            if elementView.subviews.contains(elementView.codeLabel) {
-//                contentView.contentSize.width = max(contentView.contentSize.width, elementView.codeLabel.frame.maxX)
-//                contentView.contentSize.height = max(contentView.contentSize.width, elementView.codeLabel.frame.maxY)
-//            }
-//        }
-//    }
-    
     func focus(on elementView: WebElementView, with duration: TimeInterval = 0.5, completion: (() -> Void)? = nil) {
-//        guard let window = UIApplication.shared.keyWindow else {
-//            return
-//        }
         let elementViewFrame: CGRect
         if body.elements.contains(elementView) {
             elementViewFrame = elementView.frame
@@ -127,7 +89,6 @@ class WebSimulatorViewController: UIViewController {
                 elementViewFrame = .zero
             }
         }
-        //guideMessageCollectionView.isScrollEnabled = false
         UIView.animate(withDuration: duration, animations: {
             self.body.scrollView.contentOffset.y = elementViewFrame.origin.y
         }) { _ in
@@ -169,9 +130,6 @@ class WebSimulatorViewController: UIViewController {
         UIView.animate(withDuration: duration, animations: {
             self.blackOutScrollView.alpha = 0
         }) { _ in
-//            defer {
-//                self.guideMessageCollectionView.isScrollEnabled = true
-//            }
             self.blackOutScrollView.removeFromSuperview()
             elementView.unfocus()
             completion?()
@@ -239,73 +197,6 @@ class WebSimulatorViewController: UIViewController {
         isAddedCloseButton = false
         guideMessageCollectionView.reloadData()
     }
-    
-//    func focus(on views: UIView...) {
-//        contentView.subviews.forEach { subview in
-//            subview.layer.removeAllAnimations()
-//            subview.layer.borderColor = UIColor.clear.cgColor
-//            subview.layer.borderWidth = 0
-//        }
-//        var firstView: UIView?
-//        for v in views {
-//            guard contentView.subviews.contains(v) else {
-//                continue
-//            }
-//            let animationDuration: TimeInterval = 0.5
-//            let borderColorAnimation = CABasicAnimation(keyPath: "borderColor")
-//            borderColorAnimation.toValue = UIColor.red.cgColor
-//            borderColorAnimation.duration = animationDuration
-//            borderColorAnimation.isRemovedOnCompletion = false
-//            borderColorAnimation.fillMode = .forwards
-//            v.layer.add(borderColorAnimation, forKey: "borderColorAnimation")
-//            let borderWidthAnimation = CABasicAnimation(keyPath: "borderWidth")
-//            borderWidthAnimation.toValue = 1
-//            borderWidthAnimation.duration = animationDuration
-//            borderWidthAnimation.isRemovedOnCompletion = false
-//            borderWidthAnimation.fillMode = .forwards
-//            v.layer.add(borderWidthAnimation, forKey: "borderWidthAnimation")
-//            if firstView == nil {
-//                firstView = v
-//            }
-//        }
-//        if let fv = firstView {
-//            UIView.animate(withDuration: 1) {
-//                self.contentView.contentOffset.y = fv.frame.origin.y
-//            }
-//        }
-//    }
-    
-//    func showCode(element: UIView, code: String) {
-//        var syntaxHighlighter = SyntaxHighlighter(tintColor: .black, font: .boldSystemFont(ofSize: 16))
-//        syntaxHighlighter.programingLanguage = .html
-//        let codeLabel = UILabel()
-//        codeLabels.append(codeLabel)
-//        codeLabel.backgroundColor = .lightGray
-//        codeLabel.numberOfLines = 0
-//        codeLabel.attributedText = syntaxHighlighter.syntaxHighlight(code)
-//        codeLabel.frame.origin.x = element.frame.origin.x + 10
-//        codeLabel.frame.origin.y = element.frame.maxY + 10
-//        contentView.addSubview(codeLabel)
-//        UIView.animate(withDuration: 1) {
-//            codeLabel.frame.size = codeLabel.sizeThatFits(CGSize(width: CGFloat.infinity, height: .infinity))
-//            self.contentView.contentSize.width = max(self.contentView.contentSize.width, codeLabel.frame.maxX)
-//        }
-//    }
-    
-//    func removeAllCodeLabels() {
-//        UIView.animate(withDuration: 1, animations: {
-//            for codeLabel in self.codeLabels {
-//                codeLabel.frame.size = .zero
-//            }
-//        }) { _ in
-//            self.codeLabels.forEach { $0.removeFromSuperview() }
-//            var maxX: CGFloat = 0
-//            for elementView in self.contentView.subviews {
-//                maxX = max(maxX, elementView.frame.maxX)
-//            }
-//            self.contentView.contentSize.width = maxX
-//        }
-//    }
     
     @objc
     func handleDisabledButton(_ sender: UIButton) {

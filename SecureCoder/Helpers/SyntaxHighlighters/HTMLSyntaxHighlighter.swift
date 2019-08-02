@@ -47,7 +47,7 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
         }
         /*******************************/
         // "で囲ってある文字列の中にスペースがある場合、うまくシンタックスハイライトされないため無理やり
-        let stringRegex = try! NSRegularExpression(pattern: "\".*?\"|'.*'", options: .dotMatchesLineSeparators)
+        let stringRegex = try! NSRegularExpression(pattern: "\".*?\"|'.*?'", options: .dotMatchesLineSeparators)
         let stringMatches = stringRegex.matches(in: text, range: fullRange)
         for stringMatch in stringMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: stringMatch.range)

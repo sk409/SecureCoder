@@ -19,6 +19,12 @@ struct KeyboardViewFactory {
             return KeyboardNoQuotesSafeWelcome0View()
         case "no_quotes_safe_welcome.php_1":
             return KeyboardNoQuotesSafeWelcome1View()
+        case "ent_quotes_unsafe_welcome.php_0":
+            return KeyboardEntQuotesUnsafeWelcome0View()
+        case "ent_quotes_unsafe_welcome.php_1":
+            return KeyboardEntQuotesUnsafeWelcome1View()
+        case "ent_quotes_unsafe_welcome.php_2":
+            return KeyboardEntQuotesUnsafeWelcome2View()
         default:
             return nil
         }
