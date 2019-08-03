@@ -25,6 +25,8 @@ struct KeyboardViewFactory {
             return KeyboardEntQuotesUnsafeWelcome1View()
         case "ent_quotes_unsafe_welcome.php_2":
             return KeyboardEntQuotesUnsafeWelcome2View()
+        case "ent_quotes_safe_welcome.php_0":
+            return KeyboardEntQuotesSafeWelcome0View()
         default:
             return nil
         }

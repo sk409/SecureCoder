@@ -88,6 +88,8 @@
 		D77F1FE322D2057300FC3005 /* IFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = D77F1FE222D2057300FC3005 /* IFrame.swift */; };
 		D781CE1D225DFF7A00B90A26 /* Character+is~.swift in Sources */ = {isa = PBXBuildFile; fileRef = D781CE1C225DFF7A00B90A26 /* Character+is~.swift */; };
 		D788ED4222EBD8840064826B /* KeyboardFalsifyFormUnsafeApply0View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D788ED4122EBD8840064826B /* KeyboardFalsifyFormUnsafeApply0View.swift */; };
+		D7916B1922F51D9C00441453 /* KeyboardEntQuotesSafeWelcome0View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7916B1822F51D9C00441453 /* KeyboardEntQuotesSafeWelcome0View.swift */; };
+		D7916B1B22F52D9600441453 /* EntQuotesSafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7916B1A22F52D9600441453 /* EntQuotesSafeWebSimulatorViewController.swift */; };
 		D7956E9F22D6C3DE00D12EB4 /* KeyboardViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7956E9E22D6C3DE00D12EB4 /* KeyboardViewFactory.swift */; };
 		D7A2600422560FF000523A36 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A2600322560FF000523A36 /* Application.swift */; };
 		D7A4659322D6D5A400CF0E90 /* KeyboardIFrameInjectionUnsafeWelcome0View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A4659222D6D5A400CF0E90 /* KeyboardIFrameInjectionUnsafeWelcome0View.swift */; };
@@ -107,7 +109,7 @@
 		D7EBEBCE22D5784400564E27 /* WebElementContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBEBCD22D5784400564E27 /* WebElementContainerView.swift */; };
 		D7EBEC3F22F3C106002AF66E /* KeyboardEntQuotesUnsafeWelcome0View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBEC3E22F3C106002AF66E /* KeyboardEntQuotesUnsafeWelcome0View.swift */; };
 		D7EBEC4122F3DD33002AF66E /* KeyboardEntQuotesUnsafeWelcome1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBEC4022F3DD33002AF66E /* KeyboardEntQuotesUnsafeWelcome1View.swift */; };
-		D7EBEC4322F3DE1F002AF66E /* KeyboardViewEntQuotesUnsafeWelcome2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBEC4222F3DE1F002AF66E /* KeyboardViewEntQuotesUnsafeWelcome2View.swift */; };
+		D7EBEC4322F3DE1F002AF66E /* KeyboardEntQuotesUnsafeWelcome2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBEC4222F3DE1F002AF66E /* KeyboardEntQuotesUnsafeWelcome2View.swift */; };
 		D7EBEC4522F3E471002AF66E /* EntQuotesUnsafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7EBEC4422F3E471002AF66E /* EntQuotesUnsafeWebSimulatorViewController.swift */; };
 		D7F96527229249370086E98A /* QuestionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96526229249370086E98A /* QuestionTextField.swift */; };
 		D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F96528229259120086E98A /* ProgramingLanguage.swift */; };
@@ -202,6 +204,8 @@
 		D77F1FE222D2057300FC3005 /* IFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFrame.swift; sourceTree = "<group>"; };
 		D781CE1C225DFF7A00B90A26 /* Character+is~.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Character+is~.swift"; sourceTree = "<group>"; };
 		D788ED4122EBD8840064826B /* KeyboardFalsifyFormUnsafeApply0View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardFalsifyFormUnsafeApply0View.swift; sourceTree = "<group>"; };
+		D7916B1822F51D9C00441453 /* KeyboardEntQuotesSafeWelcome0View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEntQuotesSafeWelcome0View.swift; sourceTree = "<group>"; };
+		D7916B1A22F52D9600441453 /* EntQuotesSafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntQuotesSafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
 		D7956E9E22D6C3DE00D12EB4 /* KeyboardViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewFactory.swift; sourceTree = "<group>"; };
 		D7A2600322560FF000523A36 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		D7A4659222D6D5A400CF0E90 /* KeyboardIFrameInjectionUnsafeWelcome0View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardIFrameInjectionUnsafeWelcome0View.swift; sourceTree = "<group>"; };
@@ -221,7 +225,7 @@
 		D7EBEBCD22D5784400564E27 /* WebElementContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebElementContainerView.swift; sourceTree = "<group>"; };
 		D7EBEC3E22F3C106002AF66E /* KeyboardEntQuotesUnsafeWelcome0View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEntQuotesUnsafeWelcome0View.swift; sourceTree = "<group>"; };
 		D7EBEC4022F3DD33002AF66E /* KeyboardEntQuotesUnsafeWelcome1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEntQuotesUnsafeWelcome1View.swift; sourceTree = "<group>"; };
-		D7EBEC4222F3DE1F002AF66E /* KeyboardViewEntQuotesUnsafeWelcome2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewEntQuotesUnsafeWelcome2View.swift; sourceTree = "<group>"; };
+		D7EBEC4222F3DE1F002AF66E /* KeyboardEntQuotesUnsafeWelcome2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEntQuotesUnsafeWelcome2View.swift; sourceTree = "<group>"; };
 		D7EBEC4422F3E471002AF66E /* EntQuotesUnsafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntQuotesUnsafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
 		D7F96526229249370086E98A /* QuestionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionTextField.swift; sourceTree = "<group>"; };
 		D7F96528229259120086E98A /* ProgramingLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramingLanguage.swift; sourceTree = "<group>"; };
@@ -423,6 +427,7 @@
 				D7AD483922F1985C00544819 /* NoQuotesUnsafeWebSimulatorViewController.swift */,
 				D7FA070022F2B9F3001DE1CF /* NoQuotesSafeWebSimulatorViewController.swift */,
 				D7EBEC4422F3E471002AF66E /* EntQuotesUnsafeWebSimulatorViewController.swift */,
+				D7916B1A22F52D9600441453 /* EntQuotesSafeWebSimulatorViewController.swift */,
 			);
 			path = WebSimulatorViewControllers;
 			sourceTree = "<group>";
@@ -465,7 +470,8 @@
 				D7FA06FE22F29550001DE1CF /* KeyboardNoQuotesSafeWelcome1View.swift */,
 				D7EBEC3E22F3C106002AF66E /* KeyboardEntQuotesUnsafeWelcome0View.swift */,
 				D7EBEC4022F3DD33002AF66E /* KeyboardEntQuotesUnsafeWelcome1View.swift */,
-				D7EBEC4222F3DE1F002AF66E /* KeyboardViewEntQuotesUnsafeWelcome2View.swift */,
+				D7EBEC4222F3DE1F002AF66E /* KeyboardEntQuotesUnsafeWelcome2View.swift */,
+				D7916B1822F51D9C00441453 /* KeyboardEntQuotesSafeWelcome0View.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -584,6 +590,7 @@
 				D7A9F1A722AA9D920049C0DE /* LessonTextParser.swift in Sources */,
 				D7B22F0622C45721009E97D5 /* String+escape.swift in Sources */,
 				D70CE12222CF5B5900BD5922 /* GuideTextSyntaxHighlighter.swift in Sources */,
+				D7916B1922F51D9C00441453 /* KeyboardEntQuotesSafeWelcome0View.swift in Sources */,
 				D7C950D822BC6A8D00524823 /* TemplateLabel.swift in Sources */,
 				D700D68F22ED5DF200FE6631 /* Body.swift in Sources */,
 				D77F1FE122D203F800FC3005 /* P.swift in Sources */,
@@ -598,6 +605,7 @@
 				D7A2600422560FF000523A36 /* Application.swift in Sources */,
 				D700D68B22ED4C3A00FE6631 /* WebElementTextFieldView.swift in Sources */,
 				D7FA070122F2B9F3001DE1CF /* NoQuotesSafeWebSimulatorViewController.swift in Sources */,
+				D7916B1B22F52D9600441453 /* EntQuotesSafeWebSimulatorViewController.swift in Sources */,
 				D77EE58322D085A000013DA6 /* NotificationMessage.swift in Sources */,
 				D7F96527229249370086E98A /* QuestionTextField.swift in Sources */,
 				D77F1FCB22D1AA3400FC3005 /* WebSimulatorViewControllerFactory.swift in Sources */,
@@ -633,7 +641,7 @@
 				D71C2C2422A0EAAF008CCCD0 /* UIColor+make.swift in Sources */,
 				D718EBBF2252CFA300727383 /* AppDelegate.swift in Sources */,
 				D730541822C30DAB005906EB /* FileUtils.swift in Sources */,
-				D7EBEC4322F3DE1F002AF66E /* KeyboardViewEntQuotesUnsafeWelcome2View.swift in Sources */,
+				D7EBEC4322F3DE1F002AF66E /* KeyboardEntQuotesUnsafeWelcome2View.swift in Sources */,
 				D7AF14B52285762600022937 /* PHP.swift in Sources */,
 				D700D69122ED5E1200FE6631 /* Div.swift in Sources */,
 				D7A4659522D6D86300CF0E90 /* KeyboardButton.swift in Sources */,

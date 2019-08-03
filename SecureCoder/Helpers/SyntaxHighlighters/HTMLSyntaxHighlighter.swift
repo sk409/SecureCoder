@@ -40,7 +40,7 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
                 }
             }
         }
-        let escapeRegex = try! NSRegularExpression(pattern: "&[a-zA-Z0-9]+;")
+        let escapeRegex = try! NSRegularExpression(pattern: "&[a-zA-Z0-9#]+;")
         let escapeMathces = escapeRegex.matches(in: text, range: fullRange)
         for escapeMatch in escapeMathces {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.escapeColor, range: escapeMatch.range)

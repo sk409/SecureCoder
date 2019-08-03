@@ -1,0 +1,99 @@
+{
+    "index": 0,
+    "fileName": "welcome.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "これはユーザの名前と年齢を受け取って登録するだけの簡単なWebページです。\n体験編ではこのWebページにあえて脆弱性を作り込み、どのようなコードを書くと攻撃者に狙われてしまうのかを学習しました。",
+                    "languages": []
+                },
+                {
+                    "text": "具体的には、「'」を用いて属性値を囲っていてhtmlspecialcharsの第2引数を省略した場合に「'」を埋め込まれることによって新たな属性値を追加されてしまう事例を体験しました。\nこれはhtmlspecialcharsが第2引数を省略すると「'」のエスケープを行わないことを狙った攻撃でした。",
+                    "languages": []
+                },
+                {
+                    "text": "対策編ではこの攻撃への対策をしていきますが、htmlspecialcharsの第2引数をしっかりと指定するだけなので、特に難しいことはありません。\n今回攻撃を受けてしまったのは「'」を用いて元々あった属性を終了させられ、新たな属性を埋め込まれてしまったことが原因でした。\n次にその例を示します。",
+                    "languages": []
+                },
+                {
+                    "text": "例えば、以下のような<input>要素を考えます。\n<input type='text' name='name' value='<?php echo htmlspecialchars($_GET[\"name\"]); ?>'>",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "この時、GETリクエストのnameの値が以下だったとします。\n1' onclick='alert(\"クレジットカード情報が流出しました\")",
+                    "languages": []
+                },
+                {
+                    "text": "この値をエスケープせずにvalue属性に設定してしまうと以下のようになります。\n<input type='text' name='name' value='1' onclick='alert(\"クレジットカード情報が流出しました\")'>",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "元々あったvalue属性が終了させられ、新たにonclick属性が追加されていることが分かります。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "この攻撃はhtmlspecialcharsの第2引数にENT_QUOTESを指定することで対策することができます。\nhtmlspecialcharsの第2引数にENT_QUOTESを指定すると、「'」のエスケープが行われるようになり、これを適用すると先ほど見た例の<input>要素のvalue属性は次のようになります。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "value='1&#039; onclick=&#039;alert(&quot;クレジットカード情報が流出しました&quot;)'\n&#039;が「'」をエスケープしたもので、&quot;が「\"」をエスケープしたものです。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "このように特殊文字のエスケープを行うと、特殊文字はただの文字となります。\nつまりこの「&#039;」という文字列は属性値の区切り文字という意味はなくなり、ただの文字としての「'」となります。",
+                    "languages": [
+                        "html"
+                    ]
+                },
+                {
+                    "text": "このエスケープを行なった結果、GETリクエストで渡された「1' onclick='alert(\"クレジットカード情報が流出しました\")」が全て1つの属性値となります。\nよって、攻撃者によって新たな属性を埋め込まれることはありません。",
+                    "languages": []
+                },
+                {
+                    "text": "それでは、以上を踏まえて対策を行なっていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    4,
+                    5,
+                    6
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "体験編ではこの赤枠で囲まれた部分に脆弱性を作りこみました。\nそのときのvalue属性を以下に示します。\nvalue='<?php echo htmlspecialchars($_GET[\"name\"]); ?>'",
+                    "languages": [
+                        "php"
+                    ]
+                },
+                {
+                    "text": "属性値を「'」で囲っており、htmlspecialcharsの第2引数を省略しているので攻撃を仕掛けることが可能になってしまっていました。\n今回はここを改善します。\nそれでは先ほど見たように対策を行なっていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+                0
+            ],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "htmlspecialcharsの第2引数にENT_QUOTESを指定したので、攻撃を仕掛けることは不可能になっています。\n実際にプレビューでそのことを確認してみましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}
