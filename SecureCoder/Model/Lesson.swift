@@ -1,10 +1,10 @@
 import Foundation
 
-struct Slide: Codable {
-    let title: String
-    let content: String
-    let imageName: String?
-}
+//struct Slide: Codable {
+//    let title: String
+//    let content: String
+//    let imageName: String?
+//}
 
 struct Description: Codable {
     let title: String

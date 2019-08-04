@@ -1,0 +1,72 @@
+{
+    "index": 1,
+    "fileName": "trap.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "これが先ほど見た脆弱なWebページに攻撃を仕掛けるページです。\nなお、実際にこれから見ていくようなコードを用いて実在するWebサイトを攻撃するようなことは絶対にしないでください。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    2
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど見た脆弱なWebページに攻撃を仕掛けています。",
+                    "languages": []
+                },
+                {
+                    "text": "urlencodeは引数で与えられた文字列をクエリ文字列で使用できる形式に変換する関数です。",
+                    "languages": []
+                },
+                {
+                    "text": "urlencodeに渡している、「javascript:alert('クレジットカード情報が流出しました')」という文字列を見ると、javascriptスキームを用いて「クレジットカード情報が流出しました」というアラートを表示しようとしていることが分かります。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+                [4]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど見た攻撃用の値を設定し、脆弱なWebページに遷移しようとしています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "それでは実際にプレビューを確認し、攻撃の流れを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

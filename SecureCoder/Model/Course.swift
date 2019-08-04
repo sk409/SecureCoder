@@ -11,6 +11,6 @@ struct Course {
     let index: Int
     let title: String
     let threats: [String]
-    let chapters: [Chapter]
+    let sections: [Section]
     
 }

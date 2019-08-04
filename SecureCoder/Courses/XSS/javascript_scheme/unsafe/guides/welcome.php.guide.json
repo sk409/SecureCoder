@@ -1,0 +1,81 @@
+{
+    "index": 0,
+    "fileName": "welcome.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "このWebサイトはGETリクエストで受け取った値を<a>要素のhref属性に設定しています。\nhref属性やsrc属性ではjavascriptスキームが有効になっており、しっかりと値のチェックを行なっていないとXSS脆弱性となってしまいます。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "javascriptスキームとはスキームに「javascript:」を設定しjavascriptを実行できる機能です。",
+                    "languages": []
+                },
+                {
+                    "text": "体験編ではあえてチェックを行わずに値を使用し、脆弱性を作り込むことでどのような攻撃を受けてしまうのかを体験します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [2, 3, 4, 5, 6, 7, 8]
+            ],
+            "messages": [
+                {
+                    "text": "今回はこの赤枠で囲まれた部分に脆弱性を作り込んでいきます。",
+                    "languages": [
+                    ]
+                },
+                {
+                    "text": "ユーザから受け取った値を使用するときには以下の3点に注意していれば、基本的には安全です。\n・属性値を「\"」で囲む\n・htmlspecialcharsを用いて特殊文字のエスケープを行う\n・htmlspecialcharsの第2引数に「ENT_QUOTES」を指定する。",
+                    "languages": []
+                },
+                {
+                    "text": "しかし、javascriptスキームが有効になっている属性にユーザから受け取った値を設定する場合にはさらに細かく確認を行う必要があります。",
+                    "languages": []
+                },
+                {
+                    "text": "例えば、ユーザから受け取った値が以下である場合を考えます。\njavascript:alert('クレジットカード情報が流出しました')",
+                    "languages": []
+                },
+                {
+                    "text": "この値の場合、前述の注意すべき項目の条件を全て満たしていても、例えばこの値が<a>要素のhref属性に設定されていた場合、その<a>要素をタップまたはクリックすると「クレジットカード情報が流出しました」というアラートが表示されてしまいます。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "自身で設定した値を意図的に表示する場合は問題ありませんが、攻撃者が設定した先ほどのようなメッセージがアラート表示されてしまうのは好ましくありません。",
+                    "languages": []
+                },
+                {
+                    "text": "このようにjavascriptスキームが有効になっている属性にユーザから受け取った値を設定するときには任意のjavascriptを実行させられてしまう可能性があるため注意が必要です。",
+                    "languages": []
+                },
+                {
+                    "text": "それでは実際に脆弱性を作り込んでみましょう。\n今回は属性値を「\"」で囲みhtmlspecialcharsの第2引数をENT_QUOTESに指定した上で使用します。\nなお、これから書くコードには脆弱性があるため、実際に開発を行う場合には絶対に同じコードを書かないでください",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [0, 1, 2, 3],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "一見、安全なように見えますがjavascriptスキームを設定されてしまう可能性があるのでXSS脆弱性となってしまっています。\nそれでは次に攻撃側のコードを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

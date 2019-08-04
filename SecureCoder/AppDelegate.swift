@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = NoQuotesSafeWebSimulatorViewController()
 //        window?.rootViewController = EntQuotesUnsafeWebSimulatorViewController()
 //        window?.rootViewController = EntQuotesSafeWebSimulatorViewController()
+//        window?.rootViewController = JavaScriptSchemeUnsafeWebSimulatorViewController()
         return true
     }
     

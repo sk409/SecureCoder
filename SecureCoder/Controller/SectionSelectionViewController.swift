@@ -64,31 +64,19 @@ class SectionSelectionViewController: UIViewController {
 
 extension SectionSelectionViewController: UITableViewDataSource, UITableViewDelegate {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return course?.chapters.count ?? 0
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return course?.chapters[section].sections.count ?? 0
+        return course?.sections.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = course?.chapters[indexPath.section].sections[indexPath.row].title
+        cell.textLabel?.text = course?.sections[indexPath.row].title
         cell.textLabel?.font = .systemFont(ofSize: 18)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.backgroundColor = .lightGray
-        label.text = course?.chapters[section].title
-        label.font = .boldSystemFont(ofSize: 20)
-        return label
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let section = course?.chapters[indexPath.section].sections[indexPath.row]
+        let section = course?.sections[indexPath.row]
         let lessonSelectionViewController = LessonSelectionViewController()
         lessonSelectionViewController.section = section
         present(lessonSelectionViewController, animated: true)

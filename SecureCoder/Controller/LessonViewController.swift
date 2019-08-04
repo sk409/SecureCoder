@@ -41,7 +41,7 @@ class LessonViewController: UIViewController {
     var tintColor = UIColor.white
     var lineSpacing: CGFloat = 10
     
-    let fileTableView = FileTableView()
+    let fileTableView = UITableView()
     let showGuideMessageButton = UIButton()
     let guideMessageCollectionView = GuideMessageCollectionView(frame: .zero, collectionViewLayout: {
         let layout = UICollectionViewFlowLayout()

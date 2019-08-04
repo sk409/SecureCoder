@@ -205,7 +205,7 @@ struct Application {
             let courseDirectoryURL = coursesDirectoryURL.appendingPathComponent(courseDirectoryName)
             if let contentsInCourseDirectory = try? FileManager.default.contentsOfDirectory(atPath: courseDirectoryURL.path) {
                 var courseInfo: CourseInfo?
-                var chapters = [Chapter]()
+                var sections = [Section]()
                 for contentInCourseDirectory in contentsInCourseDirectory {
                     if contentInCourseDirectory == "info.json" {
                         let courseInfoURL = courseDirectoryURL.appendingPathComponent(contentInCourseDirectory)
@@ -213,125 +213,107 @@ struct Application {
                             courseInfo = try? JSONDecoder().decode(CourseInfo.self, from: courseInfoData)
                         }
                     } else {
-                        let chapterDirectoryName = contentInCourseDirectory
-                        let chapterDirectoryURL = courseDirectoryURL.appendingPathComponent(chapterDirectoryName)
-                        var chapterInfo: ChapterInfo?
-                        var sections = [Section]()
-                        if let contentsInChapterDirectory = try? FileManager.default.contentsOfDirectory(atPath: chapterDirectoryURL.path) {
-                            for contentInChapterDirectory in contentsInChapterDirectory {
-                                if contentInChapterDirectory == "info.json" {
-                                    let chapterInfoURL = chapterDirectoryURL.appendingPathComponent(contentInChapterDirectory)
-                                    if let chapterInfoData = try? Data(contentsOf: chapterInfoURL) {
-                                        chapterInfo = try? JSONDecoder().decode(ChapterInfo.self, from: chapterInfoData)
+                        let sectionDirectoryName = contentInCourseDirectory
+                        let sectionDirectoryURL = courseDirectoryURL.appendingPathComponent(sectionDirectoryName)
+                        if let contentsInSectionDirectory = try? FileManager.default.contentsOfDirectory(atPath: sectionDirectoryURL.path) {
+                            var sectionInfo: SectionInfo?
+                            var safeLesson: Lesson?
+                            var unsafeLesson: Lesson?
+                            for contentInSectionDirectory in contentsInSectionDirectory {
+                                if contentInSectionDirectory == "info.json" {
+                                    let sectionInfoURL = sectionDirectoryURL.appendingPathComponent(contentInSectionDirectory)
+                                    if let sectionInfoData = try? Data(contentsOf: sectionInfoURL) {
+                                        sectionInfo = try? JSONDecoder().decode(SectionInfo.self, from: sectionInfoData)
                                     }
                                 } else {
-                                    let sectionDirectoryName = contentInChapterDirectory
-                                    let sectionDirectoryURL = chapterDirectoryURL.appendingPathComponent(sectionDirectoryName)
-                                    if let contentsInSectionDirectory = try? FileManager.default.contentsOfDirectory(atPath: sectionDirectoryURL.path) {
-                                        var sectionInfo: SectionInfo?
-                                        var safeLesson: Lesson?
-                                        var unsafeLesson: Lesson?
-                                        for contentInSectionDirectory in contentsInSectionDirectory {
-                                            if contentInSectionDirectory == "info.json" {
-                                                let sectionInfoURL = sectionDirectoryURL.appendingPathComponent(contentInSectionDirectory)
-                                                if let sectionInfoData = try? Data(contentsOf: sectionInfoURL) {
-                                                    sectionInfo = try? JSONDecoder().decode(SectionInfo.self, from: sectionInfoData)
-                                                }
-                                            } else {
-                                                var lessonInfo: LessonInfo?
-                                                var domains = [Domain]()
-                                                var guides = [Guide]()
-                                                //var keyboardWords = [KeyboardWords]()
-                                                let lessonTitle = contentInSectionDirectory
-                                                let lessonDirectoryURL = sectionDirectoryURL.appendingPathComponent(lessonTitle)
-                                                if let contentsInLessonDirectory = try? FileManager.default.contentsOfDirectory(atPath: lessonDirectoryURL.path)
+                                    var lessonInfo: LessonInfo?
+                                    var domains = [Domain]()
+                                    var guides = [Guide]()
+                                    //var keyboardWords = [KeyboardWords]()
+                                    let lessonTitle = contentInSectionDirectory
+                                    let lessonDirectoryURL = sectionDirectoryURL.appendingPathComponent(lessonTitle)
+                                    if let contentsInLessonDirectory = try? FileManager.default.contentsOfDirectory(atPath: lessonDirectoryURL.path)
+                                    {
+                                        for contentInLessonDirectory in contentsInLessonDirectory {
+                                            if contentInLessonDirectory == "files" {
+                                                let fileDirectoryURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
+                                                if let domainNames = try? FileManager.default.contentsOfDirectory(atPath: fileDirectoryURL.path)
                                                 {
-                                                    for contentInLessonDirectory in contentsInLessonDirectory {
-                                                        if contentInLessonDirectory == "files" {
-                                                            let fileDirectoryURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
-                                                            if let domainNames = try? FileManager.default.contentsOfDirectory(atPath: fileDirectoryURL.path)
-                                                            {
-                                                                for domainName in domainNames {
-                                                                    let domainDirectoryURL = fileDirectoryURL.appendingPathComponent(domainName)
-                                                                    if let fileNames = try? FileManager.default.contentsOfDirectory(atPath: domainDirectoryURL.path)
-                                                                    {
-                                                                        var files = [File]()
-                                                                        for fileName in fileNames {
-                                                                            if let fileText = try? String(contentsOf: domainDirectoryURL.appendingPathComponent(fileName))
-                                                                            {
-                                                                                files.append(File(name: fileName, text: fileText))
-                                                                            }
-                                                                        }
-                                                                        domains.append(Domain(name: domainName, files: files))
-                                                                    }
+                                                    for domainName in domainNames {
+                                                        let domainDirectoryURL = fileDirectoryURL.appendingPathComponent(domainName)
+                                                        if let fileNames = try? FileManager.default.contentsOfDirectory(atPath: domainDirectoryURL.path)
+                                                        {
+                                                            var files = [File]()
+                                                            for fileName in fileNames {
+                                                                if let fileText = try? String(contentsOf: domainDirectoryURL.appendingPathComponent(fileName))
+                                                                {
+                                                                    files.append(File(name: fileName, text: fileText))
                                                                 }
                                                             }
-                                                        } else if contentInLessonDirectory == "guides" {
-//                                                            Swift.print(sectionDirectoryName)
-//                                                            Swift.print(lessonTitle)
-                                                            let guideDirectoryURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
-                                                            if let guideJSONNames = try? FileManager.default.contentsOfDirectory(atPath: guideDirectoryURL.path)
-                                                            {
-                                                                for guideJSONName in guideJSONNames {
-                                                                    let guideJSONURL = guideDirectoryURL.appendingPathComponent(guideJSONName)
-                                                                    if let guideData = try? Data(contentsOf: guideJSONURL)
-                                                                    {
-                                                                        if let guide = try? JSONDecoder().decode(Guide.self, from: guideData)
-                                                                        {
-                                                                            guides.append(guide)
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-//                                                        else if contentInLessonDirectory == "keyboard_datas" {
-//                                                            let keyboardWordsDirectoryURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
-//                                                            if let keyboardWordsJSONs = try? FileManager.default.contentsOfDirectory(atPath: keyboardWordsDirectoryURL.path) {
-//                                                                for keyboardWordsJSON in keyboardWordsJSONs {
-//                                                                    let keyboardWordsURL = keyboardWordsDirectoryURL.appendingPathComponent(keyboardWordsJSON)
-//                                                                    if let keyboardWordsData = try? Data(contentsOf: keyboardWordsURL) {
-//                                                                        if let kw = try? JSONDecoder().decode(KeyboardWords.self, from: keyboardWordsData) {
-//                                                                            keyboardWords.append(kw)
-//                                                                        }
-//                                                                    }
-//                                                                }
-//                                                            }
-//                                                        }
-                                                        else if contentInLessonDirectory == "info.json" {
-                                                            let infoJSONURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
-                                                            if let lessonInfoData = try? Data(contentsOf: infoJSONURL) {
-                                                                lessonInfo = try? JSONDecoder().decode(LessonInfo.self, from: lessonInfoData)
-                                                            }
+                                                            domains.append(Domain(name: domainName, files: files))
                                                         }
                                                     }
                                                 }
-                                                guides.sort { $0.index < $1.index }
-                                                if let li = lessonInfo {
-                                                    if lessonTitle == "safe" {
-                                                        safeLesson = Lesson(title: li.title, domains: domains, guides: guides)
-                                                    } else {
-                                                        unsafeLesson = Lesson(title: li.title, domains: domains, guides: guides)
+                                            } else if contentInLessonDirectory == "guides" {
+                                                //                                                            Swift.print(sectionDirectoryName)
+                                                //                                                            Swift.print(lessonTitle)
+                                                let guideDirectoryURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
+                                                if let guideJSONNames = try? FileManager.default.contentsOfDirectory(atPath: guideDirectoryURL.path)
+                                                {
+                                                    for guideJSONName in guideJSONNames {
+                                                        let guideJSONURL = guideDirectoryURL.appendingPathComponent(guideJSONName)
+                                                        if let guideData = try? Data(contentsOf: guideJSONURL)
+                                                        {
+                                                            if let guide = try? JSONDecoder().decode(Guide.self, from: guideData)
+                                                            {
+                                                                guides.append(guide)
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
+                                                //                                                        else if contentInLessonDirectory == "keyboard_datas" {
+                                                //                                                            let keyboardWordsDirectoryURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
+                                                //                                                            if let keyboardWordsJSONs = try? FileManager.default.contentsOfDirectory(atPath: keyboardWordsDirectoryURL.path) {
+                                                //                                                                for keyboardWordsJSON in keyboardWordsJSONs {
+                                                //                                                                    let keyboardWordsURL = keyboardWordsDirectoryURL.appendingPathComponent(keyboardWordsJSON)
+                                                //                                                                    if let keyboardWordsData = try? Data(contentsOf: keyboardWordsURL) {
+                                                //                                                                        if let kw = try? JSONDecoder().decode(KeyboardWords.self, from: keyboardWordsData) {
+                                                //                                                                            keyboardWords.append(kw)
+                                                //                                                                        }
+                                                //                                                                    }
+                                                //                                                                }
+                                                //                                                            }
+                                                //                                                        }
+                                            else if contentInLessonDirectory == "info.json" {
+                                                let infoJSONURL = lessonDirectoryURL.appendingPathComponent(contentInLessonDirectory)
+                                                if let lessonInfoData = try? Data(contentsOf: infoJSONURL) {
+                                                    lessonInfo = try? JSONDecoder().decode(LessonInfo.self, from: lessonInfoData)
+                                                }
+                                            }
                                         }
-                                        if let si = sectionInfo,
-                                           let sl = safeLesson,
-                                           let ul = unsafeLesson
-                                        {
-                                            sections.append(Section(index: si.index, title: si.title, description: si.description, safeLesson: sl, unsafeLesson: ul))
+                                    }
+                                    guides.sort { $0.index < $1.index }
+                                    if let li = lessonInfo {
+                                        if lessonTitle == "safe" {
+                                            safeLesson = Lesson(title: li.title, domains: domains, guides: guides)
+                                        } else {
+                                            unsafeLesson = Lesson(title: li.title, domains: domains, guides: guides)
                                         }
                                     }
                                 }
                             }
-                        }
-                        if let ci = chapterInfo {
-                            chapters.append(Chapter(index: ci.index, title: ci.title, sections: sections.sorted { $0.index < $1.index }))
+                            if let si = sectionInfo,
+                                let sl = safeLesson,
+                                let ul = unsafeLesson
+                            {
+                                sections.append(Section(index: si.index, title: si.title, description: si.description, safeLesson: sl, unsafeLesson: ul))
+                            }
                         }
                     }
                 }
                 if let ci = courseInfo {
-                    courses.append(Course(index: ci.index, title: ci.title, threats: ci.threats, chapters: chapters.sorted { $0.index < $1.index }))
+                    courses.append(Course(index: ci.index, title: ci.title, threats: ci.threats, sections: sections.sorted {$0.index < $1.index}))
                 }
             }
         }
