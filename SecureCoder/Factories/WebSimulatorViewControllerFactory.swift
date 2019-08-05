@@ -22,6 +22,8 @@ struct WebSimulatorViewControllerFactory {
             return EntQuotesSafeWebSimulatorViewController()
         case "javascript_scheme_unsafe":
             return JavaScriptSchemeUnsafeWebSimulatorViewController()
+        case "javascript_scheme_safe":
+            return JavaScriptSchemeSafeWebSimulatorViewController()
         default:
             return nil
         }

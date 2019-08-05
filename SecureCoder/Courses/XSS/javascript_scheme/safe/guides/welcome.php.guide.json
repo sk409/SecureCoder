@@ -1,0 +1,298 @@
+{
+    "index": 0,
+    "fileName": "welcome.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "このWebページはGETリクエストで受け取った値を<a>要素のhref属性に設定しています。\nhref属性やsrc属性ではjavascriptスキームが有効になっており、しっかりと値のチェックを行なっていないとXSS脆弱性となってしまいます。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "javascriptスキームとはスキームに「javascript:」を設定しjavascriptを実行できる機能です。",
+                    "languages": []
+                },
+                {
+                    "text": "体験編ではあえてチェックを行わずに値を使用し、脆弱性を作り込むことでどのような攻撃を受けてしまうのかを体験しました。\n具体的には<a>要素のhref属性に設定した値のチェックを行なっていなかったために、アラートを表示するスクリプトを埋め込まれてしまいました。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "対策編ではこの攻撃への対策として、正規表現を用いて値のチェックを行います。",
+                    "languages": []
+                },
+                {
+                    "text": "正規表現を用いると様々な文字列を1つの文字列で表すことができるため、こういった文字列のチェックには非常に便利です。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でユーザから受け取ったurlをチェックする関数を定義しています。",
+                    "languages": [
+                    ]
+                },
+                {
+                    "text": "この関数はユーザから受け取ったurlが「http://」または「https://」または「/」で始まる文字列の場合はその文字列を返し、この条件を満たさない場合には空文字列を返します。",
+                    "languages": []
+                },
+                {
+                    "text": "「http://」または「https://」で始まる文字列であればurlであり、「/」で始まる文字列ではアプリケーションのルートディレクトリからのパスを指定しています。\nもちろんアクセスされたくないパスであれば無効化する必要がありますが、今回は省略します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    3
+                ],
+                [
+                    16
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "「preg_match」はPHPに標準で用意されている関数で第1引数で渡したパターン文字列に第2引数で渡した対象文字列が一致すればtrueを返し、一致しなければfalseを返します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+                [18]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で正規表現を記述しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この部分で「http://」または「https://」で始まる文字列かどうかをチェックしています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    5
+                ],
+                [
+                    11,
+                    12,
+                    13
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "PHPで正規表現を記述する場合には最初と最後に「/」を書くので正規表現の中で「/」を使用する場合には「\\」を用いて「\\/」のように記述しなければならないことに注意してください。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    6
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "正規表現において「^」は行頭を表します。\nつまり「^」を用いると、前方一致検索が可能になります。\nこれによって「~で始まる」といったパターンを記述できます。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    9
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "正規表現において「?」は直前の文字の0回または1回の出現を表します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    8
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "今回「?」の直前にあるのは「s」です。\nよって、「s」が0回または1回出現するパターンにマッチします。\nこれによって「http」または「https」にマッチするパターンを記述できます。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    6, 7, 8, 9, 10, 11, 12
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "以上のことをまとめると、「http://」または「https://」で始まる文字列にマッチするパターンとなります。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    14
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "最後に付いているこの「u」はパターンと対象文字列を「UTF-8」として処理するように明示するものです。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    18
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この部分では「/」で始まる文字列かどうかをチェックしています。\n先ほどまで見てきたように「^」で行頭を表し、「/」を使用するために「\\/」としてエスケープしています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    21
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この2つのパターンのいずれかにマッチした場合、引数で受け取った$urlをそのまま返します。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    24
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "2つのパターンのいずれにもマッチしなかった場合、無効なurlが渡されたので空文字列を返します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "以上が想定していないurlを判定し、無効化する手順です。\n実際にこの関数を用いて値のチェックを行なっていきます。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [29, 30, 31]
+            ],
+            "messages": [
+                {
+                    "text": "体験編ではこの赤枠で囲まれた部分に脆弱性を作り込みました。\nその時のコードを以下に示します。\necho htmlspecialchars($_GET[\"url\"], ENT_QUOTES);",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "GETリクエストで受け取ったurlの値のチェックを行わずにhref属性に設定していたため、javascriptスキームを用いてアラートを表示させられてしまいました。\n今回は「check_url」関数を用いて値の確認を行なってからhtmlspecialchars関数に渡します。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [0],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "「http://」または「https://」または「/」で始まる文字列でない場合には、「check_url」関数にて空文字列に変換されるためjavascriptスキームを用いてアラートを表示することは不可能になっています。",
+                    "languages": []
+                },
+                {
+                    "text": "それでは実際にプレビューを確認し、攻撃が不可能であることを見ていきましょう。\nなお、他のファイルについては体験編と全く同じ内容なので詳しくはそちらを参照してください。\n",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

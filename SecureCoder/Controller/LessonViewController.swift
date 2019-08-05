@@ -39,7 +39,7 @@ class LessonViewController: UIViewController {
     var codeEditorView: CodeEditorView?
     var font = UIFont.boldSystemFont(ofSize: 20)
     var tintColor = UIColor.white
-    var lineSpacing: CGFloat = 10
+    var lineSpacing: CGFloat = 8
     
     let fileTableView = UITableView()
     let showGuideMessageButton = UIButton()

@@ -56,7 +56,7 @@ struct PHPSyntaxHighlighter: SyntaxHighlighterDelegate {
         for variableMatch in variableMatches {
             mutableAttributedString.addAttributes([.foregroundColor: PHP.variableColor], range: variableMatch.range)
         }
-        let stringRegex = try! NSRegularExpression(pattern: "\".*\"")
+        let stringRegex = try! NSRegularExpression(pattern: "\".*?\"")
         let stringMatches = stringRegex.matches(in: text, range: range)
         for stringMatch in stringMatches {
             mutableAttributedString.addAttributes([.foregroundColor: PHP.valueColor], range: stringMatch.range)
@@ -64,6 +64,15 @@ struct PHPSyntaxHighlighter: SyntaxHighlighterDelegate {
         let singleLineCommentRegex = try! NSRegularExpression(pattern: "[^:]//.*$", options: .anchorsMatchLines)
         let singleLineCommentMatches = singleLineCommentRegex.matches(in: text, range: range)
         for singleLineCommentMatch in singleLineCommentMatches {
+            let prefix = text[..<singleLineCommentMatch.range.location]
+            let doubleQuotationCount = prefix.filter { $0 == "\"" }.count
+            guard doubleQuotationCount.isMultiple(of: 2) else {
+                continue
+            }
+            let singleQuotationCount = prefix.filter { $0 == "'" }.count
+            guard singleQuotationCount.isMultiple(of: 2) else {
+                continue
+            }
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.commentColor, range: singleLineCommentMatch.range)
         }
     }

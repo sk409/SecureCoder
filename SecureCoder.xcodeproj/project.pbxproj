@@ -50,6 +50,8 @@
 		D73B85ED22D9827D002E4BB8 /* GuideMessageCollectionViewTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73B85EC22D9827D002E4BB8 /* GuideMessageCollectionViewTextCell.swift */; };
 		D73B85EF22D99D45002E4BB8 /* GuideMessageCollectionViewButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73B85EE22D99D45002E4BB8 /* GuideMessageCollectionViewButtonCell.swift */; };
 		D73B85F122D9A86F002E4BB8 /* Focusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73B85F022D9A86F002E4BB8 /* Focusable.swift */; };
+		D73D9F3122F7FB1800526512 /* KeyboardJavaScriptShcemeSafeWelcome0View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73D9F3022F7FB1800526512 /* KeyboardJavaScriptShcemeSafeWelcome0View.swift */; };
+		D73D9F3322F7FBED00526512 /* JavaScriptSchemeSafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73D9F3222F7FBED00526512 /* JavaScriptSchemeSafeWebSimulatorViewController.swift */; };
 		D745635922B7A23C00F8F68F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D745635822B7A23C00F8F68F /* Extension.swift */; };
 		D74ACBA322CC508500713343 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74ACBA222CC508500713343 /* Chapter.swift */; };
 		D74ACBA522CC675E00713343 /* SectionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74ACBA422CC675E00713343 /* SectionSelectionViewController.swift */; };
@@ -157,6 +159,8 @@
 		D73B85EC22D9827D002E4BB8 /* GuideMessageCollectionViewTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideMessageCollectionViewTextCell.swift; sourceTree = "<group>"; };
 		D73B85EE22D99D45002E4BB8 /* GuideMessageCollectionViewButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideMessageCollectionViewButtonCell.swift; sourceTree = "<group>"; };
 		D73B85F022D9A86F002E4BB8 /* Focusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Focusable.swift; sourceTree = "<group>"; };
+		D73D9F3022F7FB1800526512 /* KeyboardJavaScriptShcemeSafeWelcome0View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardJavaScriptShcemeSafeWelcome0View.swift; sourceTree = "<group>"; };
+		D73D9F3222F7FBED00526512 /* JavaScriptSchemeSafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaScriptSchemeSafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
 		D745635822B7A23C00F8F68F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D74ACBA222CC508500713343 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		D74ACBA422CC675E00713343 /* SectionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionSelectionViewController.swift; sourceTree = "<group>"; };
@@ -397,6 +401,7 @@
 				D7EBEC4422F3E471002AF66E /* EntQuotesUnsafeWebSimulatorViewController.swift */,
 				D7916B1A22F52D9600441453 /* EntQuotesSafeWebSimulatorViewController.swift */,
 				D7916B2422F67CE800441453 /* JavaScriptSchemeUnsafeWebSimulatorViewController.swift */,
+				D73D9F3222F7FBED00526512 /* JavaScriptSchemeSafeWebSimulatorViewController.swift */,
 			);
 			path = WebSimulatorViewControllers;
 			sourceTree = "<group>";
@@ -445,6 +450,7 @@
 				D7916B1E22F6706A00441453 /* KeyboardJavaScriptSchemeUnsafeWelcome1View.swift */,
 				D7916B2022F6709D00441453 /* KeyboardJavaScriptSchemeUnsafeWelcome2View.swift */,
 				D7916B2222F670D000441453 /* KeyboardJavaScriptSchemeUnsafeWelcome3View.swift */,
+				D73D9F3022F7FB1800526512 /* KeyboardJavaScriptShcemeSafeWelcome0View.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -551,6 +557,7 @@
 				D7E5D502228A66DF007CE3C2 /* HTML.swift in Sources */,
 				D7A56685225A1348002EF185 /* JavaScriptSyntaxHighlighter.swift in Sources */,
 				D7F96529229259120086E98A /* ProgramingLanguage.swift in Sources */,
+				D73D9F3322F7FBED00526512 /* JavaScriptSchemeSafeWebSimulatorViewController.swift in Sources */,
 				D7916B1D22F66FF100441453 /* KeyboardJavaScriptSchemeUnsafeWelcome0View.swift in Sources */,
 				D700D68722ED3ECD00FE6631 /* WebElementButtonView.swift in Sources */,
 				D73B85EF22D99D45002E4BB8 /* GuideMessageCollectionViewButtonCell.swift in Sources */,
@@ -580,6 +587,7 @@
 				D77F1FCB22D1AA3400FC3005 /* WebSimulatorViewControllerFactory.swift in Sources */,
 				D788ED4222EBD8840064826B /* KeyboardFalsifyFormUnsafeApply0View.swift in Sources */,
 				D75A99D622A29B530086E710 /* Section.swift in Sources */,
+				D73D9F3122F7FB1800526512 /* KeyboardJavaScriptShcemeSafeWelcome0View.swift in Sources */,
 				D719935422CF249500A3365F /* Guide.swift in Sources */,
 				D77F1FDF22D2013400FC3005 /* H1.swift in Sources */,
 				D781CE1D225DFF7A00B90A26 /* Character+is~.swift in Sources */,

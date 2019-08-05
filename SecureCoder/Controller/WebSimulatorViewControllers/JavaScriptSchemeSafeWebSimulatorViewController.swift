@@ -1,11 +1,11 @@
 import UIKit
 
-class JavaScriptSchemeUnsafeWebSimulatorViewController: WebSimulatorViewController {
+class JavaScriptSchemeSafeWebSimulatorViewController: WebSimulatorViewController {
     
     let trapA = A()
     let welcomeH1 = H1()
     let linkA = A()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -18,14 +18,13 @@ class JavaScriptSchemeUnsafeWebSimulatorViewController: WebSimulatorViewControll
     
     private func setupViews() {
         trapA.set(text: "このサイト本当に面白い!!")
-        trapA.set(code: "<a href=\"http://www.unsafe.co.jp/welcome.php?url=<?php echo $url; ?>\">このサイト本当に面白い!!</a>", language: .php, force: false)
+        trapA.set(code: "<a href=\"http://www.safe.co.jp/welcome.php?url=<?php echo $url; ?>\">このサイト本当に面白い!!</a>", language: .php, force: false)
         trapA.button.addTarget(self, action: #selector(handleDisabledButton(_:)), for: .touchUpInside)
-        welcomeH1.set(text: "ようこそ脆弱株式会社へ")
+        welcomeH1.set(text: "ようこそ安全株式会社へ")
         linkA.set(text: "リンク先")
         linkA.set(code: """
-<a href="<?php echo htmlspecialchars($_GET["url"], ENT_QUOTES); ?>">リンク先</a>
+<a href="<?php echo htmlspecialchars(check_url($_GET["url"]), ENT_QUOTES); ?>">リンク先</a>
 """, language: .php, force: false)
-        linkA.button.addTarget(self, action: #selector(handleLinkA(_:)), for: .touchUpInside)
     }
     
     private func showTrap() {
@@ -36,10 +35,10 @@ class JavaScriptSchemeUnsafeWebSimulatorViewController: WebSimulatorViewControll
             GuideText(text: "これが攻撃者が用意した罠サイトです。")
             ])
         appendGuideSection([
-            GuideText(text: "この赤枠で囲まれたリンクをタップすると攻撃を仕掛ける値とともに脆弱なWebページに遷移します。\nリンクの下に示されたコードと見比べてみましょう。"),
+            GuideText(text: "この赤枠で囲まれたリンクをタップすると攻撃を仕掛ける値とともに攻撃先のWebページに遷移します。\nリンクの下に示されたコードと見比べてみましょう。"),
             GuideText(text: "このクエリパラメータの値の$urlには以下の値が設定されていました。\n$url = urlencode(\"javascript:alert('クレジットカード情報が流出しました')\");", programingLanguages: [.php]),
             GuideText(text: "この値をjavascriptスキームが有効になっている属性に設定してしまうと、「クレジットカード情報が流出しました」というアラートが表示されてしまいます。"),
-            GuideText(text: "そして、今回はこの値を<a>要素のhref属性に設定しているのでこの攻撃が成立してしまいます。", programingLanguages: [.html])
+            GuideText(text: "しかし、今回は「check_url」関数にて「http://」または「https://」または「/」で始まる文字列以外は空文字列に変換されるので、この攻撃が成立することはありません。", programingLanguages: [.html])
             ], onEnter: { completion in
                 self.focus(on: self.trapA) {
                     completion?()
@@ -50,7 +49,7 @@ class JavaScriptSchemeUnsafeWebSimulatorViewController: WebSimulatorViewControll
             }
         })
         appendGuideSection([
-            GuideText(text: "それでは実際に脆弱なWebページに遷移してみましょう。")
+            GuideText(text: "それでは実際に攻撃先のWebページに遷移してみましょう。")
             ], onEnter: { completion in
                 self.trapA.button.removeTarget(self, action: #selector(self.handleDisabledButton(_:)), for: .touchUpInside)
                 self.trapA.button.addTarget(self, action: #selector(self.handleTrapA(_:)), for: .touchUpInside)
@@ -72,15 +71,15 @@ class JavaScriptSchemeUnsafeWebSimulatorViewController: WebSimulatorViewControll
         body.appendBreak()
         clearGuideSections()
         appendGuideSection([
-            GuideText(text: "これが最初に見た脆弱なWebページです。")
+            GuideText(text: "これが最初に見た攻撃先のWebページです。")
             ])
         appendGuideSection([
-            GuideText(text: "今回攻撃を受けたのは、この赤枠で囲まれた<a>要素です。\n<a>要素のhref属性ではjavascriptスキームが有効になっているため、攻撃ページで渡された値によって攻撃が成立してしまいます。", programingLanguages: [.html]),
+            GuideText(text: "今回攻撃を受けたのは、この赤枠で囲まれた<a>要素です。\n<a>要素のhref属性ではjavascriptスキームが有効になっているため、攻撃ページで渡された値によってはjavascriptのコードを埋め込まれてしまいますが、今回は値のチェックを行なってしっかりと無効化したため、アラートが表示されることはありませんので実際にタップして確かめてみてください。", programingLanguages: [.html]),
             GuideText(text: """
-以下に攻撃が成立した後のこの<a>要素のコードを示します。
-<a href="javascript:alert('クレジットカード情報が流出しました')">リンク先</a>
+以下にhref属性が設定された後のこの<a>要素のコードを示します。
+<a href="">リンク先</a>
 """, programingLanguages: [.html]),
-            GuideText(text: "このように攻撃を受けた結果、この<a>要素はタップまたはクリックされたときにアラートを表示するようになってしまっています。\n実際にこの<a>要素をタップしてアラートが表示されることを確認してみましょう。", programingLanguages: [.html]),
+            GuideText(text: "このようにhref属性が空文字列となっているためタップしても何も起こりません。", programingLanguages: [.html]),
             ], onEnter: { completion in
                 self.focus(on: self.linkA) {
                     completion?()
@@ -91,8 +90,8 @@ class JavaScriptSchemeUnsafeWebSimulatorViewController: WebSimulatorViewControll
             }
         })
         appendGuideSection([
-            GuideText(text: "実際にこの攻撃を受けたユーザは非常に怖い思いをするでしょうし、もうこのサイトを使おうとは思わないでしょう。\nサイトへの信頼を失わないためにも早急に対策する必要があります。"),
-            GuideText(text: "この攻撃への対策は同レッスンの対策編で解説していますので、そちらを参考にしてください。\nお疲れ様でした。")
+            GuideText(text: "このようにjavascriptスキームが有効になっている属性にユーザから渡された値が設定される可能性がある場合にはしっかりと値のチェックを行うようにしましょう。"),
+            GuideText(text: "今回の説明はこれで以上です\n他にも様々なレッスンを用意していますのでそちらも参考にしてみてください。\nお疲れ様でした。"),
             ])
         addCloseButton()
         guideMessageCollectionView.reloadData()
@@ -107,14 +106,6 @@ class JavaScriptSchemeUnsafeWebSimulatorViewController: WebSimulatorViewControll
                 self.showWelcome()
             }
         }
-    }
-    
-    @objc
-    private func handleLinkA(_ sender: A) {
-        let alertController = UIAlertController(title: "", message: "クレジットカード情報が流出しました", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default)
-        alertController.addAction(okAction)
-        self.present(alertController, animated: true)
     }
     
 }
