@@ -17,23 +17,6 @@ class LessonViewController: UIViewController {
     }
     var guideIndex = 0
     var explainerIndex = 0
-//    var guideIndex: Int {
-//        guard let lesson = lesson, let guide = guide, let guideIndex = lesson.guides.firstIndex(of: guide) else {
-//            return 0
-//        }
-//        return guideIndex
-//    }
-//    var explainerIndex: Int {
-//        guard let lesson = lesson, let explainer = explainer else {
-//            return 0
-//        }
-//        for guide in lesson.guides {
-//            if let explainerIndex = guide.explainers.firstIndex(of: explainer) {
-//                return explainerIndex
-//            }
-//        }
-//        return 0
-//    }
     var guide: Guide?
     var explainer: Explainer?
     var codeEditorView: CodeEditorView?
@@ -41,6 +24,7 @@ class LessonViewController: UIViewController {
     var tintColor = UIColor.white
     var lineSpacing: CGFloat = 8
     
+    let swipeIconImageView = UIImageView(image: UIImage(named: "swipe-icon"))
     let fileTableView = UITableView()
     let showGuideMessageButton = UIButton()
     let guideMessageCollectionView = GuideMessageCollectionView(frame: .zero, collectionViewLayout: {
@@ -58,10 +42,8 @@ class LessonViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        guide = lesson?.guides.first
-//        explainer = guide?.explainers.first
         layoutSubviews()
-        showGuideMessageCollectionView(completion: nil)
+        showGuideMessageCollectionView(withSwipeIcon: true)
         changeCodeEditorView()
     }
     
@@ -69,7 +51,6 @@ class LessonViewController: UIViewController {
         view.addSubview(fileTableView)
         view.addSubview(showGuideMessageButton)
         view.addSubview(guideMessageCollectionView)
-        //view.addSubview(showPreviewButton)
         setupFileTableView()
         setupShowGuideMessageButton()
         setupCodeEditorViews()
@@ -178,35 +159,6 @@ class LessonViewController: UIViewController {
         }
     }
     
-    /*******************************************/
-    // 未テスト
-    /*******************************************/
-//    private func changeCodeEditorView(to codeEditorView: CodeEditorView) {
-//        guard let lesson = lesson, let editedFile = codeEditorView.file else {
-//            return
-//        }
-//        var domainIndex: Int?
-//        var fileIndex: Int?
-//        for (di, domain) in lesson.domains.enumerated() {
-//            for (fi, file) in domain.files.enumerated() {
-//                if file.name == editedFile.name {
-//                    domainIndex = di
-//                    fileIndex = fi
-//                    break
-//                }
-//            }
-//            if domainIndex != nil && fileIndex != nil {
-//                break
-//            }
-//        }
-//        if let di = domainIndex, let fi = fileIndex {
-//            changeCodeEditorView(
-//                domainIndex: di,
-//                fileIndex: fi
-//            )
-//        }
-//    }
-    
     private func changeCodeEditorView(domainIndex: Int, fileIndex: Int) {
         guard let lesson = lesson else {
             return
@@ -226,11 +178,26 @@ class LessonViewController: UIViewController {
         fileTableView.selectRow(at: IndexPath(row: fileIndex, section: domainIndex), animated: true, scrollPosition: .top)
     }
     
-    private func showGuideMessageCollectionView(completion: (() -> Void)? = nil) {
+    private func showGuideMessageCollectionView(withSwipeIcon swipeIcon: Bool = false, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.5, animations: {
             self.guideMessageCollectionView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.height - self.guideMessageCollectionView.frame.height
             self.fileTableView.frame.size.height -= self.guideMessageCollectionView.frame.height
         }) { _ in
+            if swipeIcon && !self.view.subviews.contains(self.swipeIconImageView) {
+                self.view.addSubview(self.swipeIconImageView)
+                let iconSize = self.guideMessageCollectionView.bounds.height * 0.25
+                self.swipeIconImageView.frame.size = CGSize(width: iconSize, height: iconSize)
+                self.swipeIconImageView.frame.origin.x = self.guideMessageCollectionView.frame.maxX - self.swipeIconImageView.frame.width
+                self.swipeIconImageView.frame.origin.y = self.guideMessageCollectionView.frame.maxY - self.swipeIconImageView.frame.height
+                self.swipeIconImageView.alpha = 0
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.swipeIconImageView.alpha = 1
+                }) { _ in
+                    UIView.animate(withDuration: 1.5, delay: 0, options: [.repeat], animations: {
+                        self.swipeIconImageView.frame.origin.x -= self.guideMessageCollectionView.bounds.width * 0.25
+                    }, completion: nil)
+                }
+            }
             completion?()
         }
     }
@@ -385,17 +352,6 @@ extension LessonViewController: UITableViewDataSource, UITableViewDelegate {
         return label
     }
     
-//    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-//        guard let lesson = lesson, let guide = guide, let guideIndex = lesson.guides.firstIndex(of: guide) else {
-//            return nil
-//        }
-//        guard guideIndex == (lesson.guides.count - 1) else {
-//            NotificationMessage.send(text: "全ての説明を読むまでファイルの変更はできません", axisX: .right, axisY: .center, size: nil, font: .boldSystemFont(ofSize: 18), textColor: .white, backgroundColor: .red, lifeSeconds: 2)
-//            return nil
-//        }
-//        return indexPath
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         changeCodeEditorView(domainIndex: indexPath.section, fileIndex: indexPath.row)
     }
@@ -540,6 +496,11 @@ extension LessonViewController: UICollectionViewDataSource, UICollectionViewDele
         }
         guard self.guideIndex != guideIndex || self.explainerIndex != explainerIndex else {
             return
+        }
+        UIView.animate(withDuration: 0.5, animations: {
+            self.swipeIconImageView.alpha = 0
+        }) {_ in
+            self.swipeIconImageView.removeFromSuperview()
         }
         if self.guideIndex != guideIndex {
             guide = lesson.guides[guideIndex]
