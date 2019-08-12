@@ -56,13 +56,15 @@ extension UIColor {
     
     static let paleVioletRed = UIColor.make(fromHex: "#db7093")!
     
-    static let lightGreen = UIColor(red: 115/255, green: 246/255, blue: 158/255, alpha: 1)
+    static let functionGreen = UIColor(red: 115/255, green: 246/255, blue: 158/255, alpha: 1)
     
     static let reservedWordRed = UIColor(red: 205/255, green: 73/255, blue: 162/255, alpha: 1)
     
     static let functionBlue = UIColor(red: 74/255, green: 176/255, blue: 249/255, alpha: 1)
     
     static let stringRed = UIColor(red: 238/255, green: 86/255, blue: 80/255, alpha: 1)
+    
+    static let stringBlue = UIColor.make(fromHex: "#5050ED")!
     
     static let commentGreen = UIColor(red: 101/255, green: 180/255, blue: 89/255, alpha: 1)
     

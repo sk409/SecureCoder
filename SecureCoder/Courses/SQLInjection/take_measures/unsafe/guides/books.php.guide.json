@@ -1,0 +1,163 @@
+{
+    "index": 0,
+    "fileName": "books.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "このWebページはGETリクエストで受け取った著者の本をデータベースから検索して表示するだけの簡単なものです。\n今回のレッスンではこのWebページにあえて脆弱性を作り込むことによって、どのようなコードを書くと攻撃を受けてしまうのかを学習します。",
+                    "languages": []
+                },
+                {
+                    "text": "今回体験する攻撃は、SQLインジェクションによる情報漏洩です。\nそれでは早速見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [2]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で著者名を取得しています。\nこの著者名を用いてデータベースから本の検索を行います。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    6,
+                    7
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分が著者名から本を検索するSQLです。\n今回ここで使用しているbooksテーブルは「title, author, price」という列を持ち、それぞれ「タイトル、著者、価格」を表すこととします。",
+                    "languages": []
+                },
+                {
+                    "text": "これからこのSQL内にSQLインジェクション脆弱性を作り込んでいきますがその前にまず、SQLインジェクション脆弱性の原因を解説します。",
+                    "languages": []
+                },
+                {
+                    "text": "SQLインジェクション脆弱性の原因はリテラルの扱いにあります。\nリテラルとは文字列や数値のことです。\n例えば以下のSQLを見てください。\nSELECT * FROM books WHERE author='$author'",
+                    "languages": ["sql", "php"]
+                },
+                {
+                    "text": "このSQLに埋め込んでいる$authorの値が以下だったとします。\n'; DELETE FROM books;--",
+                    "languages": [
+                        "sql", "php"
+                    ]
+                },
+                {
+                    "text": "この場合、$authorが埋め込まれた後のSQLは以下になります。\nSELECT * FROM books WHERE author=''; DELETE FROM books;--'",
+                    "languages": ["sql", "php"]
+                },
+                {
+                    "text": "$authorが埋め込まれた結果、SQL文が2つになっています。\nこれを複文といって、もし複文が禁止されていない場合は想定していなかった2つ目の文までが実行されてしまいます。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "最後の「--」はSQLにおけるコメントで元々あった2つ目「'」をコメントアウトしています。",
+                    "languages": []
+                },
+                {
+                    "text": "まず1つ目のSQL文から見ていきます。\nSELECT * FROM books WHERE autor='';\nこのSQL文では著者名が空文字の本を検索しているだけなので、特に問題はありません。",
+                    "languages": [
+                        "sql"
+                    ]
+                },
+                {
+                    "text": "次に2つ目のSQL文を見ていきます。\nDELETE FROM books;\nこのSQL文ではbooksテーブルにある全てのデータが削除されてしまいます。\nもしこれがWebページ製作者の意図ではなく攻撃によって行われたとしたらデータベースのデータを全て削除されてしまうため、大きな被害が出てしまいます。",
+                    "languages": ["sql"]
+                },
+                {
+                    "text": "今回のSQLインジェクションは「author='$author'」の部分の文字列リテラルを正しく扱わなかったことが原因です。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "本来想定していた挙動ではこの$authorは文字列リテラルをはみ出すことなく著者名として埋め込まれるはずでしたが、この$authorが文字列リテラルをはみ出しさらにはSQL文まで構成しそれが実行されてしまったことによってSQLインジェクションによるデータの削除が成立してしまいました。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "このようにリテラルを正しく扱わないとSQLインジェクション攻撃を可能にしてしまい、大きな被害を出してしまうことになります。",
+                    "languages": [
+                    ]
+                },
+                {
+                    "text": "このSQLインジェクション攻撃を防ぐにはリテラルをそのまま埋め込むのではなくプレースホルダを用いてSQL文のコンパイルを行なった後に値を埋め込みます。\n詳しくは対策編のレッスンを参照してください。",
+                    "languages": []
+                },
+                {
+                    "text": "今回はあえてこのような脆弱性を作り込んでいきますが、これから書くコードには脆弱性があるため、実際に開発を行う場合には絶対に同じコードを書かないでください。",
+                    "languages": []
+                },
+                {
+                    "text": "それでは実際に脆弱性を作り込んでいきましょう。\n具体的には例で見たように$authorの値をそのままSQLに埋め込みます。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+                0
+            ],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "$authorの値をそのまま埋め込んでいるので、SQLインジェクション攻撃を仕掛けることが可能になってしまっています。",
+                    "languages": [
+                        "php"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    19,
+                    21,
+                    23,
+                    25,
+                    27,
+                    29,
+                    31
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で検索した本の情報を表示しています。\n今回は攻撃者に先ほどコーディングした部分の脆弱性を狙われ、ここでユーザの情報を表示させられてしまいます。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "それでは実際に攻撃を仕掛ける側のコードを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

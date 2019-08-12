@@ -4,4 +4,5 @@ enum Extension: String {
     case css
     case js
     case php
+    case sql
 }

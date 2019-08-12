@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = EntQuotesUnsafeWebSimulatorViewController()
 //        window?.rootViewController = EntQuotesSafeWebSimulatorViewController()
 //        window?.rootViewController = JavaScriptSchemeUnsafeWebSimulatorViewController()
+//        window?.rootViewController = SQLInjectionTakeMeasuresWebSimulatorViewController()
         return true
     }
     

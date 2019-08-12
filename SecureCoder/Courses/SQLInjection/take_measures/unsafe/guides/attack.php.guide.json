@@ -1,0 +1,83 @@
+{
+    "index": 1,
+    "fileName": "attack.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "これが先ほど見た脆弱なWebページに攻撃を仕掛けるページです。\nなお、実際にこれから見ていくようなコードを用いて実在するWebサイトを攻撃するようなことは絶対にしないでください。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    2
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で攻撃に使う値を生成しています。\n攻撃者は$authorを先ほどコードを書いた$authorの部分に埋め込みます。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "先ほど脆弱性を作り込んだ部分にこの$authorが埋め込まれた後のSQL文を次に示します。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "SELECT title, author, price FROM books WHERE author='' UNION SELECT name, password, NULL FROM users;--",
+                    "languages": [
+                        "sql"
+                    ]
+                },
+                {
+                    "text": "ここでusersテーブルは「name, password」という列を持ち、それぞれ「名前、パスワード」を表すこととします。",
+                    "languages": []
+                },
+                {
+                    "text": "このSQL文はbooksテーブルからauthor列が空の「title, author, price」を取り出し、UNIONによってusersテーブルから取り出した「name, passsword, NULL」と結合しています。\nこれによって先ほど見た検索した本を表示している部分にユーザの名前やパスワードを表示しようとしてます。",
+                    "languages": ["sql"]
+                },
+                {
+                    "text": "今回はこの攻撃が成立してしまうので攻撃者に情報が漏洩してしまいます。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    4
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど見た脆弱なWebページに攻撃用の値を渡して遷移しようとしています。",
+                    "languages": [] 
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "それでは実際にプレビューを確認して攻撃の流れを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

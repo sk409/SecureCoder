@@ -21,6 +21,8 @@ struct SyntaxHighlighter {
                 delegate = JavaScriptSyntaxHighlighter()
             case .php:
                 delegate = PHPSyntaxHighlighter()
+            case .sql:
+                delegate = SQLSyntaxhighlighter()
             }
         }
     }

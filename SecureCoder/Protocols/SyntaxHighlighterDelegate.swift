@@ -5,6 +5,7 @@ protocol SyntaxHighlighterDelegate {
 //    func syntaxHighlight(_ text: String, tintColor: UIColor, font: UIFont, lineSpacing: CGFloat?) -> NSMutableAttributedString
     
     func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString) -> NSMutableAttributedString
+    func syntaxhighlight(_ mutableAttributedString: NSMutableAttributedString, range: NSRange) -> NSMutableAttributedString
     
 }
 

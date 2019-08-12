@@ -36,9 +36,6 @@ struct LessonTextParser {
             }
             else if cache.hasPrefix("?[?") && cache.hasSuffix("?]?") {
                 let answer = String(cache[3...(cache.count - 4)])
-                let key = language.makeAnswerKey(value: String(questionIndex))
-                text += key
-                text += key
                 delegate?.lessonTextParser(self, handleQuestionAt: questionIndex, answer: answer)
                 cache.removeAll()
                 questionIndex += 1
@@ -52,7 +49,7 @@ struct LessonTextParser {
             }
             lessonTextIndex += 1
         }
-        delegate?.lessonTextParser(self, finishedParsing: TextUtils.formatUserTextToPreviewText(text, language: language))
+        delegate?.lessonTextParser(self, finishedParsing: text)
         return text
     }
     

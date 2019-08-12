@@ -29,8 +29,11 @@ class SectionSelectionViewController: UIViewController {
             ])
         courseTitleLabel.text = course?.title
         courseTitleLabel.font = .boldSystemFont(ofSize: 20)
+        courseTitleLabel.numberOfLines = 0
         courseTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
+            courseTitleLabel.leadingAnchor.constraint(equalTo: headerView.safeAreaLayoutGuide.leadingAnchor),
+            courseTitleLabel.trailingAnchor.constraint(equalTo: headerView.safeAreaLayoutGuide.trailingAnchor),
             courseTitleLabel.centerXAnchor.constraint(equalTo: headerView.safeAreaLayoutGuide.centerXAnchor),
             courseTitleLabel.centerYAnchor.constraint(equalTo: headerView.safeAreaLayoutGuide.centerYAnchor),
             ])

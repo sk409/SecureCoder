@@ -37,6 +37,8 @@ struct KeyboardViewFactory {
             return KeyboardJavaScriptSchemeUnsafeWelcome3View()
         case "javascript_scheme_safe_welcome.php_0":
             return KeyboardJavaScriptSchemeSafeWelcome0View()
+        case "take_measures_unsafe_books.php_0":
+            return KeyboardSQLInjectionTakeMeasuresUnsafeBooks0View()
         default:
             return nil
         }

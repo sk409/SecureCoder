@@ -2,30 +2,29 @@ import UIKit
 
 struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
     
-    func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString) -> NSMutableAttributedString {
+    func syntaxhighlight(_ mutableAttributedString: NSMutableAttributedString, range: NSRange) -> NSMutableAttributedString {
         let text = mutableAttributedString.string
-        let fullRange = NSRange(location: 0, length: (text as NSString).length)
-        let openTags = ["<p", "<h1", "<body", "<a", "<script", "<iframe", "<form", "<input", "<br"]
+        let openTags = ["<p", "<h1", "<body", "<a", "<script", "<iframe", "<form", "<input", "<br", "<table", "<tr", "<th", "<td"]
         let openTagRegex = try! NSRegularExpression(pattern: openTags.joined(separator: "|"))
-        let openTagMatches = openTagRegex.matches(in: text, range: fullRange)
+        let openTagMatches = openTagRegex.matches(in: text, range: range)
         for openTagMatch in openTagMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.tagColor, range: NSRange(location: openTagMatch.range.location + 1, length: openTagMatch.range.length - 1))
         }
         let closeTags = openTags.map { String($0[0]) + "/" + $0[1...] }
         let closeTagRegex = try! NSRegularExpression(pattern: closeTags.joined(separator: "|"))
-        let closeTagMatches = closeTagRegex.matches(in: text, range: fullRange)
+        let closeTagMatches = closeTagRegex.matches(in: text, range: range)
         for closeTagMatch in closeTagMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.tagColor, range: NSRange(location: closeTagMatch.range.location + 1, length: closeTagMatch.range.length - 1))
         }
         let attributes = ["href", "src", "method", "action", "type", "name", "value", "style", "id", "onclick"]
         let attributeRegex = try! NSRegularExpression(pattern: attributes.joined(separator: "|"))
-        let attributeMatches = attributeRegex.matches(in: text, range: fullRange)
+        let attributeMatches = attributeRegex.matches(in: text, range: range)
         for attributeMatch in attributeMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.attributeColor, range: attributeMatch.range)
         }
         let tagRegex = try! NSRegularExpression(pattern: (openTags.map { $0 + ".*>"}).joined(separator: "|")
             , options: .dotMatchesLineSeparators)
-        let tagMatches = tagRegex.matches(in: text, range: fullRange)
+        let tagMatches = tagRegex.matches(in: text, range: range)
         for tagMatch in tagMatches {
             let valueRegex = try! NSRegularExpression(pattern: "=[^ >]+", options: .dotMatchesLineSeparators)
             let valueMatches = valueRegex.matches(in: text, range: tagMatch.range)
@@ -41,25 +40,25 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
             }
         }
         let escapeRegex = try! NSRegularExpression(pattern: "&[a-zA-Z0-9#]+;")
-        let escapeMathces = escapeRegex.matches(in: text, range: fullRange)
+        let escapeMathces = escapeRegex.matches(in: text, range: range)
         for escapeMatch in escapeMathces {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.escapeColor, range: escapeMatch.range)
         }
         /*******************************/
         // "で囲ってある文字列の中にスペースがある場合、うまくシンタックスハイライトされないため無理やり
         let stringRegex = try! NSRegularExpression(pattern: "\".*?\"|'.*?'", options: .dotMatchesLineSeparators)
-        let stringMatches = stringRegex.matches(in: text, range: fullRange)
+        let stringMatches = stringRegex.matches(in: text, range: range)
         for stringMatch in stringMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.valueColor, range: stringMatch.range)
         }
         /*******************************/
         let commentRegex = try! NSRegularExpression(pattern: "<!--.*?-->", options: .dotMatchesLineSeparators)
-        let commentMatches = commentRegex.matches(in: text, range: fullRange)
+        let commentMatches = commentRegex.matches(in: text, range: range)
         for commentMatch in commentMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.commentColor, range: commentMatch.range)
         }
         let commentRegex2 = try! NSRegularExpression(pattern: "(?!.*-->)<!--.*\\z", options: .dotMatchesLineSeparators)
-        let commentMatches2 = commentRegex2.matches(in: text, range: fullRange)
+        let commentMatches2 = commentRegex2.matches(in: text, range: range)
         for commentMatch in commentMatches2 {
             /*******************************************/
             // ダブルクォーテーションの中にシングルクォーテーションが入っている場合を考慮していないため多少手抜き
@@ -75,6 +74,13 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.commentColor, range: commentMatch.range)
         }
         return mutableAttributedString
+    }
+    
+    
+    func syntaxHighlight(_ mutableAttributedString: NSMutableAttributedString) -> NSMutableAttributedString {
+        let text = mutableAttributedString.string
+        let fullRange = NSRange(location: 0, length: (text as NSString).length)
+        return syntaxhighlight(mutableAttributedString, range: fullRange)
     }
     
 }
