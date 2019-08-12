@@ -2,6 +2,7 @@ import UIKit
 
 class CourseSelectionViewController: UIViewController {
     
+    private static let cellsSpacing: CGFloat = 32
     private static let cellId = "cellId"
     
     let coursesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: {
@@ -21,7 +22,7 @@ class CourseSelectionViewController: UIViewController {
         coursesCollectionView.dataSource = self
         coursesCollectionView.delegate = self
         coursesCollectionView.backgroundColor = .white
-        coursesCollectionView.isPagingEnabled = true
+        coursesCollectionView.contentInset = UIEdgeInsets(top: 0, left: CourseSelectionViewController.cellsSpacing, bottom: 0, right: CourseSelectionViewController.cellsSpacing)
         coursesCollectionView.register(CourseCardCollectionViewCell.self, forCellWithReuseIdentifier: CourseSelectionViewController.cellId)
         coursesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -62,7 +63,7 @@ extension CourseSelectionViewController: UICollectionViewDataSource, UICollectio
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: collectionView.bounds.height)
+        return CGSize(width: collectionView.bounds.width * 0.4, height: collectionView.bounds.height * 0.8)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -70,7 +71,7 @@ extension CourseSelectionViewController: UICollectionViewDataSource, UICollectio
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return CourseSelectionViewController.cellsSpacing
     }
     
 }
