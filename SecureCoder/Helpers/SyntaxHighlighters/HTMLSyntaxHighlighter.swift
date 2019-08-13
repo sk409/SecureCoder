@@ -16,16 +16,16 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
         for closeTagMatch in closeTagMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.tagColor, range: NSRange(location: closeTagMatch.range.location + 1, length: closeTagMatch.range.length - 1))
         }
-        let attributes = ["href", "src", "method", "action", "type", "name", "value", "style", "id", "onclick"]
-        let attributeRegex = try! NSRegularExpression(pattern: attributes.joined(separator: "|"))
-        let attributeMatches = attributeRegex.matches(in: text, range: range)
-        for attributeMatch in attributeMatches {
-            mutableAttributedString.addAttribute(.foregroundColor, value: PHP.attributeColor, range: attributeMatch.range)
-        }
         let tagRegex = try! NSRegularExpression(pattern: (openTags.map { $0 + ".*>"}).joined(separator: "|")
             , options: .dotMatchesLineSeparators)
         let tagMatches = tagRegex.matches(in: text, range: range)
         for tagMatch in tagMatches {
+            let attributes = ["href", "src", "method", "action", "type", "name", "value", "style", "id", "onclick"]
+            let attributeRegex = try! NSRegularExpression(pattern: attributes.joined(separator: "|"))
+            let attributeMatches = attributeRegex.matches(in: text, range: tagMatch.range)
+            for attributeMatch in attributeMatches {
+                mutableAttributedString.addAttribute(.foregroundColor, value: PHP.attributeColor, range: attributeMatch.range)
+            }
             let valueRegex = try! NSRegularExpression(pattern: "=[^ >]+", options: .dotMatchesLineSeparators)
             let valueMatches = valueRegex.matches(in: text, range: tagMatch.range)
             for valueMatch in valueMatches {

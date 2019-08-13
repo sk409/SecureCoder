@@ -27,6 +27,7 @@
 		D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */; };
 		D71C2C2422A0EAAF008CCCD0 /* UIColor+make.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */; };
 		D71FA42F230282A1009C5DAE /* InformationSchemaUnsafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FA42E230282A1009C5DAE /* InformationSchemaUnsafeWebSimulatorViewController.swift */; };
+		D71FA4312302A366009C5DAE /* InformationSchemaSafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FA4302302A366009C5DAE /* InformationSchemaSafeWebSimulatorViewController.swift */; };
 		D721CF9B227C086300D0038A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D721CF9A227C086300D0038A /* WebKit.framework */; };
 		D7256C2C22AE2F490093A5AA /* CSSSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7256C2B22AE2F490093A5AA /* CSSSyntaxHighlighter.swift */; };
 		D726997022964578009988E6 /* CourseSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D726996F22964578009988E6 /* CourseSelectionViewController.swift */; };
@@ -144,6 +145,7 @@
 		D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+make.swift"; sourceTree = "<group>"; };
 		D71FA42E230282A1009C5DAE /* InformationSchemaUnsafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSchemaUnsafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
+		D71FA4302302A366009C5DAE /* InformationSchemaSafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSchemaSafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
 		D721CF9A227C086300D0038A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D7256C2B22AE2F490093A5AA /* CSSSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D726996F22964578009988E6 /* CourseSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSelectionViewController.swift; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 				D7BE35DE23015D9700F889FA /* SQLInjectionTakeMeasuresUnsafeWebSimulatorViewController.swift */,
 				D7BE35E6230267B700F889FA /* SQLInjectionTakeMeasuresSafeWebSimulatorViewController.swift */,
 				D71FA42E230282A1009C5DAE /* InformationSchemaUnsafeWebSimulatorViewController.swift */,
+				D71FA4302302A366009C5DAE /* InformationSchemaSafeWebSimulatorViewController.swift */,
 			);
 			path = WebSimulatorViewControllers;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				D7AD483822F15B5400544819 /* KeyboardNoQuotesUnsafeWelcome0View.swift in Sources */,
 				D726997022964578009988E6 /* CourseSelectionViewController.swift in Sources */,
 				D7EBEC3F22F3C106002AF66E /* KeyboardEntQuotesUnsafeWelcome0View.swift in Sources */,
+				D71FA4312302A366009C5DAE /* InformationSchemaSafeWebSimulatorViewController.swift in Sources */,
 				D7AD483A22F1985C00544819 /* NoQuotesUnsafeWebSimulatorViewController.swift in Sources */,
 				D73B85EB22D98067002E4BB8 /* GuideMessageCollectionView.swift in Sources */,
 				D7FA06FF22F29550001DE1CF /* KeyboardNoQuotesSafeWelcome1View.swift in Sources */,
