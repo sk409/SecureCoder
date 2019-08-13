@@ -43,6 +43,8 @@ struct KeyboardViewFactory {
             return KeyboardSQLInjectionTakeMeasuresSafeBook0View()
         case "take_measures_safe_books.php_1":
             return KeyboardSQLInjectionTakeMeasuresSafeBook1View()
+        case "information_schema_unsafe_books.php_0":
+            return KeyboardSQLInjectionTakeMeasuresUnsafeBooks0View()
         default:
             return nil
         }

@@ -1,0 +1,128 @@
+{
+    "index": 0,
+    "fileName": "books.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "このレッスンを始める前に、もしまだ「SQLインジェクションの対策」というレッスンを学習していない場合には、まず「SQLインジェクションの対策」から始めることをお勧めします。\nSQLインジェクションのレッスンでは対策法は全て同じであり、対策法の詳しい説明は「SQLインジェクションの対策」でのみ解説しています。",
+                    "languages": []
+                },
+                {
+                    "text": "このレッスンではDBMS内部の情報漏洩という事例を体験することに主眼を置いて解説しています。",
+                    "languages": []
+                },
+                {
+                    "text": "このWebページはGETリクエストで受け取った著者の本をデータベースから検索して表示するだけの簡単なものです。\n今回のレッスンではこのWebページにあえて脆弱性を作り込むことによって、どのようなコードを書くと攻撃を受けてしまうのかを学習します。",
+                    "languages": []
+                },
+                {
+                    "text": "今回体験する攻撃は、SQLインジェクションによるDBMS内部情報の漏洩です。\nそれでは早速見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    2
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で著者名を取得しています。\nこの著者名を用いてデータベースから本の検索を行います。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    6,
+                    7
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "問題が含まれているため空欄がありますが、この赤枠で囲まれた部分が著者名から本を検索するSQLです。\n今回ここで使用しているbooksテーブルは「title, author, price」という列を持ち、それぞれ「タイトル、著者、価格」を表すこととします。",
+                    "languages": []
+                },
+                {
+                    "text": "今回はこのSQL文に脆弱性を作り込みます。\n具体的にはauthorの値に直接$authorを埋め込むことによって脆弱性を作り込みます。\nなお、これから書くコードには脆弱性があるため、実際に開発を行う場合には絶対に同じコードを書かないでください。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+                0
+            ],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "$authorの値をそのまま埋め込んでいるので、SQLインジェクション攻撃を仕掛けることが可能になってしまっています。",
+                    "languages": [
+                        "php"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    10
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど脆弱性を作り込んだSQLを実行しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    20,
+                    22,
+                    24,
+                    26,
+                    28,
+                    30,
+                    32
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で検索した本の情報を表示しています。\n今回は攻撃者に先ほどコーディングした部分の脆弱性を狙われ、ここでDBMS内部の情報を表示させられてしまいます。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "それでは実際に攻撃を仕掛ける側のコードを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

@@ -52,7 +52,6 @@ class Table: WebElementView {
         guard row.count == rowCount else {
             return
         }
-        var rowWidth = padding * CGFloat(row.count - 1)
         var maxHeight: CGFloat = 0
         var rowLabels = [UILabel]()
         for (index, data) in row.enumerated() {
@@ -64,12 +63,11 @@ class Table: WebElementView {
             let labelSize = rowLabel.sizeThatFits(CGSize(width: CGFloat.infinity, height: .infinity))
             rowLabel.frame.size = labelSize
             maxWidths[index] = max(maxWidths[index], labelSize.width)
-            rowWidth += labelSize.width
             maxHeight = max(maxHeight, labelSize.height)
         }
         rows.append(rowLabels)
         maxHeights.append(maxHeight)
-        frame.size.width = max(frame.width, rowWidth)
+        frame.size.width = maxWidths.reduce(padding * CGFloat(rowCount - 1), {$0 + $1})
         frame.size.height += (padding + maxHeight)
     }
     

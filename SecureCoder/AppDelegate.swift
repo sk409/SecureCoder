@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = JavaScriptSchemeUnsafeWebSimulatorViewController()
 //        window?.rootViewController = SQLInjectionTakeMeasuresUnsafeWebSimulatorViewController()
 //        window?.rootViewController = SQLInjectionTakeMeasuresSafeWebSimulatorViewController()
+//        window?.rootViewController = InformationSchemaUnsafeWebSimulatorViewController()
         return true
     }
     

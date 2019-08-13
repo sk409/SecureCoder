@@ -26,6 +26,7 @@
 		D719935422CF249500A3365F /* Guide.swift in Sources */ = {isa = PBXBuildFile; fileRef = D719935322CF249500A3365F /* Guide.swift */; };
 		D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */; };
 		D71C2C2422A0EAAF008CCCD0 /* UIColor+make.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */; };
+		D71FA42F230282A1009C5DAE /* InformationSchemaUnsafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71FA42E230282A1009C5DAE /* InformationSchemaUnsafeWebSimulatorViewController.swift */; };
 		D721CF9B227C086300D0038A /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D721CF9A227C086300D0038A /* WebKit.framework */; };
 		D7256C2C22AE2F490093A5AA /* CSSSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7256C2B22AE2F490093A5AA /* CSSSyntaxHighlighter.swift */; };
 		D726997022964578009988E6 /* CourseSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D726996F22964578009988E6 /* CourseSelectionViewController.swift */; };
@@ -142,6 +143,7 @@
 		D719935322CF249500A3365F /* Guide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guide.swift; sourceTree = "<group>"; };
 		D71C2C2122A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		D71C2C2322A0EAAF008CCCD0 /* UIColor+make.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+make.swift"; sourceTree = "<group>"; };
+		D71FA42E230282A1009C5DAE /* InformationSchemaUnsafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationSchemaUnsafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
 		D721CF9A227C086300D0038A /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		D7256C2B22AE2F490093A5AA /* CSSSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSSyntaxHighlighter.swift; sourceTree = "<group>"; };
 		D726996F22964578009988E6 /* CourseSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseSelectionViewController.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				D73D9F3222F7FBED00526512 /* JavaScriptSchemeSafeWebSimulatorViewController.swift */,
 				D7BE35DE23015D9700F889FA /* SQLInjectionTakeMeasuresUnsafeWebSimulatorViewController.swift */,
 				D7BE35E6230267B700F889FA /* SQLInjectionTakeMeasuresSafeWebSimulatorViewController.swift */,
+				D71FA42E230282A1009C5DAE /* InformationSchemaUnsafeWebSimulatorViewController.swift */,
 			);
 			path = WebSimulatorViewControllers;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 				D7278C8422C9BA1300A6BBE0 /* LessonSelectionViewController.swift in Sources */,
 				D7AD483422EEC14A00544819 /* KeyboardFalsifyFormSafeApply0View.swift in Sources */,
 				D7AD483622EEC57500544819 /* FalsifyFormSafeWebSimulatorViewController.swift in Sources */,
+				D71FA42F230282A1009C5DAE /* InformationSchemaUnsafeWebSimulatorViewController.swift in Sources */,
 				D7A2600422560FF000523A36 /* Application.swift in Sources */,
 				D7BE35DB230123AB00F889FA /* SQL.swift in Sources */,
 				D700D68B22ED4C3A00FE6631 /* WebElementTextFieldView.swift in Sources */,

@@ -1,6 +1,6 @@
 import UIKit
 
-class SQLInjectionTakeMeasuresSafeWebSimulatorViewController: WebSimulatorViewController {
+class InformationSchemaUnsafeWebSimulatorViewController: WebSimulatorViewController {
     
     let attackA = A()
     let booksTable = Table()
@@ -18,7 +18,7 @@ class SQLInjectionTakeMeasuresSafeWebSimulatorViewController: WebSimulatorViewCo
     private func setupViews() {
         attackA.set(text: "攻撃を仕掛ける")
         attackA.set(code: """
-<a href="http://www.safe.co.jp/books.php?author=<?php echo $author; ?>">攻撃を仕掛ける</a>
+<a href="http://www.unsafe.co.jp/books.php?author=<?php echo $author; ?>">攻撃を仕掛ける</a>
 """, language: .php, force: false)
         attackA.button.addTarget(self, action: #selector(handleDisabledButton(_:)), for: .touchUpInside)
         booksTable.set(code: """
@@ -40,6 +40,11 @@ class SQLInjectionTakeMeasuresSafeWebSimulatorViewController: WebSimulatorViewCo
 </table>
 """, language: .php)
         booksTable.set(headers: ["タイトル", "著者名", "価格"])
+        booksTable.append(row: ["books", "title", "varchar"])
+        booksTable.append(row: ["books", "author", "varchar"])
+        booksTable.append(row: ["books", "price", "int"])
+        booksTable.append(row: ["users", "name", "varchar"])
+        booksTable.append(row: ["users", "password", "varchar"])
     }
     
     private func showAttack() {
@@ -53,9 +58,9 @@ class SQLInjectionTakeMeasuresSafeWebSimulatorViewController: WebSimulatorViewCo
             GuideText(text: "この赤枠で囲まれたリンクをタップすると攻撃を仕掛ける値とともに攻撃先のWebページに遷移します。\nリンクの下に示されたコードと見比べてみましょう。"),
             GuideText(text: """
 このクエリパラメータの値の$authorには以下の値が設定されていました。
-$author = "' UNION SELECT name, password, NULL FROM users;--";
+$author = "' UNION SELECT table_name, column_name, data_type FROM information_schema.columns;--";
 """, programingLanguages: [.php, .sql]),
-            GuideText(text: "もしこれがこの$authorの値を直接SQL文に埋め込んでいるような場合には攻撃が成立してしまいますが、今回はプレースホルダを用いてSQL文のコンパイルが終わってから$authorの値を埋め込んでいるため、この攻撃が成立することはありません。", programingLanguages: [.php]),
+            GuideText(text: "この値が脆弱なWebページのSQL文に直接埋め込まれることによってDBMS内部の情報を表示するSQL文となってしまうのでした。"),
             ], onEnter: { completion in
                 self.focus(on: self.attackA) {
                     completion?()
@@ -85,23 +90,19 @@ $author = "' UNION SELECT name, password, NULL FROM users;--";
         appendGuideSection([
             GuideText(text: "これが攻撃先のWebページです。")])
         appendGuideSection([
-            GuideText(text: "この赤枠で囲まれた部分に検索した本の情報が表示されますが今回はヘッダーのみで内容が表示されていません。"),
+            GuideText(text: "このWebページの製作者の意図としては、この赤枠で囲まれた部分に検索した本の情報が表示されますが今回はDBMS内部の情報が表示されてしまっています。\nなお、本来はここに表示されている以外にも様々な情報が表示されますが、見づらくなってしまうため、booksテーブルとusersテーブルに関する情報のみ表示しています。"),
             GuideText(text: """
-今回の例では以下の値がデータベースにあるものとします。
-なお、見切れている部分はスクロールすることで最後まで見ることができます。
-・booksテーブル
+今回の例では以下の値がbooksテーブルにあるものとします。
 title: title1, author: author1, price: 1
 title: title2, author: author2, price: 2
-・usersテーブル
-name: name1, password: pass1
-name: name2, password: pass2
 """),
-            GuideText(text: "今回の本を検索するSQLは以下でした。\nSELECT title, author, price FROM books WHERE author=?", programingLanguages: [.php, .sql]),
-            GuideText(text: "このauthorに対応するプレースホルダにバインドした値は攻撃者が渡した以下の値でした。\n' UNION SELECT name, password, NULL FROM users;--", programingLanguages: [.sql]),
-            GuideText(text: "この攻撃者が渡した値を設定するときには既にSQL文のコンパイルは終了しているので、体験編の時のようにSQL文の構造が変更されることはなく、booksテーブルからauthorが「' UNION SELECT name, password, NULL FROM users;--」の行を探しにいきます。", programingLanguages: [.sql]),
-            GuideText(text: "今回のbooksテーブルには前述のとおり、author列が「' UNION SELECT name, password, NULL FROM users;--」の行はありませんので、今回の検索結果では何も行が取得されません。", programingLanguages: [.sql]),
-            GuideText(text: "この結果、この赤枠で囲まれた部分には<table>要素のヘッダー部分しか表示されていません。", programingLanguages: [.html]),
-            GuideText(text: "これでユーザ情報の漏洩を防ぐことができました。")
+            GuideText(text: "usersテーブルは「name, password」という列を持っているものとします。"),
+            GuideText(text: "今回の本を検索するSQLは以下でした。\nSELECT title, author, price FROM books WHERE author='$author'", programingLanguages: [.php, .sql]),
+            GuideText(text: "このSQLは攻撃者によって渡された$authorによって最終的に次のSQLになるのでした。", programingLanguages: [.php]),
+            GuideText(text: "SELECT title, author, price FROM books WHERE author='' UNION SELECT table_name, column_name, data_type FROM information_schema.columns;--'", programingLanguages: [.sql]),
+            GuideText(text: "このSQLによって、booksテーブルのauthor列が空の行とcolumnsテーブルの行を結合した結果が選択されます。\nこの選択された値のtable_nameがタイトル列に、column_nameが著者名列に、data_typeが価格列に表示されています。"),
+            GuideText(text: "今回のbooksテーブルにはauthor列が空の行はありませんので、この赤枠で囲まれた部分にcolumnsテーブルの行のみが表示されています。"),
+            GuideText(text: "この攻撃によってDBMS内部の情報が攻撃者に漏洩してしまうため、より被害の大きな攻撃を仕掛けるための手がかりとなってしまう可能性があります。")
             ], onEnter: { completion in
                 self.focus(on: self.booksTable) {
                     completion?()
@@ -112,8 +113,8 @@ name: name2, password: pass2
             }
         })
         appendGuideSection([
-            GuideText(text: "このようにSQLインジェクションはプレースホルダを用いてSQL文をコンパイルしておき、後から値をバインドすることで対策することができます。\nこの他のSQLインジェクションのレッスンでは対策法は全て同じですが、様々なケースの攻撃を体験することに主眼を置いていますので、そちらも参考にしてみてください。"),
-            GuideText(text: "お疲れ様でした。")
+            GuideText(text: "このようにDBMS内部の情報が漏洩してしまうと、データの改ざんや個人情報の漏洩など、被害の大きな攻撃を引き起こしてしまう可能性があるので早急に対策が必要です。\nこの攻撃への対策は同レッスンの対策編で解説していますので、そちらを参考にしてみてください。"),
+            GuideText(text: "お疲れ様でした。"),
             ])
         addCloseButton()
         guideMessageCollectionView.reloadData()

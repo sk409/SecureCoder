@@ -1,0 +1,5 @@
+{
+    "index": 1,
+    "title": "インフォメーションスキーマについて",
+    "description": "SQLの標準規格にはINFORMATION_SCHEMAというデータベースが規定されています。\nこのINFORMATION_SCKEMAというデータベースにはtablesやcolumnsというテーブルや列に関する情報を保持しているテーブルなどがあります。\nもしINFORMATION_SCHEMAを攻撃者に閲覧されてしまうと、DBMS内の様々な情報を取得されてしまうため、攻撃の手がかりを与えてしまうことになります。"
+}

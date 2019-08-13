@@ -22,20 +22,22 @@ class SQLInjectionTakeMeasuresUnsafeWebSimulatorViewController: WebSimulatorView
 """, language: .php, force: false)
         attackA.button.addTarget(self, action: #selector(handleDisabledButton(_:)), for: .touchUpInside)
         booksTable.set(code: """
-<tr>
-    <th>タイトル</th>
-    <th>著者名</th>
-    <th>価格</th>
-</tr>
-<?php
-    while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr>";
-        foreach ($row as $data) {
-            echo "<td>", $data, "</td>";
+<table>
+    <tr>
+        <th>タイトル</th>
+        <th>著者名</th>
+        <th>価格</th>
+    </tr>
+    <?php
+        while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
+            echo "<tr>";
+            foreach ($row as $data) {
+                echo "<td>", $data, "</td>";
+            }
+            echo "</tr>";
         }
-        echo "</tr>";
-    }
-?>
+    ?>
+</table>
 """, language: .php)
         booksTable.set(headers: ["タイトル", "著者名", "価格"])
         booksTable.append(row: ["name1", "pass1", ""])
