@@ -114,7 +114,8 @@ name: name2, password: pass2
             }
             })
         appendGuideSection([
-            GuideText(text: "このようにSQLインジェクション脆弱性は情報漏洩やデータの改ざんなど影響の大きな攻撃を受けてしまいますので、早急に対策する必要があります。\nこの攻撃への対策は同レッスンの対策編で解説していますのでそちらを参考にしてください。\nお疲れ様でした。")
+            GuideText(text: "このようにSQLインジェクション脆弱性は情報漏洩やデータの改ざんなど影響の大きな攻撃を受けてしまいますので、早急に対策する必要があります。\nこの攻撃への対策は同レッスンの対策編で解説していますのでそちらを参考にしてください。"),
+            GuideText(text: "お疲れ様でした。"),
             ])
         addCloseButton()
         guideMessageCollectionView.reloadData()
