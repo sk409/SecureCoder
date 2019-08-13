@@ -3,7 +3,7 @@
 #[#    $dsn = "mysql:host=localhost;charset=utf8;dbname=test";#]#
 #[#    $pdo = new PDO($dsn, "admin", "admin");#]#
 #[#    $sql = "#]##[#SELECT title, author, price FROM books WHERE author=#]#?[?'$author'?]?#[#";#]#
-#[#    $stm = $pdo->query($sql);#]#
+#[#    #]##[#$stm = $pdo->query($sql);#]#
 #[#?>#]#
 #[#<table>#]#
 #[#    <tr>#]#

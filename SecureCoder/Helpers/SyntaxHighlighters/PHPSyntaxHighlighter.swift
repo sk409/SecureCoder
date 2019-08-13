@@ -38,17 +38,17 @@ struct PHPSyntaxHighlighter: SyntaxHighlighterDelegate {
     
     private func execute(_ mutableAttributedString: NSMutableAttributedString, range: NSRange) {
         let text = mutableAttributedString.string
-        let reservedWordRegex = try! NSRegularExpression(pattern: PHP.reservedWords.map({ "\\s" + $0 + "\\s"}).joined(separator: "|"))
+        let reservedWordRegex = try! NSRegularExpression(pattern: PHP.reservedWords.map({ "[^a-zA-Z0-9_]" + $0 + "[^a-zA-Z0-9_]"}).joined(separator: "|"))
         let reservedWordMatches = reservedWordRegex.matches(in: text, range: range)
         for reservedWordMatch in reservedWordMatches {
-            mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: reservedWordMatch.range)
+            mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: NSRange(location: reservedWordMatch.range.location + 1, length: reservedWordMatch.range.length - 2))
         }
-        let reservedWordRegex2 = try! NSRegularExpression(pattern: PHP.reservedWords.map({"^" + $0}).joined(separator: "|"), options: .anchorsMatchLines)
+        let reservedWordRegex2 = try! NSRegularExpression(pattern: PHP.reservedWords.map({"^" + $0 + "[^a-zA-Z0-9_]"}).joined(separator: "|"), options: .anchorsMatchLines)
         let reservedWordMatches2 = reservedWordRegex2.matches(in: text, range: range)
         for reservedWordMatch in reservedWordMatches2 {
             mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: reservedWordMatch.range)
         }
-        let reservedWordRegex3 = try! NSRegularExpression(pattern: PHP.reservedWords.map({$0 + "$"}).joined(separator: "|"), options: .anchorsMatchLines)
+        let reservedWordRegex3 = try! NSRegularExpression(pattern: PHP.reservedWords.map({"[^a-zA-Z0-9_]" + $0 + "$"}).joined(separator: "|"), options: .anchorsMatchLines)
         let reservedWordMatches3 = reservedWordRegex3.matches(in: text, range: range)
         for reservedWordMatch in reservedWordMatches3 {
             mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: reservedWordMatch.range)

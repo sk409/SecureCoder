@@ -266,12 +266,12 @@ class LessonViewController: UIViewController {
                 guard let explainer = self.explainer else {
                     return
                 }
+                codeEditorView.setNextQuestion()
                 if explainer.questionIndices.isEmpty {
                     self.guideMessageCollectionView.reloadData()
                     self.showGuideMessageCollectionView()
                 } else {
                     if let codeEditorView = self.codeEditorView {
-                        codeEditorView.setNextQuestion()
                         codeEditorView.question?.activate(isActive: true, keyboardViewDidShow: nil, keyboardViewDidHide: nil)
                         if let question = codeEditorView.question {
                             codeEditorView.scroll(to: question)

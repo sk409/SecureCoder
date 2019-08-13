@@ -128,15 +128,28 @@
             "questionIndices": [
             ],
             "focusLabels": [],
+            "focusComponents": [[10]],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど脆弱性を作り込んだSQLを実行しています。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
             "focusComponents": [
                 [
-                    19,
-                    21,
-                    23,
-                    25,
-                    27,
-                    29,
-                    31
+                    20,
+                    22,
+                    24,
+                    26,
+                    28,
+                    30,
+                    32
                 ]
             ],
             "messages": [

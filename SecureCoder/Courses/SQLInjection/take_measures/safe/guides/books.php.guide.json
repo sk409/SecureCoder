@@ -1,0 +1,290 @@
+{
+    "index": 0,
+    "fileName": "books.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "このWebページはGETリクエストで受け取った著者の本をデータベースから検索して表示するだけの簡単なものです。\n体験編のレッスンではこのWebページにあえて脆弱性を作り込み、ユーザ情報の漏洩を体験しました。\n対策編ではこの攻撃への対策を行います。",
+                    "languages": []
+                },
+                {
+                    "text": "SQLインジェクション攻撃への対策はプレースホルダを用いて行うことができます。\nプレースホルダとはSQL文中に場所取りをしておけるもので、「?」を用いて表します。",
+                    "languages": []
+                },
+                {
+                    "text": "以下はプレースホルダを使用している例です。\nSELECT * FROM books WHERE author=?",
+                    "languages": ["sql"]
+                },
+                {
+                    "text": "「author=?」の部分でプレースホルダを使用しています。\nこの状態でDBMSがSQL文のコンパイルを行います。\nその後アプリケーション側から「?」の部分に埋め込む値をDBMSに送りSQL文を完成させます。",
+                    "languages": []
+                },
+                {
+                    "text": "このように外部からの値を埋め込むことを「値のバインド」と言います。\nこれにより、コンパイルを済ませSQL文の構造が確定した状態で外部からの値を埋め込むため、SQL文の構造自体が変更されることはありません。",
+                    "languages": []
+                },
+                {
+                    "text": "このプレースホルダには静的プレースホルダと動的プレースホルダがありますが、詳しくは後ほど解説します。",
+                    "languages": []
+                },
+                {
+                    "text": "なお、今回はDBMSにMySQLを使用しているとします。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    4,6,8,10
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "具体的な対策に入る前に、PDOのオプションについて解説します。\nこの赤枠で囲まれた部分でPDOに設定するオプションを指定しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    6
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この1つ目のオプションは静的プレースホルダを使用するための設定です。\nPDO::ATTR_EMULATE_PREPARESにfalseを設定すると静的プレースホルダ、trueを設定すると動的プレースホルダを使用する設定になります。\nデフォルトではtrueに設定されています。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "静的プレースホルダとは先ほど説明したようなDBMS側でSQL文のコンパイルを行ってから値のバインドを行う方式です。",
+                    "languages": []
+                },
+                {
+                    "text": "これに対して動的プレースホルダは、アプリケーション側で値のチェックとバインドを行い、完成したSQL文をDBMSに送り、その後DBMSがSQL文のコンパイルを行います。",
+                    "languages": []
+                },
+                {
+                    "text": "アプリケーション側での値のチェックにバグがなければSQLインジェクションは発生しませんが、もし値のチェックにバグがあれば外部からの値を埋め込んだ後にSQL文のコンパイルを行うため、SQL文の構造を変更させられてしまう可能性があります。",
+                    "languages": []
+                },
+                {
+                    "text": "このように、動的プレースホルダでも適切に実装されていればSQLインジェクション攻撃を防ぐことが可能になりますが、原理的にSQLインジェクション攻撃が発生しない静的プレースホルダの方が優れています。\n可能であれば静的プレースホルダを使用するようにしましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    8
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この2つ目のオプションは複文の実行を禁止するものです。PDO::MYSQL_ATTR_MULTI_STATEMENTSがfalseに設定されていれば複文の実行を禁止し、trueに設定されていれば複文の実行を許可します。デフォルトではtrueに設定されています。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "複文の実行を許可していると、SQLインジェクションによって例えば以下のようなSQL文が組み立てられた場合に2つ目の文まで実行され、usersデーブルのデータが全て削除されてしまいます。\nSELECT * FROM users; DELETE FROM users;",
+                    "languages": ["sql"]
+                },
+                {
+                    "text": "もし、複文の実行が禁止されていれば先ほどのSQL文はシンタックスエラーとなり、2つとも実行されません。",
+                    "languages": [
+                    ]
+                },
+                {
+                    "text": "データの改ざん系のSQLインジェクション攻撃ではこの複文を利用して2つ目のSQL文でデータの改ざんを行おうとしますが、このように複文を禁止していれば攻撃を防ぐことができます。",
+                    "languages": [
+                    ]
+                },
+                {
+                    "text": "今回対策する攻撃は情報漏洩であり、複文を利用しない攻撃であるため複文を禁止しても効果はありませんが、この指定をしておくだけで防げる攻撃があるので可能な場合は常に指定しておくようにしましょう。",
+                    "languages": [
+                    ]
+                },
+                {
+                    "text": "ただし、今回の攻撃のように情報漏洩などの複文を利用しない攻撃には全く効果がないので過度な期待は禁物です。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [[13]],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほどのオプションをPDOに設定しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "それでは実際に今回の攻撃に対する対策を行っていきましょう。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [[16, 17]],
+            "messages": [
+                {
+                    "text": "問題が含まれているため空欄がありますが、体験編ではこのSQL文に脆弱性を作り込みました。",
+                    "languages": []
+                },
+                {
+                    "text": "具体的には、「SELECT title, author, price FROM books WHERE author='$author'」というSQL文を書きauthorに$authorの値を直接設定することによって脆弱性を作り込みました。",
+                    "languages": ["php", "sql"]
+                },
+                {
+                    "text": "攻撃者は先ほどのSQL文の$authorに「' UNION SELECT name, password, NULL FROM users;--」を埋め込み次のSQL文を組み立てました。",
+                    "languages": ["php", "sql"]
+                },
+                {
+                    "text": "SELECT title, author, price FROM books WHERE author='' UNION SELECT name, password, NULL FROM users;--'",
+                    "languages": ["sql"]
+                },
+                {
+                    "text": "このSQL文によってbooksテーブルのauthor列が空文字の行の「title, author, price」列とusersテーブルの全ての行の「name, password, NULL」列が結合され選択されます。\nこのWebページではこの検索結果を画面に表示しているので、攻撃者にユーザ情報が漏洩してしまいました。",
+                    "languages": []
+                },
+                {
+                    "text": "この攻撃への対策として、先ほど説明した静的プレースホルダを用いて対策を行っていきます。\nまずは検索するauthorの値をSQL文のコンパイルの後に埋め込むためにプレースホルダに設定します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+                0
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "authorの値をプレースホルダに設定することができました。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [[20]],
+            "messages": [
+                {
+                    "text": "authorの値をプレースホルダに設定したので、この赤枠で囲まれた部分でコンパイルを行っています。\nPDOのprepareメソッドはSQL文のコンパイルなどの準備を行いPDOStatementオブジェクトを返します。\nこのように実行のための準備が完了したSQL文をプリペアドステートメントと呼びます。",
+                    "languages": [
+                    ]
+                },
+                {
+                    "text": "これ以降は、このPDOStatementオブジェクトを介してプリペアドステートメントに値をバインドしたり実行したりしていきます。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    22,
+                    23,
+                    24
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "問題が含まれているため空欄がありますが、この部分で値のバインドを行っていきます。\n値のバインドはPDOStatementオブジェクトのbindValueメソッドで行います。",
+                    "languages": []
+                },
+                {
+                    "text": "bindValueメソッドの第1引数にはバインドしたい値に対するSQL文に指定した「?」の番号を指定します。\nこの番号はSQL文の先頭から数えて何番目の「?」なのかを指定します。\nこの番号は1から始まることに注意してください。",
+                    "languages": []
+                },
+                {
+                    "text": "bindValueメソッドの第2引数にはバインドする値を指定します。",
+                    "languages": []
+                },
+                {
+                    "text": "bindValueメソッドの第3引数にはバインドする値の型を指定します。\n今回指定するauthorは文字列型であるためPDO::PARAM_STRを指定します。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "それでは実際にコーディングを行いましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [1],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "値のバインドを行うことができました。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    26
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "値のバインドまで行ったので、この赤枠で囲まれた部分でSQL文を実行しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "以上で今回の攻撃に対する対策は終了です。\n実際にプレビューを確認し、攻撃が成立しないことを見ていきましょう。",
+                    "languages": []
+                },
+                {
+                    "text": "なお、この他のファイルについては体験編と全く同じ内容ですので詳しい説明は体験編を参照してください。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

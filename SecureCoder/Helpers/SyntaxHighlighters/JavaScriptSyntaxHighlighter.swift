@@ -26,11 +26,6 @@ struct JavaScriptSyntaxHighlighter: SyntaxHighlighterDelegate {
         for reservedWordMatch in reservedWordMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: JavaScript.reservedWordColor, range: reservedWordMatch.range)
         }
-        let numberRegex = try! NSRegularExpression(pattern: "[0-9]")
-        let numberMatches = numberRegex.matches(in: text, range: range)
-        for numbermatch in numberMatches {
-            mutableAttributedString.addAttribute(.foregroundColor, value: JavaScript.numberColor, range: numbermatch.range)
-        }
         let stringRegex = try! NSRegularExpression(pattern: "\".*?\"")
         let stringMatches = stringRegex.matches(in: text, range: range)
         for stringMatch in stringMatches {

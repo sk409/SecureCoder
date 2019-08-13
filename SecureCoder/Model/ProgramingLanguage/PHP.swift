@@ -17,7 +17,7 @@ struct PHP {
     static let numberColor = UIColor.lightSeaGreen
     static let constantColor = UIColor.white
     
-    static let reservedWords = ["__halt_compiler","abstract","and","array","as","break","callable","case","catch","class","clone","const","continue","declare","default","die","do","echo","else","elseif","empty","enddeclare","endfor","endforeach","endif","endswitch","endwhile","eval","exit","extends","final","finally","foreach","for","function","global","goto","if","implements","include","include_once","instanceof","insteadof","interface","isset","list","namespace","new","or","print","private","protected","public","require","require_once","return","static","switch","throw","trait","try","unset","use","var","while","xor","yield",
+    static let reservedWords = ["__halt_compiler","abstract","and","array","as","break","callable","case","catch","class","clone","const","continue","declare","default","die","do","echo","else","elseif","empty","enddeclare","endfor","endforeach","endif","endswitch","endwhile","eval","exit","extends","false","final","finally","foreach","for","function","global","goto","if","implements","include","include_once","instanceof","insteadof","interface","isset","list","namespace","new","or","print","private","protected","public","require","require_once","return","static","switch","throw","trait","true","try","unset","use","var","while","xor","yield",
         ]
     
 //    struct Token {
