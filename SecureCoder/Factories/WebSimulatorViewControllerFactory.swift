@@ -34,6 +34,8 @@ struct WebSimulatorViewControllerFactory {
             return InformationSchemaSafeWebSimulatorViewController()
         case "falsify_database_unsafe":
             return FalsifyDatabaseUnsafeWebSimulatorViewController()
+        case "falsify_database_safe":
+            return FalsifyDatabaseSafeWebSimulatorViewController()
         default:
             return nil
         }
