@@ -1,0 +1,107 @@
+{
+    "index": 1,
+    "fileName": "attack.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "これが先ほど見た脆弱なWebページに攻撃を仕掛けるページです。\nなお、実際にこれから見ていくようなコードを用いて実在するWebサイトを攻撃するようなことは絶対にしないでください。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    2
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で攻撃に使う値を生成しています。\n攻撃者は$nameを先ほどコードを書いた$nameの部分に埋め込みます。",
+                    "languages": [
+                        "php"
+                    ]
+                },
+                {
+                    "text": "先ほど脆弱性を作り込んだ部分にこの$nameが埋め込まれた後のSQL文を次に示します。",
+                    "languages": [
+                        "php"
+                    ]
+                },
+                {
+                    "text": "SELECT 'X' FROM users WHERE name='' OR 1=1;--' AND password='$password'",
+                    "languages": [
+                        "sql"
+                    ]
+                },
+                {
+                    "text": "このSQL文は検索条件に「name=''」と「1=1」の2つの条件がORで指定されています。\n1つ目の条件が成り立つかどうかはデータベース内のデータによりますが、2つ目の条件は常に成立します。",
+                    "languages": [
+                    ]
+                },
+                {
+                    "text": "つまり、この検索条件は何も意味もなさず常に成立します。",
+                    "languages": []
+                },
+                {
+                    "text": "このSQL文の後半に注目すると「--' AND password='$password'」となっています。\nSQL文の「--」以降は行末までがコメントと解釈され、SQL文に影響を与えません。",
+                    "languages": ["sql"]
+                },
+                {
+                    "text": "よって本来であれば、nameとpasswordのどちらもが検索条件となっていますが、「--」によってコメントアウトされているため、このSQL文ではnameのみが検索条件となっています。",
+                    "languages": []
+                },
+                {
+                    "text": "そして、先ほど見たようにnameの検索条件は常に成立するため、このSQL文はusersテーブル内にある全てのデータを結果として返します。",
+                    "languages": []
+                },
+                {
+                    "text": "さらに、先ほどの結果行の個数によって認証成功かどうかを判定していたif文では、結果行の個数が0よりも大きければ認証成功としていました。",
+                    "languages": []
+                },
+                {
+                    "text": "つまり、この攻撃が成立すると、データベース内にデータが1件以上あれば認証を回避されてしまうことになります。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    4
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど見た脆弱なWebページに攻撃用の値を渡して遷移しようとしています。",
+                    "languages": []
+                },
+                {
+                    "text": "攻撃者にとっては先ほど見たように$nameだけあれば認証を回避することができるため、$passwordは渡していません。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "それでは実際にプレビューを確認して攻撃の流れを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,177 @@
+{
+    "index": 0,
+    "fileName": "auth.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "このレッスンを始める前に、もしまだ「SQLインジェクションの対策」というレッスンを学習していない場合には、まず「SQLインジェクションの対策」から始めることをお勧めします。",
+                    "languages": []
+                },
+                {
+                    "text": "SQLインジェクションのレッスンでは対策法は全て同じであり、対策法の詳しい説明は「SQLインジェクションの対策」でのみ解説しています。",
+                    "languages": []
+                },
+                {
+                    "text": "このレッスンでは認証の回避という事例を体験することに主眼を置いて解説しています。",
+                    "languages": []
+                },
+                {
+                    "text": "このWebページは受け取ったユーザ名とパスワードからユーザを認証するだけの簡単なものです。\n今回のレッスンではこのWebページにあえて脆弱性を作り込むことによって、どのようなコードを書くと攻撃を受けてしまうのかを学習します。",
+                    "languages": []
+                },
+                {
+                    "text": "今回体験する攻撃は、SQLインジェクションによる認証の回避です。\nそれでは早速見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    2
+                ],
+                [
+                    4
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でユーザ名とパスワードを取得しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    8,
+                    9,
+                    10,
+                    11
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "問題が含まれているため空欄がありますが、この赤枠で囲まれた部分は先ほど取得したユーザ名とパスワードを使ってユーザを認証するためのSQL文です。",
+                    "languages": []
+                },
+                {
+                    "text": "このSQLはusersテーブルからユーザ名とパスワードを検索条件として検索し結果を返します。\n結果行の列値を使用する訳ではなく、検索によって見つかった件数が0より大きいかで認証成功かどうかを判定するので、選択列は特に意味のない'X'を指定しています。",
+                    "languages": []
+                },
+                {
+                    "text": "今回はこのSQL文に脆弱性を作り込んでいきます。",
+                    "languages": []
+                },
+                {
+                    "text": "なお、usersテーブルには「name, password」という列がありそれぞれ「名前、パスワード」を表しています。",
+                    "languages": []
+                },
+                {
+                    "text": "それでは実際に脆弱性を作り込んでいきましょう。\n具体的には「name, password」それぞれの検索値に「$name, $password」の値を直接埋め込むことによって脆弱性を作り込みます。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "なお、これから書くコードには脆弱性があるため、実際に開発を行う場合には絶対に同じコードを書かないでください",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [0, 1],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "$nameや$passwordを直接SQL文内に埋め込んでいるため、SQLインジェクション攻撃を仕掛けることが可能になってしまっています。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+                [14]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほどコードを書いた脆弱性のあるSQL文を実行しています。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    16
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほどのSQL文の結果行の個数によって処理を分岐させています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    19
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "もし先ほどのSQL文の結果行の個数が0よりも大きければ、該当するユーザが見つかったので「認証に成功しました」と表示します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    22
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "もし該当するユーザが見つからなければ、「認証に失敗しました」と表示します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "以上でこのファイルの説明は終了です。\n次は攻撃側のコードを見ていきましょう",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

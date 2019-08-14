@@ -55,6 +55,10 @@ struct KeyboardViewFactory {
             return KeyboardSQLInjectionTakeMeasuresSafeBook0View()
         case "falsify_database_safe_books.php_1":
             return KeyboardSQLInjectionTakeMeasuresSafeBook1View()
+        case "authentication_bypass_unsafe_auth.php_0":
+            return KeyboardAuthenticationBypassUnsafeAuth0View()
+        case "authentication_bypass_unsafe_auth.php_1":
+            return KeyboardAuthenticationBypassUnsafeAuth1View()
         default:
             return nil
         }
