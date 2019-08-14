@@ -1,0 +1,202 @@
+{
+    "index": 0,
+    "fileName": "books.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "このレッスンを始める前に、もしまだ「SQLインジェクションの対策」というレッスンを学習していない場合には、まず「SQLインジェクションの対策」から始めることをお勧めします。",
+                    "languages": []
+                },
+                {
+                    "text": "SQLインジェクションのレッスンでは対策法は全て同じであり、対策法の詳しい説明は「SQLインジェクションの対策」でのみ解説しています。",
+                    "languages": []
+                },
+                {
+                    "text": "このレッスンではデータベース内のデータの削除という事例を体験することに主眼を置いて解説しています。",
+                    "languages": []
+                },
+                {
+                    "text": "このWebページはGETリクエストで受け取った著者の本をデータベースから検索して表示するだけの簡単なものです。\n今回のレッスンではこのWebページにあえて脆弱性を作り込むことによって、どのようなコードを書くと攻撃を受けてしまうのかを学習します。",
+                    "languages": []
+                },
+                {
+                    "text": "今回体験する攻撃は、SQLインジェクションによるデータベース内のデータの削除です。\nそれでは早速見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    2,
+                    4,
+                    51
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でdisplayBooksという関数を定義しています。",
+                    "languages": []
+                },
+                {
+                    "text": "この関数は本の著者を$authorという引数に受け取り、データベースからその著者の本を検索して表示する関数です。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "もし、$authorがNULLの場合には全ての著者の本を表示します。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    9
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で本を検索するSQL文を定義しています。\n今回はこのSQL文に脆弱性を作り込んでいきますが、この段階のSQL文には何も問題はありません。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    14, 15, 16
+                ]   
+            ],
+            "messages": [
+                {
+                    "text": "問題が含まれているため空欄がありますが、この赤枠で囲まれた部分で、もし$authorがNULLでなければ検索条件に著者を加えます。\n今回はここに実際に脆弱性を作り込みます。",
+                    "languages": [
+                        "php"
+                    ]
+                },
+                {
+                    "text": "具体的には、author列の検索値として$authorの値を直接埋め込みます。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+                0
+            ],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "$authorの値をそのまま埋め込んでいるので、SQLインジェクション攻撃を仕掛けることが可能になってしまっています。",
+                    "languages": [
+                        "php"
+                    ]
+                },
+                {
+                    "text": "詳しくは、「SQLインジェクションの対策」というレッスンを参照してください。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    21
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど定義したSQL文を実行しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    35,
+                    37,
+                    39,
+                    41,
+                    43,
+                    45,
+                    47
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で検索結果を表示しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    54
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でGETリクエストで受け取ったauthorの値を先ほど見たdisplayBooks関数に渡しています。",
+                    "languages": []
+                },
+                {
+                    "text": "これにより、GETリクエストで受け取ったauthorの値を元にしてデータベースから本の検索を行います。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    56
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分ではdisplayBooks関数を引数を指定せずに呼び出しています。\nよって、全ての本が表示されます",
+                    "languages": []
+                },
+                {
+                    "text": "これでこのファイルの説明は以上です。\n次に攻撃側のコードを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "これでこのファイルの説明は以上です。\n次に攻撃側のコードを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

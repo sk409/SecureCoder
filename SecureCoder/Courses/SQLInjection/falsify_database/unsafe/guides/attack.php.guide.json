@@ -37,27 +37,23 @@
                     ]
                 },
                 {
-                    "text": "SELECT title, author, price FROM books WHERE author='' UNION SELECT table_name, column_name, data_type FROM information_schema.columns;--'",
+                    "text": "SELECT title, author, price FROM books WHERE author=''; DELETE FROM books;--'",
                     "languages": [
                         "sql"
                     ]
                 },
                 {
-                    "text": "information_schemaデータベースのcolumnsテーブルは「table_name, column_name, data_type」という列を持っており、それぞれ「テーブル名、列名、データ型」を表しています。",
+                    "text": "booksテーブルは「title, author, price」という列を持っており、それぞれ「タイトル、著者、価格」を表しています。",
                     "languages": []
                 },
                 {
-                    "text": "このSQL文はbooksテーブルからauthor列が空の「title, author, price」を取り出し、UNIONによってcolumnsテーブルから取り出した「table_name, column_name, data_type」と結合しています。",
+                    "text": "このSQL文はbooksテーブルからauthor列が空の「title, author, price」を取り出し、その後booksテーブル内の全てのデータを削除します。",
                     "languages": [
                         "sql"
                     ]
                 },
                 {
-                    "text": "これによって先ほど見た検索した本を表示している部分にDBMS内にあるデーブル名とそのテーブル内の列名及びデータ型を表示しようとしてます。",
-                    "languages": []
-                },
-                {
-                    "text": "今回はこの攻撃が成立してしまうので攻撃者に情報が漏洩してしまいます。",
+                    "text": "今回はこの攻撃が成立してしまうのでデータが全て削除されてしまいます。",
                     "languages": []
                 }
             ]
