@@ -38,6 +38,8 @@ struct WebSimulatorViewControllerFactory {
             return FalsifyDatabaseSafeWebSimulatorViewController()
         case "authentication_bypass_unsafe":
             return AuthenticationBypassUnsafeWebSimulatorViewController()
+        case "authentication_bypass_safe":
+            return AuthenticationBypassSafeWebSimulatorViewController()
         default:
             return nil
         }

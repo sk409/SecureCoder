@@ -59,6 +59,14 @@ struct KeyboardViewFactory {
             return KeyboardAuthenticationBypassUnsafeAuth0View()
         case "authentication_bypass_unsafe_auth.php_1":
             return KeyboardAuthenticationBypassUnsafeAuth1View()
+        case "authentication_bypass_safe_auth.php_0":
+            return KeyboardAuthenticationBypassSafeAuth0View()
+        case "authentication_bypass_safe_auth.php_1":
+            return KeyboardAuthenticationBypassSafeAuth1View()
+        case "authentication_bypass_safe_auth.php_2":
+            return KeyboardAuthenticationBypassSafeAuth2View()
+        case "authentication_bypass_safe_auth.php_3":
+            return KeyboardAuthenticationBypassSafeAuth3View()
         default:
             return nil
         }
