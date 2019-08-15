@@ -131,7 +131,20 @@ $sortkey = "price; DELETE FROM books;--";
 それに対してホワイトリストは以下でした。
 $keys = ["title", "author", "price"];
 """, programingLanguages: [.php]),
-            GuideText(text: "つまり、今回渡された$sortKeyの値はホワイトリストに含まれていないので、ソートは実行されず全ての本のデータが表示されています。", programingLanguages: [.php]),
+            GuideText(text: "つまり、今回渡された$sortKeyの値はホワイトリストに含まれていないので、「ORDER BY」句を追加する箇所には到達しません。", programingLanguages: [.php, .sql]),
+            GuideText(text: """
+「ORDER BY」句を追加していた箇所に到達していないので、今回実行されたSQLは以下です。
+SELECT title, author, price FROM books
+""", programingLanguages: [.sql]),
+            GuideText(text: "つまり、このSQLによってbooksテーブルの全てのデータがソートされずに選択されます。\nもちろんデータが削除されることはありません。"),
+            GuideText(text: """
+もし仮に「ORDER BY」句を追加している箇所に到達してしまって以下のSQL文が組み立てられたとしても、
+SELECT title, author, price FROM books ORDER BY price; DELETE FROM books;-- DESC
+""", programingLanguages: [.sql]),
+            GuideText(text: """
+今回はPDOに以下のオプションを設定したので、複文を実行しようとするとSQL文のコンパイルエラーとなります。
+PDO::MYSQL_ATTR_MULTI_STATEMENTS => false
+""", programingLanguages: [.php])
             ], onEnter: { completion in
                 self.focus(on: self.sortedBooksTable) {
                     completion?()
@@ -142,7 +155,7 @@ $keys = ["title", "author", "price"];
             }
         })
         appendGuideSection([
-            GuideText(text: "今回は攻撃を受けていないので、データベース内のデータが削除されていません。\nよってこの赤枠で囲まれた部分で全ての本の情報がソートされずに表示されています。"),
+            GuideText(text: "今回はデータベース内のデータが削除されていません。\nよってこの赤枠で囲まれた部分で全ての本の情報がソートされずに表示されています。"),
             GuideText(text: "先ほど見た<table>要素もソートされずに表示されていたため、この<table>要素と全く同じ表示内容になっています。", programingLanguages: [.html])
             ], onEnter: { completion in
                 self.focus(on: self.booksTable) {

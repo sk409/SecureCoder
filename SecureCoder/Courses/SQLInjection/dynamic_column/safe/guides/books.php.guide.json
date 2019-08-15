@@ -236,7 +236,7 @@
             "messages": [
                 {
                     "text": "$sortKeyが$keysに含まれている場合のみ「ORDER BY」句を追加するようにコーディングできました。",
-                    "languages": ["php"]
+                    "languages": ["php", "sql"]
                 }
             ]
         },
