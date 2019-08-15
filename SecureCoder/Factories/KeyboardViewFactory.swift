@@ -67,6 +67,8 @@ struct KeyboardViewFactory {
             return KeyboardAuthenticationBypassSafeAuth2View()
         case "authentication_bypass_safe_auth.php_3":
             return KeyboardAuthenticationBypassSafeAuth3View()
+        case "dynamic_column_unsafe_books.php_0":
+            return KeyboardDynamicColumnUnsafeBooks0View()
         default:
             return nil
         }

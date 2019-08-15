@@ -40,6 +40,8 @@ struct WebSimulatorViewControllerFactory {
             return AuthenticationBypassUnsafeWebSimulatorViewController()
         case "authentication_bypass_safe":
             return AuthenticationBypassSafeWebSimulatorViewController()
+        case "dynamic_column_unsafe":
+            return DynamicColumnUnsafeWebSimulatorViewController()
         default:
             return nil
         }

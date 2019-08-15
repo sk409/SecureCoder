@@ -63,6 +63,8 @@
 		D7428A022304172700C1982A /* KeyboardAuthenticationBypassSafeAuth2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7428A012304172700C1982A /* KeyboardAuthenticationBypassSafeAuth2View.swift */; };
 		D7428A042304178F00C1982A /* KeyboardAuthenticationBypassSafeAuth3View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7428A032304178F00C1982A /* KeyboardAuthenticationBypassSafeAuth3View.swift */; };
 		D7428A0623041BAF00C1982A /* AuthenticationBypassSafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7428A0523041BAF00C1982A /* AuthenticationBypassSafeWebSimulatorViewController.swift */; };
+		D7428A082304EA6900C1982A /* KeyboardDynamicColumnUnsafeBooks0View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7428A072304EA6900C1982A /* KeyboardDynamicColumnUnsafeBooks0View.swift */; };
+		D7428A0A2304F21600C1982A /* DynamicColumnUnsafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7428A092304F21600C1982A /* DynamicColumnUnsafeWebSimulatorViewController.swift */; };
 		D745635922B7A23C00F8F68F /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D745635822B7A23C00F8F68F /* Extension.swift */; };
 		D74ACBA322CC508500713343 /* Chapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74ACBA222CC508500713343 /* Chapter.swift */; };
 		D74ACBA522CC675E00713343 /* SectionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74ACBA422CC675E00713343 /* SectionSelectionViewController.swift */; };
@@ -191,6 +193,8 @@
 		D7428A012304172700C1982A /* KeyboardAuthenticationBypassSafeAuth2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAuthenticationBypassSafeAuth2View.swift; sourceTree = "<group>"; };
 		D7428A032304178F00C1982A /* KeyboardAuthenticationBypassSafeAuth3View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAuthenticationBypassSafeAuth3View.swift; sourceTree = "<group>"; };
 		D7428A0523041BAF00C1982A /* AuthenticationBypassSafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationBypassSafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
+		D7428A072304EA6900C1982A /* KeyboardDynamicColumnUnsafeBooks0View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDynamicColumnUnsafeBooks0View.swift; sourceTree = "<group>"; };
+		D7428A092304F21600C1982A /* DynamicColumnUnsafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicColumnUnsafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
 		D745635822B7A23C00F8F68F /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D74ACBA222CC508500713343 /* Chapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter.swift; sourceTree = "<group>"; };
 		D74ACBA422CC675E00713343 /* SectionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionSelectionViewController.swift; sourceTree = "<group>"; };
@@ -448,6 +452,7 @@
 				D74289F52303F6D200C1982A /* FalsifyDatabaseSafeWebSimulatorViewController.swift */,
 				D74289FB23040BA000C1982A /* AuthenticationBypassUnsafeWebSimulatorViewController.swift */,
 				D7428A0523041BAF00C1982A /* AuthenticationBypassSafeWebSimulatorViewController.swift */,
+				D7428A092304F21600C1982A /* DynamicColumnUnsafeWebSimulatorViewController.swift */,
 			);
 			path = WebSimulatorViewControllers;
 			sourceTree = "<group>";
@@ -507,6 +512,7 @@
 				D74289FF2304170700C1982A /* KeyboardAuthenticationBypassSafeAuth1View.swift */,
 				D7428A012304172700C1982A /* KeyboardAuthenticationBypassSafeAuth2View.swift */,
 				D7428A032304178F00C1982A /* KeyboardAuthenticationBypassSafeAuth3View.swift */,
+				D7428A072304EA6900C1982A /* KeyboardDynamicColumnUnsafeBooks0View.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -608,6 +614,7 @@
 				D77771C822D456FA00ACCDAB /* FocusableView.swift in Sources */,
 				D7AF14AD228524B100022937 /* String+is~.swift in Sources */,
 				D730541622C30120005906EB /* HTTPMethod.swift in Sources */,
+				D7428A082304EA6900C1982A /* KeyboardDynamicColumnUnsafeBooks0View.swift in Sources */,
 				D7319A982298EC3B00369273 /* CaretView.swift in Sources */,
 				D74289F82304027800C1982A /* KeyboardAuthenticationBypassUnsafeAuth0View.swift in Sources */,
 				D7BE35D9230122F900F889FA /* SQLSyntaxhilighter.swift in Sources */,
@@ -710,6 +717,7 @@
 				D700D68922ED3F8F00FE6631 /* WebElementTextViewView.swift in Sources */,
 				D700D68522ED3E6D00FE6631 /* WebElementLabelView.swift in Sources */,
 				D74ACBA722CC691200713343 /* CellButton.swift in Sources */,
+				D7428A0A2304F21600C1982A /* DynamicColumnUnsafeWebSimulatorViewController.swift in Sources */,
 				D74ACBA522CC675E00713343 /* SectionSelectionViewController.swift in Sources */,
 				D77059AE2292357700E66D7B /* LessonViewController.swift in Sources */,
 				D7F9652D229280860086E98A /* SyntaxHighlighter.swift in Sources */,
