@@ -1,0 +1,274 @@
+{
+    "index": 0,
+    "fileName": "books.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "このレッスンを始める前に、もしまだ「SQLインジェクションの対策」というレッスンを学習していない場合には、まず「SQLインジェクションの対策」から始めることをお勧めします。",
+                    "languages": []
+                },
+                {
+                    "text": "SQLインジェクションに関する基礎的な内容は「SQLインジェクションの対策」というレッスンでのみ解説しているため、「SQLインジェクションの対策」を学習した後に本レッスンを学習するとより理解しやすくなります。",
+                    "languages": []
+                },
+                {
+                    "text": "このWebページはデータベースから全ての本を取得し、GETリクエストで受け取ったソート列を元にしてソートを行い画面に表示するだけの簡単なものです。",
+                    "languages": []
+                },
+                {
+                    "text": "体験編のレッスンではこのWebページにあえて脆弱性を作り込み、データベース内のデータの削除を体験しました。\n対策編ではこの攻撃への対策を行います。",
+                    "languages": []
+                },
+                {
+                    "text": "なお、今回はDBMSにMySQLを使用しているとします。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    4,
+                    6,
+                    8,
+                    10
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "具体的な対策に入る前に、PDOのオプションについて解説します。\nこの赤枠で囲まれた部分でPDOに設定するオプションを指定しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    6
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この1つ目のオプションは静的プレースホルダを使用するための設定です。\nPDO::ATTR_EMULATE_PREPARESにfalseを設定すると静的プレースホルダ、trueを設定すると動的プレースホルダを使用する設定になります。\nデフォルトではtrueに設定されています。",
+                    "languages": [
+                        "php"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    8
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この2つ目のオプションは複文の実行を禁止するものです。PDO::MYSQL_ATTR_MULTI_STATEMENTSがfalseに設定されていれば複文の実行を禁止し、trueに設定されていれば複文の実行を許可します。デフォルトではtrueに設定されています。",
+                    "languages": [
+                        "php"
+                    ]
+                },
+                {
+                    "text": "今回のようなデータベースの改ざんを行う攻撃はこの複文を用いて行われます。\nしたがって、このオプションを設定するだけで今回の攻撃を防ぐことは可能ですが、念のためSQLインジェクション全般に対する対策も行なっていきます。",
+                    "languages": [
+                        "php"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    12
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほどのオプションをPDOに設定しています。\nこのオプションのそれぞれの意味は「SQLインジェクションの対策」というレッスンで解説していますので詳しくはそちらを参照してください。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "それでは実際に今回の攻撃に対する対策を行っていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    15
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "体験編ではこのSQL文に脆弱性を作り込みました。",
+                    "languages": []
+                },
+                {
+                    "text": "このSQL文は現段階では何も問題はありません。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    24
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "体験編ではこの赤枠で囲まれた部分で脆弱性を作り込みました。",
+                    "languages": []
+                },
+                {
+                    "text": "具体的には、値のチェックを行わずにソート列に$sortKeyを直接埋め込み指定することよって脆弱性を作り込みました。",
+                    "languages": [
+                        "php"
+                    ]
+                },
+                {
+                    "text": "今回も$sortKeyの値を直接埋め込み指定していますが、この後にしっかりと値のチェックを行っていきます。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "今回は列を指定するため、プレースホルダを使用することができません。\nプレースホルダはリテラルを使用する箇所でのみ有効であり、今回のような列名やテーブル名を指定する箇所では使えません。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "したがって今回は、ホワイトリストを用いて対策を行います。\nホワイトリストとは許可された値のリストで、今回は許可されているソート列を保持しておき、$sortKeyの値がそのホワイトリストにあればソートを実行します。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+                [18]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でホワイトリストを定義しています。",
+                    "languages": []
+                },
+                {
+                    "text": "今回は許可するソート列の値として、「title, author, price」を指定しています。",
+                    "languages": []
+                },
+                {
+                    "text": "この後に$sortKeyの値がこのホワイトリストに含まれているかの判定を行っていきます。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "もし、このホワイトリストに含まれていない値が渡された場合には先ほど見た「ORDER BY」句をSQL文に追加している箇所には到達しないので、こちらが想定していないSQL文が構築されることはありません。",
+                    "languages": ["sql"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [
+            ],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    20,
+                    21,
+                    22
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "問題が含まれているため空欄がありますが、この赤枠で囲まれた部分で$sortKeyがnullではないかの判定とホワイトリストに含まれているかの判定を行っています。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "ホワイトリストに含まれているかの判定は問題としてあるので、実際にコーディングを行ってみましょう。",
+                    "languages": []
+                },
+                {
+                    "text": "今回はPHPが標準で提供しているin_arrayという関数を用いて判定を行っていきます。\nin_array関数は配列内にある値が含まれているかを調べることができます。",
+                    "languages": []
+                },
+                {
+                    "text": "in_array関数は第1引数に調べたい値を取り、第2引数に配列を取ります。",
+                    "languages": []
+                },
+                {
+                    "text": "それでは以上のことを踏まえて問題を解いてみましょう。\n$sortKeyが$keysに含まれているかを判定します。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [0],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "$sortKeyが$keysに含まれている場合のみ「ORDER BY」句を追加するようにコーディングできました。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    27
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "こちらが想定しているSQL文のみが構築されるようになったので、この赤枠で囲まれた部分でSQL文を実行しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "以上で今回の攻撃に対する対策は終了です。\n実際にプレビューを確認し、攻撃が成立しないことを見ていきましょう。",
+                    "languages": []
+                },
+                {
+                    "text": "なお、この他のファイルについては体験編と全く同じ内容ですので詳しい説明は体験編を参照してください。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}
