@@ -36,6 +36,8 @@ class WebSimulatorViewController: UIViewController {
     private static let guideMessageCollectionViewTextCellId = "guideMessageCollectionViewTextCellId"
     private static let guideMessageCollectionViewButtonCellId = "guideMessageCollectionViewButtonCellId"
     
+    var closeButtonTitle: String?
+    var closeButtonHandler: ((UIButton) -> Void)?
     let body = Body()
     let guideMessageCollectionView = UICollectionView(frame: .zero, collectionViewLayout: {
         let layout = UICollectionViewFlowLayout()
@@ -235,8 +237,12 @@ class WebSimulatorViewController: UIViewController {
     
     @objc
     private func handleCloseButton(_ sender: UIButton) {
-        guideMessageCollectionView.removeFromSuperview()
-        presentingViewController?.presentingViewController?.dismiss(animated: true)
+        if let closeButtonHandler = closeButtonHandler {
+            closeButtonHandler(sender)
+        } else {
+            guideMessageCollectionView.removeFromSuperview()
+            presentingViewController?.presentingViewController?.dismiss(animated: true)
+        }
     }
     
 //    @objc
@@ -286,7 +292,7 @@ extension WebSimulatorViewController: UICollectionViewDataSource, UICollectionVi
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WebSimulatorViewController.guideMessageCollectionViewButtonCellId, for: indexPath) as! GuideMessageCollectionViewButtonCell
-            cell.buttonTitle = "レッスン選択画面に戻る"
+            cell.buttonTitle = closeButtonTitle ?? "レッスン選択画面に戻る"
             cell.button.addTarget(self, action: #selector(handleCloseButton(_:)), for: .touchUpInside)
             return cell
         }

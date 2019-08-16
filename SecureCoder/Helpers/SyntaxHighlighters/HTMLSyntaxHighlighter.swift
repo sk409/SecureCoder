@@ -4,7 +4,7 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
     
     func syntaxhighlight(_ mutableAttributedString: NSMutableAttributedString, range: NSRange) -> NSMutableAttributedString {
         let text = mutableAttributedString.string
-        let openTags = ["<p", "<h1", "<body", "<a", "<script", "<iframe", "<form", "<input", "<br", "<table", "<tr", "<th", "<td"]
+        let openTags = ["<p", "<h1", "<body", "<a", "<script", "<iframe", "<form", "<input", "<br", "<table", "<tr", "<th", "<td", "<html", "<head", "<meta", "<!DOCTYPE html"]
         let openTagRegex = try! NSRegularExpression(pattern: openTags.joined(separator: "|"))
         let openTagMatches = openTagRegex.matches(in: text, range: range)
         for openTagMatch in openTagMatches {
@@ -20,7 +20,7 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
             , options: .dotMatchesLineSeparators)
         let tagMatches = tagRegex.matches(in: text, range: range)
         for tagMatch in tagMatches {
-            let attributes = ["href", "src", "method", "action", "type", "name", "value", "style", "id", "onclick"]
+            let attributes = ["href", "src", "method", "action", "type", "name", "value", "style", "id", "onclick", "onload", "charset"]
             let attributeRegex = try! NSRegularExpression(pattern: attributes.joined(separator: "|"))
             let attributeMatches = attributeRegex.matches(in: text, range: tagMatch.range)
             for attributeMatch in attributeMatches {

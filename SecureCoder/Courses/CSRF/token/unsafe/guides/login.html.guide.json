@@ -1,0 +1,75 @@
+{
+    "index": 0,
+    "fileName": "login.html",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "今回はCSRFによってユーザの意図に反してパスワードを変更されてしまう事例を体験します。\nなお、CSRFのレッスンの体験編は全て同じ内容なので既に体験している場合は同レッスンの対策編を学習してください。",
+                    "languages": []
+                },
+                {
+                    "text": "CSRFとは、本来拒否すべき不正なページからのアクセスを許してしまい、ユーザの意図に反したパスワードの変更やSNSへの投稿などを行う攻撃です。",
+                    "languages": []
+                },
+                {
+                    "text": "今回見ていくWebアプリケーションはユーザのログインとパスワードの変更のみを実装している簡単なものです。",
+                    "languages": []
+                },
+                {
+                    "text": "今見ているこのコードはログインページのものです。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [12],
+                [15]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分がログインに使用するIDとパスワードを入力させるための<input>要素です。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    7
+                ],
+                [
+                    9
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この<form>要素はPOSTリクエストでhome.phpに送信しています。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "次はこのhome.phpを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

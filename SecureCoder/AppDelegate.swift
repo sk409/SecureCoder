@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = SQLInjectionTakeMeasuresUnsafeWebSimulatorViewController()
 //        window?.rootViewController = SQLInjectionTakeMeasuresSafeWebSimulatorViewController()
 //        window?.rootViewController = InformationSchemaUnsafeWebSimulatorViewController()
+        window?.rootViewController = CSRFUnsafeWebSimulatorViewController()
         return true
     }
     

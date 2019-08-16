@@ -2,12 +2,12 @@ import UIKit
 
 class IFrame: WebElementView {
     
-    var webSimulatorView: WebElementContainerView? {
+    var webElementContainerView: WebElementContainerView? {
         willSet {
-            webSimulatorView?.removeFromSuperview()
+            webElementContainerView?.removeFromSuperview()
         }
         didSet {
-            guard let webSimulatorView = webSimulatorView else {
+            guard let webSimulatorView = webElementContainerView else {
                 return
             }
             addSubview(webSimulatorView)

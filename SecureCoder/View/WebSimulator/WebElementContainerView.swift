@@ -29,6 +29,8 @@ class WebElementContainerView: WebElementView {
     }
     
     func clear() {
+        elementsPerLine = []
+        elementsPerLine.append([])
         pointer = CGPoint(x: margin.left, y: margin.top)
         scrollView.subviews.forEach { $0.removeFromSuperview() }
         scrollView.contentOffset = .zero
@@ -66,7 +68,9 @@ class WebElementContainerView: WebElementView {
         if elementsPerLine.isEmpty || elementsPerLine.last!.isEmpty {
             pointer.y += 16
         } else {
-            elementsPerLine.last?.forEach { pointer.y = max(pointer.y, $0.frame.maxY + $0.margin.bottom) }
+            elementsPerLine.last?.forEach { element in
+                pointer.y = max(pointer.y, element.frame.maxY + element.margin.bottom)
+            }
         }
         elementsPerLine.append([])
         frame.size.height = pointer.y
