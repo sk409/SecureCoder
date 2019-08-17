@@ -1,0 +1,136 @@
+{
+    "index": 1,
+    "fileName": "home.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "このページはログイン後に表示されるものです。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    2
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "このページではセッションを利用するため、session_start関数を呼んでいます。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    4
+                ],
+                [
+                    6
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でPOSTリクエストで受け取ったIDとパスワードを取得しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [8]
+            ],
+            "messages": [
+                {
+                    "text": "本来であれば先ほど取得したIDとパスワードを用いてユーザの認証を行いますが、今回はサンプルであるため必ず認証に成功するようにしています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    12
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で$_SESSIONにidを保存しています。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "これによってこれ以降このユーザがこのWebサイトにアクセスする際には$_SESSIONにidが保存されている状態になりますが、この後攻撃者にここを狙われパスワードを変更されてしまいます。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    24
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分は新しいパスワードを設定するための<input>要素です。",
+                    "languages": [
+                        "html"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    19
+                ],
+                [
+                    21
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "もしパスワードを変更する場合には先ほどの<input>要素の内容がchange_password.phpにPOSTリクエストで送信されます。",
+                    "languages": [
+                        "html"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "次にこのchange_password.phpを見ていきましょう。",
+                    "languages": [
+                        "html"
+                    ]
+                }
+            ]
+        }
+    ]
+}

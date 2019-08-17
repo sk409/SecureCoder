@@ -79,6 +79,8 @@ struct KeyboardViewFactory {
             return KeyboardReEnterPasswordSafeChangePassword0View()
         case "re-enter_password_safe_change_password.php_1":
             return KeyboardReEnterPasswordSafeChangePassword1View()
+        case "referer_safe_change_password.php_0":
+            return KeyboardRefererSafeChangePassword0View()
         default:
             return nil
         }

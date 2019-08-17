@@ -52,6 +52,10 @@ struct WebSimulatorViewControllerFactory {
             return CSRFUnsafeWebSimulatorViewController()
         case "re-enter_password_safe":
             return ReEnterPasswordSafeWebSimulatorViewController()
+        case "referer_unsafe":
+            return CSRFUnsafeWebSimulatorViewController()
+        case "referer_safe":
+            return RefererSafeWebSimulatorViewController()
         default:
             return nil
         }

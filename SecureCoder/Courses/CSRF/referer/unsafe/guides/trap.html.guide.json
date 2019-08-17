@@ -1,0 +1,87 @@
+{
+    "index": 3,
+    "fileName": "trap.html",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "これが攻撃者が用意した罠ページです。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    6
+                ],
+                [
+                    8
+                ],
+                [
+                    10
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分はユーザが罠にかかったことに気付かないようにするためのダミーです。\n攻撃者はこのページをおすすめ商品の紹介ページに見せかけています。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    12
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で<iframe>要素を用いてユーザのパスワードを変更させるための攻撃ページであるapply.htmlを埋め込んでいます。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "なぜ今見ているWebページで攻撃を行わず、<iframe>要素を用いて攻撃を行うかというと、先ほどのchange_password.phpでパスワードを変更させるためにはPOSTリクエストを送信しなければならないからです。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "POSTリクエストを送信すると今見ているこのページからchange_password.phpへと画面が遷移するため、ユーザは攻撃に気付くことができます。",
+                    "languages": []
+                },
+                {
+                    "text": "しかし、この<iframe>要素内でPOSTリクエストを送信すれば埋め込まれたページ内で画面の遷移が発生するため、この<iframe>要素の表示を隠せばユーザは攻撃に気付くことができなくなります。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "そのため攻撃者はこのように<iframe>要素を用いて攻撃を仕掛け、さらに表示を隠すことによって攻撃を隠蔽しますが、今回は分かりやすさを狙ってこの<iframe>要素の表示を隠していません。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "本来であれば、cssなどを用いてこの<iframe>要素を非表示にします。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "それでは最後に実際にパスワードを変更する攻撃を仕掛けるapply.htmlを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}
