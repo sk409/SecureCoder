@@ -22,10 +22,10 @@ class SectionSelectionViewController: UIViewController {
         headerView.backgroundColor = .systemBlue
         headerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            headerView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, multiplier: 0.2),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.topAnchor.constraint(equalTo: view.topAnchor),
+            headerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            headerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2),
             ])
         courseTitleLabel.text = course?.title
         courseTitleLabel.font = .boldSystemFont(ofSize: 20)
@@ -42,8 +42,8 @@ class SectionSelectionViewController: UIViewController {
         backButton.addTarget(self, action: #selector(handleBackButton(_:)), for: .touchUpInside)
         backButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 4),
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
             backButton.widthAnchor.constraint(equalToConstant: 44),
             backButton.heightAnchor.constraint(equalTo: backButton.widthAnchor),
             ])
@@ -53,9 +53,9 @@ class SectionSelectionViewController: UIViewController {
         sectionsTableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             sectionsTableView.leadingAnchor.constraint(equalTo: headerView.trailingAnchor),
-            sectionsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            sectionsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            sectionsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            sectionsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            sectionsTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            sectionsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             ])
     }
     

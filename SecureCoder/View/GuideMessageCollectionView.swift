@@ -1,11 +1,16 @@
 import UIKit
 
-class GuideMessageCollectionView: UICollectionView {
+class GuideMessageView: UIView {
     
-    let separator = UIView()
+    let separatorView = UIView()
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        return layout
+    }())
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: layout)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupViews()
     }
     
@@ -16,14 +21,22 @@ class GuideMessageCollectionView: UICollectionView {
     
     private func setupViews() {
         backgroundColor = .black
-        addSubview(separator)
-        separator.backgroundColor = UIColor(white: 0.75, alpha: 1)
-        separator.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(separatorView)
+        addSubview(collectionView)
+        separatorView.backgroundColor = .lightGray
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            separator.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-            separator.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
-            separator.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            separator.heightAnchor.constraint(equalToConstant: 3),
+            separatorView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            separatorView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            separatorView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            separatorView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.01)
+            ])
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: separatorView.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
             ])
     }
     

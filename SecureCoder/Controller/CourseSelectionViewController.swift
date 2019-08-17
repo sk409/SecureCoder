@@ -26,8 +26,8 @@ class CourseSelectionViewController: UIViewController {
         coursesCollectionView.register(CourseCardCollectionViewCell.self, forCellWithReuseIdentifier: CourseSelectionViewController.cellId)
         coursesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            coursesCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            coursesCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            coursesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            coursesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             coursesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             coursesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             ])

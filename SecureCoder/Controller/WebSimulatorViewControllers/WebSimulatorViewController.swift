@@ -47,6 +47,7 @@ class WebSimulatorViewController: UIViewController {
     
     private var isAddedCloseButton = false
     private var guideSections = [GuideSection]()
+    private let swipeAnimation = SwipeAnimation()
     private let blackOutScrollView = UIScrollView()
     
     override func viewDidLoad() {
@@ -55,8 +56,13 @@ class WebSimulatorViewController: UIViewController {
         registerObservers()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        swipeAnimation.start(on: view)
+    }
+    
     func showGuideMessageCollectionView(completion: (() -> Void)? = nil) {
-        view.addSubview(guideMessageCollectionView)
+        //view.addSubview(guideMessageCollectionView)
         guideMessageCollectionView.frame.origin.x = view.safeAreaInsets.left
         guideMessageCollectionView.frame.size = CGSize(
             width: view.safeAreaLayoutGuide.layoutFrame.width,
@@ -75,7 +81,7 @@ class WebSimulatorViewController: UIViewController {
             self.guideMessageCollectionView.frame.origin.y = self.view.bounds.height
             self.body.scrollView.contentSize.height -= self.guideMessageCollectionView.bounds.height
         }) { _ in
-            self.guideMessageCollectionView.removeFromSuperview()
+            //self.guideMessageCollectionView.removeFromSuperview()
             completion?()
         }
     }
@@ -216,6 +222,7 @@ class WebSimulatorViewController: UIViewController {
             body.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             body.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             ])
+        view.addSubview(guideMessageCollectionView)
         guideMessageCollectionView.isPagingEnabled = true
         guideMessageCollectionView.dataSource = self
         guideMessageCollectionView.delegate = self
@@ -311,6 +318,7 @@ extension WebSimulatorViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        swipeAnimation.stop()
         var found = false
         var section = 0
         var x: CGFloat = 0

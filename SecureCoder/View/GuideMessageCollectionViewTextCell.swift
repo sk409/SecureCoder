@@ -20,7 +20,7 @@ class GuideMessageCollectionViewTextCell: UICollectionViewCell {
         addSubview(textView)
         textView.isEditable = false
         textView.isSelectable = false
-        textView.backgroundColor = .black
+        textView.backgroundColor = .clear
         textView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             textView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),

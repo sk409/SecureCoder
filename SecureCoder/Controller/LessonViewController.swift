@@ -24,16 +24,13 @@ class LessonViewController: UIViewController {
     var tintColor = UIColor.white
     var lineSpacing: CGFloat = 8
     
-    let swipeIconImageView = UIImageView(image: UIImage(named: "swipe-icon"))
+    //let swipeIconImageView = UIImageView(image: UIImage(named: "swipe-icon"))
     let fileTableView = UITableView()
     let showGuideMessageButton = UIButton()
-    let guideMessageCollectionView = GuideMessageCollectionView(frame: .zero, collectionViewLayout: {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        return layout
-    }())
+    let guideMessageView = GuideMessageView()
     
     private var codeEditorViews = [CodeEditorView]()
+    private let swipeAnimation = SwipeAnimation()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +47,7 @@ class LessonViewController: UIViewController {
     private func setupViews() {
         view.addSubview(fileTableView)
         view.addSubview(showGuideMessageButton)
-        view.addSubview(guideMessageCollectionView)
+        view.addSubview(guideMessageView)
         setupFileTableView()
         setupShowGuideMessageButton()
         setupCodeEditorViews()
@@ -59,6 +56,12 @@ class LessonViewController: UIViewController {
     
     private func layoutSubviews() {
         showGuideMessageButton.alpha = 1
+        guideMessageView.frame = CGRect(
+            x: view.safeAreaInsets.left,
+            y: view.frame.height,
+            width: view.safeAreaLayoutGuide.layoutFrame.width,
+            height: view.safeAreaLayoutGuide.layoutFrame.height * 0.45
+        )
         fileTableView.frame = CGRect(
             x: view.safeAreaInsets.left,
             y: view.safeAreaInsets.top,
@@ -118,19 +121,24 @@ class LessonViewController: UIViewController {
         }
     }
     
+//    private func setupSeparatorView() {
+////        separatorView.backgroundColor = UIColor(white: 0.75, alpha: 1)
+////        separatorView.translatesAutoresizingMaskIntoConstraints = false
+////        NSLayoutConstraint.activate([
+////            separatorView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+////            separatorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+////            separatorView.topAnchor.constraint(equalTo: guideMessageCollectionView.topAnchor),
+////            separatorView.heightAnchor.constraint(equalToConstant: 3),
+////            ])
+//    }
+    
     private func setupGuideMessageCollectionView() {
-        guideMessageCollectionView.frame = CGRect(
-            x: view.safeAreaInsets.left,
-            y: view.frame.height,
-            width: view.safeAreaLayoutGuide.layoutFrame.width,
-            height: view.safeAreaLayoutGuide.layoutFrame.height * 0.45
-        )
-        guideMessageCollectionView.dataSource = self
-        guideMessageCollectionView.delegate = self
-        guideMessageCollectionView.isPagingEnabled = true
-        guideMessageCollectionView.bounces = false
-        guideMessageCollectionView.register(GuideMessageCollectionViewTextCell.self, forCellWithReuseIdentifier: LessonViewController.guideMessageCollectionViewTextCellId)
-        guideMessageCollectionView.register(GuideMessageCollectionViewButtonCell.self, forCellWithReuseIdentifier: LessonViewController.guideMessageCollectionViewButtonCellId)
+        guideMessageView.collectionView.dataSource = self
+        guideMessageView.collectionView.delegate = self
+        guideMessageView.collectionView.isPagingEnabled = true
+        guideMessageView.collectionView.bounces = false
+        guideMessageView.collectionView.register(GuideMessageCollectionViewTextCell.self, forCellWithReuseIdentifier: LessonViewController.guideMessageCollectionViewTextCellId)
+        guideMessageView.collectionView.register(GuideMessageCollectionViewButtonCell.self, forCellWithReuseIdentifier: LessonViewController.guideMessageCollectionViewButtonCellId)
     }
     
     private func changeCodeEditorView() {
@@ -180,23 +188,11 @@ class LessonViewController: UIViewController {
     
     private func showGuideMessageCollectionView(withSwipeIcon swipeIcon: Bool = false, completion: (() -> Void)? = nil) {
         UIView.animate(withDuration: 0.5, animations: {
-            self.guideMessageCollectionView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.height - self.guideMessageCollectionView.frame.height
-            self.fileTableView.frame.size.height = self.view.bounds.height -  self.guideMessageCollectionView.frame.height
+            self.guideMessageView.frame.origin.y = self.view.safeAreaLayoutGuide.layoutFrame.height - self.guideMessageView.frame.height
+            self.fileTableView.frame.size.height = self.view.bounds.height -  self.guideMessageView.frame.height
         }) { _ in
-            if swipeIcon && !self.view.subviews.contains(self.swipeIconImageView) {
-                self.view.addSubview(self.swipeIconImageView)
-                let iconSize = self.guideMessageCollectionView.bounds.height * 0.25
-                self.swipeIconImageView.frame.size = CGSize(width: iconSize, height: iconSize)
-                self.swipeIconImageView.frame.origin.x = self.guideMessageCollectionView.frame.maxX - self.swipeIconImageView.frame.width
-                self.swipeIconImageView.frame.origin.y = self.guideMessageCollectionView.frame.maxY - self.swipeIconImageView.frame.height
-                self.swipeIconImageView.alpha = 0
-                UIView.animate(withDuration: 0.5, animations: {
-                    self.swipeIconImageView.alpha = 1
-                }) { _ in
-                    UIView.animate(withDuration: 1.5, delay: 0, options: [.repeat], animations: {
-                        self.swipeIconImageView.frame.origin.x -= self.guideMessageCollectionView.bounds.width * 0.25
-                    }, completion: nil)
-                }
+            if swipeIcon {
+                self.swipeAnimation.start(on: self.view)
             }
             completion?()
         }
@@ -204,7 +200,7 @@ class LessonViewController: UIViewController {
     
     private func hideGuideMessageTextView(completion: @escaping () -> Void) {
         UIView.animate(withDuration: 0.5, animations: {
-            self.guideMessageCollectionView.frame.origin.y = self.view.frame.height
+            self.guideMessageView.frame.origin.y = self.view.frame.height
             self.fileTableView.frame.size.height = self.view.safeAreaLayoutGuide.layoutFrame.height
         }) { _ in
             completion()
@@ -268,7 +264,7 @@ class LessonViewController: UIViewController {
                 }
                 codeEditorView.setNextQuestion()
                 if explainer.questionIndices.isEmpty {
-                    self.guideMessageCollectionView.reloadData()
+                    self.guideMessageView.collectionView.reloadData()
                     self.showGuideMessageCollectionView()
                 } else {
                     if let codeEditorView = self.codeEditorView {
@@ -468,11 +464,7 @@ extension LessonViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let lesson = lesson else {
             return
         }
-        UIView.animate(withDuration: 0.5, animations: {
-            self.swipeIconImageView.alpha = 0
-        }) {_ in
-            self.swipeIconImageView.removeFromSuperview()
-        }
+        swipeAnimation.stop()
         if guide?.fileName != codeEditorView?.file?.name {
             changeCodeEditorView()
         }
@@ -489,7 +481,7 @@ extension LessonViewController: UICollectionViewDataSource, UICollectionViewDele
                         explainerIndex = eIndex
                         break
                     }
-                    x += guideMessageCollectionView.bounds.width
+                    x += scrollView.bounds.width
                 }
                 if found {
                     break
