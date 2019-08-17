@@ -176,6 +176,7 @@ class WebSimulatorViewController: UIViewController {
         var syntaxHighlighter = SyntaxHighlighter()
         for guideText in guideTexts {
             let attributedText = NSMutableAttributedString(string: guideText.text, attributes: [.foregroundColor: UIColor.white, .font: UIFont.boldSystemFont(ofSize: 18)])
+            _ = GuideTextSyntaxHighlighter().syntaxHighlight(attributedText)
             for programingLanguage in guideText.programingLanguages {
                 syntaxHighlighter.programingLanguage = programingLanguage
                 if programingLanguage == .php {

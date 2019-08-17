@@ -9,7 +9,7 @@ struct GuideTextSyntaxHighlighter: SyntaxHighlighterDelegate {
         for fileNameMatch in fileNameMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.royalBlue, range: fileNameMatch.range)
         }
-        let urlRegex = try! NSRegularExpression(pattern: "https?://[a-zA-Z./]*")
+        let urlRegex = try! NSRegularExpression(pattern: "https?://[a-zA-Z./_]*")
         let urlMatches = urlRegex.matches(in: text, range: range)
         for urlMatch in urlMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: UIColor.meduimSeaGreen, range: urlMatch.range)
