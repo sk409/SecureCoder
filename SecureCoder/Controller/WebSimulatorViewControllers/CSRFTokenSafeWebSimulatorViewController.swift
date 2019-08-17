@@ -77,8 +77,11 @@ $token = $_POST["token"]
             }
         })
         appendGuideSection([
-            GuideText(text: "これで、CSRF攻撃への対策を行うことができました。\n今回のレッスンは以上で終了です。"),
-            GuideText(text: "この他にも様々なレッスンを用意していますので、そちらも参考にしてみてください。\nお疲れ様でした。")])
+            GuideText(text: "これで、CSRF攻撃への対策を行うことができました。"),
+            GuideText(text: "今回はトークンを用いて対策を行なってきました。\nトークンを用いた対策はあらゆる場面で使用されています。"),
+            GuideText(text: "この他のCSRFのレッスンでは他の対策法も紹介していますが、そのレッスンで解説しているような状況でなければこのトークンによる対策を行ってください。"),
+            GuideText(text: "今回のレッスンは以上で終了です。\nこの他にも様々なレッスンを用意していますので、そちらも参考にしてみてください。"),
+            GuideText(text: "お疲れ様でした。")])
         addCloseButton()
         guideMessageCollectionView.reloadData()
         guideMessageCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
