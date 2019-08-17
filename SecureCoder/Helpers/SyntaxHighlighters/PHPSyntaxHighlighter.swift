@@ -46,12 +46,12 @@ struct PHPSyntaxHighlighter: SyntaxHighlighterDelegate {
         let reservedWordRegex2 = try! NSRegularExpression(pattern: PHP.reservedWords.map({"^" + $0 + "[^a-zA-Z0-9_]"}).joined(separator: "|"), options: .anchorsMatchLines)
         let reservedWordMatches2 = reservedWordRegex2.matches(in: text, range: range)
         for reservedWordMatch in reservedWordMatches2 {
-            mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: reservedWordMatch.range)
+            mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: NSRange(location: reservedWordMatch.range.location, length: reservedWordMatch.range.length - 1))
         }
         let reservedWordRegex3 = try! NSRegularExpression(pattern: PHP.reservedWords.map({"[^a-zA-Z0-9_]" + $0 + "$"}).joined(separator: "|"), options: .anchorsMatchLines)
         let reservedWordMatches3 = reservedWordRegex3.matches(in: text, range: range)
         for reservedWordMatch in reservedWordMatches3 {
-            mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: reservedWordMatch.range)
+            mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: NSRange(location: reservedWordMatch.range.location, length: reservedWordMatch.range.length - 1))
         }
         let functionRegex = try! NSRegularExpression(pattern: "[a-zA-Z0-9_]+\\(")
         let functionMatches = functionRegex.matches(in: text, range: range)

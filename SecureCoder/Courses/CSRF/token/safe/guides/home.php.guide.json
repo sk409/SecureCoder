@@ -1,0 +1,101 @@
+{
+    "index": 0,
+    "fileName": "home.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "体験編ではCSRF攻撃によってユーザのIDを変更されてしまう事例を体験しました。\n今回はその攻撃への対策を行なっていきます。",
+                    "languages": []
+                },
+                {
+                    "text": "今回のレッスンではトークンを用いて対策を行なっていきます。\nそれでは早速見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    3
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でトークンを生成しています。\nこのトークンは第3者に知られていない機密情報で推測されにくい乱数を用いて生成します。",
+                    "languages": [
+                    ]
+                },
+                {
+                    "text": "この乱数の生成はPHPが標準で提供しているbin2hex関数とrandom_bytes関数を用いて行うことができます。",
+                    "languages": []
+                },
+                {
+                    "text": "このトークンはこのページ内で生成しているので、第3者には知られていない情報です。\nこれを利用してパスワードを変更する際にこのトークンを用いて正規のルートからアクセスされたことを確認します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    5
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど生成したトークンを$_SESSIONに保存しています。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "change_password.phpではこのページからPOSTリクエストで送ったトークンとこの$_SESSIONに保存したトークンの一致によって正規のルートからのアクセスかどうかを判定することができます。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "攻撃者はPOSTリクエストで送る値は自由に設定できますが、$_SESSIONの値はXSSなどによって設定しない限り操作することは不可能だからです。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    18
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど生成したトークンをPOSTリクエストで送信する値に含めています。",
+                    "languages": []
+                },
+                {
+                    "text": "このPOSTリクエストで送信する値と先ほど$_SESSIONに格納した値は同じなので、このページからchange_password.phpに遷移した場合にはパスワードの変更が実行されます。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "それでは実際にパスワードを変更するchange_password.phpで正規のルートからアクセスされたかどうか確認する手法を見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

@@ -71,6 +71,10 @@ struct KeyboardViewFactory {
             return KeyboardDynamicColumnUnsafeBooks0View()
         case "dynamic_column_safe_books.php_0":
             return KeyboardDynamicColumnSafeBooks0View()
+        case "token_safe_change_password.php_0":
+            return KeyboardTokenSafeChangePassword0View()
+        case "token_safe_change_password.php_1":
+            return KeyboardTokenSafeChangePassword1View()
         default:
             return nil
         }

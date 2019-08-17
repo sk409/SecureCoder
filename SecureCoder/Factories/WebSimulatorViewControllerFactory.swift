@@ -46,6 +46,8 @@ struct WebSimulatorViewControllerFactory {
             return DynamicColumnSafeWebSimulatorViewController()
         case "token_unsafe":
             return CSRFUnsafeWebSimulatorViewController()
+        case "token_safe":
+            return CSRFTokenSafeWebSimulatorViewController()
         default:
             return nil
         }
