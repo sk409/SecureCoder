@@ -61,6 +61,9 @@ echo $id, "さんのパスワードを", $newPassword, "に変更しました。
         feedbackIFrame.set(code: """
 <iframe src="apply.html"></iframe>
 """, language: .html)
+        feedbackChangedText.set(code: """
+echo $id, "さんのパスワードを", $newPassword, "に変更しました。";
+""", language: .php)
     }
     
     private func showLogin() {
@@ -226,7 +229,7 @@ echo $id, "さんのパスワードを", $newPassword, "に変更しました。
             GuideText(text: "このユーザの意図していないパスワードの変更を実行したのが赤枠で囲まれている<iframe>要素に埋め込まれている攻撃者が用意したapply.htmlです。", programingLanguages: [.html]),
             GuideText(text: "本来であれば、攻撃者が用意した「http://www.trap.co.jp/apply.html」から「http://www.unsafe.co.jp/change_password.php」へのアクセスは想定しているものではないのでこのアクセスを拒否しなければなりません。"),
             GuideText(text: "しかし、今回はこの処理を怠っていたためこのような攻撃を受けてしまいました。"),
-            GuideText(text: "なお、本来であれば攻撃者はこの<iframe>要素をcssなどによって隠します。"),
+            GuideText(text: "なお、本来であれば攻撃者はこの<iframe>要素をcssなどによって隠します。", programingLanguages: [.html]),
             ], onEnter: { completion in
                 self.focus(on: self.feedbackIFrame) {
                     completion?()

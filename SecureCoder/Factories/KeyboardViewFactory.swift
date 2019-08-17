@@ -75,6 +75,10 @@ struct KeyboardViewFactory {
             return KeyboardTokenSafeChangePassword0View()
         case "token_safe_change_password.php_1":
             return KeyboardTokenSafeChangePassword1View()
+        case "re-enter_password_safe_change_password.php_0":
+            return KeyboardReEnterPasswordSafeChangePassword0View()
+        case "re-enter_password_safe_change_password.php_1":
+            return KeyboardReEnterPasswordSafeChangePassword1View()
         default:
             return nil
         }

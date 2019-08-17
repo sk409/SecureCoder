@@ -1,0 +1,81 @@
+{
+    "index": 4,
+    "fileName": "apply.html",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "これが攻撃者が用意したパスワードを変更させるためのページです。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    6
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で<body>要素がロードされた段階で、<form>要素をsubmitしています。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    14
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "これが<body>要素のonloadイベントでsubmitされる<input>要素です。\nこの値で先ほど見たchange_password.phpに対して攻撃を仕掛け、ユーザのパスワードをcrackedに変更しようとしています。",
+                    "languages": [
+                        "html"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    9
+                ],
+                [
+                    11
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この<form>要素はPOSTリクエストで先ほど見たchange_password.phpに新しいパスワードを送信します。",
+                    "languages": ["html"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "以上で各ファイルの説明は終了です。\nプレビューを確認して攻撃の流れを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

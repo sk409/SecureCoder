@@ -1,0 +1,96 @@
+{
+    "index": 1,
+    "fileName": "home.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "体験編で見たようにこのhome.phpではパスワードの変更が行えます。\n体験編では新しいパスワードのみを入力してchange_password.phpに送信していましたが、今回は現在のパスワードも入力して送信します。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    3
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で先ほど見たauth.phpを読み込んでいます。",
+                    "languages": [
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    7
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でauth.phpで定義していたisExists関数を用いてユーザの認証を行っています。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    12
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "もし認証に成功した場合には、この赤枠で囲まれた部分で$_SESSIONにユーザIDを格納しています。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    21
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分が現在のパスワードを入力するための<input>要素です。",
+                    "languages": ["html"]
+                },
+                {
+                    "text": "この現在のパスワードをchange_password.phpで認証に使用します。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+            ],
+            "messages": [
+                {
+                    "text": "それでは実際にパスワードを変更するchange_password.phpで正規のルートからアクセスされたかどうか確認する手法を見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}

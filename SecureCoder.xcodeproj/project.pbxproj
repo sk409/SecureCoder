@@ -43,6 +43,9 @@
 		D7319A982298EC3B00369273 /* CaretView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7319A972298EC3B00369273 /* CaretView.swift */; };
 		D7319A9A2298F20500369273 /* CodeEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7319A992298F20500369273 /* CodeEditorView.swift */; };
 		D73256D22307980D00F308AD /* SwipeAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73256D12307980D00F308AD /* SwipeAnimation.swift */; };
+		D73256D42307CA3000F308AD /* KeyboardReEnterPasswordSafeChangePassword0View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73256D32307CA3000F308AD /* KeyboardReEnterPasswordSafeChangePassword0View.swift */; };
+		D73256D62307CB6700F308AD /* KeyboardReEnterPasswordChangePassword1View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73256D52307CB6700F308AD /* KeyboardReEnterPasswordChangePassword1View.swift */; };
+		D73256D82307D47700F308AD /* ReEnterPasswordSafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D73256D72307D47700F308AD /* ReEnterPasswordSafeWebSimulatorViewController.swift */; };
 		D7327FD222D2DE9400586B29 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7327FD122D2DE9400586B29 /* Text.swift */; };
 		D7327FD422D2DF6C00586B29 /* A.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7327FD322D2DF6C00586B29 /* A.swift */; };
 		D7327FDC22D336F600586B29 /* WebElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7327FDB22D336F600586B29 /* WebElementView.swift */; };
@@ -180,6 +183,9 @@
 		D7319A972298EC3B00369273 /* CaretView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaretView.swift; sourceTree = "<group>"; };
 		D7319A992298F20500369273 /* CodeEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeEditorView.swift; sourceTree = "<group>"; };
 		D73256D12307980D00F308AD /* SwipeAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeAnimation.swift; sourceTree = "<group>"; };
+		D73256D32307CA3000F308AD /* KeyboardReEnterPasswordSafeChangePassword0View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardReEnterPasswordSafeChangePassword0View.swift; sourceTree = "<group>"; };
+		D73256D52307CB6700F308AD /* KeyboardReEnterPasswordChangePassword1View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardReEnterPasswordChangePassword1View.swift; sourceTree = "<group>"; };
+		D73256D72307D47700F308AD /* ReEnterPasswordSafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReEnterPasswordSafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
 		D7327FD122D2DE9400586B29 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		D7327FD322D2DF6C00586B29 /* A.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = A.swift; sourceTree = "<group>"; };
 		D7327FDB22D336F600586B29 /* WebElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebElementView.swift; sourceTree = "<group>"; };
@@ -471,6 +477,7 @@
 				D7428A0D23050C1D00C1982A /* DynamicColumnSafeWebSimulatorViewController.swift */,
 				D7428A0F230652D400C1982A /* CSRFUnsafeWebSimulatorViewController.swift */,
 				D7428A152306E2A500C1982A /* CSRFTokenSafeWebSimulatorViewController.swift */,
+				D73256D72307D47700F308AD /* ReEnterPasswordSafeWebSimulatorViewController.swift */,
 			);
 			path = WebSimulatorViewControllers;
 			sourceTree = "<group>";
@@ -534,6 +541,8 @@
 				D7428A0B230508C100C1982A /* KeyboardDynamicColumnSafeBooks0View.swift */,
 				D7428A112306C19F00C1982A /* KeyboardTokenSafeChangePassword0View.swift */,
 				D7428A132306C38C00C1982A /* KeyboardTokenSafeChangePassword1View.swift */,
+				D73256D32307CA3000F308AD /* KeyboardReEnterPasswordSafeChangePassword0View.swift */,
+				D73256D52307CB6700F308AD /* KeyboardReEnterPasswordChangePassword1View.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -669,6 +678,7 @@
 				D700D69322ED62C900FE6631 /* Form.swift in Sources */,
 				D726997222965AB1009988E6 /* ProgramingLanguageCollectionViewCell.swift in Sources */,
 				D7A56687225A17D3002EF185 /* Lesson.swift in Sources */,
+				D73256D82307D47700F308AD /* ReEnterPasswordSafeWebSimulatorViewController.swift in Sources */,
 				D7278C8422C9BA1300A6BBE0 /* LessonSelectionViewController.swift in Sources */,
 				D7AD483422EEC14A00544819 /* KeyboardFalsifyFormSafeApply0View.swift in Sources */,
 				D7AD483622EEC57500544819 /* FalsifyFormSafeWebSimulatorViewController.swift in Sources */,
@@ -731,6 +741,7 @@
 				D7256C2C22AE2F490093A5AA /* CSSSyntaxHighlighter.swift in Sources */,
 				D7AD483822F15B5400544819 /* KeyboardNoQuotesUnsafeWelcome0View.swift in Sources */,
 				D74289FA230402E500C1982A /* KeyboardAuthenticationBypassUnsafeAuth1View.swift in Sources */,
+				D73256D62307CB6700F308AD /* KeyboardReEnterPasswordChangePassword1View.swift in Sources */,
 				D726997022964578009988E6 /* CourseSelectionViewController.swift in Sources */,
 				D7428A042304178F00C1982A /* KeyboardAuthenticationBypassSafeAuth3View.swift in Sources */,
 				D7EBEC3F22F3C106002AF66E /* KeyboardEntQuotesUnsafeWelcome0View.swift in Sources */,
@@ -747,6 +758,7 @@
 				D7428A0A2304F21600C1982A /* DynamicColumnUnsafeWebSimulatorViewController.swift in Sources */,
 				D74ACBA522CC675E00713343 /* SectionSelectionViewController.swift in Sources */,
 				D77059AE2292357700E66D7B /* LessonViewController.swift in Sources */,
+				D73256D42307CA3000F308AD /* KeyboardReEnterPasswordSafeChangePassword0View.swift in Sources */,
 				D7F9652D229280860086E98A /* SyntaxHighlighter.swift in Sources */,
 				D7428A10230652D400C1982A /* CSRFUnsafeWebSimulatorViewController.swift in Sources */,
 				D70CA56C22D6EEEA001F33B8 /* KeyboardIFrameInjectionUnsafeTrap0View.swift in Sources */,

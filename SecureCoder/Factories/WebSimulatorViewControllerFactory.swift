@@ -48,6 +48,10 @@ struct WebSimulatorViewControllerFactory {
             return CSRFUnsafeWebSimulatorViewController()
         case "token_safe":
             return CSRFTokenSafeWebSimulatorViewController()
+        case "re-enter_password_unsafe":
+            return CSRFUnsafeWebSimulatorViewController()
+        case "re-enter_password_safe":
+            return ReEnterPasswordSafeWebSimulatorViewController()
         default:
             return nil
         }

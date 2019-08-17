@@ -1,0 +1,112 @@
+{
+    "index": 0,
+    "fileName": "auth.php",
+    "explainers": [
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                []
+            ],
+            "messages": [
+                {
+                    "text": "体験編ではCSRF攻撃によってユーザのIDを変更されてしまう事例を体験しました。\n今回はその攻撃への対策を行なっていきます。",
+                    "languages": []
+                },
+                {
+                    "text": "今回のレッスンではパスワードの再入力を用いて対策を行なっていきます。\nそれでは早速見ていきましょう。",
+                    "languages": []
+                },
+                {
+                    "text": "今見ているこのファイルはユーザの認証のためのisExists関数を定義しています。\nこのisExists関数はユーザIDとパスワードを受け取り、そのユーザが登録されていればtrueを返し、登録されていなければfalseを返します。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    2, 4, 6, 7, 8, 9, 10, 12
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分でisExists関数を定義しています。",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    4
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "本来であれば、MySQLなどのDBMSを用いてデータの管理を行いますが、今回はサンプルなので簡易的に辞書をデータベースとして扱っています。",
+                    "languages": []
+                },
+                {
+                    "text": "この$databaseを見ると分かるように、今回は次の2人のユーザが登録されています。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "id: id1, password: pass1\nid: id2, password: pass2",
+                    "languages": []
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    7
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で$databaseに$idのキーがあることを確認しています。",
+                    "languages": [
+                        "php"
+                    ]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [
+                [
+                    9
+                ]
+            ],
+            "messages": [
+                {
+                    "text": "この赤枠で囲まれた部分で$databaseの中の$idに対応するパスワードが$passwordであることを確認しています。",
+                    "languages": ["php"]
+                }
+            ]
+        },
+        {
+            "questionIndices": [],
+            "focusLabels": [],
+            "focusComponents": [],
+            "messages": [
+                {
+                    "text": "この2つの条件を満たした場合、ユーザがデータベースに存在することになります。",
+                    "languages": []
+                },
+                {
+                    "text": "それでは次にログイン後に表示されるhome.phpを見ていきましょう。",
+                    "languages": []
+                }
+            ]
+        }
+    ]
+}
