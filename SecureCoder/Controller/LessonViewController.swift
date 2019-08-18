@@ -292,6 +292,9 @@ class LessonViewController: UIViewController {
     @objc
     private func handleShowKeyboardViewButton(_ sender: UIButton) {
         hideGuideMessageTextView {
+            if self.guide?.fileName != self.codeEditorView?.file?.name {
+                self.changeCodeEditorView()
+            }
             if let codeEditorView = self.codeEditorView, let question = self.codeEditorView?.question {
                 codeEditorView.question?.activate(isActive: true, keyboardViewDidShow: nil, keyboardViewDidHide: nil)
                 codeEditorView.scroll(to: question)
