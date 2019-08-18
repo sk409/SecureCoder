@@ -461,7 +461,7 @@ extension LessonViewController: UICollectionViewDataSource, UICollectionViewDele
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        guard let lesson = lesson else {
+        guard scrollView == guideMessageView.collectionView, let lesson = lesson else {
             return
         }
         swipeAnimation.stop()
