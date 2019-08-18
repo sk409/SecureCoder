@@ -22,18 +22,18 @@ class LessonSelectionViewController: UIViewController {
         view.addSubview(backButton)
         headerView.addSubview(sectionTitleLabel)
         view.addSubview(bodyView)
-        backButton.setBackgroundImage(UIImage(named: "back-icon"), for: .normal)
-        backButton.addTarget(self, action: #selector(handleBackButton(_:)), for: .touchUpInside)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 8),
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            backButton.widthAnchor.constraint(equalToConstant: 44),
-            backButton.heightAnchor.constraint(equalTo: backButton.widthAnchor)
-            ])
         bodyView.addSubview(sectionDescriptionTextView)
         bodyView.addSubview(experienceButton)
         bodyView.addSubview(takeMeasuresButton)
+        backButton.setBackgroundImage(UIImage(named: "cross-icon"), for: .normal)
+        backButton.addTarget(self, action: #selector(handleBackButton(_:)), for: .touchUpInside)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backButton.trailingAnchor.constraint(equalTo: takeMeasuresButton.trailingAnchor),
+            backButton.centerYAnchor.constraint(equalTo: headerView.safeAreaLayoutGuide.centerYAnchor),
+            backButton.widthAnchor.constraint(equalToConstant: 44),
+            backButton.heightAnchor.constraint(equalTo: backButton.widthAnchor)
+            ])
         headerView.backgroundColor = .systemBlue
         headerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
