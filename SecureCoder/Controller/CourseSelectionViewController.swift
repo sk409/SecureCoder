@@ -34,6 +34,17 @@ class CourseSelectionViewController: UIViewController {
     }
     
     @objc
+    private func handleDetailButton(_ sender: CellButton) {
+        guard let indexPath = sender.indexPath else {
+            return
+        }
+        let courseTitle = Application.shared.courses[indexPath.row].title
+        let detailViewController = DetailViewController()
+        detailViewController.courseType = DetailViewController.CourseType(rawValue: courseTitle)
+        present(detailViewController, animated: true)
+    }
+    
+    @objc
     private func handleStartButton(_ sender: CellButton) {
         guard let indexPath = sender.indexPath else {
             return
@@ -58,7 +69,7 @@ extension CourseSelectionViewController: UICollectionViewDataSource, UICollectio
         courseCardCollectionViewCell.startButton.indexPath = indexPath
         courseCardCollectionViewCell.startButton.addTarget(self, action: #selector(handleStartButton(_:)), for: .touchUpInside)
         courseCardCollectionViewCell.detailButton.indexPath = indexPath
-        
+        courseCardCollectionViewCell.detailButton.addTarget(self, action: #selector(handleDetailButton(_:)), for: .touchUpInside)
         return courseCardCollectionViewCell
     }
     

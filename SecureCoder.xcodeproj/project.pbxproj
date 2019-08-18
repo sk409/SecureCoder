@@ -80,6 +80,7 @@
 		D74ACBA522CC675E00713343 /* SectionSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74ACBA422CC675E00713343 /* SectionSelectionViewController.swift */; };
 		D74ACBA722CC691200713343 /* CellButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74ACBA622CC691200713343 /* CellButton.swift */; };
 		D74B15E122AB94CD0035047B /* EditorComponentsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D74B15E022AB94CD0035047B /* EditorComponentsBuilder.swift */; };
+		D751520B23091DF30010B1B7 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751520A23091DF30010B1B7 /* DetailViewController.swift */; };
 		D753EC6222E6B2CF00B350F4 /* KeboardIFrameInjectionSafeWelcome0.swift in Sources */ = {isa = PBXBuildFile; fileRef = D753EC6122E6B2CF00B350F4 /* KeboardIFrameInjectionSafeWelcome0.swift */; };
 		D753EC6422E6D08E00B350F4 /* IFrameInjectionSafeWebSimulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D753EC6322E6D08E00B350F4 /* IFrameInjectionSafeWebSimulatorViewController.swift */; };
 		D75A99D422A29B080086E710 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75A99D322A29B080086E710 /* Course.swift */; };
@@ -222,6 +223,7 @@
 		D74ACBA422CC675E00713343 /* SectionSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionSelectionViewController.swift; sourceTree = "<group>"; };
 		D74ACBA622CC691200713343 /* CellButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellButton.swift; sourceTree = "<group>"; };
 		D74B15E022AB94CD0035047B /* EditorComponentsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorComponentsBuilder.swift; sourceTree = "<group>"; };
+		D751520A23091DF30010B1B7 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		D753EC6122E6B2CF00B350F4 /* KeboardIFrameInjectionSafeWelcome0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeboardIFrameInjectionSafeWelcome0.swift; sourceTree = "<group>"; };
 		D753EC6322E6D08E00B350F4 /* IFrameInjectionSafeWebSimulatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IFrameInjectionSafeWebSimulatorViewController.swift; sourceTree = "<group>"; };
 		D75A99D322A29B080086E710 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				D726996F22964578009988E6 /* CourseSelectionViewController.swift */,
 				D7278C8322C9BA1300A6BBE0 /* LessonSelectionViewController.swift */,
 				D74ACBA422CC675E00713343 /* SectionSelectionViewController.swift */,
+				D751520A23091DF30010B1B7 /* DetailViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				D762AF5D22B48543001C94A2 /* UIView+darken.swift in Sources */,
 				D7BE35DD23012FE000F889FA /* KeyboardSQLInjectionTakeMeasuresUnsafeBooks0View.swift in Sources */,
 				D7319A9A2298F20500369273 /* CodeEditorView.swift in Sources */,
+				D751520B23091DF30010B1B7 /* DetailViewController.swift in Sources */,
 				D70CE12522CF7A2D00BD5922 /* SyntaxHighlighterDelegate.swift in Sources */,
 				D71C2C2222A0D9AD008CCCD0 /* CourseCardCollectionViewCell.swift in Sources */,
 				D700D68D22ED55CB00FE6631 /* Button.swift in Sources */,
