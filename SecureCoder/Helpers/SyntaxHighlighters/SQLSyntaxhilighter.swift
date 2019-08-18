@@ -4,8 +4,8 @@ struct SQLSyntaxhighlighter: SyntaxHighlighterDelegate {
     
     func syntaxhighlight(_ mutableAttributedString: NSMutableAttributedString, range: NSRange) -> NSMutableAttributedString {
         let text = mutableAttributedString.string
-        let keywords = ["select", "from", "where", "oder by", "desc", "asc", "delete", "union", "and", "order by"]
-        let keywordRegex = try! NSRegularExpression(pattern: keywords.joined(separator: "|"), options: .caseInsensitive)
+        let keywords = ["SELECT", "FROM", "WHERE", "ORDER BY", "DESC", "ASC", "DELETE", "UNION", "AND"]
+        let keywordRegex = try! NSRegularExpression(pattern: keywords.joined(separator: "|"))
         let keywordMatches = keywordRegex.matches(in: text, range: range)
         for keywordMatch in keywordMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: SQL.keywordColor, range: keywordMatch.range)

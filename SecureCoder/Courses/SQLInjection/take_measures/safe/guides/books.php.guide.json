@@ -103,7 +103,7 @@
                     "languages": ["php"]
                 },
                 {
-                    "text": "複文の実行を許可していると、SQLインジェクションによって例えば以下のようなSQL文が組み立てられた場合に2つ目の文まで実行され、usersデーブルのデータが全て削除されてしまいます。\nSELECT * FROM users; DELETE FROM users;",
+                    "text": "複文の実行を許可していると、SQLインジェクションによって例えば以下のようなSQL文が組み立てられた場合に2つ目の文まで実行され、usersテーブルのデータが全て削除されてしまいます。\nSELECT * FROM users; DELETE FROM users;",
                     "languages": ["sql"]
                 },
                 {
@@ -166,8 +166,12 @@
                     "languages": ["php", "sql"]
                 },
                 {
-                    "text": "攻撃者は先ほどのSQL文の$authorに「' UNION SELECT name, password, NULL FROM users;--」を埋め込み次のSQL文を組み立てました。",
-                    "languages": ["php", "sql"]
+                    "text": "攻撃者は先ほどのSQL文の$authorに次の値を埋め込みました。",
+                    "languages": ["php"]
+                },
+                {
+                    "text": "' UNION SELECT name, password, NULL FROM users;--\nこれによって次のSQL文を組み立てました。",
+                    "languages": ["sql"]
                 },
                 {
                     "text": "SELECT title, author, price FROM books WHERE author='' UNION SELECT name, password, NULL FROM users;--'",

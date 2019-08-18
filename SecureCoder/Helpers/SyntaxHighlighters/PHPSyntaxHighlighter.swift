@@ -51,7 +51,7 @@ struct PHPSyntaxHighlighter: SyntaxHighlighterDelegate {
         let reservedWordRegex3 = try! NSRegularExpression(pattern: PHP.reservedWords.map({"[^a-zA-Z0-9_]" + $0 + "$"}).joined(separator: "|"), options: .anchorsMatchLines)
         let reservedWordMatches3 = reservedWordRegex3.matches(in: text, range: range)
         for reservedWordMatch in reservedWordMatches3 {
-            mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: NSRange(location: reservedWordMatch.range.location, length: reservedWordMatch.range.length - 1))
+            mutableAttributedString.addAttributes([.foregroundColor: PHP.reservedWordColor], range: NSRange(location: reservedWordMatch.range.location + 1, length: reservedWordMatch.range.length - 1))
         }
         let functionRegex = try! NSRegularExpression(pattern: "[a-zA-Z0-9_]+\\(")
         let functionMatches = functionRegex.matches(in: text, range: range)
@@ -68,7 +68,7 @@ struct PHPSyntaxHighlighter: SyntaxHighlighterDelegate {
         for classMatch2 in classMatches2 {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.classColor, range: NSRange(location: classMatch2.range.location, length: classMatch2.range.length - 2))
         }
-        let stringRegex = try! NSRegularExpression(pattern: "\".*?\"")
+        let stringRegex = try! NSRegularExpression(pattern: "\".*\"")
         let stringMatches = stringRegex.matches(in: text, range: range)
         for stringMatch in stringMatches {
             mutableAttributedString.addAttributes([.foregroundColor: PHP.valueColor], range: stringMatch.range)

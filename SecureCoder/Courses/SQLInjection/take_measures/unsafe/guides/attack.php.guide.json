@@ -33,7 +33,7 @@
                     "languages": ["php"]
                 },
                 {
-                    "text": "SELECT title, author, price FROM books WHERE author='' UNION SELECT name, password, NULL FROM users;--",
+                    "text": "SELECT title, author, price FROM books WHERE author='' UNION SELECT name, password, NULL FROM users;--'",
                     "languages": [
                         "sql"
                     ]

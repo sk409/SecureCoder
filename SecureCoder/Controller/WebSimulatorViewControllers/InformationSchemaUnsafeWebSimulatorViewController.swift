@@ -90,7 +90,8 @@ $author = "' UNION SELECT table_name, column_name, data_type FROM information_sc
         appendGuideSection([
             GuideText(text: "これが攻撃先のWebページです。")])
         appendGuideSection([
-            GuideText(text: "このWebページの製作者の意図としては、この赤枠で囲まれた部分に検索した本の情報が表示されますが今回はDBMS内部の情報が表示されてしまっています。\nなお、本来はここに表示されている以外にも様々な情報が表示されますが、見づらくなってしまうため、booksテーブルとusersテーブルに関する情報のみ表示しています。"),
+            GuideText(text: "このWebページの製作者の意図としては、この赤枠で囲まれた部分に検索した本の情報が表示されますが今回はDBMS内部の情報が表示されてしまっています。"),
+            GuideText(text: "なお、本来はここに表示されている以外にも様々な情報が表示されますが、見づらくなってしまうため、booksテーブルとusersテーブルに関する情報のみ表示しています。"),
             GuideText(text: """
 今回の例では以下の値がbooksテーブルにあるものとします。
 title: title1, author: author1, price: 1

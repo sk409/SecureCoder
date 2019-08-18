@@ -102,7 +102,7 @@ class NoQuotesSafeWebSimulatorViewController: WebSimulatorViewController {
 <input type="text" name="name" value="1" onclick="alert('クレジットカード情報が流出しました')">
 """, programingLanguages: [.html]),
             GuideText(text: "しかし、この攻撃は成立しません。\nその理由は今回はhtmlspecialcharsを用いてしっかりと特殊文字のエスケープを行っているためです。"),
-            GuideText(text: "詳しくは「Cookieの盗み出し」というセクションの「<iframe>による攻撃ページの埋め込みと隠蔽」というレッスンか「HTMLの改ざん」というセクションの「フォームの改ざん」というレッスンを参照してください。")
+            GuideText(text: "詳しくは「<iframe>による攻撃ページの埋め込みと隠蔽」というレッスンか「フォームの改ざん」というレッスンを参照してください。")
             ], onEnter: { completion in
                 self.focus(on: self.nameInput) {
                     completion?()

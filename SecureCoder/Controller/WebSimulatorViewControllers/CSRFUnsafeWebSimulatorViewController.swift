@@ -32,7 +32,7 @@ class CSRFUnsafeWebSimulatorViewController: WebSimulatorViewController {
     
     private func setupViews() {
         idText.set(text: "ID: ")
-        idInput.textField.text = "id"
+        idInput.textField.text = "ID"
         idInput.set(code: """
 <input type="text" name="id">
 """, language: .html)
@@ -53,7 +53,10 @@ class CSRFUnsafeWebSimulatorViewController: WebSimulatorViewController {
         changeButton.set(text: "変更する")
         changeButton.button.addTarget(self, action: #selector(handleDisabledButton(_:)), for: .touchUpInside)
         changedText.set(code: """
-echo $id, "さんのパスワードを", $newPassword, "に変更しました。";
+echo $id;
+echo "さんのパスワードを";
+echo $newPassword;
+echo "に変更しました。";
 """, language: .php)
         featuredItemsH1.set(text: "おすすめの商品紹介")
         itemAP.set(text: "商品A")
@@ -62,7 +65,10 @@ echo $id, "さんのパスワードを", $newPassword, "に変更しました。
 <iframe src="apply.html"></iframe>
 """, language: .html)
         feedbackChangedText.set(code: """
-echo $id, "さんのパスワードを", $newPassword, "に変更しました。";
+echo $id;
+echo "さんのパスワードを";
+echo $newPassword;
+echo "に変更しました。";
 """, language: .php)
     }
     
@@ -81,7 +87,7 @@ echo $id, "さんのパスワードを", $newPassword, "に変更しました。
         appendGuideSection([
             GuideText(text: "これが最初に見たログインページです。\nまずは正規のパスワード変更の流れを見ていきます。")])
         appendGuideSection([
-            GuideText(text: "これがユーザのIDを入力するための<input>要素です。\n今回はあらかじめidと入力しておきましたが、好きな値を入力しても構いません。", programingLanguages: [.html])],
+            GuideText(text: "これがユーザのIDを入力するための<input>要素です。\n今回はあらかじめIDと入力しておきましたが、好きな値を入力しても構いません。", programingLanguages: [.html])],
                            onEnter: { completion in
                             self.focus(on: self.idInput) {
                                 completion?()

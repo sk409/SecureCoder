@@ -61,13 +61,13 @@
                     3
                 ],
                 [
-                    16
+                    17
                 ]
             ],
             "messages": [
                 {
                     "text": "「preg_match」はPHPに標準で用意されている関数で第1引数で渡したパターン文字列に第2引数で渡した対象文字列が一致すればtrueを返し、一致しなければfalseを返します。",
-                    "languages": []
+                    "languages": ["php"]
                 }
             ]
         },
@@ -76,7 +76,7 @@
             "focusLabels": [],
             "focusComponents": [
                 [5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                [18]
+                [19]
             ],
             "messages": [
                 {
@@ -209,7 +209,7 @@
             "focusLabels": [],
             "focusComponents": [
                 [
-                    18
+                    19
                 ]
             ],
             "messages": [
@@ -224,7 +224,7 @@
             "focusLabels": [],
             "focusComponents": [
                 [
-                    21
+                    22
                 ]
             ],
             "messages": [
@@ -239,7 +239,7 @@
             "focusLabels": [],
             "focusComponents": [
                 [
-                    24
+                    25
                 ]
             ],
             "messages": [
@@ -265,7 +265,7 @@
             "questionIndices": [],
             "focusLabels": [],
             "focusComponents": [
-                [29, 30, 31]
+                [30, 31, 32]
             ],
             "messages": [
                 {

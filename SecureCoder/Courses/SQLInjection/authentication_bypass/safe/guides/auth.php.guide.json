@@ -200,7 +200,11 @@
             ],
             "messages": [
                 {
-                    "text": "nameとpasswordの値をプレースホルダに設定したので、この赤枠で囲まれた部分でコンパイルを行っています。\nPDOのprepareメソッドはSQL文のコンパイルなどの準備を行いPDOStatementオブジェクトを返します。\nこのように実行のための準備が完了したSQL文をプリペアドステートメントと呼びます。",
+                    "text": "nameとpasswordの値をプレースホルダに設定したので、この赤枠で囲まれた部分でコンパイルを行っています。",
+                    "languages": []
+                },
+                {
+                    "text": "PDOのprepareメソッドはSQL文のコンパイルなどの準備を行いPDOStatementオブジェクトを返します。\nこのように実行のための準備が完了したSQL文をプリペアドステートメントと呼びます。",
                     "languages": []
                 },
                 {
@@ -238,7 +242,7 @@
                     "languages": []
                 },
                 {
-                    "text": "bindValueメソッドの第3引数にはバインドする値の型を指定します。\n今回指定するnameとpasswordは文字列型であるためPDO::PARAM_STRを指定します。",
+                    "text": "bindValueメソッドの第3引数にはバインドする値の型を指定します。\n今回バインドする値は文字列型であるためPDO::PARAM_STRを指定します。",
                     "languages": [
                         "php"
                     ]

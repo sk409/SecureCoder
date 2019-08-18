@@ -79,7 +79,7 @@ name: name2, password: pass2
 """),
             GuideText(text: "今回のユーザを検索するSQLは以下でした。\nSELECT 'X' FROM users WHERE name='$name' AND password='$password'", programingLanguages: [.php, .sql]),
             GuideText(text: """
-今回攻撃者が渡したnameの値は以下でした。
+今回攻撃者が渡した$nameの値は以下でした。
 $name = "' OR 1=1;--";
 """, programingLanguages: [.php]),
             GuideText(text: """
@@ -87,13 +87,16 @@ passwordに関しては攻撃者は渡していないので、$_GET["password"]�
 """, programingLanguages: [.php]),
             GuideText(text: """
 よって、今回はパスワードを取得するときに以下のように記述していたので、$passwordの値は空文字列になります。
-$password = $_GET["password"] == null ? "" : $_GET["password"];
+なお、見切れている部分はスクロールすることによって最後まで見ることができます。
+$password = $_GET["password"] == null ?
+            "" :
+            $_GET["password"];
 """, programingLanguages: [.php]),
-            GuideText(text: "そして今回はしっかりとプレースホルダを用いてSQL文のコンパイルを行ってから$nameと$passwordを埋め込んだので、最終的にこのSQLは、nameの値が「' OR 1=1;--」であり、さらにpasswordの値が空文字列である行を検索します。", programingLanguages: [.php, .sql]),
+            GuideText(text: "そして今回はしっかりとプレースホルダを用いてSQL文のコンパイルを行ってから$nameと$passwordを埋め込みました。", programingLanguages: [.php, .sql]),
+            GuideText(text: "よって、最終的にこのSQLは、nameの値が「' OR 1=1;--」であり、さらにpasswordの値が空文字列である行を検索します。"),
             GuideText(text: "先述のとおり、usersテーブルにこの検索条件を満たす行は存在しないため、このSQL文の結果行数は0です。"),
             GuideText(text: """
 そしてその結果を以下のif文によって判定していました。
-なお、見切れている部分はスクロールすることによって最後まで見ることができます。
 if (0 < $stm->rowCount()) {
     echo "認証に成功しました";
 } else {

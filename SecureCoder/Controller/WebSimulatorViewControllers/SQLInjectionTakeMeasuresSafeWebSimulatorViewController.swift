@@ -113,7 +113,7 @@ name: name2, password: pass2
         })
         appendGuideSection([
             GuideText(text: "このようにSQLインジェクションはプレースホルダを用いてSQL文をコンパイルしておき、後から値をバインドすることで対策することができます。"),
-            GuideText(text: "この他のSQLインジェクションのレッスンでは対策法は全て同じですが、様々なケースの攻撃を体験することに主眼を置いていますので、そちらも参考にしてみてください。"),
+            GuideText(text: "今回のレッスンは以上で終了です。\nこの他にも様々なレッスンを用意していますので、そちらも参考にしてみてください。"),
             GuideText(text: "お疲れ様でした。")
             ])
         addCloseButton()

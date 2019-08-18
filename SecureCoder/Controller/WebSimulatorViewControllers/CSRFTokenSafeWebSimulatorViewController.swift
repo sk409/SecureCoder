@@ -50,6 +50,7 @@ die("正規の画面からご利用ください。");
             GuideText(text: "今回は体験編とは違い、「正規の画面からご利用ください。」と表示されています。\nこれはchange_password.phpで正規のルートからのアクセスではないと判定されたからです。"),
             GuideText(text: """
 体験編で見たように攻撃者が用意した攻撃用の<form>要素は以下でした。
+なお、見切れている部分はスクロールすることで最後まで見ることができます。
 <form method="post" action="http://www.safe.co.jp/change_password.php">
     <input type="hidden" name="new_password" value="cracked">
 </form>

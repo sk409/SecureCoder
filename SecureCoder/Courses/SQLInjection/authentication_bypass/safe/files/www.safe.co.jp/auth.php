@@ -1,6 +1,10 @@
 #[#<?php #]#
-#[#    #]##[#$name = $_GET["name"] == null ? "" : $_GET["name"];#]#
-#[#    #]##[#$password = $_GET["password"] == null ? "" : $_GET["password"];#]#
+#[#    #]##[#$name = $_GET["name"] == null ?
+                     "" :
+                     $_GET["name"];#]#
+#[#    #]##[#$password = $_GET["password"] == null ?
+                         "" :
+                         $_GET["password"];#]#
 #[#    $dsn = "mysql:host=localhost;charset=utf8;dbname=test";#]#
 #[#    #]##[#$options = [#]#
 #[#        #]##[#PDO::ATTR_EMULATE_PREPARES => false,#]#

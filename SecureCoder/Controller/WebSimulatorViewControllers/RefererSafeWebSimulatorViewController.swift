@@ -59,12 +59,14 @@ die("正規の画面からご利用ください。");
             }
         })
         appendGuideSection([
-            GuideText(text: "攻撃者はこの<iframe>要素に埋め込んだapply.htmlからhttp://www.co.jp/change_password.phpにアクセスしていました。", programingLanguages: [.html]),
-            GuideText(text: "つまり、http://www.co.jp/change_password.phpでrefererを確認するとhttp://www.trap.co.jp/apply.htmlとなります。"),
+            GuideText(text: "攻撃者はこの<iframe>要素に埋め込んだapply.htmlからhttp://www.safe.co.jp/change_password.phpにアクセスしていました。", programingLanguages: [.html]),
+            GuideText(text: "つまり、http://www.safe.co.jp/change_password.phpでrefererを確認するとhttp://www.trap.co.jp/apply.htmlとなります。"),
             GuideText(text: """
 よって先ほどコーディングを行なった以下の文で正規の遷移元ではないと判定され、処理が中断されます。
 なお、見切れている場合はスクロールすることで最後まで確認することができます。
-if ($_SERVER["HTTP_REFERER"] !== "http://www.safe.co.jp/home.php") {
+if ($_SERVER["HTTP_REFERER"] !==
+    "http://www.safe.co.jp/home.php")
+{
     die("正規の画面からご利用ください。");
 }
 """, programingLanguages: [.php])],

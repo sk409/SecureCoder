@@ -74,7 +74,8 @@ class JavaScriptSchemeSafeWebSimulatorViewController: WebSimulatorViewController
             GuideText(text: "これが最初に見た攻撃先のWebページです。")
             ])
         appendGuideSection([
-            GuideText(text: "今回攻撃を受けたのは、この赤枠で囲まれた<a>要素です。\n<a>要素のhref属性ではjavascriptスキームが有効になっているため、攻撃ページで渡された値によってはjavascriptのコードを埋め込まれてしまいますが、今回は値のチェックを行なってしっかりと無効化したため、アラートが表示されることはありませんので実際にタップして確かめてみてください。", programingLanguages: [.html]),
+            GuideText(text: "今回攻撃を受けたのは、この赤枠で囲まれた<a>要素です。", programingLanguages: [.html]),
+            GuideText(text: "<a>要素のhref属性ではjavascriptスキームが有効になっているため、攻撃ページで渡された値によってはjavascriptのコードを埋め込まれてしまいますが、今回は値のチェックを行なってしっかりと無効化したため、アラートが表示されることはありませんので実際にタップして確かめてみてください。", programingLanguages: [.html]),
             GuideText(text: """
 以下にhref属性が設定された後のこの<a>要素のコードを示します。
 <a href="">リンク先</a>
