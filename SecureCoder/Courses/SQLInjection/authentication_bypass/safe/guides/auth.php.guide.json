@@ -148,7 +148,7 @@
                     "languages": []
                 },
                 {
-                    "text": "具体的には、「SELECT 'X' FROM users WHERE name='$name' AND password='$password'」というSQL文を書きnameに$name、passwordに$passwordの値を直接設定することによって脆弱性を作り込みました。",
+                    "text": "具体的には、「SELECT 'X' FROM users WHERE name='$name' AND password='$password'」というSQL文を書き$nameと$passwordの値を直接設定することによって脆弱性を作り込みました。",
                     "languages": [
                         "php",
                         "sql"

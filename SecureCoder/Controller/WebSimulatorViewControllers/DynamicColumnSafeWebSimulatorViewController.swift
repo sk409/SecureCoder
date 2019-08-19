@@ -36,7 +36,9 @@ class DynamicColumnSafeWebSimulatorViewController: WebSimulatorViewController {
         while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>";
             foreach ($row as $data) {
-                echo "<td>", $data, "</td>";
+                echo "<td>";
+                echo $data;
+                echo "</td>";
             }
             echo "</tr>";
         }
@@ -58,7 +60,9 @@ class DynamicColumnSafeWebSimulatorViewController: WebSimulatorViewController {
         while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>";
             foreach ($row as $data) {
-                echo "<td>", $data, "</td>";
+                echo "<td>";
+                echo $data;
+                echo "</td>";
             }
             echo "</tr>";
         }
@@ -129,7 +133,12 @@ $sortkey = "price; DELETE FROM books;--";
 """, programingLanguages: [.php, .sql]),
             GuideText(text: """
 それに対してホワイトリストは以下でした。
-$keys = ["title", "author", "price"];
+なお、見切れている部分はスクロールすることで最後まで見ることができます。
+$keys = [
+     "title",
+     "author",
+     "price"
+];
 """, programingLanguages: [.php]),
             GuideText(text: "つまり、今回渡された$sortKeyの値はホワイトリストに含まれていないので、「ORDER BY」句を追加する箇所には到達しません。", programingLanguages: [.php, .sql]),
             GuideText(text: """

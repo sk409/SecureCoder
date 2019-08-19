@@ -35,11 +35,10 @@
             "questionIndices": [],
             "focusLabels": [],
             "focusComponents": [
-                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
             ],
             "messages": [
                 {
-                    "text": "この赤枠で囲まれた部分でユーザから受け取ったurlをチェックする関数を定義しています。",
+                    "text": "まずはじめにこのwelcome.php内で定義されている、check_url関数を見ていきます。",
                     "languages": [
                     ]
                 },

@@ -135,9 +135,8 @@
                     ]
                 },
                 {
-                    "text": "攻撃者は先ほどのSQL文の$authorに「' UNION SELECT table_name, column_name, data_type FROM information_schema.columns;--」を埋め込み次のSQL文を組み立てました。",
+                    "text": "攻撃者は先ほどのSQL文のauthorに「' UNION SELECT table_name, column_name, data_type FROM information_schema.columns;--」を埋め込み次のSQL文を組み立てました。",
                     "languages": [
-                        "php",
                         "sql"
                     ]
                 },

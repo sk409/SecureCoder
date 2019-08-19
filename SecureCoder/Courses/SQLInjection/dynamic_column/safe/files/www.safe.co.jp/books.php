@@ -7,7 +7,11 @@
 #[#        #]##[#];#]#
 #[#        $pdo = new PDO($dsn, "admin", "admin", #]##[#$options#]##[#);#]#
 #[#        $sql = "#]##[#SELECT title, author, price FROM books#]##[#";#]#
-#[#        #]##[#$keys = ["title", "author", "price"];#]#
+#[#        #]##[#$keys = [#]#
+#[#             #]##[#"title",#]#
+#[#             #]##[#"author",#]#
+#[#             #]##[#"price",#]#
+#[#        #]##[#];#]#
 #[#        #]##[#if (!is_null($sortKey) && #]#?[?in_array($sortKey, $keys)?]?#[#) {#]#
 #[#            #]##[#$sql .= " ORDER BY $sortKey DESC";#]#
 #[#        }#]#
@@ -21,7 +25,9 @@
 #[#        while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {#]#
 #[#            echo "<tr>";#]#
 #[#            foreach ($row as $data) {#]#
-#[#                echo "<td>", $data, "</td>";#]#
+#[#                echo "<td>";
+                echo $data;
+                echo "</td>";#]#
 #[#            }#]#
 #[#            echo "</tr>";#]#
 #[#        }#]#

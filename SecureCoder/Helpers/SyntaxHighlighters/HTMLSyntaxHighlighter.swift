@@ -4,14 +4,14 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
     
     func syntaxhighlight(_ mutableAttributedString: NSMutableAttributedString, range: NSRange) -> NSMutableAttributedString {
         let text = mutableAttributedString.string
-        let openTags = ["<p", "<h1", "<body", "<a", "<script", "<iframe", "<form", "<input", "<br", "<table", "<tr", "<th", "<td", "<html", "<head", "<meta", "<!DOCTYPE html"]
-        let openTagRegex = try! NSRegularExpression(pattern: openTags.joined(separator: "|"))
+        let tags = ["p", "h1", "body", "a", "script", "iframe", "form", "input", "br", "table", "tr", "th", "td", "html", "head", "meta", "!DOCTYPE html"]
+        let openTagRegex = try! NSRegularExpression(pattern: tags.map { "<" + $0 }.joined(separator: "|") + "|" + tags.map{"&lt;" + $0}.joined(separator: "|"))
         let openTagMatches = openTagRegex.matches(in: text, range: range)
         for openTagMatch in openTagMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.tagColor, range: NSRange(location: openTagMatch.range.location + 1, length: openTagMatch.range.length - 1))
         }
-        let closeTags = openTags.map { String($0[0]) + "/" + $0[1...] }
-        let closeTagRegex = try! NSRegularExpression(pattern: closeTags.joined(separator: "|"))
+        //let closeTags = tags.map { "</" + $0 } + tags
+        let closeTagRegex = try! NSRegularExpression(pattern: tags.map{"</" + $0}.joined(separator: "|") + "|" + tags.map{"&lt;/" + $0}.joined(separator: "|"))
         let closeTagMatches = closeTagRegex.matches(in: text, range: range)
         for closeTagMatch in closeTagMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.tagColor, range: NSRange(location: closeTagMatch.range.location + 1, length: closeTagMatch.range.length - 1))
@@ -22,8 +22,10 @@ struct HTMLSyntaxHighlighter: SyntaxHighlighterDelegate {
         for attributeMatch in attributeMatches {
             mutableAttributedString.addAttribute(.foregroundColor, value: PHP.attributeColor, range: attributeMatch.range)
         }
-        let tagRegex = try! NSRegularExpression(pattern: (openTags.map { $0 + ".*>"}).joined(separator: "|")
-            , options: .dotMatchesLineSeparators)
+        let a = (tags.map { "<" + $0 + ".*?>"}).joined(separator: "|") + "|"
+        let b = (tags.map { "&lt;" + $0 + ".*?&gt;"}).joined(separator: "|")
+        let tagPattern = a + b
+        let tagRegex = try! NSRegularExpression(pattern: tagPattern, options: .dotMatchesLineSeparators)
         let tagMatches = tagRegex.matches(in: text, range: range)
         for tagMatch in tagMatches {
             let valueRegex = try! NSRegularExpression(pattern: "=[^ >]+", options: .dotMatchesLineSeparators)

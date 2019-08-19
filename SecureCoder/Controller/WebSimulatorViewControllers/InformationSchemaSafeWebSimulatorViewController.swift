@@ -32,7 +32,9 @@ class InformationSchemaSafeWebSimulatorViewController: WebSimulatorViewControlle
         while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {
             echo "<tr>";
             foreach ($row as $data) {
-                echo "<td>", $data, "</td>";
+                echo "<td>";
+                echo $data;
+                echo "</td>";
             }
             echo "</tr>";
         }

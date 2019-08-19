@@ -28,7 +28,7 @@
             "focusLabels": [],
             "focusComponents": [
                 [
-                    2, 4, 6, 7, 8, 9, 10, 12
+                    2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 21, 22, 23, 24, 26
                 ]
             ],
             "messages": [
@@ -43,7 +43,7 @@
             "focusLabels": [],
             "focusComponents": [
                 [
-                    4
+                    4, 6, 8, 10, 12, 14, 16, 18
                 ]
             ],
             "messages": [
@@ -66,7 +66,7 @@
             "focusLabels": [],
             "focusComponents": [
                 [
-                    7
+                    21
                 ]
             ],
             "messages": [
@@ -83,7 +83,7 @@
             "focusLabels": [],
             "focusComponents": [
                 [
-                    9
+                    23
                 ]
             ],
             "messages": [

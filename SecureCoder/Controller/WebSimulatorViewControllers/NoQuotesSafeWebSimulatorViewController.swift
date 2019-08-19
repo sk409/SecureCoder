@@ -44,7 +44,7 @@ class NoQuotesSafeWebSimulatorViewController: WebSimulatorViewController {
         appendGuideSection([
             GuideText(text: "この赤枠で囲まれたリンクをタップすると攻撃を仕掛ける値とともに攻撃先のWebページに遷移します。\nリンクの下に示されたコードと見比べてみましょう。"),
             GuideText(text: "このクエリパラメータの値の$nameには以下の値が設定されていました。\n$name = urlencode(\"1 onclick=alert('クレジットカード情報が流出しました')\");", programingLanguages: [.php]),
-            GuideText(text: "つまり攻撃者の意図としては、GETリクエストで受け取った値を引用符を用いずに出力して属性値に設定している要素にonclickイベントを設定しようとしています。", programingLanguages: [.php]),
+            GuideText(text: "つまり攻撃者の意図としては、GETリクエストで受け取った値を引用符を用いずに出力して属性値に設定している要素にonclickイベントを設定しようとしています。", programingLanguages: [.html]),
             GuideText(text: "体験編では属性値を引用符で囲っていなかったためにこの攻撃が成立してしまいましたが、今回はしっかりと属性値を引用符で囲っているため攻撃を防ぐことができます。")
             ], onEnter: { completion in
                 self.focus(on: self.trapA) {

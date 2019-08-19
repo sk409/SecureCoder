@@ -5,7 +5,7 @@
 #[#        #]##[#$sql = "#]##[#SELECT title, author, price FROM books#]##[#";#]#
 #[#        #]##[#if (!is_null($sortKey)) {#]#
 #[#            #]##[#$sql .= " #]#?[?ORDER BY $sortKey?]?#[# DESC";#]#
-#[#        #]##[#]}#]#
+#[#        #]##[#}#]#
 #[#        #]##[#$stm = $pdo->query($sql);#]#
 #[#        #]##[#echo "<table>";#]#
 #[#        #]##[#echo "<tr>";#]#
@@ -16,7 +16,9 @@
 #[#        #]##[#while ($row = $stm->fetch(PDO::FETCH_ASSOC)) {#]#
 #[#            #]##[#echo "<tr>";#]#
 #[#            #]##[#foreach ($row as $data) {#]#
-#[#                #]##[#echo "<td>", $data, "</td>";#]#
+#[#                #]##[#echo "<td>";#]#
+#[#                #]##[#echo $data;#]#
+#[#                #]##[#echo "</td>";#]#
 #[#            #]##[#}#]#
 #[#            #]##[#echo "</tr>";#]#
 #[#        #]##[#}#]#

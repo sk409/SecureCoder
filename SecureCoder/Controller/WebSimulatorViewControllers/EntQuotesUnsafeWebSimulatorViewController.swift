@@ -43,7 +43,7 @@ class EntQuotesUnsafeWebSimulatorViewController: WebSimulatorViewController {
         appendGuideSection([
             GuideText(text: "この赤枠で囲まれたリンクをタップすると攻撃を仕掛ける値とともに脆弱なWebページに遷移します。\nリンクの下に示されたコードと見比べてみましょう。"),
             GuideText(text: "このクエリパラメータの値の$nameには以下の値が設定されていました。\n$name = urlencode(\"1' onclick='alert(\"クレジットカード情報が流出しました\")\");", programingLanguages: [.php]),
-            GuideText(text: "つまり攻撃者の意図としては、GETリクエストで受け取った値を「'」で囲み、htmlspecialcharsの第2引数を省略して出力し、属性値を設定している要素に対して新たにonclick属性を埋め込もうとしています。"),
+            GuideText(text: "つまり攻撃者の意図としては、GETリクエストで受け取った値を「'」で囲み、htmlspecialcharsの第2引数を省略して出力し、属性値を設定している要素に対して新たにonclick属性を埋め込もうとしています。", programingLanguages: [.html]),
             GuideText(text: "そして、今回はこの条件を満たしているため攻撃が成立してしまいます。")
             ], onEnter: { completion in
                 self.focus(on: self.trapA) {

@@ -3,7 +3,7 @@ import UIKit
 struct PHP {
     
     static let tagColor = UIColor.turquoiseBlue
-    static let escapeColor = UIColor.functionBlue
+    static let escapeColor = UIColor.appleGreen
     static let reservedWordColor = UIColor.reservedWordRed
     static let classColor = UIColor.functionGreen
     static let interfaceColor = UIColor.turquoiseBlue

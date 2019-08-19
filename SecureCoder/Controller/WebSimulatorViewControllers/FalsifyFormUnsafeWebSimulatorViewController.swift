@@ -148,8 +148,10 @@ echo "有効期限: ", $expiration_date;
             GuideText(text: "これがHTMLの改ざんが行われた後の脆弱なWebページです。")
             ])
         appendGuideSection([
-            GuideText(text: "この赤枠で囲まれた部分が攻撃者によって新たに追加された<form>要素です。\n<form>要素の右横に示したコードと見比べてみましょう。\nこの<form>要素はユーザのクレジットカード情報を盗むために攻撃者が追加したものですが、本来このWebページは粗大ゴミの回収を申し込むためのページでした。", programingLanguages: [.html]),
-            GuideText(text: "なぜ元々あった<form>要素が見えなくなっているのかというと、以下の設定により新たに追加された<form>要素が元々あった<form>要素を覆い隠すように配置され、さらに<body>要素と同じ背景色である白を設定することにより完全に塗り潰されてしまったためです。\nstyle=\"position:absolute;top:5px;left:5px;background-color:white;\"", programingLanguages: [.html]),
+            GuideText(text: "この赤枠で囲まれた部分が攻撃者によって新たに追加された<form>要素です。", programingLanguages: [.html]),
+            GuideText(text: "<form>要素の右横に示したコードと見比べてみましょう。\nこの<form>要素はユーザのクレジットカード情報を盗むために攻撃者が追加したものですが、本来このWebページは粗大ゴミの回収を申し込むためのページでした。", programingLanguages: [.html]),
+            GuideText(text: "なぜ元々あった<form>要素が見えなくなっているのかというと、次に示したの設定により新たに追加された<form>要素が元々あった<form>要素を覆い隠すように配置され、さらに<body>要素と同じ背景色である白を設定することにより完全に塗り潰されてしまったためです。", programingLanguages: [.html]),
+            GuideText(text: "style=\"position:absolute;top:5px;left:5px;background-color:white;\"", programingLanguages: [.php]),
             ],
                            onEnter: { completion in
                             self.focus(on: self.newForm) {

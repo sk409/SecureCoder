@@ -297,9 +297,9 @@ class LessonViewController: UIViewController {
             }
             if let codeEditorView = self.codeEditorView, let question = self.codeEditorView?.question {
                 codeEditorView.question?.activate(isActive: true, keyboardViewDidShow: nil, keyboardViewDidHide: nil)
-                codeEditorView.scroll(to: question)
                 codeEditorView.fit()
                 codeEditorView.scrollView.contentSize.height = max(codeEditorView.scrollView.contentSize.height, question.frame.maxY + self.view.bounds.height - question.bounds.height)
+                codeEditorView.scroll(to: question)
             }
         }
     }
